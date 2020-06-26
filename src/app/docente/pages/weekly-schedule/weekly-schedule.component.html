@@ -1,0 +1,53 @@
+<div class="bg-white p-3 rounded-1">
+	<div class="mb-3">
+		<h5 class="pb-2 bd-b-1 bd-{{config_initial.code}}"> Mi Horario ( Del {{ firstDayWeek }} al {{ lastDayWeek }} )</h5>
+	</div>
+
+	<div class="col-md-12 form-group">
+      <div class="row">
+        <div class="col-lg-6">
+            <i class="fa fa-circle" style="color: rgba(132, 238, 179, 0.38)"></i> Clases virtuales<br>
+            <i class="fa fa-circle" style="color: rgb(255, 205, 169)"></i> Examen Parcial/Examen Final/Examen Sustitutorio<br>  
+        </div>
+        <div class="col-lg-6">
+          <i class="fa fa-circle" style="color: rgb(234, 234, 232)"></i> Seminario<br>
+          <i class="fa fa-circle" style="color: #fffcd5"></i> Recuperación/Adicional/Reemplazo/Adelanto<br>
+        </div>
+      </div>
+    </div>
+
+	<div class="bd-1 scroll h-auto bd-{{config_initial.code}}">
+		<table class="w-100">
+			<thead class="bg-{{config_initial.code}}">
+				<tr class="text-white text-center text-s">
+					<th style="width: 12.5%" class="px-3 py-2 align-middle">Horas</th>
+					<th style="width: 12.5%" class="px-3 py-2 align-middle">Lunes</th>
+					<th style="width: 12.5%" class="px-3 py-2 align-middle">Martes</th>
+					<th style="width: 12.5%" class="px-3 py-2 align-middle">Miércoles</th>
+					<th style="width: 12.5%" class="px-3 py-2 align-middle">Jueves</th>
+					<th style="width: 12.5%" class="px-3 py-2 align-middle">Viernes</th>
+					<th style="width: 12.5%" class="px-3 py-2 align-middle">Sábado</th>
+					<th style="width: 12.5%" class="px-3 py-2 align-middle">Domingo</th>
+				</tr>
+			</thead>
+			<tbody *ngIf="classrooms && classrooms.length > 0">
+				<tr class="text-center text-s {{c < listHours.length - 1?'bd-b-1':''}}" *ngFor="let hour of listHours; let c = 'index'">
+					<td class="p-2">{{ hour.range }}</td>
+					<td class="p-2 bd-l-1" [style.background-color]="day && day.LVF_SCHEDULE_TYPE?backgroundColors[day.LVF_SCHEDULE_TYPE + (day.UCS_TIPO_LOCAL == '2'?'2':'x')]:''" *ngFor="let day of hour.days; let d = 'index'">{{ day && day.MENSAJE?day.MENSAJE:'' }}</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="classrooms && classrooms.length == 0">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="8"> 
+						<div class="alert alert-warning m-0"> Atención! No se encontraron clases asignadas para esta semana. {{ ip }} </div> 
+					</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="!classrooms">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="8"> <div class="alert alert-info m-0"> Cargando clases asignadas para esta semana... </div> </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,28 @@
+<div class="bg-white p-3 rounded-1">
+	<div class="rounded-s bd-1 mb-3 overflow-hidden bd-{{config_initial.code}}" *ngFor="let typelibrary of institutions[cod_company]">
+		<div (click)="toggle(typelibrary)" class="bg-{{config_initial.code}} p-2 text-white">
+			{{typelibrary.name}}
+		</div>
+		<div [@openClose]="typelibrary.isOpen ? 'open' : 'closed'" class="pd-3 {{typelibrary.subtypes?'':'scroll'}}">
+			<div *ngIf="!typelibrary.subtypes" class="row nowrap align-items-center">
+				<a [style.width]="library.width" href="{{library.url}}" target="_blank" class="row text-center {{l > 0?'ml-3':''}}" *ngFor="let library of typelibrary.libraries; let l = 'index'">
+					<img [style.width]="library.width" src="{{library.img}}">
+					{{library.description}}
+				</a>
+			</div>
+			<div *ngIf="typelibrary.subtypes">
+				<div class="rounded-s bd-1 mb-3 overflow-hidden bd-gray" *ngFor="let subtypelibrary of typelibrary.subtypes">
+					<div (click)="toggle(subtypelibrary)" class="bg-gray p-2">
+						{{subtypelibrary.name}}
+					</div>
+					<div [@openClose]="subtypelibrary.isOpen ? 'open' : 'closed'" class="pd-3 row nowrap align-items-center scroll" >
+						<a [style.width]="librarySub.width" href="{{librarySub.url}}" target="_blank" class="row text-center {{ls > 0?'ml-3':''}}" *ngFor="let librarySub of subtypelibrary.libraries; let ls = 'index'">
+							<img [style.width]="librarySub.width" src="{{librarySub.img}}">
+							{{librarySub.description}}
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

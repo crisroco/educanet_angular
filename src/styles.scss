@@ -1,0 +1,406 @@
+/* You can add global styles to this file, and also import other style files */
+
+*, .row{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+	color: #5f5f5f;
+	/*line-height: normal;*/
+}
+
+h5{
+	font-family: inherit;
+	font-size: 1.5rem;
+}
+
+ul, ul li a:hover{
+	text-decoration: none;
+    list-style: none;
+}
+
+li a, li a:not([href]){
+	display: block;
+	color: #3f3f3f;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
+li a:hover, li a:not([href]):hover{
+	cursor: pointer;
+}
+
+.full-content{
+	min-height: 100vh;
+}
+
+.bg-purple{
+    background: #3B0B24;
+}
+
+.bg-gray{
+	background: #ebebeb;
+}
+
+.bg-ucs{
+	background: #204491;
+}
+
+.bg-sise{
+	background: #e12726;
+}
+
+/* PADDING START */
+.pd-2{
+	padding: 0.5rem;
+}
+
+.pd-3{
+	padding: 1rem;
+}
+/* PADDING END */
+
+/* BORDER START*/
+.bd-1{
+	border: 1px solid;
+}
+
+.bd-2{
+	border: 2px solid;
+}
+
+.bd-3{
+	border: 3px solid;
+}
+
+.bd-b-1{
+	border-bottom: 1px solid;
+}
+
+.bd-b-2{
+	border-bottom: 2px solid;
+}
+
+.bd-b-3{
+	border-bottom: 3px solid;
+}
+
+.bd-l-1{
+	border-left: 1px solid;
+}
+
+.bd-l-2{
+	border-left: 2px solid;
+}
+
+.bd-l-3{
+	border-left: 3px solid;
+}
+
+.bd-x-1{
+	border-left: 1px solid;
+	border-right: 1px solid;
+}
+
+.bd-x-2{
+	border-left: 2px solid;
+	border-right: 2px solid;
+}
+
+.bd-x-3{
+	border-left: 3px solid;
+	border-right: 3px solid;
+}
+
+.bd-ucs{
+	border-color: #204491;
+}
+
+.bd-sise{
+	border-color: #e12726;
+}
+
+.bd-gray{
+	border-color: #ebebeb;
+}
+
+.rounded-s{
+	border-radius: .5rem;
+}
+
+.rounded-1{
+	border-radius: 1rem;
+}
+
+.rounded-2{
+	border-radius: 2rem;
+}
+
+.rounded-t-1{
+	border-top-right-radius: 1rem;
+	border-top-left-radius: 1rem;
+}
+
+.rounded-t-2{
+	border-top-right-radius: 2rem;
+	border-top-left-radius: 2rem;
+}
+
+.rounded-tl-1{
+	border-top-left-radius: 1rem;
+}
+
+.rounded-tr-1{
+	border-top-right-radius: 1rem;
+}
+
+.rounded-bl-1{
+	border-bottom-left-radius: 1rem;
+}
+
+.rounded-br-1{
+	border-bottom-right-radius: 1rem;
+}
+
+.w-100.rounding-1{
+	width: calc(100% - 2px) !important;
+}
+
+.w-100.rounding-2{
+	width: calc(100% - 4px) !important;
+}
+/* BORDER END*/
+
+/* FLEX START */
+.nowrap{
+	flex-wrap: nowrap;
+}
+/* FLEX END */
+
+/* SCROLL START */
+.scroll{
+	overflow: auto;
+	max-height: 400px;
+}
+
+.h-auto{
+	max-height: initial;
+	height: auto;
+}
+
+.h-m{
+	max-height: 600px;
+}
+/* SCROLL END */
+
+/* INPUT StART */
+.ipt-small {
+    width: 87px;
+}
+	
+.form-radio:checked::before {
+    position: absolute;
+    left: 5px;
+    top: -7px;
+    content: '\02143';
+    font-weight: 900;
+    color: #5cb85c;
+    font-size: 20px;
+    transform: rotate(40deg);
+}
+
+.form-radio {
+    appearance: none;
+    position: relative;
+    background-color: #f1f1f1;
+    color: #666;
+    height: 20px;
+    width: 20px;
+    border: 0;
+    cursor: pointer;
+}
+
+.form-radio:disabled {
+    background-color: #d1d1d1;
+}
+/* INPUT END */
+
+/* INPUT SWITCH SI NO  START*/
+.onoffswitch {
+    position: relative; width: 70px;
+    margin: 0 auto;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #5cb85c; border-radius: 10px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 20px; padding: 0; line-height: 20px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "SI";
+    padding-left: 10px;
+    background-color: #5cb85c; color: #FFFFFF;
+    text-align: left;
+}
+.onoffswitch-inner:after {
+    content: "NO";
+    padding-right: 10px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 18px; margin: 6px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 36px;
+    border: 2px solid #5cb85c; border-radius: 10px;
+    transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}
+/* INPUT SWITCH SI NO  END*/
+
+.bg-transparent::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #d0d0d0;
+}
+
+.bg-transparent option {
+    margin: 40px;
+    background: rgb(0, 0, 0);
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.py-3 .full-content{
+	min-height: calc(100vh - 2rem);
+}
+
+.container-2{
+	max-width: 1200px;
+	width: 100%;
+}
+
+.active-link{
+	color: #204491;
+	border-right: 2px solid #204491;
+}
+
+.active-link.sise{
+	color: #e12726;
+	border-right: 2px solid #e12726;
+}
+
+/*TEXT START*/
+.text-s{
+	font-size: 12px;
+}
+
+.text-normal{
+	font-size: 14px;
+}
+
+.text-m{
+	font-size: 16px;
+}
+
+.text-xm{
+	font-size: 18px;
+}
+
+.text-l{
+	font-size: 20px;
+}
+
+.text-h-m{
+	font-size: 2rem;
+}
+
+.text-h-xm{
+	font-size: 2.5rem;
+}
+
+.text-h-l{
+	font-size: 3rem;
+}
+
+.text-h-xl{
+	font-size: 3.5rem;
+}
+
+.text-ucs{
+	color: #204491;
+}
+
+.text-sise{
+	color: #e12726;
+}
+
+.hover-ucs:hover, .hover-ucs:not([href]):hover{
+	color: #204491;
+}
+
+.hover-sise:hover, .hover-sise:not([href]):hover{
+	color: #e12726;
+}
+/*TEXT END*/
+
+.nsm-content{
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+    border-radius: 1rem;
+}
+
+.mediumModal{
+	max-width: 800px;
+	width: 100%;
+}
+
+/* BOX START */
+/*.box-normal{
+	width: 25px;
+	height: 25px;
+}*/
+/* BOX END */
+
+@media (max-width: 991px) {
+	li a, li a:not([href]){
+		display: block;
+		color: #3f3f3f;
+		padding-top: 8px;
+		padding-bottom: 8px;
+	}
+
+	.active-link{
+		color: #204491;
+		border: 2px solid #204491;
+	}
+
+	.active-link.sise{
+		color: #e12726;
+		border: 2px solid #e12726;
+	}
+
+	.scroll  .w-100.rounding-1 {
+	    min-width: 850px;
+	}
+}

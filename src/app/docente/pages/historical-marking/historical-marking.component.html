@@ -1,0 +1,88 @@
+<div class="bg-white p-3 rounded-1">
+	<div class="mb-3">
+		<h5 class="pb-2 bd-b-1 bd-{{config_initial.code}}"> Histórico de Marcación </h5>
+	</div>
+
+	<div class="mb-2 row justify-content-between">
+		<div>
+			<select class="form-control" [(ngModel)]="realPeriod" (change)="changePeriod()">
+				<option value=""> {{paymentPeriods.length>0?'-- Seleccione Periodo --':'-- Cargando Periodos --'}} </option>
+				<option *ngFor="let period of paymentPeriods" value="{{period.FEC_INI_COR + '.' + period.FEC_FIN_COR}}"> {{period.DESC_CAL_PRD_ID}} </option>
+			</select>
+		</div>
+		<button class="btn btn-success" (click)="donwloadExcel()">Descargar Excel</button>
+	</div>
+
+	<div class="rounded-1 bd-1 scroll h-auto bd-{{config_initial.code}}">
+		<table class="w-100">
+			<thead class="bg-{{config_initial.code}}">
+				<tr class="text-white text-center text-s">
+					<th class="px-3 py-2 align-middle">Día</th>
+					<th class="px-3 py-2 align-middle">Código - Curso</th>
+					<th class="px-3 py-2 align-middle">Tipo</th>
+					<th class="px-3 py-2 align-middle">Ciclo - Sección</th>
+					<th class="px-3 py-2 align-middle">Aula - Local</th>
+					<th class="px-3 py-2 align-middle">Cod. Marcación</th>
+					<th class="px-3 py-2 align-middle">Inicio</th>
+					<th class="px-3 py-2 align-middle">Fin</th>
+					<th class="px-3 py-2 align-middle">Entrada</th>
+					<th class="px-3 py-2 align-middle">Salida</th>
+					<th class="px-3 py-2 align-middle">Hora</th>
+				</tr>
+			</thead>
+			<tbody *ngIf="dates && dates.length > 0">
+				<tr class="text-center text-s {{c < dates.length - 1?'bd-b-1':''}}" *ngFor="let date of dates; let c = 'index'">
+					<td class="p-1">{{ date.DATE1 }}</td>
+					<td class="p-1">{{ date.CRSE_ID + ' ' + date.CRSE_ID_DESCR }}</td>
+					<td class="p-1">{{ date.SSR_COMPONENT }}</td>
+					<td class="p-1">{{ date.STRM }} - {{ date.CLASS_SECTION }}</td>
+					<td class="p-1">{{ date.DESC_FACILITY }} - {{ date.DESC_LOCAL }}</td>
+					<td class="p-1">{{ date.LVF_NUM_MARC }}</td>
+					<td class="p-1">{{ date.MEETING_TIME_START }}</td>
+					<td class="p-1">{{ date.MEETING_TIME_END }}</td>
+					<td class="p-1">{{ date.MARC_TIME_START || '-' }}</td>
+					<td class="p-1">{{ date.MARC_TIME_END || '-' }} </td>
+					<td class="p-1">{{ date.HORA }}</td>
+				</tr>
+			</tbody>
+			<tfoot *ngIf="dates && dates.length > 0" class="bg-{{config_initial.code}}">
+				<tr class="text-white text-center text-s">
+					<th class="px-3 py-2 align-middle"></th>
+					<th class="px-3 py-2 align-middle"></th>
+					<th class="px-3 py-2 align-middle"></th>
+					<th class="px-3 py-2 align-middle"></th>
+					<th class="px-3 py-2 align-middle"></th>
+					<th class="px-3 py-2 align-middle"></th>
+					<th class="px-3 py-2 align-middle"></th>
+					<th class="px-3 py-2 align-middle"></th>
+					<th class="px-3 py-2 align-middle"></th>
+					<th class="px-3 py-2 align-middle">Total Horas</th>
+					<th class="px-3 py-2 align-middle text-normal">{{totalHours}}</th>
+				</tr>
+			</tfoot>
+			<tbody *ngIf="dates && dates.length == 0">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="11"> 
+						<div class="alert alert-warning m-0"> Atención! No se encontraron marcaciones de este periodo. {{ ip }} </div> 
+					</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="!dates && !realPeriod">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="11"> 
+						<div class="alert alert-primary m-0"> Atención! Seleccione un periodo. </div> 
+					</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="!dates && realPeriod">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="11"> 
+						<div class="alert alert-info m-0"> Cargando histórico de marcación... </div> 
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true }"></ngx-loading>

@@ -1,0 +1,104 @@
+<div class="bg-white p-3 rounded-1">
+	<div class="mb-3">
+		<h5 class="pb-2 bd-b-1 bd-{{config_initial.code}}"> Clases Programadas de Hoy {{ realDate.day + '/' + realDate.month + '/' + realDate.year }}</h5>
+	</div>
+
+	<div class="rounded-1 bd-1 scroll bd-{{config_initial.code}}">
+		<table class="w-100">
+			<thead class="bg-{{config_initial.code}}">
+				<tr class="text-white text-center text-s">
+					<th class="px-3 py-2 align-middle">Grado</th>
+					<th class="px-3 py-2 align-middle">Código - Curso</th>
+					<th class="px-3 py-2 align-middle">Tipo</th>
+					<th class="px-3 py-2 align-middle">Ciclo - Sección - Clase</th>
+					<th class="px-3 py-2 align-middle">Aula - Local</th>
+					<th class="px-3 py-2 align-middle">Cod. Marcación</th>
+					<th class="px-3 py-2 align-middle">Inicio</th>
+					<th class="px-3 py-2 align-middle">Fin</th>
+					<th class="px-3 py-2 align-middle">Entrada</th>
+					<th class="px-3 py-2 align-middle">Salida</th>
+					<th class="px-3 py-2 align-middle">Docente</th>
+				</tr>
+			</thead>
+			<tbody *ngIf="classrooms && classrooms.length > 0">
+				<tr class="text-center text-s {{c < classrooms.length - 1?'bd-b-1':''}}" *ngFor="let classroom of classrooms; let c = 'index'">
+					<td class="p-1">{{ classroom.ACAD_CAREER }}</td>
+					<td class="p-1">{{ classroom.CRSE_ID + ' ' + classroom.CRSE_ID_DESCR }}</td>
+					<td class="p-1">{{ classroom.SSR_COMPONENT }}</td>
+					<td class="p-1">{{ classroom.STRM }} - {{ classroom.CLASS_SECTION }} - {{ classroom.CLASS_NBR }}</td>
+					<td class="p-1">{{ classroom.DESC_FACILITY }} - {{ classroom.DESC_LOCAL }}</td>
+					<td class="p-1">{{ classroom.LVF_NUM_MARC }}</td>
+					<td class="p-1">{{ classroom.MEETING_TIME_START }}</td>
+					<td class="p-1">{{ classroom.MEETING_TIME_END }}</td>
+					<td class="p-1">{{ classroom.MARC_TIME_START || '-' }}</td>
+					<td class="p-1">{{ classroom.MARC_TIME_END || '-' }} </td>
+					<td class="p-1">
+						<button (click)="openRegisterMarking(registerMarkingModal, classroom)" class="btn btn-primary btn-xs"><i class="fa fa-user"></i></button>
+					</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="classrooms && classrooms.length == 0">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="11"> 
+						<div class="alert alert-warning m-0"> Atención! No se encontraron clases asignadas el dia de hoy. {{ ip }} </div> 
+					</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="!classrooms">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="11"> <div class="alert alert-info m-0"> Cargando clases programadas... </div> </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<ngx-smart-modal #registerMarkingModal identifier="registerMarkingModal" [closable]="false" [customClass]="''">
+	<div class="text-center mb-3">
+	<h5>{{ realDate.nday + ' ' + realDate.day + ' de ' + realDate.nmonth }}</h5>
+	<div class="row justify-content-center align-items-center mb-3">
+		<div class="p-3 bg-{{config_initial.code}} text-white"><p class="text-h-xm m-0"><strong> {{realDate.hour}} </strong></p></div>
+		<div class="p-1 text-h-l"> : </div>
+		<div class="p-3 bg-{{config_initial.code}} text-white"><p class="text-h-xm m-0"> {{realDate.minute}} </p></div>
+		<div class="p-1 text-h-l"> : </div>
+		<div class="p-3 bg-{{config_initial.code}} text-white"><p class="text-h-xm m-0"> {{realDate.second}} </p></div>
+	</div>
+	</div>
+	<div class="p-2 bg-{{config_initial.code}} text-white text-m mb-2"> Ciclo lectivo: {{ realClassroom.INSTITUTION + '- ' + realClassroom.SSR_COMPONENT + ' ' + realClassroom.STRM }} </div>
+	<div class="row mb-2">
+		<div class="col-4"> Curso: </div>
+		<div class="col-8"> {{ realClassroom.CRSE_ID + ' ' + realClassroom.CRSE_ID_DESCR }} </div>
+	</div>
+	<div class="row mb-2">
+		<div class="col-4"> Componente: </div>
+		<div class="col-8"> {{ realClassroom.SSR_COMPONENT_DESC }} </div>
+	</div>
+	<div class="row mb-2">
+		<div class="col-4"> Sección: </div>
+		<div class="col-8"> {{ realClassroom.CLASS_SECTION }} </div>
+	</div>
+	<div class="row mb-2">
+		<div class="col-4"> Aula: </div>
+		<div class="col-8"> {{ realClassroom.ROOM }} </div>
+	</div>
+	<div class="row mb-2">
+		<div class="col-4"> Estado: </div>
+		<div class="col-8"> {{ realClassroom.LVF_STATUS_MTG_DESC }} </div>
+	</div>
+	<div class="p-2 bg-{{config_initial.code}} text-white text-m mb-2"> Hora reunión: {{ realClassroom.MEETING_TIME_START + '- ' + realClassroom.MEETING_TIME_END }} </div>
+	<div class="row mb-2">
+		<div class="col-4"> Hora de entrada: </div>
+		<div class="col-8"> {{ realClassroom.MARC_TIME_START }} </div>
+	</div>
+	<div class="row mb-3">
+		<div class="col-4"> Hora de salida: </div>
+		<div class="col-8"> {{ realClassroom.MARC_TIME_END }} </div>
+	</div>
+  	<div class="row justify-content-between mb-3">
+		<button (click)="registerMarking()" class="btn btn-success mr-2">Registrar Marcación</button>
+		<button (click)="registerMarkingModal.close()" class="btn btn-secondary mr-2">Cerrar</button>
+  	</div>
+  	<div class="alert alert-{{typeMessage == 'Y'?'info':'danger'}}" *ngIf="message"> {{ message + ' ' + ip }}</div>  	
+</ngx-smart-modal>
+
+<ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true }"></ngx-loading>

@@ -1,0 +1,60 @@
+<div class="bg-white p-3 rounded-1">
+	<div class="mb-3">
+		<h5 class="pb-2 bd-b-1 bd-{{config_initial.code}}"> Historial de Boletas de Pago </h5>
+	</div>
+
+	<div class="">
+		<div class="form-group">
+			<select name="document" class="form-control mb-2" [(ngModel)]="data.codigoReporte">
+				<option value="">- Selecciona Documento -</option>
+				<option value="5T">Certificado Anual de 5ta Categoría</option>
+				<option value="CT">Compensación Tiempo Servicio</option>
+				<option value="GR">Gratificación</option>
+				<option value="RE">Remuneración</option>
+				<option value="UT">Utilidades</option>
+			</select>
+			<select name="year" class="form-control mb-2" [(ngModel)]="data.anioPeriodo">
+				<option value="">- Selecciona Año -</option>
+				<option value="2017">2017</option>
+				<option value="2018">2018</option>
+				<option value="2019">2019</option>
+				<option value="2020">2020</option>
+				<option value="2021">2021</option>
+			</select>
+			<select name="month" class="form-control mb-2" [(ngModel)]="data.mesPeriodo">
+				<option *ngIf="data.codigoReporte == ''" value="">- Seleccionar Periodo -</option>
+				<option *ngIf="data.codigoReporte == 'RE'" value="">- Selecciona Mes -</option>
+				<option *ngIf="data.codigoReporte == 'RE'" value="01">Enero</option>
+				<option *ngIf="data.codigoReporte == 'RE'" value="02">Febrero</option>
+				<option *ngIf="data.codigoReporte == 'RE'" value="03">Marzo</option>
+				<option *ngIf="data.codigoReporte == 'RE'" value="04">Abril</option>
+				<option *ngIf="data.codigoReporte == 'RE'" value="05">Mayo</option>
+				<option *ngIf="data.codigoReporte == 'RE'" value="06">Junio</option>
+				<option *ngIf="data.codigoReporte == 'RE'" value="07">Julio</option>
+				<option *ngIf="data.codigoReporte == 'RE'" value="08">Agosto</option>
+				<option *ngIf="data.codigoReporte == 'RE'" value="09">Septiembre</option>
+				<option *ngIf="data.codigoReporte == 'RE'" value="10">Octubre</option>
+				<option *ngIf="data.codigoReporte == 'RE'" value="11">Noviembre</option>
+				<option *ngIf="data.codigoReporte == 'RE'" value="12">Diciembre</option>
+				<option *ngIf="data.codigoReporte == 'GR'" value="">- Selecciona Periodo -</option>
+				<option *ngIf="data.codigoReporte == 'GR'" value="01">Julio</option>
+				<option *ngIf="data.codigoReporte == 'GR'" value="02">Diciembre</option>
+				<option *ngIf="data.codigoReporte == 'CT'" value="">- Selecciona Periodo -</option>
+				<option *ngIf="data.codigoReporte == 'CT'" value="01">Mayo</option>
+				<option *ngIf="data.codigoReporte == 'CT'" value="02">Noviembre</option>
+				<option *ngIf="data.codigoReporte == 'UT' || data.codigoReporte == '5T'" value="">- Selecciona Periodo -
+				</option>
+				<option *ngIf="data.codigoReporte == 'UT' || data.codigoReporte == '5T'" value="01">Periodo Anual</option>
+			</select>
+		</div>
+
+		<div class="text-center">
+			<button class="btn btn-primary mb-2" (click)="downloadPayment()" [disabled]="!data.codigoReporte || !data.anioPeriodo || !data.mesPeriodo"><i *ngIf="loading" class="fa fa-cog fa-spin 2x hide"></i> Descargar Boleta </button>
+			<div class="alert alert-{{typeMessage?'success':'danger'}} text-center" *ngIf="message">
+				<strong>{{typeMessage?'Exito!':'Error!'}}</strong> {{message}}
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true }"></ngx-loading> -->

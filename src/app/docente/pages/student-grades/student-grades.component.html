@@ -1,0 +1,88 @@
+<div class="bg-white p-3 mb-2 rounded-1">
+	<div class="mb-3">
+		<h5 class="pb-2 bd-b-1 bd-{{config_initial.code}}"> Curso: {{(course.DESCR?course.DESCR:'') + ' (' + idclass + ')'}} </h5>
+	</div>
+
+	<div class="form row">
+		<div class="col-4 form-gorup mb-2">
+			<label class="form-label"> Tipo de evaluación: </label>
+			<select class="form-control" [(ngModel)]="gradeName">
+				<option value="">{{gradeNames?'-- Seleccione --':'-- Cargando --'}}</option>
+				<option *ngFor="let grade of gradeNames" value="{{grade.DESCRSHORT}}">
+					{{grade.DESCRSHORT}}
+				</option>
+			</select>
+		</div>
+		<div class="col-8 form-gorup mb-2" *ngIf="cod_company == '002'">
+			<label class="form-label"> Fórmula </label>
+			<input class="form-control" type="text" name="" [(ngModel)]="courseFormule" disabled>
+		</div>
+	</div>
+	<div class="form row">
+		<div *ngIf="!gradeName && course.CIERRE == 'Y'" class="col form-gorup">
+			<button (click)="createPDF()" class="from-control btn btn-danger">Descargar PDF</button>
+		</div>
+	</div>
+</div>
+
+<div class="bg-white p-3 mb-2 rounded-1">
+	<div class="pb-2 mb-3 row justify-content-between bd-b-1 bd-{{config_initial.code}}">
+		<h5 class="p-0 m-0"> Gestión de notas: {{' (' + students.length + (students.length != 1?' Alumnos':'Alumno') + ')'}} {{gradeName}}</h5>
+		<p *ngIf="gradeName && course.CIERRE == 'Y'" class="p-0 m-0 text-danger">(Cerrardo)</p>
+	</div>
+
+	<div class="rounded-tl-1 rounded-bl-1 bd-1 bd-{{config_initial.code}} scroll {{gradeName?'mb-3':''}}">
+		<table id="table-students" *ngIf="!gradeName" class="w-100 rounding-1">
+			<thead class="bg-{{config_initial.code}}">
+				<tr class="text-white text-center text-s">
+					<th class="px-3 py-2 align-middle">Código</th>
+					<th class="px-3 py-2 align-middle">Alumno</th>
+					<th class="px-3 py-2 align-middle">Carrera</th>
+					<th *ngFor="let grade of gradeNames; let i = 'index'" class="px-3 py-2 align-middle">{{grade.DESCRSHORT}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="text-center text-s {{s < students.length - 1?'bd-b-1':''}}" *ngFor="let student of students; let s = 'index'">
+					<td class="p-1">{{ student.EMPLID }}</td>
+					<td class="p-1">{{ student.NAME_PSFORMAT }} </td>
+					<td class="p-1">{{ student.PROGRAMA }} </td>
+					<th *ngFor="let grade of student.SISE_REST_CONSNOTREG_NOT; let i = 'index'" [style.color]="grade.ACTN_TYPE_CD<13?'red':''" class="px-3 py-2 align-middle text-normal">{{grade.ACTN_TYPE_CD}}</th>
+				</tr>
+			</tbody>
+		</table>
+
+		<table *ngIf="gradeName" class="w-100 rounding-1">
+			<thead class="bg-{{config_initial.code}}">
+				<tr class="text-white text-center text-s">
+					<th class="px-3 py-2 align-middle rounded-tl-1">Código</th>
+					<th class="px-3 py-2 align-middle">Alumno</th>
+					<th class="px-3 py-2 align-middle">Carrera</th>
+					<th class="px-3 py-2 align-middle">Calificación</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="text-center text-s {{s < students.length - 1?'bd-b-1':''}}" *ngFor="let student of students; let s = 'index'">
+					<td class="p-1">{{ student.EMPLID }}</td>
+					<td class="p-1">{{ student.NAME_PSFORMAT }} </td>
+					<td class="p-1">{{ student.PROGRAMA }} </td>
+					<th class="px-3 py-2 align-middle"><input [disabled]="course.CIERRE == 'Y'" (keypress)="onlyNumbers($event)" (keyup)="grade.ACTN_TYPE_CD = minMaxNumber($event, grade.ACTN_TYPE_CD, 0, 20)" class="form-control ipt-small text-center m-auto" [hidden]="grade.DESCRSHORT != gradeName" *ngFor="let grade of student.SISE_REST_CONSNOTREG_NOT; let i = 'index'" type="text" name="s-{{i}}" [(ngModel)]="grade.ACTN_TYPE_CD"></th>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div *ngIf="gradeName && course.CIERRE != 'Y'" class="">
+		<div class="row justify-content-center {{message?'mb-3':''}}">
+			<button (click)="cancelRecord()" class="btn btn-danger mr-2">Cancelar</button>
+			<button *ngIf="cod_company == '002'" (click)="getToken()" class="btn btn-warning mr-2">Solicitar Token</button>
+			<input *ngIf="message" class="form-control ipt-small text-s" maxlength="6" type="" [(ngModel)]="token" (input)="token = upperCase(evt, token);">
+			<button *ngIf="cod_company == '002'" (click)="startUpdateStudentGrades()" class="btn btn-success" [disabled]="message?false:true"> Guardar </button>
+			<button *ngIf="cod_company != '002'" (click)="startUpdateStudentGrades()" class="btn btn-success"> Guardar </button>
+		</div>
+		<div class="text-center">
+			<p> {{ message }} </p>
+		</div>
+	</div>
+</div>
+
+<ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true }"></ngx-loading>

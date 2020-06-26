@@ -1,0 +1,236 @@
+<div class="bg-white p-3 mb-2 rounded-1">
+	<div class="mb-3">
+		<h5 class="pb-2 bd-b-1 bd-{{config_initial.code}}"> Asistencia por Clase </h5>
+	</div>
+
+	<div class="rounded-1 bd-1 scroll bd-{{config_initial.code}}">
+		<table class="w-100 rounding-1">
+			<thead class="bg-{{config_initial.code}}">
+				<tr class="text-white text-center text-s">
+					<th class="px-3 py-2 align-middle">Código - Curso</th>
+					<th class="px-3 py-2 align-middle">Tipo Horario</th>
+					<th class="px-3 py-2 align-middle">Tipo Clase</th>
+					<th class="px-3 py-2 align-middle">Ciclo - Sección - Clase</th>
+					<th class="px-3 py-2 align-middle">Aula - Local</th>
+					<th class="px-3 py-2 align-middle">Día</th>
+					<th class="px-3 py-2 align-middle">Inicio</th>
+					<th class="px-3 py-2 align-middle">Fin</th>
+					<th class="px-3 py-2 align-middle">Asistencia</th>
+				</tr>
+			</thead>
+			<tbody *ngIf="classrooms && classrooms.length > 0">
+				<tr class="text-center text-s {{c < classrooms.length - 1?'bd-b-1':''}}" *ngFor="let classroom of classrooms; let c = 'index'">
+					<td class="p-1">{{ course.COD_CURSE + ' - ' + course.CURSE_DESC }}</td>
+					<td class="p-1">{{ classroom.DESC_LVF_SCHEDULE_TYPE }} </td>
+					<td class="p-1">{{ course.T_CLASS }} </td>
+					<td class="p-1">{{ course.CICLO + ' - ' + course.SECTION + ' - ' + course.CLASS_NBR }} </td>
+					<td class="p-1">{{ classroom.DESCR_FACILITY_ID }} </td>
+					<td class="p-1">{{ classroom.UCS_DAY }} </td>
+					<td class="p-1">{{ classroom.MEETING_TIME_START }} </td>
+					<td class="p-1">{{ classroom.MEETING_TIME_END }} </td>
+					<td class="p-1"> <button (click)="goAssistanceDays(assistanceDaysModal, classroom)" class="btn btn-primary btn-xs"><i class="fa fa-user"></i></button> </td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="classrooms && classrooms.length == 0">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="9"> 
+						<div class="alert alert-warning m-0"> Atención! No se encontraron clases asignadas. </div> 
+					</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="!classrooms">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="9"> <div class="alert alert-info m-0"> Cargando clases... </div> </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="bg-white p-3 mb-2 rounded-1" *ngIf="cod_company == '002'">
+	<div class="mb-3">
+		<h5 class="pb-2 bd-b-1 bd-{{config_initial.code}}"> Asistencia por Alumno </h5>
+	</div>
+
+	<div class="rounded-1 bd-1 scroll h-auto bd-{{config_initial.code}}">
+		<table class="w-100 rounding-1">
+			<thead class="bg-{{config_initial.code}}">
+				<tr class="text-white text-center text-s">
+					<th class="px-3 py-2 align-middle">Código</th>
+					<th class="px-3 py-2 align-middle">Nombre</th>
+					<th class="px-3 py-2 align-middle">Código - Curso</th>
+					<th class="px-3 py-2 align-middle">Asistencia</th>
+				</tr>
+			</thead>
+			<tbody *ngIf="students && students.length > 0">
+				<tr class="text-center text-s {{s<students.length - 1?'bd-b-1':''}}" *ngFor="let student of students; let s = 'index'">
+					<td class="p-1">{{ student.EMPLID }} </td>
+					<td class="p-1">{{ student.NAME_PSFORMAT }} </td>
+					<td class="p-1">{{ course.COD_CURSE + ' - ' + course.CURSE_DESC }}</td>
+					<td class="p-1"> <button (click)="goAssistanceHistory(assistanceHistoryModal, student)" class="btn btn-primary btn-xs"><i class="fa fa-user"></i></button> </td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="students && students.length == 0">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="4"> 
+						<div class="alert alert-warning m-0"> Atención! No se encontraron alumnos. </div> 
+					</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="!students">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="4"> <div class="alert alert-info m-0"> Cargando alumnos... </div> </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<ngx-smart-modal #assistanceDaysModal identifier="assistanceDaysModal" [closable]="false" [customClass]="''">
+	<div class="text-center mb-3" *ngIf="!message">
+		<h5>Asistencia por dia: ({{ course.COD_CURSE + ' - ' + course.CURSE_DESC}})</h5>
+		<p *ngIf="realStudent">{{realStudent.NAME_PSFORMAT }}</p>
+	</div>
+
+  	<div class="mb-3 rounded-1 scroll h-m bd-1 bd-{{config_initial.code}}">
+		<table id="table-students" class="w-100">
+			<thead class="bg-{{config_initial.code}}">
+				<tr class="text-white text-center text-s">
+					<th class="px-3 py-2 align-middle">Fecha</th>
+					<th class="px-3 py-2 align-middle">Día</th>
+					<th class="px-3 py-2 align-middle">Cod clase</th>
+					<th class="px-3 py-2 align-middle">N° Matriculados</th>
+					<th class="px-3 py-2 align-middle">Lista</th>
+				</tr>
+			</thead>
+			<tbody *ngIf="assistaneDays && assistaneDays.length > 0">
+				<tr [style.color]="aDay.ROLE && (aDay.ROLE == 3 || aDay.ROLE == 4)?'#bababa':''" class="text-center text-s {{s < assistaneDays.length - 1?'bd-b-1':''}}" *ngFor="let aDay of assistaneDays; let s = 'index'">
+					<td class="p-1">{{ aDay.CLASS_ATTEND_DT }}</td>
+					<td class="p-1">{{ realClassroom.UCS_DAY }}</td>
+					<td class="p-1">{{ aDay.CLASS_NBR }}</td>
+					<td class="p-1">{{ aDay.ENRL_TOT }}</td>
+					<td class="p-1"> <button [disabled]="aDay.ROLE && (aDay.ROLE == 3 || aDay.ROLE == 4)" (click)="goTakeAssistance(takeAssistanceModal, aDay)" class="btn btn-primary btn-xs"><i class="fa fa-users"></i></button> </td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="assistaneDays && assistaneDays.length == 0">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="5"> 
+						<div class="alert alert-warning m-0"> Atención! No se encontraron días de asistencia. </div> 
+					</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="!assistaneDays">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="5"> <div class="alert alert-info m-0"> Cargando días de asistencia... </div> </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="text-center">
+	    <button (click)="assistanceDaysModal.close()" class="btn btn-secondary">Cerrar</button>
+  	</div>
+</ngx-smart-modal>
+
+<ngx-smart-modal #assistanceHistoryModal identifier="assistanceHistoryModal" [closable]="false" [customClass]="''">
+	<div class="text-center mb-3" *ngIf="!message">
+		<h5>Historial de asistencia</h5>
+		<p *ngIf="realStudent">{{realStudent.NAME_PSFORMAT }}</p>
+	</div>
+
+  	<div class="mb-3 rounded-1 scroll h-m bd-1 bd-{{config_initial.code}}">
+		<table id="table-students" class="w-100">
+			<thead class="bg-{{config_initial.code}}">
+				<tr class="text-white text-center text-s">
+					<th class="px-3 py-2 align-middle">Fecha</th>
+					<th class="px-3 py-2 align-middle">Inicio</th>
+					<th class="px-3 py-2 align-middle">Fin</th>
+					<th class="px-3 py-2 align-middle">Asistencia</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="text-center text-s {{s < history.length - 1?'bd-b-1':''}}" *ngFor="let his of history; let s = 'index'">
+					<td class="p-1">{{ his.CLASS_ATTEND_DT }}</td>
+					<td class="p-1">{{ his.ATTEND_FROM_TIME }}</td>
+					<td class="p-1">{{ his.ATTEND_TO_TIME }}</td>
+					<td class="p-1" [style.color]="his.ATTEND_PRESENT != 'Y'?'red':''">{{ his.ATTEND_PRESENT == 'Y'?'SI':'NO' }} </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="text-center">
+	    <button (click)="assistanceHistoryModal.close()" class="btn btn-secondary">Cerrar</button>
+  	</div>
+</ngx-smart-modal>
+
+<ngx-smart-modal #takeAssistanceModal identifier="takeAssistanceModal" [closable]="false" [customClass]="'mediumModal'">
+	<div class="text-center mb-3" *ngIf="!message">
+		<h5>Lista de alumnos ({{ course.COD_CURSE + ' - ' + course.CURSE_DESC + ' - ' + course.CLASS_NBR}}) {{realClassroom.UCS_DAY + ' ' + realAssistanceDay.CLASS_ATTEND_DT}}</h5>
+	</div>
+
+  	<div class="mb-3 rounded-1 scroll h-m bd-1 bd-{{config_initial.code}}">
+		<table id="table-students" class="w-100">
+			<thead class="bg-{{config_initial.code}}">
+				<tr class="text-white text-center text-s">
+					<th class="px-3 py-2 align-middle">Nro</th>
+					<th class="px-3 py-2 align-middle">Emplid</th>
+					<th class="px-3 py-2 align-middle">Apellidos y Nombres</th>
+					<th class="px-3 py-2 align-middle">¿Asistió?</th>
+					<th *ngIf="cod_company == '002'" class="px-3 py-2 align-middle">Delegado</th>
+					<th *ngIf="cod_company == '002'" class="px-3 py-2 align-middle">Sub Delegado</th>
+				</tr>
+			</thead>
+			<tbody *ngIf="studentsDetail && studentsDetail.length > 0">
+				<tr [style.color]="studentD.ESTADO=='D'?'#bababa':''" class="text-center text-s {{s < studentsDetail.length - 1?'bd-b-1':''}}" *ngFor="let studentD of studentsDetail; let s = 'index'">
+					<td class="p-1">{{ s + 1 }}</td>
+					<td class="p-1">{{ studentD.EMPLID }}</td>
+					<td class="p-1">{{ studentD.NAME }}</td>
+					<td class="p-1">
+						<div class="onoffswitch">
+                            <input [disabled]="studentD.ESTADO=='D' || disabledMarking" [checked]="studentD.ATTEND_PRESENT=='Y'" type="checkbox" name="student{{studentD.EMPLID}}" class="onoffswitch-checkbox" id="student{{studentD.EMPLID}}" (click)="check_assistance(studentD)"> <!-- restringir_marcacion_alumno ||  -->
+                            <label class="onoffswitch-label" for="student{{studentD.EMPLID}}" style="margin-bottom: 0">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+					</td>
+					<td *ngIf="cod_company == '002'" class="p-1">
+						<input [checked]="studentD.DELEGADO == 'D'" [disabled]="studentD.DELEGADO == 'S' || studentD.ESTADO=='D' || disabledMarking" (change)="updateDelegate(studentD)" name="delegado" class="form-radio" type="radio" >
+					</td>
+					<td *ngIf="cod_company == '002'" class="p-1" [style.color]="studentD.ATTEND_PRESENT != 'Y'?'red':''">
+						<input [checked]="studentD.DELEGADO == 'S'" [disabled]="studentD.DELEGADO == 'D' || studentD.ESTADO=='D' || disabledMarking" (change)="updateSubdelegate(studentD)" name="subdelegado" class="form-radio" type="radio">
+					</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="studentsDetail && studentsDetail.length == 0">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="6"> 
+						<div class="alert alert-warning m-0"> Atención! No se encontraron alumnos. </div> 
+					</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="!studentsDetail">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="6"> <div class="alert alert-info m-0"> Cargando alumnos... </div> </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="row justify-content-between">
+		<div *ngIf="!disabledMarking">
+			<button *ngIf="studentsDetail && !allMarkedStudents()" (click)="markingStudents(true)" class="btn btn-warning">Marcar todo<i class="fa fa-times"></i></button>
+			<button *ngIf="studentsDetail && allMarkedStudents()" (click)="markingStudents(false)" class="btn btn-danger">Desmarcar todo<i class="fa fa-times"></i></button>
+		</div>
+		<div *ngIf="disabledMarking">
+			<div class="alert alert-warning m-0"> <b>Atención!</b>  Usted se encuentra en modo consulta. </div>
+		</div>
+	    <div>
+	    	<button *ngIf="haveChanges && !disabledMarking" (click)="saveAssistance()" class="btn btn-primary mr-2">Guardar</button>
+	    	<button (click)="takeAssistanceModal.close()" class="btn btn-secondary">Cerrar</button>
+	    </div>
+  	</div>
+</ngx-smart-modal>
+
+<ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true }"></ngx-loading>

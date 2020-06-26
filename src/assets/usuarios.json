@@ -1,0 +1,11 @@
+{"usuarios" : [
+  	{"nombre":"SANCHEZ APESTEGUI, ALEX","emplid":"100000625","auth_reporte":true,"auth_asistencia":false},
+	{"nombre":"MARCA BRACAMONTE, GINA","emplid":"100027181","auth_reporte":true,"auth_asistencia":false},
+	{"nombre":"RIVERA DELGADO, CESAR","emplid":"100032932","auth_reporte":true,"auth_asistencia":true},
+	{"nombre":"BONILLA AVILA, MARCO ALEJANDRO","emplid":"100000109","auth_reporte":true,"auth_asistencia":false},
+	{"nombre":"AGUILAR SANCHEZ, ELIZABETH ROSARIO","emplid":"100004427","auth_reporte":true,"auth_asistencia":false},
+	{"nombre":"ALMORA MONTOYA, LUIS AYRTON PIERO","emplid":"100093221","auth_reporte":true,"auth_asistencia":false},
+	{"nombre":"TIMOTEO ABENDAÑO, MAIRA ANTOLIXA","emplid":"100093374","auth_reporte":true,"auth_asistencia":false},
+	{"nombre":"REYES SANEZ, CESAR AUGUSTO","emplid":"100093099","auth_reporte":true,"auth_asistencia":false},
+	{"nombre":"ZUAZO OTTONE, GISELLA","emplid":"100044346","auth_reporte":true,"auth_asistencia":false}
+]}

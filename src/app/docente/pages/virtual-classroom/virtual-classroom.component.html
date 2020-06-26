@@ -1,0 +1,46 @@
+<div class="bg-white p-3 rounded-1">
+	<div class="mb-3">
+		<h5 class="pb-2 bd-b-1 bd-{{config_initial.code}}"> Mis clases Virtuales {{ realDate.day + '/' + realDate.month + '/' + realDate.year }}</h5>
+	</div>
+
+	<div class="rounded-1 bd-1 scroll bd-{{config_initial.code}}">
+		<table class="w-100">
+			<thead class="bg-{{config_initial.code}}">
+				<tr class="text-white text-center text-s">
+					<th class="px-3 py-2 align-middle">Aula Virtual</th>
+					<th class="px-3 py-2 align-middle">Código - Curso</th>
+					<th class="px-3 py-2 align-middle">Grado - Clase</th>
+					<th class="px-3 py-2 align-middle">Tipo - Sección - Ciclo</th>
+					<th class="px-3 py-2 align-middle">Campus</th>
+					<th class="px-3 py-2 align-middle">Hora Inicio/Fin</th>
+				</tr>
+			</thead>
+			<tbody *ngIf="classrooms && classrooms.length > 0">
+				<tr class="text-center text-s {{c < classrooms.length - 1?'bd-b-1':''}}" *ngFor="let classroom of classrooms; let c = 'index'">
+					<td class="p-1">
+						<a *ngIf="classroom.INSTITUTION=='PREGR' || classroom.INSTITUTION=='PREUN'" href="http://aulavirtualcpe.cientifica.edu.pe/local/wseducad/auth/sso.php?strm={{classroom.STRM}}&class={{classroom.CLASS_NBR}}&emplid={{emplid}}" target="_blank">
+							<img src="https://www.smythsys.es/wordpress/wp-content/uploads/2016/09/moodle.jpg" width="25px" />
+						</a>
+					</td>
+					<td class="p-1">{{ classroom.CRSE_ID + ' - ' + classroom.DESCR }}</td>
+					<td class="p-1">{{ classroom.ACAD_CAREER + ' - ' + classroom.CLASS_NBR }}</td>
+					<td class="p-1">{{ classroom.SSR_COMPONENT }} - {{ classroom.CLASS_SECTION }} - {{ classroom.STRM }}</td>
+					<td class="p-1">{{ classroom.CAMPUS }}</td>
+					<td class="p-1">{{ classroom.HOR_INI + ' - ' + classroom.HOR_FIN }}</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="classrooms && classrooms.length == 0">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="6"> 
+						<div class="alert alert-warning m-0"> Atención! No se encontraron clases virtuales asignadas el dia de hoy. {{ ip }} </div> 
+					</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="!classrooms">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="6"> <div class="alert alert-info m-0"> Cargando clases... </div> </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

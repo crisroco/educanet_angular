@@ -1,0 +1,112 @@
+<div class="bg-white p-3 rounded-1">
+	<div class="mb-3">
+		<h5 class="pb-2 bd-b-1 bd-{{config_initial.code}}"> CARGA ACADÉMICA </h5>
+	</div>
+
+	<div class="rounded-1 bd-1 scroll bd-{{config_initial.code}}">
+		<table class="w-100">
+			<thead class="bg-{{config_initial.code}}">
+				<tr class="text-white text-center text-s">
+					<th class="px-3 py-2 align-middle">Aula virtual</th>
+					<th class="px-3 py-2 align-middle">Código - Curso</th>
+					<th class="px-3 py-2 align-middle">Grado - Clase</th>
+					<th class="px-3 py-2 align-middle">Tipo - Sección - Ciclo</th>
+					<th class="px-3 py-2 align-middle">Campus</th>
+					<th class="px-3 py-2 align-middle">Notas</th>
+					<th class="px-3 py-2 align-middle">Cierre acta</th>
+					<th class="px-3 py-2 align-middle">Alumnos</th>
+				</tr>
+			</thead>
+			<tbody *ngIf="courses && courses.length > 0">
+				<tr class="text-center text-s {{c < courses.length - 1?'bd-b-1':''}}" *ngFor="let course of courses; let c = 'index'">
+					<td class="p-1">
+						<a *ngIf="cod_company == '002' && (course.INSTITUTION=='PREGR' || course.INSTITUTION=='PREUN')" href="http://aulavirtualcpe.cientifica.edu.pe/local/wseducad/auth/sso.php?strm={{course.STRM}}&class={{course.CLASS_NBR2}}&emplid={{emplid}}" target="_blank">
+							<img src="https://www.smythsys.es/wordpress/wp-content/uploads/2016/09/moodle.jpg" width="25px" />
+						</a>
+						<a *ngIf="cod_company == '002' && (course.INSTITUTION!='PREGR' && course.INSTITUTION!='PREUN')" href="https://aulavirtualposgrado.cientifica.edu.pe/local/wseducad/auth/sso.php?strm={{course.STRM}}&class={{course.CLASS_NBR2}}&emplid={{emplid}}" target="_blank">
+							<img src="https://www.smythsys.es/wordpress/wp-content/uploads/2016/09/moodle.jpg" width="25px" />
+						</a>
+						<a *ngIf="cod_company != '002'" href="http://aulavirtual.sise.edu.pe/local/wseducad/auth/sso.php?strm={{course.STRM}}&class={{course.CLASS_NBR}}&course={{course.CRES_ID}}&emplid={{emplid_real}}&token=DOCENTE" target="_blank">
+	                      <img src="https://www.smythsys.es/wordpress/wp-content/uploads/2016/09/moodle.jpg" width="25px" />
+	                    </a>
+					</td>
+					<td class="p-1">{{ course.CRSE_ID }} - {{ course.DESCR }}</td>
+					<td class="p-1">{{ course.ACAD_CAREER }} - {{ course.CLASS_NBR }}</td>
+					<td class="p-1">{{ course.SSR_COMPONENT }} - {{ course.CLASS_SECTION }} - {{ course.STRM }}</td>
+					<td class="p-1">{{ course.CAMPUS }} </td>
+					<td *ngIf="course.CIERRE=='Y'" class="p-1">
+						<button (click)="goStudentGrade(course, course.CIERRE)" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></button>
+					</td>
+					<td *ngIf="course.CIERRE=='N'" class="p-1">
+						<button *ngIf="course.GRADE_RSTR_ACCESS!='S'" (click)="goStudentGrade(course, course.CIERRE)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i></button>
+						<button *ngIf="course.GRADE_RSTR_ACCESS=='S'" class="btn btn-default btn-xs" disabled><i class="fa fa-pencil"></i></button>
+					</td>
+					<td *ngIf="course.CIERRE=='N'" class="p-1">
+						<button *ngIf="course.GRADE_RSTR_ACCESS!='S'" (click)="closeRecord(courseCloseRecord, course)" class-toggle="modal" class-target="#myModal_confirm_cerrar" class="btn btn-success btn-xs"><i class="fa fa-unlock"></i></button>
+						<button *ngIf="course.GRADE_RSTR_ACCESS=='S'" class="btn btn-default btn-xs" disabled><i class="fa fa-unlock"></i></button>
+					</td>
+					<td *ngIf="course.CIERRE=='Y'" class="p-1">
+						<button class="btn btn-danger btn-xs" disabled><i class="fa fa-lock"></i></button>
+					</td>
+					<td class="p-1">
+						<button (click)="goStudentAssistance(course)" class="btn btn-primary btn-xs"><i class="fa fa-users"></i></button>
+					</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="courses && courses.length == 0">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="8"> 
+						<div class="alert alert-warning m-0"> Atención! No se encontraron cursos. </div> 
+					</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="!courses">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="8"> <div class="alert alert-primary m-0"> Cargando cursos... </div>  </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+<ngx-smart-modal #courseCloseRecord identifier="courseCloseRecord" [closable]="false" [customClass]="'mediumModal'">
+  <div class="text-center mb-3" *ngIf="!message">
+    <h5>¿Estás seguro que deseas cerrar la clase</h5>
+    <p *ngIf="realCourse">{{realCourse.ACAD_CAREER }} - {{ realCourse.CLASS_NBR }} / {{ realCourse.SSR_COMPONENT }} - {{ realCourse.CLASS_SECTION }}</p>
+    <button (click)="confirmCloseRecord()" class="btn btn-success mr-2">SI</button>
+    <button (click)="courseCloseRecord.close()" class="btn btn-danger">NO</button>
+  </div>
+
+  <div *ngIf="message" class="text-center mb-3">
+  	<div class="alert alert-{{typeMessage?'success':'danger'}}"> {{ message }}</div>  	
+    <button (click)="courseCloseRecord.close()" class="btn btn-warning">Aceptar</button>
+  </div>
+
+  <div *ngIf="students.length" class="mb-3">
+  	<button class="btn btn-danger mr-2" (click)="createPDF(realCourse)">PDF <i class="fa fa-file-pdf-o
+  		"></i></button>
+  </div>
+
+  <div class="rounded-1 bd-1 scroll bd-{{config_initial.code}}">
+		<table id="table-students" class="w-100">
+			<thead class="bg-{{config_initial.code}}">
+				<tr class="text-white text-center text-s">
+					<th class="px-3 py-2 align-middle">Código</th>
+					<th class="px-3 py-2 align-middle">Alumno</th>
+					<th class="px-3 py-2 align-middle">Carrera</th>
+					<th class="px-3 py-2 align-middle">Promedio</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="text-center text-s {{s < students.length - 1?'bd-b-1':''}}" *ngFor="let student of students; let s = 'index'">
+					<td class="p-1">{{ student.EMPLID }}</td>
+					<td class="p-1">{{ student.NAME_PSFORMAT }}</td>
+					<td class="p-1">{{ student.PROGRAMA }}</td>
+					<td class="p-1 text-normal" [style.color]="student.SISE_REST_CONSNOTREG_NOT && student.SISE_REST_CONSNOTREG_NOT[0].ACTN_TYPE_CD<13?'red':''">{{ student.SISE_REST_CONSNOTREG_NOT && student.SISE_REST_CONSNOTREG_NOT[0].ACTN_TYPE_CD?student.SISE_REST_CONSNOTREG_NOT[0].ACTN_TYPE_CD:0 }} </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</ngx-smart-modal>
+	
