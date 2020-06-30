@@ -45,17 +45,17 @@ export class AppSettings {
     };
     public static ACCESS_VAC = { "action": "login", "name": "admin", "pass": "aic37896" };
     public static URL_LOGIN  = "http://login-ad.educad.pe/";
-    //------------------------------- AMBIENTE LOCAL -------------------------------//
-    // public static BASE_UCSUR_LARAVEL = 'http://dev.pasarela.educad.pe/api';
-    // public static BASE_SISE_LARAVEL = 'http://pasarela.sise.edu.pe/api';
-    // public static PRODUCTION = "http://educanet.back.educad.pe";
     public static BASE_NODEJS = 'http://apirest.educad.pe:3000';
-    public static SERVICES_EDUCAD = "http://wsasistencia.educad.pe"; // SERVICIOS EDUCA_D .NET
-    //------------------------------- AMBIENTE DEVELOP -------------------------------//
-    public static BASE_UCSUR_LARAVEL = 'http://dev2.pasarela.educad.pe/api';
-    public static BASE_SISE_LARAVEL  = 'http://dev.pasarela.sise.edu.pe/api';
-    public static PRODUCTION = "http://dev-educanet.back.educad.pe";
+    public static SERVICES_EDUCAD = "http://wsasistencia.educad.pe";
     public static BASE_SISE_CODEIGNITER = 'http://proyectos.educad.pe';
+    //------------------------------- AMBIENTE LOCAL -------------------------------//
+    public static BASE_UCSUR_LARAVEL = 'http://dev.pasarela.educad.pe/api';
+    public static BASE_SISE_LARAVEL = 'https://pasarela.sise.edu.pe/api';
+    public static PRODUCTION = "http://educanet.back.educad.pe";
+    //------------------------------- AMBIENTE DEVELOP -------------------------------//
+    // public static BASE_UCSUR_LARAVEL = 'http://dev2.pasarela.educad.pe/api';
+    // public static BASE_SISE_LARAVEL  = 'http://dev.pasarela.sise.edu.pe/api';
+    // public static PRODUCTION = "http://dev-educanet.back.educad.pe";
     //------------------------------- AMBIENTE DEVELOP -------------------------------//
     public static ACCESS_PS = AppSettings.PRODUCTION + `/resources_portal/access_ps`;
     public static LOGIN_TOKEN = AppSettings.PRODUCTION + '/ucsur_token/access';

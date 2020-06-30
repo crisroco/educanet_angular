@@ -18,9 +18,15 @@
 			<tbody *ngIf="classrooms && classrooms.length > 0">
 				<tr class="text-center text-s {{c < classrooms.length - 1?'bd-b-1':''}}" *ngFor="let classroom of classrooms; let c = 'index'">
 					<td class="p-1">
-						<a *ngIf="classroom.INSTITUTION=='PREGR' || classroom.INSTITUTION=='PREUN'" href="http://aulavirtualcpe.cientifica.edu.pe/local/wseducad/auth/sso.php?strm={{classroom.STRM}}&class={{classroom.CLASS_NBR}}&emplid={{emplid}}" target="_blank">
+						<a *ngIf="cod_company == '002' && classroom.INSTITUTION=='PREGR' || classroom.INSTITUTION=='PREUN'" href="http://aulavirtualcpe.cientifica.edu.pe/local/wseducad/auth/sso.php?strm={{classroom.STRM}}&class={{classroom.CLASS_NBR2}}&emplid={{emplid}}" target="_blank">
 							<img src="https://www.smythsys.es/wordpress/wp-content/uploads/2016/09/moodle.jpg" width="25px" />
 						</a>
+						<a *ngIf="cod_company == '002' && classroom.INSTITUTION!='PREGR' && classroom.INSTITUTION!='PREUN'" href="https://aulavirtualposgrado.cientifica.edu.pe/local/wseducad/auth/sso.php?strm={{classroom.STRM}}&class={{classroom.CLASS_NBR2}}&emplid={{emplid}}" target="_blank">
+	                      <img src="https://www.smythsys.es/wordpress/wp-content/uploads/2016/09/moodle.jpg" width="25px" />
+	                    </a>
+	                    <a *ngIf="cod_company !='002'" href="http://aulavirtual.sise.edu.pe/local/wseducad/auth/sso.php?strm={{classroom.STRM}}&class={{classroom.CLASS_NBR}}&course={{classroom.CRSE_ID}}&emplid={{emplid_real}}&token=DOCENTE" target="_blank">
+	                        <img src="https://www.smythsys.es/wordpress/wp-content/uploads/2016/09/moodle.jpg" width="25px" />
+                      	</a>
 					</td>
 					<td class="p-1">{{ classroom.CRSE_ID + ' - ' + classroom.DESCR }}</td>
 					<td class="p-1">{{ classroom.ACAD_CAREER + ' - ' + classroom.CLASS_NBR }}</td>

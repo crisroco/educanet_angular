@@ -45,7 +45,7 @@
 				<tr class="text-center text-s {{s < students.length - 1?'bd-b-1':''}}" *ngFor="let student of students; let s = 'index'">
 					<td class="p-1">{{ student.EMPLID }}</td>
 					<td class="p-1">{{ student.NAME_PSFORMAT }} </td>
-					<td class="p-1">{{ student.PROGRAMA }} </td>
+					<td class="p-1">{{ student.PROGRAMA?student.PROGRAMA:student.DESCR100 }} </td>
 					<th *ngFor="let grade of student.SISE_REST_CONSNOTREG_NOT; let i = 'index'" [style.color]="grade.ACTN_TYPE_CD<13?'red':''" class="px-3 py-2 align-middle text-normal">{{grade.ACTN_TYPE_CD}}</th>
 				</tr>
 			</tbody>
@@ -64,7 +64,7 @@
 				<tr class="text-center text-s {{s < students.length - 1?'bd-b-1':''}}" *ngFor="let student of students; let s = 'index'">
 					<td class="p-1">{{ student.EMPLID }}</td>
 					<td class="p-1">{{ student.NAME_PSFORMAT }} </td>
-					<td class="p-1">{{ student.PROGRAMA }} </td>
+					<td class="p-1">{{ student.PROGRAMA?student.PROGRAMA:student.DESCR100 }} </td>
 					<th class="px-3 py-2 align-middle"><input [disabled]="course.CIERRE == 'Y'" (keypress)="onlyNumbers($event)" (keyup)="grade.ACTN_TYPE_CD = minMaxNumber($event, grade.ACTN_TYPE_CD, 0, 20)" class="form-control ipt-small text-center m-auto" [hidden]="grade.DESCRSHORT != gradeName" *ngFor="let grade of student.SISE_REST_CONSNOTREG_NOT; let i = 'index'" type="text" name="s-{{i}}" [(ngModel)]="grade.ACTN_TYPE_CD"></th>
 				</tr>
 			</tbody>

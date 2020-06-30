@@ -93,7 +93,7 @@ export class StudentGradesComponent implements OnInit {
 	}
 
 	getGradeRecordClass(){
-		this.docenteS.getGradeRecordClass({'acad_career': this.career, 'class_nbr': this.class, 'emplid': (this.cod_company == '002'?this.emplid:this.emplid_real), 'institucion': this.config_initial.institution, 'strm': this.strm})
+		this.docenteS.getGradeRecordClass({'acad_career': this.career, 'class_nbr': this.class, 'emplid': (this.cod_company == '002'?this.emplid:this.emplid_real), 'institucion': this.course.INSTITUTION, 'strm': this.strm})
 		.then(res => {
 			this.students = res.SISE_REST_CONSNOTREG_RES && res.SISE_REST_CONSNOTREG_RES.SISE_REST_CONSNOTREG_COM && res.SISE_REST_CONSNOTREG_RES.SISE_REST_CONSNOTREG_COM.length? res.SISE_REST_CONSNOTREG_RES.SISE_REST_CONSNOTREG_COM : [];
 			this.allStudents = JSON.parse(JSON.stringify(this.students));
@@ -138,7 +138,7 @@ export class StudentGradesComponent implements OnInit {
 		this.docenteS.getToken({ 'emplid': this.emplid,  'numero': this.course.PHONE})
 		.then(res => {
 			if(res.data){
-				this.message = 'Token enviado al teléfono: *** *** ' + (this.course.PHONE + '').substring(-1, 3);
+				this.message = 'Token enviado al teléfono: *** *** ' + (this.course.PHONE + '').substring(this.course.PHONE.length - 3);
 				this.messageError = '',
 				this.tokenObtained++;
 			}
@@ -212,24 +212,30 @@ export class StudentGradesComponent implements OnInit {
 			var dataListStudentGrades = [];
 			this.students.forEach((student, key) => {
 				var grade = student.SISE_REST_CONSNOTREG_NOT.filter(item => item.DESCRSHORT == this.gradeName)[0];
-				let data = {
-					acad_career: student.ACAD_CAREER,
-					class_nbr: student.CLASS_NBR,
-					descrshort: grade.DESCRSHORT,
-					emplid: student.EMPLID,
-					institucion: student.INSTITUTION,
-					lam_type: grade.LAM_TYPE,
-					strm: student.STRM,
-					student_grade: grade.ACTN_TYPE_CD,
-					emplid1: this.emplid_real
+				var realStudent = this.allStudents.filter(item => item.EMPLID == student.EMPLID)[0];
+				var realGrade = realStudent.SISE_REST_CONSNOTREG_NOT.filter(item => item.DESCRSHORT == this.gradeName)[0];
+				if(grade.ACTN_TYPE_CD != realGrade.ACTN_TYPE_CD){
+					let data = {
+						acad_career: student.ACAD_CAREER,
+						class_nbr: student.CLASS_NBR,
+						descrshort: grade.DESCRSHORT,
+						emplid: student.EMPLID,
+						institucion: student.INSTITUTION,
+						lam_type: grade.LAM_TYPE,
+						strm: student.STRM,
+						student_grade: grade.ACTN_TYPE_CD,
+						emplid1: this.emplid_real
+					}
+					dataListStudentGrades.push(data);
 				}
-				dataListStudentGrades.push(data)
 		    });
+		    this.allStudents = JSON.parse(JSON.stringify(this.students));
 		    this.docenteS.updateGrade({ 'data': JSON.stringify(dataListStudentGrades) })
 			.then(res => {
-				if(res.ok) { this.getGradeRecordClass(); this.toastr.success('Se registraron las calificaciones correctamente.'); this.loading = false; }
+				console.log(res.length);
+				if(res.ok || res.length == 0) { this.getGradeRecordClass(); this.gradeName = ''; this.toastr.success('Se registraron las calificaciones correctamente.'); this.loading = false; }
 				else { this.toastr.error('Hubo uno o varios errores al registrar las calificaciones, vuelva a intentarlo.'); this.loading = false; }
-			}, error => { this.loading = false; });
+			}, error => { this.loading = false;  this.toastr.error('Hubo problemas al momento de grabar las notas, por favor intentar nuevamente'); });
 		}
 	}
 

@@ -114,15 +114,15 @@ export class StudentAssistanceComponent implements OnInit {
 	goTakeAssistance(modal, assistanceDay){
 		modal.open();
 		this.realAssistanceDay = JSON.parse(JSON.stringify(assistanceDay));
-		// if(this.cod_company != '002'){
-		// 	let startDate = new Date(this.realAssistanceDay.CLASS_ATTEND_DT+' '+this.realClassroom.MEETING_TIME_START);
-		// 	let endDate  = new Date(this.realAssistanceDay.CLASS_ATTEND_DT+' '+this.realClassroom.MEETING_TIME_END);
-		// 	startDate.setMinutes(startDate.getMinutes() - 10);
-		// 	endDate.setMinutes(endDate.getMinutes() + 10);
-		// 	let realDate = (new Date()).getTime();
-		// 	if(startDate.getTime() <= realDate && realDate <= endDate.getTime())this.disabledMarking = false;
-		// 	else this.disabledMarking = true;
-		// }
+		if(this.cod_company != '002'){
+			let startDate = new Date(this.realAssistanceDay.CLASS_ATTEND_DT+' '+this.realClassroom.MEETING_TIME_START);
+			let endDate  = new Date(this.realAssistanceDay.CLASS_ATTEND_DT+' '+this.realClassroom.MEETING_TIME_END);
+			startDate.setMinutes(startDate.getMinutes() - 10);
+			endDate.setMinutes(endDate.getMinutes() + 10);
+			let realDate = (new Date()).getTime();
+			if(startDate.getTime() <= realDate && realDate <= endDate.getTime())this.disabledMarking = false;
+			else this.disabledMarking = true;
+		}
 		this.realAssistanceDay.emplid = (this.cod_company == '002'?this.emplid:this.emplid_real);
 		this.studentsDetail = null;
 		this.haveChanges = false;
@@ -189,7 +189,7 @@ export class StudentAssistanceComponent implements OnInit {
 	}
 
 	saveAssistance(){
-		if(this.cod_company == '002' && (!this.data_delegates['EMPLID1'] || !this.data_delegates['EMPLID2'])){
+		if(this.cod_company == '002' && ((this.data_delegates['EMPLID1'] && !this.data_delegates['EMPLID2']) || (!this.data_delegates['EMPLID1'] && this.data_delegates['EMPLID2'])) ){
 			this.toastr.error('Atención! Recuerde que debe seleccionar al delegado y subdelegado.');
 			return;
 		}

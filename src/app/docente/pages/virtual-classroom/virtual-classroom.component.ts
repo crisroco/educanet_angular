@@ -33,7 +33,9 @@ export class VirtualClassroomComponent implements OnInit {
 			console.log(res);
 			this.classrooms = res.SISE_CLASE_DOCENTE_RES && res.SISE_CLASE_DOCENTE_RES.UCS_CLASE_DOCENTE_COM?res.SISE_CLASE_DOCENTE_RES.UCS_CLASE_DOCENTE_COM:[];
 			for (var i = this.classrooms.length - 1; i >= 0; i--) {
-				this.classrooms[i].CLASS_NBR = this.classrooms[i].CLASS_NBR.split('.')[0];
+				var CLASS_NBR = this.classrooms[i].CLASS_NBR.split('.');
+				this.classrooms[i].CLASS_NBR = CLASS_NBR[0];
+				this.classrooms[i].CLASS_NBR2 = CLASS_NBR[1];
 			}
 		}, error => { });
 	}

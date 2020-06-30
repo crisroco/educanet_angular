@@ -30,7 +30,7 @@
 	                      <img src="https://www.smythsys.es/wordpress/wp-content/uploads/2016/09/moodle.jpg" width="25px" />
 	                    </a>
 					</td>
-					<td class="p-1">{{ course.CRSE_ID }} - {{ course.DESCR }}</td>
+					<td class="p-1">{{ (course.CRSE_ID)?course.CRSE_ID:course.CRES_ID }} - {{ course.DESCR }}</td>
 					<td class="p-1">{{ course.ACAD_CAREER }} - {{ course.CLASS_NBR }}</td>
 					<td class="p-1">{{ course.SSR_COMPONENT }} - {{ course.CLASS_SECTION }} - {{ course.STRM }}</td>
 					<td class="p-1">{{ course.CAMPUS }} </td>
