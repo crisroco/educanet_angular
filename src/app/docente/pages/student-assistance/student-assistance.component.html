@@ -164,12 +164,12 @@
   	</div>
 </ngx-smart-modal>
 
-<ngx-smart-modal #takeAssistanceModal identifier="takeAssistanceModal" [closable]="false" [customClass]="'mediumModal'">
+<ngx-smart-modal #takeAssistanceModal identifier="takeAssistanceModal" [closable]="false" [escapable]="false" [dismissable]="false" [customClass]="'mediumModal'">
 	<div class="text-center mb-3" *ngIf="!message">
 		<h5>Lista de alumnos ({{ course.COD_CURSE + ' - ' + course.CURSE_DESC + ' - ' + course.CLASS_NBR}}) {{realClassroom.UCS_DAY + ' ' + realAssistanceDay.CLASS_ATTEND_DT}}</h5>
 	</div>
 
-  	<div class="mb-3 rounded-1 scroll h-m bd-1 bd-{{config_initial.code}}">
+  	<div class="mb-3 rounded-1 scroll bd-1 bd-{{config_initial.code}}">
 		<table id="table-students" class="w-100">
 			<thead class="bg-{{config_initial.code}}">
 				<tr class="text-white text-center text-s">

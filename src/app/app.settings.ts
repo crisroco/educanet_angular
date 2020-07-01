@@ -48,15 +48,15 @@ export class AppSettings {
     public static BASE_NODEJS = 'http://apirest.educad.pe:3000';
     public static SERVICES_EDUCAD = "http://wsasistencia.educad.pe";
     public static BASE_SISE_CODEIGNITER = 'http://proyectos.educad.pe';
-    //------------------------------- AMBIENTE LOCAL -------------------------------//
+    //------------------------------- ENV PRODUCTION -------------------------------//
     public static BASE_UCSUR_LARAVEL = 'http://dev.pasarela.educad.pe/api';
     public static BASE_SISE_LARAVEL = 'https://pasarela.sise.edu.pe/api';
     public static PRODUCTION = "http://educanet.back.educad.pe";
-    //------------------------------- AMBIENTE DEVELOP -------------------------------//
+    //------------------------------- ENV DEVELOP -------------------------------//
     // public static BASE_UCSUR_LARAVEL = 'http://dev2.pasarela.educad.pe/api';
     // public static BASE_SISE_LARAVEL  = 'http://dev.pasarela.sise.edu.pe/api';
     // public static PRODUCTION = "http://dev-educanet.back.educad.pe";
-    //------------------------------- AMBIENTE DEVELOP -------------------------------//
+    //------------------------------- ENV DEVELOP -------------------------------//
     public static ACCESS_PS = AppSettings.PRODUCTION + `/resources_portal/access_ps`;
     public static LOGIN_TOKEN = AppSettings.PRODUCTION + '/ucsur_token/access';
     public static WS_DRUPAL_GENERARTOKEN = AppSettings.PRODUCTION+'/session/token';
