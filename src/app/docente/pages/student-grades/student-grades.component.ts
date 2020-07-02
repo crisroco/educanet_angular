@@ -206,7 +206,11 @@ export class StudentGradesComponent implements OnInit {
 					this.message = '';
 					this.toastr.error('Vuelva a intentar en unos minutos.');
 				}
-			}, eror => { });
+			}, error => {
+				this.loading = false;
+				console.log(error);
+				this.toastr.error(error && error.error && error.error.message?error.error.message:'Vuelva a intentar en unos minutos.');
+			});
 		}
 		else{
 			var dataListStudentGrades = [];
