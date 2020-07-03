@@ -101,6 +101,17 @@ export class StudentGradesComponent implements OnInit {
 				this.gradeNames = JSON.parse(JSON.stringify(this.students[0].SISE_REST_CONSNOTREG_NOT));
 			}
 
+			// (['dsadas', 'dsadas']).forEach()
+			this.students.forEach((student) => {
+				// console.log(student);
+				if(student.SISE_REST_CONSNOTREG_NOT.length){
+					student.SISE_REST_CONSNOTREG_NOT.forEach((grade) => {
+						grade.ACTN_TYPE_CD = grade.ACTN_TYPE_CD.replace(/[^0-9]&*\./g, "");
+						grade.ACTN_TYPE_CD = Number(grade.ACTN_TYPE_CD);
+					});
+				}
+			})
+
 			if(this.course.CIERRE == 'Y'){
 				this.getClassroomAverage();
 			}
