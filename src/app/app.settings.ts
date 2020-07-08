@@ -62,6 +62,6 @@ export class AppSettings {
     public static WS_DRUPAL_GENERARTOKEN = AppSettings.PRODUCTION+'/session/token';
 	public static WS_DRUPAL_LOGINVACACIONES = AppSettings.PRODUCTION+'/vacaciones/user';
 	public static BASE_PATH = AppSettings.PRODUCTION + '/resources_portal/';
-    public static BASE_PAYMENT_HISTORY = 'http://35.196.72.217/ServicioRestWebFRACTAL/api/DescargarBoletaRemuneracion';
+    public static BASE_PAYMENT_HISTORY = 'http://200.121.226.233/ServicioRestWebFRACTAL/api/DescargarBoletaRemuneracion';
     public static MOODLE = "http://aulavirtual.educad.pe/local/wseducad/auth/sso.php?";
 }

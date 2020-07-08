@@ -41,3 +41,15 @@ export function GetLastDayWeek(d) {
 	diff = d.getDate() + 6 - (day - 1);
 	return new Date(d.setDate(diff));
 }
+
+export function AddDay(d, numDay){
+	d = new Date(d);
+	var diff = d.getDate() + numDay;
+	return new Date(d.setDate(diff));
+}
+
+export function SubstractDay(d, numDay){
+	d = new Date(d);
+	var diff = d.getDate() - numDay;
+	return new Date(d.setDate(diff));
+}
