@@ -29,6 +29,10 @@ li a, li a:not([href]){
 	padding-bottom: 6px;
 }
 
+.pointer{
+	cursor: pointer;
+}
+
 li a:hover, li a:not([href]):hover{
 	cursor: pointer;
 }

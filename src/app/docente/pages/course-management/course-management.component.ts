@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppSettings } from '../../../app.settings';
-import { Decrypt } from '../../../helpers/general';
+import { Decrypt, Encrypt } from '../../../helpers/general';
 import { UpperFirstLetter } from '../../../helpers/strings';
 import { Rounded } from '../../../helpers/numbers';
 import { SessionService } from '../../../services/session.service';
+import { GeneralService } from '../../../services/general.service';
 import { DocenteService } from '../../../services/docente.service';
+import * as CryptoJS from 'crypto-js';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
@@ -30,6 +32,7 @@ export class CourseManagementComponent implements OnInit {
 
 	constructor( private session: SessionService,
 		private docenteS: DocenteService,
+		private generalS: GeneralService,
 		private router: Router ) { 
 		this.cod_company = this.session.getItem('cod_company');
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
@@ -39,6 +42,25 @@ export class CourseManagementComponent implements OnInit {
 
 	ngOnInit() {
 		this.getClassDocentes();
+	}
+
+	goMoodle(course){
+		var url = '';
+		var rdate = Math.floor(Date.now() / 1000);
+		var crypto = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(this.emplid_real + '//' + rdate), 'Educad123', {format: this.generalS.formatJsonCrypto}).toString());
+		console.log(crypto);
+		console.log(rdate);
+		if(this.cod_company == '002' && (course.INSTITUTION != 'PSTGR' && course.INSTITUTION != 'ESPEC')) {
+			url = 'http://aulavirtualcpe.cientifica.edu.pe/local/wseducad/auth/sso.php?strm=' + course.STRM + '&class=' + (course.CLASS_NBR2?course.CLASS_NBR2:course.CLASS_NBR) + '&course=' + (course.CRES_ID?course.CRES_ID:course.CRSE_ID) + '&emplid=' + crypto + '&token=DOCENTE';
+		}
+		else if(this.cod_company == '002' && (course.INSTITUTION == 'PSTGR' || course.INSTITUTION == 'ESPEC')){
+			url = 'https://aulavirtualposgrado.cientifica.edu.pe/local/wseducad/auth/sso.php?strm=' + course.STRM + '&class=' + (course.CLASS_NBR2?course.CLASS_NBR2:course.CLASS_NBR) + '&course=' + (course.CRES_ID?course.CRES_ID:course.CRSE_ID) + '&emplid=' + this.emplid_real + '&token=DOCENTE';
+		}
+		else{
+			url = 'http://aulavirtual.sise.edu.pe/local/wseducad/auth/sso.php?strm=' + course.STRM + '&class=' + course.CLASS_NBR + '&course=' + (course.CRES_ID?course.CRES_ID:course.CRSE_ID) + '&emplid=' + this.emplid_real + '&token=DOCENTE';
+		}
+		url = url 
+		window.open(url, '_blank');
 	}
 
 	getClassDocentes() {
