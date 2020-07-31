@@ -13,7 +13,7 @@
 				</option>
 			</select>
 		</div>
-		<div class="col-8 form-gorup mb-2" *ngIf="cod_company == '002'">
+		<div class="col-8 form-gorup mb-2" *ngIf="courseFormule && courseFormule != '-'">
 			<label class="form-label"> Fórmula </label>
 			<input class="form-control" type="text" name="" [(ngModel)]="courseFormule" disabled>
 		</div>

@@ -31,7 +31,11 @@ export class DocenteService {
     }
 
     public getCourseFormule(data: any): Promise<any>{
-        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL + '/formula_curso', data).toPromise();
+        var uri = '';
+        this.cod_company = this.session.getItem('cod_company');
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/formula_curso';
+        else uri = AppSettings.BASE_SISE_LARAVEL + '/formula_curso';
+        return this.http.post(uri, data).toPromise();
     }
 
     public getGradeRecordClass(data: any): Promise<any>{
