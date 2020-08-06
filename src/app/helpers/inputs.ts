@@ -18,7 +18,7 @@ export function MinMaxNumber(evt, number, min, max){
   if(theEvent.target.value < min) { theEvent.target.value = min; number = min}
   else if(theEvent.target.value > max) { theEvent.target.value = max; number = max}
   else if(theEvent.target.value == '') { theEvent.target.value = min; number = min}
-  return number;
+  return Number(number);
 }
 
 export function MaxLengthString(evt, str, max){

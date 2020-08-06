@@ -6,6 +6,7 @@ const routes: Routes = [
 	{ path: '', redirectTo: '/login', pathMatch: 'full' },
 	{ path: 'login', component: LoginComponent },
 	{ path: 'docente', loadChildren: './docente/docente.module#DocenteModule', data: {preload:true} },
+	{ path: 'recuperar', loadChildren: './recover/recover.module#RecoverModule', data: {preload:true} },
 ];
 
 @NgModule({
