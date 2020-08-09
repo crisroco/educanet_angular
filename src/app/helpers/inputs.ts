@@ -15,10 +15,14 @@ export function OnlyNumbers(evt) {
 
 export function MinMaxNumber(evt, number, min, max){
   var theEvent = evt || window.event;
-  if(theEvent.target.value < min) { theEvent.target.value = min; number = min}
-  else if(theEvent.target.value > max) { theEvent.target.value = max; number = max}
-  else if(theEvent.target.value == '') { theEvent.target.value = min; number = min}
-  return Number(number);
+  if(theEvent.target.value < min) { number = min; }
+  else if(theEvent.target.value > max) { number = max; }
+  else if(theEvent.target.value == '') { number = min; }
+  var parts = (number + '').split('.');
+  if(parts.length > 1) { number = Number(parts[0]) + '.' + (parts[1]?parts[1]:''); }
+  else { number = Number(number); }
+  theEvent.target.value = number;
+  return number;
 }
 
 export function MaxLengthString(evt, str, max){
