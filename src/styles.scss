@@ -357,6 +357,14 @@ li a:hover, li a:not([href]):hover{
 	font-size: 3.5rem;
 }
 
+.text-wsp, a.text-wsp{
+	color: #34BC58;
+}
+
+a.text-wsp:hover{
+	color: #44CC68;
+}
+
 .text-ucs{
 	color: #204491;
 }
@@ -387,12 +395,59 @@ li a:hover, li a:not([href]):hover{
 	width: 100%;
 }
 
+.float-wsp-br{
+	bottom: 5px;
+	right: 5px;
+}
+
 /* BOX START */
 /*.box-normal{
 	width: 25px;
 	height: 25px;
 }*/
 /* BOX END */
+
+/* CIRCLE START */
+.circle-x{
+	border-radius: 50%;
+}
+
+.circle-q{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.circle-mi{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.circle-xmi{
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+}
+
+.circle-s{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.circle{
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+}
+
+.circle-m{
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+}
+/* CIRCLE END */
 
 @media (max-width: 991px) {
 	li a, li a:not([href]){
