@@ -19,6 +19,7 @@ export class DocenteComponent implements OnInit {
 	user = this.session.getObject('user');
 	emplid = Decrypt(this.user['emplid']);
 	emplid_real = Decrypt(this.user['emplid_real']);
+	showwsp: boolean = false;
 
 	constructor(private session: SessionService,
 		private loginS: LoginService,
