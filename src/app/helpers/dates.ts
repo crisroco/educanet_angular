@@ -38,7 +38,7 @@ export function GetFirstDayWeek(d) {
 export function GetLastDayWeek(d) {
 	d = new Date(d);
 	var day = d.getDay(),
-	diff = d.getDate() + 6 - (day - 1);
+	diff = d.getDate() + (day?(6 - (day - 1)):0);
 	return new Date(d.setDate(diff));
 }
 

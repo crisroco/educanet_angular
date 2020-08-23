@@ -65,8 +65,8 @@ export class WeeklyScheduleComponent implements OnInit {
 		this.lastDayWeek = lastDayWeek.year + '-' + lastDayWeek.month + '-' + lastDayWeek.day
 		this.docenteS.getTeacherSchedule({
 			EMPLID: (this.cod_company == '002'?this.emplid:this.emplid_real), 
-			FECHA_AL: this.firstDayWeek,
-			FECHA_DEL: this.lastDayWeek,
+			FECHA_AL: this.lastDayWeek,
+			FECHA_DEL: this.firstDayWeek,
 		})
 		.then(res => {
 			console.log(res);
