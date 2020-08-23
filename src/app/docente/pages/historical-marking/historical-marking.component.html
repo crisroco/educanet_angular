@@ -33,7 +33,7 @@
 			<tbody *ngIf="dates && dates.length > 0">
 				<tr class="text-center text-s {{c < dates.length - 1?'bd-b-1':''}}" *ngFor="let date of dates; let c = 'index'">
 					<td class="p-1">{{ date.DATE1 }}</td>
-					<td class="p-1">{{ date.CRSE_ID + ' ' + date.CRSE_ID_DESCR }}</td>
+					<td class="p-1">{{ date.CRSE_ID + ' ' + (date.CRSE_ID_DESCR?date.CRSE_ID_DESCR:date.DESCR) }}</td>
 					<td class="p-1">{{ date.SSR_COMPONENT }}</td>
 					<td class="p-1">{{ date.STRM }} - {{ date.CLASS_SECTION }}</td>
 					<td class="p-1">{{ date.DESC_FACILITY }} - {{ date.DESC_LOCAL }}</td>
