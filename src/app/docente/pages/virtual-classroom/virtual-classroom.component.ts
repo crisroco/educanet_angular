@@ -4,6 +4,8 @@ import { Decrypt } from '../../../helpers/general';
 import { RealDate } from '../../../helpers/dates';
 import { SessionService } from '../../../services/session.service';
 import { DocenteService } from '../../../services/docente.service';
+import { GeneralService } from '../../../services/general.service';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-virtual-classroom',
@@ -21,6 +23,7 @@ export class VirtualClassroomComponent implements OnInit {
 	classrooms: any;
 
 	constructor(private session: SessionService,
+		private generalS: GeneralService,
 		private docenteS: DocenteService) { 
 		this.cod_company = this.session.getItem('cod_company');
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
@@ -38,6 +41,23 @@ export class VirtualClassroomComponent implements OnInit {
 				this.classrooms[i].CLASS_NBR2 = CLASS_NBR[1];
 			}
 		}, error => { });
+	}
+
+	goMoodle(course){
+		var url = '';
+		var rdate = Math.floor(Date.now() / 1000);
+		var crypto = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(this.emplid_real + '//' + rdate), 'Educad123', {format: this.generalS.formatJsonCrypto}).toString());
+		if(this.cod_company == '002' && (course.INSTITUTION != 'PSTGR' && course.INSTITUTION != 'ESPEC')) {
+			url = 'http://aulavirtualcpe.cientifica.edu.pe/local/wseducad/auth/sso.php?strm=' + course.STRM + '&class=' + (course.CLASS_NBR2?course.CLASS_NBR2:course.CLASS_NBR) + '&course=' + (course.CRES_ID?course.CRES_ID:course.CRSE_ID) + '&emplid=' + crypto + '&token=DOCENTE';
+		}
+		else if(this.cod_company == '002' && (course.INSTITUTION == 'PSTGR' || course.INSTITUTION == 'ESPEC')){
+			url = 'https://aulavirtualposgrado.cientifica.edu.pe/local/wseducad/auth/sso.php?strm=' + course.STRM + '&class=' + (course.CLASS_NBR2?course.CLASS_NBR2:course.CLASS_NBR) + '&course=' + (course.CRES_ID?course.CRES_ID:course.CRSE_ID) + '&emplid=' + this.emplid_real + '&token=DOCENTE';
+		}
+		else{
+			url = 'http://aulavirtual.sise.edu.pe/local/wseducad/auth/sso.php?strm=' + course.STRM + '&class=' + course.CLASS_NBR + '&course=' + (course.CRES_ID?course.CRES_ID:course.CRSE_ID) + '&emplid=' + crypto + '&token=DOCENTE';
+		}
+		url = url 
+		window.open(url, '_blank');
 	}
 
 }
