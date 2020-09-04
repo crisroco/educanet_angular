@@ -45,8 +45,7 @@ export class LoginComponent implements OnInit {
 		}, error => {
 			this.ip = '0.0.0.0';
 		});
-
-		 this.data_browser = this.deviceS.getDeviceInfo();
+		this.data_browser = this.deviceS.getDeviceInfo();
 	}
 
 	login(){

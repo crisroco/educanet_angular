@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Decrypt } from '../../../helpers/general';
 import { OnlyNumbers, MinMaxNumber, MaxLengthString, UpperCase } from '../../../helpers/inputs';
 import { DocenteService } from '../../../services/docente.service';
 import { SessionService } from '../../../services/session.service';
+import { LoginService } from '../../../services/login.service';
 import { AppSettings } from '../../../app.settings';
 import { UpperFirstLetter } from '../../../helpers/strings';
 import jsPDF from 'jspdf';
@@ -45,10 +47,14 @@ export class StudentGradesComponent implements OnInit {
 	courses: any = [];
 	data: any = {};
 	loading: boolean = false;
+	data_browser: any;
+	ip: any;
 
 	constructor(private realRoute: ActivatedRoute, 
 		private docenteS: DocenteService,
     	private toastr: ToastrService,
+    	private deviceS: DeviceDetectorService,
+    	private loginS: LoginService,
 		private session: SessionService ) {
 		this.cod_company = this.session.getItem('cod_company');
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
@@ -60,6 +66,13 @@ export class StudentGradesComponent implements OnInit {
 			this.idclass = this.class + '-' + this.career + '-' + this.strm;
 			this.closeRecord = parts[3];
 		});
+		this.loginS.getIPAddress()
+		.then(res => {
+			this.ip = res.ip;
+		}, error => {
+			this.ip = '0.0.0.0';
+		});
+		this.data_browser = this.deviceS.getDeviceInfo();
 		this.data[AppSettings.STRINGS_COMPANY[this.cod_company].institution] = this.config_initial.institution;
 		this.data[AppSettings.STRINGS_COMPANY[this.cod_company].emplid] = this.cod_company == '002'?this.emplid:this.emplid_real;
 	}
@@ -186,11 +199,30 @@ export class StudentGradesComponent implements OnInit {
 			student.updated = true;
 			student.success = true;
 			this.endUpdateStudentGrades();
+			this.sendLog(AppSettings.BASE_UCSUR_LARAVEL + '/actulizar-cientifica-notas', student, res);
 		}, error => {
 			student.updated = true;
 			student.error = true;
 			this.endUpdateStudentGrades();
+			this.sendLog(AppSettings.BASE_UCSUR_LARAVEL + '/actulizar-cientifica-notas', student, error);
 		});
+	}
+
+	sendLog(url, req, res){
+		let data_log = {
+			INSTITUTION: this.config_initial.institution,
+			METHOD: url,
+			EMPLID: this.cod_company == '002'?this.emplid:this.emplid_real,
+			NAVEGADOR: this.data_browser.browser,
+			SISTEMA_OP : this.data_browser.os,
+			PARAMETER: JSON.stringify(req),
+			IP_SERVIDOR: this.ip,
+			RESPT: JSON.stringify(res)
+		}
+		this.loginS.log_sise(JSON.stringify(data_log)).then(
+			result =>{  },
+			error => {  }
+		);
 	}
 
 	endUpdateStudentGrades(){
@@ -248,9 +280,10 @@ export class StudentGradesComponent implements OnInit {
 		    this.docenteS.updateGrade({ 'data': JSON.stringify(dataListStudentGrades) })
 			.then(res => {
 				console.log(res.length);
+				this.sendLog(AppSettings.BASE_SISE_LARAVEL + '/actulizar_notas_registradas', JSON.stringify(dataListStudentGrades), res);
 				if(res.ok || res.length == 0) { this.getGradeRecordClass(); this.gradeName = ''; this.toastr.success('Se registraron las calificaciones correctamente.'); this.loading = false; }
 				else { this.toastr.error('Hubo uno o varios errores al registrar las calificaciones, vuelva a intentarlo.'); this.loading = false; }
-			}, error => { this.loading = false;  this.toastr.error('Hubo problemas al momento de grabar las notas, por favor intentar nuevamente'); });
+			}, error => { this.loading = false;  this.toastr.error('Hubo problemas al momento de grabar las notas, por favor intentar nuevamente');  this.sendLog(AppSettings.BASE_SISE_LARAVEL + '/actulizar_notas_registradas', JSON.stringify(dataListStudentGrades), error); });
 		}
 	}
 

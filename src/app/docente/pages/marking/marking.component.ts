@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { AppSettings } from '../../../app.settings';
 import { Decrypt } from '../../../helpers/general';
 import { RealDate } from '../../../helpers/dates';
@@ -36,10 +37,12 @@ export class MarkingComponent implements OnInit {
 	changeRealDate = false;
 	realModal: any;
 	ip: string = '';
+	data_browser: any;
 	loading: boolean = false;
 
 	constructor( private session: SessionService,
 		private docenteS: DocenteService,
+		private deviceS: DeviceDetectorService,
 		private loginS: LoginService,
 		private router: Router ) {
 		this.cod_company = this.session.getItem('cod_company');
@@ -55,6 +58,7 @@ export class MarkingComponent implements OnInit {
 		}, error => {
 			this.ip = '0.0.0.0';
 		});
+		this.data_browser = this.deviceS.getDeviceInfo();
 	}
 
 	getRealDate(){
@@ -91,7 +95,28 @@ export class MarkingComponent implements OnInit {
 		this.setRealDate();
 	}
 
+	sendLog(url, req, res){
+		let data_log = {
+			INSTITUTION: this.config_initial.institution,
+			METHOD: url,
+			EMPLID: this.cod_company == '002'?this.emplid:this.emplid_real,
+			NAVEGADOR: this.data_browser.browser,
+			SISTEMA_OP : this.data_browser.os,
+			PARAMETER: JSON.stringify(req),
+			IP_SERVIDOR: this.ip,
+			RESPT: JSON.stringify(res)
+		}
+		this.loginS.log_sise(JSON.stringify(data_log)).then(
+			result =>{  },
+			error => {  }
+		);
+	}
+
 	registerMarking(){
+		var uri = '';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/marcar_asistencia_docente_cientifica';
+        else uri = AppSettings.BASE_SISE_LARAVEL + '/actualizar_marcacion_docente';
+
 		this.loading = true;
 		var data = {
 			action: "marcacion",
@@ -109,8 +134,9 @@ export class MarkingComponent implements OnInit {
 			this.message = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].MENSAJE:'';
 			this.typeMessage = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].RESTRINGE:'';
 			this.getListClassroom();
+			this.sendLog(uri, data.datos, res);
 			this.loading = false;
-		}, error => { this.loading = false; });
+		}, error => { this.loading = false;  this.sendLog(uri, data.datos, error); });
 	}
 
 }
