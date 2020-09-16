@@ -121,6 +121,7 @@ export class StudentGradesComponent implements OnInit {
 					student.SISE_REST_CONSNOTREG_NOT.forEach((grade) => {
 						grade.ACTN_TYPE_CD = grade.ACTN_TYPE_CD.replace(/[^0-9]&*\./g, "");
 						grade.ACTN_TYPE_CD = Number(grade.ACTN_TYPE_CD);
+						grade.lastgrade = Number(grade.ACTN_TYPE_CD);
 					});
 				}
 			})
@@ -176,7 +177,9 @@ export class StudentGradesComponent implements OnInit {
 	updateStudentsGrades(){
 		for (var i = 0; i < this.students.length; i++) {
 			this.students[i].updated = false;
+			this.students[i].intents = 0;
 			this.students[i].success = false;
+			this.students[i].change = false;
 			this.students[i].error = false;
 			this.saveGrade(this.students[i]);
 		}
@@ -184,28 +187,41 @@ export class StudentGradesComponent implements OnInit {
 
 	saveGrade(student){
 		var grade = student.SISE_REST_CONSNOTREG_NOT.filter(item => item.DESCRSHORT == this.gradeName)[0];
-		this.docenteS.updateGrade({
-			acad_career: student.ACAD_CAREER,
-			class_nbr: student.CLASS_NBR,
-			descrshort: grade.DESCRSHORT,
-			emplid: student.EMPLID,
-			institucion: student.INSTITUTION,
-			lam_type: grade.LAM_TYPE,
-			strm: student.STRM,
-			student_grade: grade.ACTN_TYPE_CD,
-			oprid: atob(this.user.oprid),
-		})
-		.then(res => {
-			student.updated = true;
-			student.success = true;
-			this.endUpdateStudentGrades();
-			this.sendLog(AppSettings.BASE_UCSUR_LARAVEL + '/actulizar-cientifica-notas', student, res);
-		}, error => {
-			student.updated = true;
-			student.error = true;
-			this.endUpdateStudentGrades();
-			this.sendLog(AppSettings.BASE_UCSUR_LARAVEL + '/actulizar-cientifica-notas', student, error);
-		});
+		if(grade.ACTN_TYPE_CD != grade.lastgrade){
+			student.change = true;
+			student.intents++;
+			var dataStudent = {
+				acad_career: student.ACAD_CAREER,
+				class_nbr: student.CLASS_NBR,
+				descrshort: grade.DESCRSHORT,
+				emplid: student.EMPLID,
+				institucion: student.INSTITUTION,
+				lam_type: grade.LAM_TYPE,
+				strm: student.STRM,
+				student_grade: grade.ACTN_TYPE_CD,
+				oprid: atob(this.user.oprid),
+			}
+			this.docenteS.updateGrade(dataStudent)
+			.then(res => {
+				if(res.UCS_ACTIV_NOTAS_RES && res.UCS_ACTIV_NOTAS_RES.UCS_ACTIV_NOTAS_COM && res.UCS_ACTIV_NOTAS_RES.UCS_ACTIV_NOTAS_COM[0] && res.UCS_ACTIV_NOTAS_RES.UCS_ACTIV_NOTAS_COM[0].Estado == '9' && student.intents < 3){
+					this.saveGrade(student);
+				}
+				else{
+					student.updated = true;
+					student.success = true;
+					this.endUpdateStudentGrades();
+				}
+				this.sendLog(AppSettings.BASE_UCSUR_LARAVEL + '/actulizar-cientifica-notas', dataStudent, res);
+			}, error => {
+				student.updated = true;
+				student.error = true;
+				this.endUpdateStudentGrades();
+				this.sendLog(AppSettings.BASE_UCSUR_LARAVEL + '/actulizar-cientifica-notas', dataStudent, error);
+			});
+		}
+		else{
+			student.change = false;
+		}
 	}
 
 	sendLog(url, req, res){
@@ -228,8 +244,10 @@ export class StudentGradesComponent implements OnInit {
 	endUpdateStudentGrades(){
 		var errors = 0;
 		for (var i = 0; i < this.students.length; i++) {
-			if(!this.students[i].updated) return;
-			if(this.students[i].error) errors++;
+			if(this.students[i].change){
+				if(!this.students[i].updated) return;
+				if(this.students[i].error) errors++;
+			}
 		}
 		if(errors > 0) { this.toastr.error('Hubo uno o varios errores al registrar las calificaciones, vuelva a intentarlo.'); this.loading = false; }
 		else { this.getGradeRecordClass(); this.toastr.success('Se registraron las calificaciones correctamente.'); this.loading = false; }

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { Decrypt } from '../../../helpers/general';
 import { AppSettings } from '../../../app.settings';
 import { SessionService } from '../../../services/session.service';
+import { LoginService } from '../../../services/login.service';
 import { DocenteService } from '../../../services/docente.service';
 
 @Component({
@@ -43,10 +45,14 @@ export class StudentAssistanceComponent implements OnInit {
 	message: string = '';
 	disabledMarking:boolean = false;
 	loading: boolean = false;
+	data_browser: any;
+	ip: any;
 
 	constructor( private realRoute: ActivatedRoute, 
 		private toastr: ToastrService,
 		private docenteS: DocenteService,
+    	private deviceS: DeviceDetectorService,
+		private loginS: LoginService,
 		private session: SessionService ) {
 		this.cod_company = this.session.getItem('cod_company');
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
@@ -71,6 +77,13 @@ export class StudentAssistanceComponent implements OnInit {
 			this.data_delegates.SESSION_CODE = this.course.SESSION_CODE;
 			this.data_delegates.emplid = this.emplid;
 			console.log(this.course);
+		});
+		this.data_browser = this.deviceS.getDeviceInfo();
+		this.loginS.getIPAddress()
+		.then(res => {
+			this.ip = res.ip;
+		}, error => {
+			this.ip = '0.0.0.0';
 		});
 	}
 
@@ -193,6 +206,9 @@ export class StudentAssistanceComponent implements OnInit {
 			this.toastr.error('Atención! Recuerde que debe seleccionar al delegado y subdelegado.');
 			return;
 		}
+		var url = '';
+		if(this.cod_company == '002') url = AppSettings.BASE_UCSUR_LARAVEL + '/guardar_asistencia_alumnos_cientifica';
+		else url = AppSettings.BASE_SISE_LARAVEL + '/guardar_asistencia';
 		var data = [];
 		for(var kobj in this.objDataAssistance){
 			data.push(this.objDataAssistance[kobj]);
@@ -214,10 +230,29 @@ export class StudentAssistanceComponent implements OnInit {
 				this.loading = false;
 				this.toastr.success('Se registró la asistencia correctamente.');
 			}
+			this.sendLog(url, data, res);
 		}, error => {
 			this.loading = false;
 			this.toastr.error('Atención! Hubo un problema al registrar la asistencia.');
+			this.sendLog(url, data, error);
 		});
+	}
+
+	sendLog(url, req, res){
+		let data_log = {
+			INSTITUTION: this.config_initial.institution,
+			METHOD: url,
+			EMPLID: this.cod_company == '002'?this.emplid:this.emplid_real,
+			NAVEGADOR: this.data_browser.browser,
+			SISTEMA_OP : this.data_browser.os,
+			PARAMETER: JSON.stringify(req),
+			IP_SERVIDOR: this.ip,
+			RESPT: JSON.stringify(res)
+		}
+		this.loginS.log_sise(JSON.stringify(data_log)).then(
+			result =>{  },
+			error => {  }
+		);
 	}
 
 }

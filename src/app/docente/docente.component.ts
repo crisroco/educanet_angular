@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppSettings } from '../app.settings';
 import { SessionService } from '../services/session.service';
 import { DocenteService } from '../services/docente.service';
 import { LoginService } from '../services/login.service';
 import { Decrypt, Encrypt } from '../helpers/general';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-docente',
@@ -12,6 +13,7 @@ import { Decrypt, Encrypt } from '../helpers/general';
   styleUrls: ['./docente.component.scss']
 })
 export class DocenteComponent implements OnInit {
+	@ViewChild('ethnicityModal') ethnicityModal: any;
 	config_initial: any;
 	menus: any;
 	cod_company: any;
@@ -20,9 +22,13 @@ export class DocenteComponent implements OnInit {
 	emplid = Decrypt(this.user['emplid']);
 	emplid_real = Decrypt(this.user['emplid_real']);
 	showwsp: boolean = false;
+	ethnicities = AppSettings.ETHNICITIES;
+	realEthnicity = '';
+	realOther = '';
 
 	constructor(private session: SessionService,
 		private loginS: LoginService,
+    	private toastr: ToastrService,
 		private router: Router,
 		private docenteS: DocenteService) { 
 		this.cod_company = this.session.getItem('cod_company');
@@ -32,6 +38,19 @@ export class DocenteComponent implements OnInit {
 
 	ngOnInit() {
 		this.getMenu();
+		// this.getEthnicity();
+	}
+
+	getEthnicity(){
+		if(this.cod_company == '002'){
+			this.docenteS.existEthnicity({
+				"EMPLID": this.emplid
+			})
+			.then(res => {
+				if(res.UCS_CON_ETNICO_RES && res.UCS_CON_ETNICO_RES.RESULTADO == 'Y'){ }
+				else{ this.ethnicityModal.open(); }
+			})
+		}
 	}
 
 	getMenu(){
@@ -63,6 +82,41 @@ export class DocenteComponent implements OnInit {
 
 	cleanUri(uri){
 		return uri.replace('http://dev.educanet.educad.pe/dashboard/', '').replace('http://dev.educanet.educad.pe/portal/', '')///(?<=(http)).*?(?=(dashboard))/gi
+	}
+
+	saveEthnicity(){
+		if(!this.realEthnicity){
+			this.toastr.error('Debes seleccionar una Etnia');
+			return;
+		}
+		if(this.realEthnicity && this.realEthnicity == '08' && !this.realOther){
+			this.toastr.error('Debes llenar el campo otros');
+			return;
+		}
+		var nEthnicity = this.ethnicities.find(item => item.value == this.realEthnicity);
+			this.docenteS.saveEthnicity({
+			"EMPLID": this.emplid,
+			"UCS_ID_ETNICO": this.realEthnicity,
+			"DESCR100": this.realEthnicity == '08'?this.realOther.toUpperCase():nEthnicity.name
+		})
+		.then(res => {
+			if(res.UCS_SRV_ETNICO_RES && res.UCS_SRV_ETNICO_RES.RESULTADO){
+				if(res.UCS_SRV_ETNICO_RES.RESULTADO == 'G'){
+					this.toastr.success('Datos guardados exitósamente');
+					this.ethnicityModal.close();
+				}
+				else if(res.UCS_SRV_ETNICO_RES.RESULTADO == 'E'){
+					this.toastr.success('Ya se guardo este dato anteriormente');
+					this.ethnicityModal.close();
+				}
+				else{
+					this.toastr.error('Hubo un error al actualizar');
+				}
+			}
+			else{
+				this.toastr.error('Hubo un error al actualizar');
+			}
+		})
 	}
 
 	goTraining(){

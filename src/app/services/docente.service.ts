@@ -170,6 +170,22 @@ export class DocenteService {
         return this.http.post(uri, data).toPromise();
     }
 
+    public saveEthnicity(data: any): Promise<any>{
+        var uri = '';
+        this.cod_company = this.session.getItem('cod_company');
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/guardar_etnia';
+        else uri = AppSettings.BASE_SISE_LARAVEL + '/guardar_etnia';
+        return this.http.post(uri, data).toPromise();
+    }
+
+    public existEthnicity(data: any): Promise<any>{
+        var uri = '';
+        this.cod_company = this.session.getItem('cod_company');
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/existe_etnia';
+        else uri = AppSettings.BASE_SISE_LARAVEL + '/existe_etnia';
+        return this.http.post(uri, data).toPromise();
+    }
+
     public getDataTeacher(data: any): Promise<any>{
         return this.http.get(AppSettings.PRODUCTION + '/docentes/user', {  params: data, headers: this.generalS.makeHeader() }).toPromise();
     }

@@ -43,6 +43,17 @@ export class AppSettings {
 
         }
     };
+    public static ETHNICITIES = [
+        { value: "01", name: 'QUECHUA' },
+        { value: "02", name: 'AYMARA' },
+        { value: "03", name: 'NATIVO O INDÍGENA DE LA AMAZONÍA' },
+        { value: "04", name: 'PERTENECIENTE O PARTE DE OTRO PUEBLO INDÍGENA U ORIGINARIO' },
+        { value: "05", name: 'NEGRO/MORENO/ZAMBO/MULATO/PUEBLO AFROPERUANO O AFRODESCENDIENTE' },
+        { value: "06", name: 'BLANCO' },
+        { value: "07", name: 'MESTIZO' },
+        { value: "08", name: 'OTROS' },
+        { value: "00", name: 'NO CUENTA CON INFORMACIÓN' },
+    ]
     public static ACCESS_VAC = { "action": "login", "name": "admin", "pass": "aic37896" };
     public static URL_LOGIN  = "http://login-ad.educad.pe/";
     public static BASE_NODEJS = 'http://apirest.educad.pe:3000';
