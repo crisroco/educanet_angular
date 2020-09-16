@@ -16,7 +16,13 @@ export function OnlyNumbers(evt) {
 export function MinMaxNumber(evt, number, min, max){
   var theEvent = evt || window.event;
   if(theEvent.target.value < min) { number = min; }
-  else if(theEvent.target.value > max) { number = max; }
+  else if(theEvent.target.value > max) {
+    if (theEvent.target.value.length > 2) {
+      number = theEvent.target.value.substring(0, theEvent.target.value.length - 1);
+    } else {
+      number = max;
+    }
+  }
   else if(theEvent.target.value == '') { number = min; }
   var parts = (number + '').split('.');
   if(parts.length > 1) { number = Number(parts[0]) + '.' + (parts[1]?parts[1]:''); }
