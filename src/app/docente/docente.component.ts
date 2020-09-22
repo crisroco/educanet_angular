@@ -38,7 +38,7 @@ export class DocenteComponent implements OnInit {
 
 	ngOnInit() {
 		this.getMenu();
-		// this.getEthnicity();
+		this.getEthnicity();
 	}
 
 	getEthnicity(){

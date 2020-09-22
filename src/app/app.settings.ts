@@ -52,7 +52,7 @@ export class AppSettings {
         { value: "06", name: 'BLANCO' },
         { value: "07", name: 'MESTIZO' },
         { value: "08", name: 'OTROS' },
-        { value: "00", name: 'NO CUENTA CON INFORMACIÓN' },
+        // { value: "00", name: 'NO CUENTA CON INFORMACIÓN' },
     ]
     public static ACCESS_VAC = { "action": "login", "name": "admin", "pass": "aic37896" };
     public static URL_LOGIN  = "http://login-ad.educad.pe/";
