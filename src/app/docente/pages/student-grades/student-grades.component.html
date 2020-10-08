@@ -28,7 +28,7 @@
 <div class="bg-white p-3 mb-2 rounded-1">
 	<div class="pb-2 mb-3 row justify-content-between bd-b-1 bd-{{config_initial.code}}">
 		<h5 class="p-0 m-0"> Gestión de notas: {{' (' + students.length + (students.length != 1?' Alumnos':'Alumno') + ')'}} {{gradeName}}</h5>
-		<p *ngIf="gradeName && course.CIERRE == 'Y'" class="p-0 m-0 text-danger">(Cerrardo)</p>
+		<p *ngIf="gradeName && course.CIERRE == 'Y'" class="p-0 m-0 text-danger">(Cerrado)</p>
 	</div>
 
 	<div class="rounded-tl-1 rounded-bl-1 bd-1 bd-{{config_initial.code}} scroll {{gradeName?'mb-3':''}}">

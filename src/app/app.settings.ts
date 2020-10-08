@@ -68,6 +68,7 @@ export class AppSettings {
     // public static BASE_SISE_LARAVEL  = 'http://dev.pasarela.sise.edu.pe/api';
     // public static PRODUCTION = "http://dev-educanet.back.educad.pe";
     //------------------------------- ENV DEVELOP -------------------------------//
+    //public static BASE_UCSUR_LARAVEL = 'http://pasarela_api_educanet.test/api';
     public static ACCESS_PS = AppSettings.PRODUCTION + `/resources_portal/access_ps`;
     public static LOGIN_TOKEN = AppSettings.PRODUCTION + '/ucsur_token/access';
     public static WS_DRUPAL_GENERARTOKEN = AppSettings.PRODUCTION+'/session/token';
