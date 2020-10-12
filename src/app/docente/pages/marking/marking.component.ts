@@ -72,9 +72,29 @@ export class MarkingComponent implements OnInit {
 			if(this.realClassroom.EMPLID){
 				var tClassroom = this.classrooms.Filter(item => item.LVF_NUM_MARC == this.realClassroom.LVF_NUM_MARC);
 				this.realClassroom = tClassroom[0]?tClassroom[0]:this.realClassroom;
-				console.log(tClassroom);
 			}
+			this.checkNextClass();
 		}, error => { });
+	}
+
+	checkNextClass(){
+		console.log('test');
+		var dt = new Date();
+  		var secs = dt.getSeconds() + (60 * dt.getMinutes()) + (60 * 60 * dt.getHours());
+		for (let i = 0; i < this.classrooms.length; i++) {
+			let actualC = this.classrooms[i];
+			var hour = actualC['MEETING_TIME_START'].split(':')[0]*60*60;
+			var minute = actualC['MEETING_TIME_START'].split(':')[1]*60;
+			var total = hour + minute;
+			if (total-600 < secs && secs < total) {
+				actualC['nextClass'] = true;
+			} else {
+				actualC['nextClass'] = false;
+			}
+		}
+		setTimeout(() => {
+			this.checkNextClass();
+		}, 60000);
 	}
 
 	setRealDate(){
@@ -133,10 +153,31 @@ export class MarkingComponent implements OnInit {
 		.then( res => {
 			this.message = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].MENSAJE:'';
 			this.typeMessage = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].RESTRINGE:'';
+			if (this.typeMessage == 'Y') {
+				this.goToZoom();
+			}
 			this.getListClassroom();
 			this.sendLog(uri, data.datos, res);
 			this.loading = false;
 		}, error => { this.loading = false;  this.sendLog(uri, data.datos, error); });
+	}
+
+	goToZoom(){
+		let clase = this.realClassroom;
+		let d = new Date();
+		var hour = clase.MEETING_TIME_START.split(':')[0];
+		var minute = clase.MEETING_TIME_START.split(':')[1];
+		d.setHours(hour);
+		d.setMinutes(minute);
+		d.setSeconds(0);
+		let timeStamp = d.getTime().toString().slice(0, -3);
+		if (clase.INSTITUTION == 'PREGR') {
+			this.docenteS.getLinkZoom(clase['STRM'], clase['CLASS_NBR2'], Number(timeStamp))
+			.then((res) => {
+				let link = res.replace(/<\/?[^>]+(>|$)/g, "");
+				window.open(link, '_blank');
+			});
+		}
 	}
 
 }

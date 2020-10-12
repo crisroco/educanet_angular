@@ -21,7 +21,7 @@
 				</tr>
 			</thead>
 			<tbody *ngIf="classrooms && classrooms.length > 0">
-				<tr class="text-center text-s {{c < classrooms.length - 1?'bd-b-1':''}}" *ngFor="let classroom of classrooms; let c = 'index'">
+				<tr class="text-center text-s {{c < classrooms.length - 1?'bd-b-1':''}}" *ngFor="let classroom of classrooms; let c = 'index'" [ngClass]="{'next_class': classroom.nextClass}">
 					<td class="p-1">{{ classroom.ACAD_CAREER }}</td>
 					<td class="p-1">{{ classroom.CRSE_ID + ' ' + classroom.CRSE_ID_DESCR }}</td>
 					<td class="p-1">{{ classroom.SSR_COMPONENT }}</td>
