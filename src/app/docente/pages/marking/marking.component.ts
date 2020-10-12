@@ -78,6 +78,7 @@ export class MarkingComponent implements OnInit {
 	}
 
 	checkNextClass(){
+		console.log('test');
 		var dt = new Date();
   		var secs = dt.getSeconds() + (60 * dt.getMinutes()) + (60 * 60 * dt.getHours());
 		for (let i = 0; i < this.classrooms.length; i++) {
