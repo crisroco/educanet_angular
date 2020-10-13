@@ -171,7 +171,7 @@ export class MarkingComponent implements OnInit {
 		d.setMinutes(minute);
 		d.setSeconds(0);
 		let timeStamp = d.getTime().toString().slice(0, -3);
-		if (clase.INSTITUTION == 'PREGR') {
+		if (clase.INSTITUTION != 'PSTRG') {
 			this.docenteS.getLinkZoom(clase['STRM'], clase['CLASS_NBR2'], Number(timeStamp))
 			.then((res) => {
 				let link = res.replace(/<\/?[^>]+(>|$)/g, "");

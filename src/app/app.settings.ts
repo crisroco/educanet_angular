@@ -68,12 +68,11 @@ export class AppSettings {
     // public static BASE_SISE_LARAVEL  = 'http://dev.pasarela.sise.edu.pe/api';
     // public static PRODUCTION = "http://dev-educanet.back.educad.pe";
     //------------------------------- ENV DEVELOP -------------------------------//
-    //public static BASE_UCSUR_LARAVEL = 'http://pasarela_api_educanet.test/api';
     public static ACCESS_PS = AppSettings.PRODUCTION + `/resources_portal/access_ps`;
     public static LOGIN_TOKEN = AppSettings.PRODUCTION + '/ucsur_token/access';
     public static WS_DRUPAL_GENERARTOKEN = AppSettings.PRODUCTION+'/session/token';
-	public static WS_DRUPAL_LOGINVACACIONES = AppSettings.PRODUCTION+'/vacaciones/user';
-	public static BASE_PATH = AppSettings.PRODUCTION + '/resources_portal/';
+    public static WS_DRUPAL_LOGINVACACIONES = AppSettings.PRODUCTION+'/vacaciones/user';
+    public static BASE_PATH = AppSettings.PRODUCTION + '/resources_portal/';
     public static BASE_PAYMENT_HISTORY = 'http://200.121.226.233/ServicioRestWebFRACTAL/api/DescargarBoletaRemuneracion';
     public static MOODLE = "http://aulavirtual.educad.pe/local/wseducad/auth/sso.php?";
 }
