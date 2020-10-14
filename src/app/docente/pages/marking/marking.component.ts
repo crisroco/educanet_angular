@@ -78,7 +78,6 @@ export class MarkingComponent implements OnInit {
 	}
 
 	checkNextClass(){
-		console.log('test');
 		var dt = new Date();
   		var secs = dt.getSeconds() + (60 * dt.getMinutes()) + (60 * 60 * dt.getHours());
 		for (let i = 0; i < this.classrooms.length; i++) {
@@ -86,7 +85,10 @@ export class MarkingComponent implements OnInit {
 			var hour = actualC['MEETING_TIME_START'].split(':')[0]*60*60;
 			var minute = actualC['MEETING_TIME_START'].split(':')[1]*60;
 			var total = hour + minute;
-			if (total-600 < secs && secs < total) {
+			var hour_final = actualC['MEETING_TIME_END'].split(':')[0]*60*60;
+			var minute_final = actualC['MEETING_TIME_END'].split(':')[1]*60;
+			var total_final = hour_final + minute_final;
+			if (total-600 < secs && secs < total_final-600) {
 				actualC['nextClass'] = true;
 			} else {
 				actualC['nextClass'] = false;
