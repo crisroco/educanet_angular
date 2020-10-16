@@ -9,7 +9,7 @@
 					<img [style.width]="library.width" src="{{library.img}}">
 					{{library.description}}
 				</a>
-				<div role="button" (click)="openModal()" [style.width]="103" class="row text-center ml-3">
+				<div *ngIf="cod_company==002" role="button" (click)="openModal()" [style.width]="103" class="row text-center ml-3">
 					<img style="width: 103px;" src="assets/2-3.png">
 				</div>
 			</div>
