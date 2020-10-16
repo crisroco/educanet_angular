@@ -208,6 +208,23 @@ li a:hover, li a:not([href]):hover{
 }
 /* SCROLL END */
 
+/* MODAL */
+
+.custom-modal {
+	button.nsm-dialog-btn-close {
+		color: #FFF;
+	}
+	div.nsm-content {
+		padding: 0 !important;
+		.text-modal {
+			border-radius: 1rem 1rem 0 0;
+		}
+	}
+	.text-container {
+		margin: 1rem;
+	}
+}
+
 /* INPUT StART */
 .ipt-small {
     width: 87px;

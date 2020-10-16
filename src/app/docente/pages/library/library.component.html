@@ -9,6 +9,9 @@
 					<img [style.width]="library.width" src="{{library.img}}">
 					{{library.description}}
 				</a>
+				<div role="button" (click)="openModal()" [style.width]="103" class="row text-center ml-3">
+					<img style="width: 103px;" src="assets/2-3.png">
+				</div>
 			</div>
 			<div *ngIf="typelibrary.subtypes">
 				<div class="rounded-s bd-1 mb-3 overflow-hidden bd-gray" *ngFor="let subtypelibrary of typelibrary.subtypes">
@@ -26,3 +29,16 @@
 		</div>
 	</div>
 </div>
+
+<ngx-smart-modal #humanityModal identifier="humanityModal" [closable]="true" [customClass]="'nsm-centered custom-modal'">
+	<div class="p-3 text-center mb-3 text-modal">
+		<h5>Complete Anatomy</h5>
+	</div>
+
+  	<div class="mb-3 rounded-1 scroll h-m bd-1 text-container">
+		<div class="text p-3">
+			<p>Herramienta de uso exclusivo para los alumnos y docentes de los cursos Anatomía General y Morfofisiología de las carreras de Ciencias de la Salud.
+			Para mayor información comunicarse al correo: biblioteca@cientifica.edu.pe</p>
+		</div>
+	</div>
+</ngx-smart-modal>

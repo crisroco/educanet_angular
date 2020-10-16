@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { AppSettings } from '../../../app.settings';
 import { Decrypt } from '../../../helpers/general';
@@ -37,6 +37,7 @@ import { LoginService } from '../../../services/login.service';
   ]
 })
 export class LibraryComponent implements OnInit {
+	@ViewChild('humanityModal') humanityModal: any;
 	cod_company: any;
 	config_initial: any;
 	user = this.session.getObject('user');
@@ -62,7 +63,7 @@ export class LibraryComponent implements OnInit {
 			{
 				name: 'Biblioteca Virtual',
 				libraries: [],
-				isOpen: false,
+				isOpen: true,
 				subtypes: [
 					{
 						name: 'Multidisciplinaria',
@@ -110,7 +111,7 @@ export class LibraryComponent implements OnInit {
 								description: ''
 							}
 						],
-						isOpen: false,
+						isOpen: true,
 					},
 					{
 						name: 'Ciencias de la Salud',
@@ -128,7 +129,7 @@ export class LibraryComponent implements OnInit {
 								description: ''
 							}
 						],
-						isOpen: false,
+						isOpen: true,
 					},
 					{
 						name: 'Ciencias Empresariales',
@@ -140,7 +141,7 @@ export class LibraryComponent implements OnInit {
 								description: ''
 							},
 						],
-						isOpen: false,
+						isOpen: true,
 					},
 					{
 						name: 'Ciencias Ambientales',
@@ -170,7 +171,7 @@ export class LibraryComponent implements OnInit {
 								description: ''
 							}
 						],
-						isOpen: false,
+						isOpen: true,
 					},
 					{
 						name: 'Ciencias Humanas',
@@ -182,7 +183,7 @@ export class LibraryComponent implements OnInit {
 								description: ''
 							},
 						],
-						isOpen: false,
+						isOpen: true,
 					},
 				]
 			},
@@ -205,7 +206,7 @@ export class LibraryComponent implements OnInit {
 
 	constructor(private session: SessionService,
 		private loginS: LoginService,
-		private docenteS: DocenteService) { 
+		private docenteS: DocenteService) {
 		this.cod_company = this.session.getItem('cod_company');
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 	}
@@ -249,6 +250,10 @@ export class LibraryComponent implements OnInit {
 
 	toggle(obj) {
 		obj.isOpen = !obj.isOpen;
+	}
+
+	openModal(){
+		this.humanityModal.open();
 	}
 
 }
