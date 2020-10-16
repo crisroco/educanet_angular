@@ -9,9 +9,6 @@
 					<img [style.width]="library.width" src="{{library.img}}">
 					{{library.description}}
 				</a>
-				<div *ngIf="cod_company==002" role="button" (click)="openModal()" [style.width]="103" class="row text-center ml-3">
-					<img style="width: 103px;" src="assets/2-3.png">
-				</div>
 			</div>
 			<div *ngIf="typelibrary.subtypes">
 				<div class="rounded-s bd-1 mb-3 overflow-hidden bd-gray" *ngFor="let subtypelibrary of typelibrary.subtypes">
@@ -23,6 +20,9 @@
 							<img [style.width]="librarySub.width" src="{{librarySub.img}}">
 							{{librarySub.description}}
 						</a>
+						<div *ngIf="cod_company==002 && subtypelibrary.name == 'Ciencias de la Salud'" role="button" (click)="openModal()" [style.width]="103" class="row text-center ml-3">
+							<img style="width: 103px;" src="assets/2-3.png">
+						</div>
 					</div>
 				</div>
 			</div>
