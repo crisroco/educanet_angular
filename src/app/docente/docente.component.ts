@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class DocenteComponent implements OnInit {
 	@ViewChild('ethnicityModal') ethnicityModal: any;
+	@ViewChild('surveyModal') surveyModal: any;
 	config_initial: any;
 	menus: any;
 	cod_company: any;
@@ -43,6 +44,7 @@ export class DocenteComponent implements OnInit {
 
 	getEthnicity(){
 		if(this.cod_company == '002'){
+			this.surveyModal.open();
 			this.docenteS.existEthnicity({
 				"EMPLID": this.emplid
 			})

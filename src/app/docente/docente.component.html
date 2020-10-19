@@ -125,4 +125,15 @@
 	    <button (click)="saveEthnicity()" class="btn btn-success">Guardar</button>
   	</div>
 </ngx-smart-modal>
+
+<ngx-smart-modal #surveyModal identifier="surveyModal" [closable]="false" [escapable]="true" [dismissable]="true" [customClass]="''">
+	<div class="mb-3 row justify-content-between pb-2 bd-b-1 bd-{{company}}">
+		<h5 class=""> <strong> Encuesta 2020 </strong> </h5>
+		<a (click)="surveyModal.close()" class="pointer"><i class="fa fa-times text-{{company}} text-l"></i></a>
+	</div>
+  	<div class="h-fn scroll fullModal px-2">
+		<a target="_blank" href="https://es.surveymonkey.com/r/JJFJD52"><img class="w-100" src="./assets/encuesta.png"></a>
+		<p class="mt-2 text-center"><a class="text-{{company}}" target="_blank" href="https://es.surveymonkey.com/r/JJFJD52">Ingresar a la encuesta</a></p>
+	</div>
+</ngx-smart-modal>
 	
