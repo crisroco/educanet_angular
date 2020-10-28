@@ -70,7 +70,7 @@ export class MarkingComponent implements OnInit {
 		.then(res => {
 			this.classrooms = res.UCS_REST_MARCACION_RES && res.UCS_REST_MARCACION_RES.UCS_REST_MARCACION_COM?res.UCS_REST_MARCACION_RES.UCS_REST_MARCACION_COM:[];
 			if(this.realClassroom.EMPLID){
-				var tClassroom = this.classrooms.Filter(item => item.LVF_NUM_MARC == this.realClassroom.LVF_NUM_MARC);
+				var tClassroom = this.classrooms.filter(item => item.LVF_NUM_MARC == this.realClassroom.LVF_NUM_MARC);
 				this.realClassroom = tClassroom[0]?tClassroom[0]:this.realClassroom;
 			}
 			this.checkNextClass();
@@ -151,12 +151,41 @@ export class MarkingComponent implements OnInit {
 				ip_privada: this.ip,
 			}
 		}
+		var partTime = this.realClassroom.MEETING_TIME_END.split(':');
+		var partMinute = parseInt(partTime[1]) + 10;
+		var partHour = parseInt(partTime[0])
+		if(partMinute >= 60){
+			partHour++;
+			partMinute = partMinute%60;
+		}
+		var secondClass = this.classrooms.find(item => item.CRSE_ID == this.realClassroom.CRSE_ID && item.CLASS_SECTION.indexOf(this.realClassroom.CLASS_SECTION) != -1 && (item.MEETING_TIME_START == this.realClassroom.MEETING_TIME_END || (item.MEETING_TIME_START > this.realClassroom.MEETING_TIME_END && item.MEETING_TIME_START <= partHour + ':' + partMinute )));
+		console.log(secondClass);
+		var data2 = {
+			action: "marcacion",
+			datos: {
+				LVF_STATUS_MTG: secondClass.LVF_STATUS_MTG,
+				acad_carrer: secondClass.ACAD_CAREER,
+				cod_marcacion: secondClass.LVF_NUM_MARC,
+				emplid: (this.cod_company == '002'?this.emplid:this.emplid_real),
+				institucion: secondClass.INSTITUTION,
+				ip_privada: this.ip,
+			}
+		}
 		this.docenteS.registerMarking(data)
 		.then( res => {
 			this.message = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].MENSAJE:'';
 			this.typeMessage = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].RESTRINGE:'';
+			console.log(this.message);
 			if (this.typeMessage == 'Y') {
 				this.goToZoom();
+				if(this.cod_company == '002'){
+					this.docenteS.registerMarking2(data2)
+					.then( res => {
+						this.getListClassroom();
+						this.sendLog(uri, data2.datos, res);
+						this.loading = false;
+					}, error => { this.loading = false;  this.sendLog(uri, data2.datos, error); });
+				}
 			}
 			this.getListClassroom();
 			this.sendLog(uri, data.datos, res);

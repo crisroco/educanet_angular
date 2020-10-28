@@ -138,6 +138,14 @@ export class DocenteService {
         return this.http.put(uri, data).toPromise();
     }
 
+    public registerMarking2(data: any): Promise<any>{
+        var uri = '';
+        this.cod_company = this.session.getItem('cod_company');
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/marcar_asistencia_docente_cientifica2';
+        else uri = AppSettings.BASE_SISE_LARAVEL + '/actualizar_marcacion_docente';
+        return this.http.put(uri, data).toPromise();
+    }
+
     public getVirtualClassroowm(data: any): Promise<any>{
         return this.http.post(AppSettings.BASE_UCSUR_LARAVEL + '/clases-virtuales', data).toPromise();
     }
