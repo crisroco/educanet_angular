@@ -160,15 +160,17 @@ export class MarkingComponent implements OnInit {
 		}
 		var secondClass = this.classrooms.find(item => item.CRSE_ID == this.realClassroom.CRSE_ID && item.CLASS_SECTION.indexOf(this.realClassroom.CLASS_SECTION) != -1 && (item.MEETING_TIME_START == this.realClassroom.MEETING_TIME_END || (item.MEETING_TIME_START > this.realClassroom.MEETING_TIME_END && item.MEETING_TIME_START <= partHour + ':' + partMinute )));
 		console.log(secondClass);
-		var data2 = {
-			action: "marcacion",
-			datos: {
-				LVF_STATUS_MTG: secondClass.LVF_STATUS_MTG,
-				acad_carrer: secondClass.ACAD_CAREER,
-				cod_marcacion: secondClass.LVF_NUM_MARC,
-				emplid: (this.cod_company == '002'?this.emplid:this.emplid_real),
-				institucion: secondClass.INSTITUTION,
-				ip_privada: this.ip,
+		if(secondClass){
+			var data2 = {
+				action: "marcacion",
+				datos: {
+					LVF_STATUS_MTG: secondClass.LVF_STATUS_MTG,
+					acad_carrer: secondClass.ACAD_CAREER,
+					cod_marcacion: secondClass.LVF_NUM_MARC,
+					emplid: (this.cod_company == '002'?this.emplid:this.emplid_real),
+					institucion: secondClass.INSTITUTION,
+					ip_privada: this.ip,
+				}
 			}
 		}
 		this.docenteS.registerMarking(data)
@@ -178,7 +180,7 @@ export class MarkingComponent implements OnInit {
 			console.log(this.message);
 			if (this.typeMessage == 'Y') {
 				this.goToZoom();
-				if(this.cod_company == '002'){
+				if(this.cod_company == '002' && secondClass){
 					this.docenteS.registerMarking2(data2)
 					.then( res => {
 						this.getListClassroom();
