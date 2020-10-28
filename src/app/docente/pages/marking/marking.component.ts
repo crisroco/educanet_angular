@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AppSettings } from '../../../app.settings';
@@ -39,7 +39,8 @@ export class MarkingComponent implements OnInit {
 	ip: string = '';
 	data_browser: any;
 	loading: boolean = false;
-
+	@ViewChild('myClassesModal') myClassesModal;
+	nextClassesLink:Array<any> = [];
 	constructor( private session: SessionService,
 		private docenteS: DocenteService,
 		private deviceS: DeviceDetectorService,
@@ -205,10 +206,15 @@ export class MarkingComponent implements OnInit {
 		d.setSeconds(0);
 		let timeStamp = d.getTime().toString().slice(0, -3);
 		if (clase.INSTITUTION != 'PSTRG') {
-			this.docenteS.getLinkZoom(clase['STRM'], clase['CLASS_NBR2'], Number(timeStamp))
+			this.docenteS.getLinkZoom(clase['STRM'], clase['CLASS_NBR2'], Number(timeStamp), clase['CLASS_SECTION'])
 			.then((res) => {
-				let link = res.replace(/<\/?[^>]+(>|$)/g, "");
-				window.open(link, '_blank');
+				let links = JSON.parse(res);
+				if (links.length > 1) {
+					this.nextClassesLink = links;
+					this.myClassesModal.open();
+				} else {
+					window.open(links[0]['url'], '_blank');
+				}
 			});
 		}
 	}

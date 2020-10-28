@@ -101,4 +101,16 @@
   	<div class="alert alert-{{typeMessage == 'Y'?'info':'danger'}}" *ngIf="message"> {{ message + ' ' + ip }}</div>  	
 </ngx-smart-modal>
 
+<ngx-smart-modal #myClassesModal identifier="myClassesModal" [closable]="false" [escapable]="false" [dismissable]="false" [customClass]="''">
+	<div class="mb-3 row justify-content-between pb-2 bd-b-1 bd-{{config_initial.code}}">
+		<h5 class=""> <strong> Mis Links Zoom </strong> </h5>
+		<a (click)="myClassesModal.close()" class="pointer"><i class="fa fa-times text-{{config_initial.code}} text-l"></i></a>
+	</div>
+	<div class="text-center mb-3">
+		<div class="d-flex flex-column text-left">
+			<a class="my-1" *ngFor="let room of nextClassesLink" [href]="room.url" target="_blank">{{room.title}}</a>
+		</div>
+	</div> 	
+</ngx-smart-modal>
+
 <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true }"></ngx-loading>

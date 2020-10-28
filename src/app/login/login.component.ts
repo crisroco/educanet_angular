@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
 	nom_empresa: string = '';
 	variable: string = '';
 	loading = false;
+	showLinks = false;
 
 	constructor(private formBuilder: FormBuilder,
     	private toastr: ToastrService,
@@ -147,6 +148,10 @@ export class LoginComponent implements OnInit {
 				this.router.navigate(['/']);
 			}
 		);
+	}
+
+	showTypes(){
+		this.showLinks = true;
 	}
 
 }
