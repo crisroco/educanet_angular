@@ -160,7 +160,6 @@ export class MarkingComponent implements OnInit {
 			partMinute = partMinute%60;
 		}
 		var secondClass = this.classrooms.find(item => item.CRSE_ID == this.realClassroom.CRSE_ID && item.CLASS_SECTION.indexOf(this.realClassroom.CLASS_SECTION) != -1 && (item.MEETING_TIME_START == this.realClassroom.MEETING_TIME_END || (item.MEETING_TIME_START > this.realClassroom.MEETING_TIME_END && item.MEETING_TIME_START <= partHour + ':' + partMinute )));
-		console.log(secondClass);
 		if(secondClass){
 			var data2 = {
 				action: "marcacion",
@@ -178,10 +177,9 @@ export class MarkingComponent implements OnInit {
 		.then( res => {
 			this.message = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].MENSAJE:'';
 			this.typeMessage = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].RESTRINGE:'';
-			console.log(this.message);
 			if (this.typeMessage == 'Y') {
 				this.goToZoom();
-				if(this.cod_company == '002' && secondClass){
+				if(this.cod_company == '002' && secondClass && !secondClass.MARC_TIME_START){
 					this.docenteS.registerMarking2(data2)
 					.then( res => {
 						this.getListClassroom();
