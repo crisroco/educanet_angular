@@ -178,7 +178,9 @@ export class MarkingComponent implements OnInit {
 			this.message = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].MENSAJE:'';
 			this.typeMessage = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].RESTRINGE:'';
 			if (this.typeMessage == 'Y') {
-				this.goToZoom();
+				if (this.realClassroom['MARC_TIME_START'] == "") {
+					this.goToZoom();
+				}
 				if(this.cod_company == '002' && secondClass && !secondClass.MARC_TIME_START){
 					this.docenteS.registerMarking2(data2)
 					.then( res => {
@@ -206,12 +208,16 @@ export class MarkingComponent implements OnInit {
 		if (clase.INSTITUTION != 'PSTRG') {
 			this.docenteS.getLinkZoom(clase['STRM'], clase['CLASS_NBR2'], Number(timeStamp), clase['CLASS_SECTION'])
 			.then((res) => {
-				let links = JSON.parse(res);
-				if (links.length > 1) {
-					this.nextClassesLink = links;
-					this.myClassesModal.open();
+				if (JSON.parse(res)[0]['response'].contains('FALSE')) {
+					// code...
 				} else {
-					window.open(links[0]['url'], '_blank');
+					let links = JSON.parse(res);
+					if (links.length > 1) {
+						this.nextClassesLink = links;
+						this.myClassesModal.open();
+					} else {
+						window.open(links[0]['url'], '_blank');
+					}
 				}
 			});
 		}

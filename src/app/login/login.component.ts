@@ -151,7 +151,7 @@ export class LoginComponent implements OnInit {
 	}
 
 	showTypes(){
-		this.showLinks = true;
+		this.showLinks = !this.showLinks;
 	}
 
 }
