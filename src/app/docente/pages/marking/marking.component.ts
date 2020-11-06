@@ -173,27 +173,57 @@ export class MarkingComponent implements OnInit {
 				}
 			}
 		}
-		this.docenteS.registerMarking(data)
-		.then( res => {
-			this.message = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].MENSAJE:'';
-			this.typeMessage = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].RESTRINGE:'';
-			if (this.typeMessage == 'Y') {
-				if (this.realClassroom['MARC_TIME_START'] == "") {
+		if (this.realClassroom['MARC_TIME_START'] == '') {
+			this.docenteS.registerMarking(data)
+			.then( res => {
+				this.message = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].MENSAJE:'';
+				this.typeMessage = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].RESTRINGE:'';
+				if (this.typeMessage == 'Y') {
 					this.goToZoom();
+					if(this.cod_company == '002' && secondClass && !secondClass.MARC_TIME_START){
+						this.docenteS.registerMarking2(data2)
+						.then( res => {
+							this.getListClassroom();
+							this.sendLog(uri, data2.datos, res);
+							this.loading = false;
+						}, error => { this.loading = false;  this.sendLog(uri, data2.datos, error); });
+					}
 				}
-				if(this.cod_company == '002' && secondClass && !secondClass.MARC_TIME_START){
-					this.docenteS.registerMarking2(data2)
-					.then( res => {
-						this.getListClassroom();
-						this.sendLog(uri, data2.datos, res);
-						this.loading = false;
-					}, error => { this.loading = false;  this.sendLog(uri, data2.datos, error); });
-				}
+				this.getListClassroom();
+				this.sendLog(uri, data.datos, res);
+				this.loading = false;
+			}, error => { this.loading = false;  this.sendLog(uri, data.datos, error); });
+		} else {
+			var dt = new Date();
+  			var secs = dt.getSeconds() + (60 * dt.getMinutes()) + (60 * 60 * dt.getHours());
+			var hour = this.realClassroom.MEETING_TIME_END.split(':')[0]*60*60;
+			var minute = this.realClassroom.MEETING_TIME_END.split(':')[1]*60;
+			var total = hour + minute;
+			if (total-1800 < secs ) {
+				this.docenteS.registerMarking(data)
+				.then( res => {
+					this.message = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].MENSAJE:'';
+					this.typeMessage = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].RESTRINGE:'';
+					if (this.typeMessage == 'Y') {
+						if(this.cod_company == '002' && secondClass && !secondClass.MARC_TIME_START){
+							this.docenteS.registerMarking2(data2)
+							.then( res => {
+								this.getListClassroom();
+								this.sendLog(uri, data2.datos, res);
+								this.loading = false;
+							}, error => { this.loading = false;  this.sendLog(uri, data2.datos, error); });
+						}
+					}
+					this.getListClassroom();
+					this.sendLog(uri, data.datos, res);
+					this.loading = false;
+				}, error => { this.loading = false;  this.sendLog(uri, data.datos, error); });
+			} else {
+				this.typeMessage = 'E';
+				this.message = 'Solo se puede registrar la salida 30 minutos antes de la Hora de salida';
+				this.loading = false;
 			}
-			this.getListClassroom();
-			this.sendLog(uri, data.datos, res);
-			this.loading = false;
-		}, error => { this.loading = false;  this.sendLog(uri, data.datos, error); });
+		}
 	}
 
 	goToZoom(){
@@ -208,7 +238,7 @@ export class MarkingComponent implements OnInit {
 		if (clase.INSTITUTION != 'PSTRG') {
 			this.docenteS.getLinkZoom(clase['STRM'], clase['CLASS_NBR2'], Number(timeStamp), clase['CLASS_SECTION'])
 			.then((res) => {
-				if (JSON.parse(res)[0]['response'].contains('FALSE')) {
+				if (JSON.parse(res)[0]['response'].includes('FALSE')) {
 					// code...
 				} else {
 					let links = JSON.parse(res);
