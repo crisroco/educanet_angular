@@ -115,6 +115,7 @@ export class MarkingComponent implements OnInit {
 		this.realModal = modal;
 		this.realClassroom = classroom; //JSON.parse(JSON.stringify(classroom));
 		modal.open();
+		// this.goToZoom();
 		this.setRealDate();
 	}
 
@@ -229,14 +230,8 @@ export class MarkingComponent implements OnInit {
 	goToZoom(){
 		let clase = this.realClassroom;
 		let d = new Date();
-		var hour = clase.MEETING_TIME_START.split(':')[0];
-		var minute = clase.MEETING_TIME_START.split(':')[1];
-		d.setHours(hour);
-		d.setMinutes(minute);
-		d.setSeconds(0);
-		let timeStamp = d.getTime().toString().slice(0, -3);
 		if (clase.INSTITUTION != 'PSTRG') {
-			this.docenteS.getLinkZoom(clase['STRM'], clase['CLASS_NBR2'], Number(timeStamp), clase['CLASS_SECTION'])
+			this.docenteS.getLinkZoom(clase['STRM'], clase['CLASS_NBR2'], Number(clase['UCS_TIMESTAMP']) + 18000, clase['CLASS_SECTION'])
 			.then((res) => {
 				if (JSON.parse(res)[0]['response'].includes('FALSE')) {
 					// code...
