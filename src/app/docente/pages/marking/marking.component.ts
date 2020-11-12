@@ -200,7 +200,7 @@ export class MarkingComponent implements OnInit {
 			var hour = this.realClassroom.MEETING_TIME_END.split(':')[0]*60*60;
 			var minute = this.realClassroom.MEETING_TIME_END.split(':')[1]*60;
 			var total = hour + minute;
-			if (total-1800 < secs ) {
+			if (total-1800 < secs  || secs > total) {
 				this.docenteS.registerMarking(data)
 				.then( res => {
 					this.message = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].MENSAJE:'';
