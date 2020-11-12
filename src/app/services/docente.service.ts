@@ -202,4 +202,34 @@ export class DocenteService {
         return this.http.get("https://aulavirtualcpe.cientifica.edu.pe/mod/zoom/client/zoom_link_teacher.php?strm=" + cicle + '&nbr=' + myclass + '&date=' + date + '&section=' + section, {responseType: 'text'}).toPromise();
     }
 
+    /* VIRTUAL CLASSES */
+
+    public getVirtualSchedule(emplid){
+        return this.http.get(AppSettings.BASE_UCSUR_LARAVEL + '/juanjo/getdisponibilidadByEmplid?description=' + emplid + '&institucion=UCS').toPromise();
+    }
+
+    public getVirtualScheduleById(id){
+        return this.http.get(AppSettings.BASE_UCSUR_LARAVEL + '/juanjo/getdisponibilidadById?id=' + id + '&institucion=UCS').toPromise();
+    }
+
+    public getCampus(){
+        return this.http.get(AppSettings.BASE_UCSUR_LARAVEL + '/juanjo/getcampus?institucion=UCS').toPromise();
+    }
+
+    public getgrado(){
+        return this.http.get(AppSettings.BASE_UCSUR_LARAVEL + '/juanjo/getgrado?institucion=UCS').toPromise();
+    }
+
+    public saveDisponibility(data){
+        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL + '/juanjo/savedisponibilidad', data).toPromise();
+    }
+
+    public updateDisponibility(data){
+        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL + '/juanjo/upddisponibilidad', data).toPromise();
+    }
+
+    public deleteDisponibility(data){
+        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL + '/juanjo/deletedisponibilidad', data).toPromise();
+    }
+
 }

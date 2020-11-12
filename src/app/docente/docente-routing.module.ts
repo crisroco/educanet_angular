@@ -11,6 +11,7 @@ import { HistoricalMarkingComponent } from './pages/historical-marking/historica
 import { PaymentHistoryComponent } from './pages/payment-history/payment-history.component';
 import { WeeklyScheduleComponent } from './pages/weekly-schedule/weekly-schedule.component';
 import { LibraryComponent } from './pages/library/library.component';
+import { VirtualScheduleComponent } from './pages/virtual-schedule/virtual-schedule.component';
 
 const routes: Routes = [
 	{ 
@@ -53,6 +54,10 @@ const routes: Routes = [
 			{
 				path: 'clases-virtuales',
 				component: VirtualClassroomComponent
+			},
+			{
+				path: 'horario-virtual',
+				component: VirtualScheduleComponent
 			},
 			{
 				path: 'docentes-historico_marcacion',

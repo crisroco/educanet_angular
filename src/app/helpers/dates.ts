@@ -53,3 +53,21 @@ export function SubstractDay(d, numDay){
 	var diff = d.getDate() - numDay;
 	return new Date(d.setDate(diff));
 }
+
+export function SameDay(stDate, day){
+	var sDay = day.year + '-' + day.month + '-' + day.day;
+	if(sDay == stDate) return true;
+	else return false;
+}
+
+export function SameDay2(stDate, day){
+	var sDay = day.year + '-' + day.month + '-' + day.day;
+	var sDay2 = stDate.year + '-' + stDate.month + '-' + stDate.day;
+	if(sDay == sDay2) return true;
+	else return false;
+}
+
+export function fullHour(stDate){
+	var sDay = stDate.hour + ':' + stDate.minute + ':' + stDate.second;
+	return sDay;
+}

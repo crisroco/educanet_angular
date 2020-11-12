@@ -5,7 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxLoadingModule } from 'ngx-loading';
-
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { DocenteRoutingModule } from './docente-routing.module';
 import { DocenteComponent } from './docente.component';
 import { MarkingComponent } from './pages/marking/marking.component';
@@ -18,13 +19,18 @@ import { HistoricalMarkingComponent } from './pages/historical-marking/historica
 import { PaymentHistoryComponent } from './pages/payment-history/payment-history.component';
 import { WeeklyScheduleComponent } from './pages/weekly-schedule/weekly-schedule.component';
 import { LibraryComponent } from './pages/library/library.component';
+import { VirtualScheduleComponent } from './pages/virtual-schedule/virtual-schedule.component';
 
 @NgModule({
-  declarations: [DocenteComponent, MarkingComponent, CourseManagementComponent, StudentGradesComponent, StudentAssistanceComponent, VirtualClassroomComponent, HistoricalMarkingComponent, PaymentHistoryComponent, WeeklyScheduleComponent, LibraryComponent],
+  declarations: [DocenteComponent, MarkingComponent, VirtualScheduleComponent, CourseManagementComponent, StudentGradesComponent, StudentAssistanceComponent, VirtualClassroomComponent, HistoricalMarkingComponent, PaymentHistoryComponent, WeeklyScheduleComponent, LibraryComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
     NgxSmartModalModule.forRoot(),
     ToastrModule.forRoot(),
     NgxLoadingModule.forRoot({}),
