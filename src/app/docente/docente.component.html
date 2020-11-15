@@ -31,7 +31,10 @@
                             </li>
                         </div>
                     </div>
-					 <li> <a class="w-100 hover-{{config_initial.code}}" href="http://cultura.educad.pe/" target="_blank">+ Somos Educa_d</a> </li>
+                    <li> <a href="/docente/horario-virtual" class="w-100 hover-{{config_initial.code}}">+ Disponibilidad Horarios y Cursos </a> </li>
+                    <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/horario-virtual']">- Disponibilidad Horario</a> </li>
+                    <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/cursos-clases']">- Disponibilidad Cursos </a> </li>
+					<li> <a class="w-100 hover-{{config_initial.code}}" href="http://cultura.educad.pe/" target="_blank">+ Somos Educa_d</a> </li>
                     <li *ngIf="cod_company === '003'"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="http://aulavirtual.sise.edu.pe/local/wseducad/auth/sso.php?strm=0000&class=0000&course=000000&emplid={{emplid_real}}&token=DOCENTE" >+ Inducción Docente</a> </li>
                     <li> <a class="w-100 hover-{{config_initial.code}}" (click)="getBenefits()">+ Beneficios</a> </li>
                     <li> <a href="/docente/general" class="w-100 hover-{{config_initial.code}}">+ Canal de Ética</a> </li>
