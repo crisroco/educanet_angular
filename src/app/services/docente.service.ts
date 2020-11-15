@@ -232,4 +232,16 @@ export class DocenteService {
         return this.http.post(AppSettings.BASE_UCSUR_LARAVEL + '/juanjo/deletedisponibilidad', data).toPromise();
     }
 
+    public getCarrer(emplid){
+        return this.http.get(AppSettings.BASE_UCSUR_LARAVEL + '/juanjo/getCarrerabyEmplid?emplid=' + emplid + '&institucion=UCS').toPromise();
+    }
+
+    public getCourses(emplid){
+        return this.http.get(AppSettings.BASE_UCSUR_LARAVEL + '/juanjo/getCursosCarrerabyEmplid?emplid=' + emplid + '&institucion=UCS').toPromise();
+    }
+
+    public saveCourse(data){
+        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL + '/juanjo/saveCursoDocente', data).toPromise();
+    }
+
 }

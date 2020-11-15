@@ -26,7 +26,8 @@ export class VirtualScheduleComponent implements OnInit {
 	events:CalendarEvent[] = [];
 	CalendarView = CalendarView;
     view: CalendarView = CalendarView.Week;
-    viewDate: Date = new Date();
+    listahours = ['06:00', '06:15','06:30','06:45','07:00', '07:15','07:30','07:45','08:00', '08:15','08:30','08:45','09:00', '09:15','09:30','09:45','10:00', '10:15','10:30','10:45','11:00', '11:15','11:30','11:45','12:00', '12:15','12:30','12:45','13:00', '13:15','13:30','13:45','14:00', '14:15','14:30','14:45','15:00', '15:15','15:30','15:45','16:00', '16:15','16:30','16:45','17:00', '17:15','17:30','17:45','18:00', '18:15','18:30','18:45','19:00', '19:15','19:30','19:45','20:00', '20:15','20:30','20:45','21:00', '21:15','21:30','21:45','22:00', '22:15','22:30','22:45','23:00', '23:15','23:30','23:45', '00:00'];
+    viewDate: Date = new Date("2016-04-05");
     locale: string = 'en';
     hourSegments: number = 2;
     weekStartsOn: number = 0;
@@ -51,13 +52,12 @@ export class VirtualScheduleComponent implements OnInit {
     public allGrados = [];
     public selectedDisponibility;
     public selectedDay = '';
-    public selectedCampus = '';
-    public selectedGrado = '';
     public fullday;
     public virtual = {
     	start: '',
     	end: ''
     }
+    loading:boolean = false;
     actions: CalendarEventAction[] = [
 		{
 			label: '<i class="fas fa-fw fa-pencil-alt"></i>',
@@ -90,6 +90,7 @@ export class VirtualScheduleComponent implements OnInit {
   }
 
   getAllVirtualClasses(){
+  	this.loading = true;
   	this.docenteS.getVirtualSchedule(this.user.emplid_moodle)
   		.then((res) => {
   			this.allClasses = res['data'];
@@ -99,14 +100,15 @@ export class VirtualScheduleComponent implements OnInit {
   					this.allCampus = res['data'];
   					this.docenteS.getgrado()
   						.then((res) => {
+  							this.loading = false;
   							this.allGrados = res['data'];
   						});
   				});
   		});
   }
 
-  eventClicked(evt, modal){
-  	console.log(evt);
+  eventClicked(evt){
+  	this.selectedDay = this.days[new Date(evt.start).getDay()];
   	let daySelected = evt.start.getFullYear() + '-' + (evt.start.getMonth() + 1) + '-' + evt.start.getDate();
   	this.fullday = daySelected;
   	var minutesS = (evt.start.getMinutes() < 10 ? '0' : '') + evt.start.getMinutes();
@@ -116,9 +118,7 @@ export class VirtualScheduleComponent implements OnInit {
   	this.virtual.start = hourS + ':' + minutesS;
   	this.virtual.end = hourE + ':' + minutesE;
   	this.updating = true;
-  	this.selectedGrado = evt.meta.grado;
   	this.selectedDisponibility = evt.meta;
-  	this.selectedCampus = evt.meta.campus;
 	this.addModal.open();
   }
 
@@ -128,62 +128,85 @@ export class VirtualScheduleComponent implements OnInit {
   }
 
   addedDate(date){
-  	console.log(date);
   	let daySelected = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
   	this.fullday = daySelected;
   	var seconds = date.getSeconds();
 	var minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
 	var hour = (date.getHours() < 10 ? '0' : '') + date.getHours();
 	this.virtual.start = hour + ':' + minutes;
+	this.virtual.end = '';
 	this.updating = false;
 	this.selectedDisponibility = '';
-	this.selectedGrado = '';
-	this.selectedCampus = '';
 	this.addModal.open();
   }
 
+  validateMinutes(){
+  	let startM = this.virtual.start.split(':')[1];
+  	let endM = this.virtual.end.split(':')[1];
+  	if (Number.isInteger(Number(startM) / 15) && Number.isInteger(Number(endM) / 15)) {
+  		return true
+  	}else {
+  		this.toastr.warning('Los minutos tienen que acabar en 00,15,30,45');
+  		this.loading = false;
+  		return false
+  	}
+  }
+
   save(){
-  	if (this.updating) {
+  	this.loading = true;
+	if (this.updating) {
   		let data = {
-  			id: this.selectedDisponibility.id,
 	  		institucion: "UCS",
-	  		grado: this.selectedGrado,
-	  		campus: this.selectedCampus,
-	  		title: "x",
 	  		description: this.user.emplid_moodle,
 	  		profesor: this.user.name,
 	  		oprid: "PEOPLE",
-	  		date: this.fullday + ' ' + this.virtual.start + ':00',
-	  		end: this.fullday + ' ' + this.virtual.end + ':00',
-	  		lvf_cod_empl: null,
-	  		fecha_reg: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate(),
-	  		proceso: 1
+	  		date: this.selectedDisponibility.date,
+	  		end: this.selectedDisponibility.end,
+	  		newdate: this.fullday + ' ' + this.virtual.start + ':00',
+	  		newend: this.fullday + ' ' + this.virtual.end + ':00',
 	  	}
-	  	this.docenteS.updateDisponibility(data).then((res) => {
-	  		this.ngOnInit();
-	  		this.toastr.success('Disponibilidad Actualizada');
-	  		this.addModal.close();
-	  	});
+
+	  	if (this.virtual.end > this.virtual.start) {
+	  		this.docenteS.updateDisponibility(data).then((res) => {
+		  		if (res['status']) {
+		  			this.ngOnInit();
+		  			this.toastr.success('Disponibilidad Actualizada');
+		  			this.loading = false;
+		  			this.addModal.close();
+		  		} else {
+		  			this.loading = false;
+					this.toastr.error(res['mensaje']);
+		  		}
+		  	});
+	  	} else {
+	  		this.loading = false;
+	  		this.toastr.warning('El tiempo fin es menor al tiempo de inicio');
+	  	}
   	} else {
   		let data = {
 	  		institucion: "UCS",
-	  		grado: this.selectedGrado,
-	  		campus: this.selectedCampus,
-	  		title: "x",
 	  		description: this.user.emplid_moodle,
 	  		profesor: this.user.name,
-	  		oprid: "PEOPLE",
 	  		date: this.fullday + ' ' + this.virtual.start + ':00',
 	  		end: this.fullday + ' ' + this.virtual.end + ':00',
-	  		lvf_cod_empl: null,
-	  		fecha_reg: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate(),
 	  		proceso: 1
 	  	}
-	  	this.docenteS.saveDisponibility(data).then((res) => {
-	  		this.ngOnInit();
-	  		this.toastr.success('Disponibilidad Creada');
-	  		this.addModal.close();
-	  	});
+	  	if (this.virtual.end > this.virtual.start) {
+	  		this.docenteS.saveDisponibility(data).then((res) => {
+		  		if (res['status']) {
+		  			this.ngOnInit();
+		  			this.toastr.success('Disponibilidad Creada');
+		  			this.loading = false;
+		  			this.addModal.close();
+		  		} else {
+		  			this.loading = false;
+	  				this.toastr.error(res['mensaje']);
+		  		}
+		  	});
+	  	} else {
+	  		this.loading = false;
+	  		this.toastr.warning('El tiempo fin es menor al tiempo de inicio');
+	  	}
   	}
   }
 
@@ -201,18 +224,20 @@ export class VirtualScheduleComponent implements OnInit {
 	var events = [];
 	var objEvents = {};
 	let dates: any = {};
+	console.log(this.allClasses);
 	this.allClasses.forEach(myclase => {
 		for(var kDay in days){
 			if(SameDay2(RealDate(new Date(myclase.date)), days[kDay])){
 				var rDay = days[kDay].year + '-' + days[kDay].month + '-' + days[kDay].day;
 				myclase.secondDate = rDay;
-				console.log(myclase);
 				if(!objEvents[rDay + ' ' + fullHour(RealDate(new Date(myclase.date))) + ' ' + myclase.description]){
 					dates = this.getDates(rDay, fullHour(RealDate(new Date(myclase.date))), fullHour(RealDate(new Date(myclase.end))));
+					let hourandMinutesS = fullHour(RealDate(new Date(myclase.date)));
+					let hourandMinutesE = fullHour(RealDate(new Date(myclase.end)));
 					events.push({
 						start: dates.start,//new Date(rDay + ' ' + classD.MEETING_TIME_START),
 						end: dates.end,//new Date(rDay + ' ' + classD.MEETING_TIME_END),
-						title: fullHour(RealDate(new Date(myclase.date))) + '-' + fullHour(RealDate(new Date(myclase.end))) + '<br>' + myclase.grado,
+						title: hourandMinutesS.slice(0, -3) + '-' + hourandMinutesE.slice(0,-3),
 						actions: this.actions,
 						allDay: false,
 						resizable: {
@@ -303,9 +328,16 @@ export class VirtualScheduleComponent implements OnInit {
 	}
 
 	delete(){
-		this.docenteS.deleteDisponibility({id: this.selectedDisponibility.id, institucion: 'UCS'})
+		this.docenteS.deleteDisponibility({
+			description: this.user.emplid_moodle,
+			institucion: 'UCS',
+			date: this.fullday + ' ' + this.virtual.start + ':00',
+	  		end: this.fullday + ' ' + this.virtual.end + ':00',
+		})
 			.then((res) => {
-				this.toastr.error('Disponibilidad Eliminada');
+				this.toastr.success('Disponibilidad Eliminada');
+				this.ngOnInit();
+				this.addModal.close();
 			});
 	}
 

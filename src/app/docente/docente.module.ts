@@ -20,9 +20,10 @@ import { PaymentHistoryComponent } from './pages/payment-history/payment-history
 import { WeeklyScheduleComponent } from './pages/weekly-schedule/weekly-schedule.component';
 import { LibraryComponent } from './pages/library/library.component';
 import { VirtualScheduleComponent } from './pages/virtual-schedule/virtual-schedule.component';
+import { CoursesandclassesComponent } from './pages/coursesandclasses/coursesandclasses.component';
 
 @NgModule({
-  declarations: [DocenteComponent, MarkingComponent, VirtualScheduleComponent, CourseManagementComponent, StudentGradesComponent, StudentAssistanceComponent, VirtualClassroomComponent, HistoricalMarkingComponent, PaymentHistoryComponent, WeeklyScheduleComponent, LibraryComponent],
+  declarations: [DocenteComponent, MarkingComponent, VirtualScheduleComponent, CourseManagementComponent, StudentGradesComponent, StudentAssistanceComponent, VirtualClassroomComponent, HistoricalMarkingComponent, PaymentHistoryComponent, WeeklyScheduleComponent, LibraryComponent, CoursesandclassesComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
