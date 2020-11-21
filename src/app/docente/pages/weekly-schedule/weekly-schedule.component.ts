@@ -61,7 +61,7 @@ export class WeeklyScheduleComponent implements OnInit {
 	ngOnInit() {
 		var firstDayWeek = RealDate(GetFirstDayWeek(new Date()));
 		this.firstDayWeek = firstDayWeek.year + '-' + firstDayWeek.month + '-' + firstDayWeek.day;
-		var lastDayWeek = RealDate(GetLastDayWeek(new Date()));
+		var lastDayWeek = RealDate(new Date());
 		this.lastDayWeek = lastDayWeek.year + '-' + lastDayWeek.month + '-' + lastDayWeek.day
 		this.docenteS.getTeacherSchedule({
 			EMPLID: (this.cod_company == '002'?this.emplid:this.emplid_real), 
@@ -69,7 +69,6 @@ export class WeeklyScheduleComponent implements OnInit {
 			FECHA_DEL: this.firstDayWeek,
 		})
 		.then(res => {
-			console.log(res);
 			var objHours = {};
 			this.listHours = [];
 			this.classrooms = res.UCS_REST_MARCACAL_RES && res.UCS_REST_MARCACAL_RES.UCS_REST_MARCACAL_COM?res.UCS_REST_MARCACAL_RES.UCS_REST_MARCACAL_COM:[];
