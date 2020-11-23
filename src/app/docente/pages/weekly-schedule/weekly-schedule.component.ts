@@ -21,6 +21,7 @@ export class WeeklyScheduleComponent implements OnInit {
 	classrooms: any;
 	firstDayWeek: any;
 	lastDayWeek: any;
+	reallastDayWeek: any;
 	listHours: any;
 	backgroundColors: any = {
 		'12': 'rgba(132, 238, 179, 0.38)',
@@ -62,7 +63,9 @@ export class WeeklyScheduleComponent implements OnInit {
 		var firstDayWeek = RealDate(GetFirstDayWeek(new Date()));
 		this.firstDayWeek = firstDayWeek.year + '-' + firstDayWeek.month + '-' + firstDayWeek.day;
 		var lastDayWeek = RealDate(new Date());
-		this.lastDayWeek = lastDayWeek.year + '-' + lastDayWeek.month + '-' + lastDayWeek.day
+		this.lastDayWeek = lastDayWeek.year + '-' + lastDayWeek.month + '-' + lastDayWeek.day;
+		var realLastDayWeek = RealDate(GetLastDayWeek(new Date()));
+		this.reallastDayWeek = realLastDayWeek.year + '-' + realLastDayWeek.month + '-' + realLastDayWeek.day;
 		this.docenteS.getTeacherSchedule({
 			EMPLID: (this.cod_company == '002'?this.emplid:this.emplid_real), 
 			FECHA_AL: this.lastDayWeek,
