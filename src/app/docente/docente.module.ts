@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LOCALE_ID } from '@angular/core';
 
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { ToastrModule } from 'ngx-toastr';
@@ -38,7 +39,8 @@ import { CoursesandclassesComponent } from './pages/coursesandclasses/coursesand
     DocenteRoutingModule
   ],
   providers: [
-    DocenteService
+    DocenteService,
+    { provide: LOCALE_ID, useValue: "es-PE" }, //replace "en-US" with your locale
   ],
 })
 export class DocenteModule { }

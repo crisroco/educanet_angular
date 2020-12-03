@@ -51,6 +51,10 @@ export class MarkingComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		var fecha = new Date();
+		fecha.toLocaleString('es-PE')
+console.log("As ISO8601 in utc:", fecha);
+console.log("As local:", fecha.toLocaleString('es-PE'));
 		this.getRealDate();
 		this.getListClassroom();
 		this.loginS.getIPAddress()

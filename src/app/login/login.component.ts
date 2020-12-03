@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
         	if(res.noaccess || res.error){ 
         		this.toastr.error(res.noaccess); 
         		this.session.allCLear();
-        		this. sendLog(AppSettings.ACCESS_PS, res);
+        		this.sendLog(AppSettings.ACCESS_PS, res);
         		return; 
         	}
 			this.session.setItem('token', this.variable);
