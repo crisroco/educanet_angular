@@ -200,6 +200,7 @@ export class StudentGradesComponent implements OnInit {
 				strm: student.STRM,
 				student_grade: grade.ACTN_TYPE_CD,
 				oprid: atob(this.user.oprid),
+				course: student.DESCR2
 			}
 			this.docenteS.updateGrade(dataStudent)
 			.then(res => {
