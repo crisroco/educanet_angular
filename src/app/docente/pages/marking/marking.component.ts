@@ -185,16 +185,10 @@ console.log("As local:", fecha.toLocaleString('es-PE'));
 				this.typeMessage = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].RESTRINGE:'';
 				if (this.typeMessage == 'Y') {
 					this.goToZoom();
-					if(this.cod_company == '002' && secondClass && !secondClass.MARC_TIME_START){
-						this.docenteS.registerMarking2(data2)
-						.then( res => {
-							this.getListClassroom();
-							this.sendLog(uri, data2.datos, res);
-							this.loading = false;
-						}, error => { this.loading = false;  this.sendLog(uri, data2.datos, error); });
-					}
+					if(this.cod_company == '002') this.markingExit(data, uri, secondClass, data2);
+					else this.getListClassroom();
 				}
-				this.getListClassroom();
+				else this.getListClassroom();
 				this.sendLog(uri, data.datos, res);
 				this.loading = false;
 			}, error => { this.loading = false;  this.sendLog(uri, data.datos, error); });
@@ -210,16 +204,10 @@ console.log("As local:", fecha.toLocaleString('es-PE'));
 					this.message = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].MENSAJE:'';
 					this.typeMessage = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].RESTRINGE:'';
 					if (this.typeMessage == 'Y') {
-						if(this.cod_company == '002' && secondClass && !secondClass.MARC_TIME_START){
-							this.docenteS.registerMarking2(data2)
-							.then( res => {
-								this.getListClassroom();
-								this.sendLog(uri, data2.datos, res);
-								this.loading = false;
-							}, error => { this.loading = false;  this.sendLog(uri, data2.datos, error); });
-						}
+						if(this.cod_company == '002') this.markingExit(data, uri, secondClass, data2);
+						else this.getListClassroom();
 					}
-					this.getListClassroom();
+					else this.getListClassroom();
 					this.sendLog(uri, data.datos, res);
 					this.loading = false;
 				}, error => { this.loading = false;  this.sendLog(uri, data.datos, error); });
@@ -229,6 +217,21 @@ console.log("As local:", fecha.toLocaleString('es-PE'));
 				this.loading = false;
 			}
 		}
+	}
+
+	markingExit(data, uri, secondClass?, data2?){
+		this.docenteS.registerMarking3(data)
+		.then( res => {
+			this.sendLog(uri + '3', data.datos, res);
+			if(secondClass && !secondClass.MARC_TIME_START){
+				this.docenteS.registerMarking2(data2)
+				.then( res => {
+					this.sendLog(uri + '2', data2.datos, res);
+					this.markingExit(data2, uri);
+				}, error => { this.loading = false;  this.sendLog(uri + '2', data2.datos, error); });
+			}
+			else { this.loading = false; this.getListClassroom(); }
+		}, error => { this.loading = false;  this.sendLog(uri + '3', data.datos, error); });
 	}
 
 	goToZoom(){
