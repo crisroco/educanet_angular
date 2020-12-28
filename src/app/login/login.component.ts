@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     	private deviceS: DeviceDetectorService) { }
 
 	ngOnInit() {
-		 this.loginForm = this.formBuilder.group({
+		this.loginForm = this.formBuilder.group({
 		 	empresa: ['', Validators.required],
 			email: ['', Validators.required],
 			password: ['', Validators.required],

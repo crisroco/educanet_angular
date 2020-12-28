@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class DocenteComponent implements OnInit {
 	@ViewChild('ethnicityModal') ethnicityModal: any;
 	@ViewChild('surveyModal') surveyModal: any;
+	@ViewChild('piezaModal') piezaModal: any;
 	config_initial: any;
 	menus: any;
 	cod_company: any;
@@ -38,6 +39,7 @@ export class DocenteComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		if (this.cod_company == '002') {this.piezaModal.open();}
 		this.getMenu();
 		this.getEthnicity();
 	}
