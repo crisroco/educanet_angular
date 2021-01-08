@@ -206,8 +206,8 @@ export class DocenteService {
         return this.http.get(AppSettings.PRODUCTION + '/docentes/user', {  params: data, headers: this.generalS.makeHeader() }).toPromise();
     }
 
-    public getLinkZoom(cicle, myclass, date, section): Promise<any> {
-        return this.http.get("https://aulavirtualcpe.cientifica.edu.pe/mod/zoom/client/zoom_link_teacher.php?strm=" + cicle + '&nbr=' + myclass + '&date=' + date + '&section=' + section, {responseType: 'text'}).toPromise();
+    public getLinkZoom(cicle, myclass, date, section, teacher): Promise<any> {
+        return this.http.get("https://aulavirtualcpe.cientifica.edu.pe/mod/zoom/client/zoom_link_teacher.php?strm=" + cicle + '&nbr=' + myclass + '&date=' + date + '&section=' + section + '&teacher=' + teacher, {responseType: 'text'}).toPromise();
     }
 
     /* VIRTUAL CLASSES */

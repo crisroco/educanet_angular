@@ -39,7 +39,7 @@ export class DocenteComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		if (this.cod_company == '002') {this.piezaModal.open();}
+		// if (this.cod_company == '002') {this.piezaModal.open();}
 		this.getMenu();
 		this.getEthnicity();
 	}

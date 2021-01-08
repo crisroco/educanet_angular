@@ -238,7 +238,7 @@ console.log("As local:", fecha.toLocaleString('es-PE'));
 		let clase = this.realClassroom;
 		let d = new Date();
 		if (clase.INSTITUTION != 'PSTRG') {
-			this.docenteS.getLinkZoom(clase['STRM'], clase['CLASS_NBR2'], Number(clase['UCS_TIMESTAMP']) + 18000, clase['CLASS_SECTION'])
+			this.docenteS.getLinkZoom(clase['STRM'], clase['CLASS_NBR2'], Number(clase['UCS_TIMESTAMP']) + 18000, clase['CLASS_SECTION'], clase['DOCENTE'])
 			.then((res) => {
 				if (JSON.parse(res)[0]['response'].includes('FALSE')) {
 					// code...
