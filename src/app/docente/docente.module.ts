@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LOCALE_ID } from '@angular/core';
 
@@ -23,6 +23,8 @@ import { LibraryComponent } from './pages/library/library.component';
 import { VirtualScheduleComponent } from './pages/virtual-schedule/virtual-schedule.component';
 import { CoursesandclassesComponent } from './pages/coursesandclasses/coursesandclasses.component';
 
+import localePE from '@angular/common/locales/es-PE';
+registerLocaleData(localePE, 'es-PE');
 @NgModule({
   declarations: [DocenteComponent, MarkingComponent, VirtualScheduleComponent, CourseManagementComponent, StudentGradesComponent, StudentAssistanceComponent, VirtualClassroomComponent, HistoricalMarkingComponent, PaymentHistoryComponent, WeeklyScheduleComponent, LibraryComponent, CoursesandclassesComponent],
   imports: [
@@ -40,7 +42,7 @@ import { CoursesandclassesComponent } from './pages/coursesandclasses/coursesand
   ],
   providers: [
     DocenteService,
-    { provide: LOCALE_ID, useValue: "es-PE" }, //replace "en-US" with your locale
+    { provide: LOCALE_ID, useValue: "es-PE" } //replace "en-US" with your locale
   ],
 })
 export class DocenteModule { }

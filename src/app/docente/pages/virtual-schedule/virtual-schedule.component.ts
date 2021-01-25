@@ -93,7 +93,7 @@ export class VirtualScheduleComponent implements OnInit {
   	this.loading = true;
   	this.docenteS.getVirtualSchedule(this.user.emplid_moodle)
   		.then((res) => {
-  			this.allClasses = res['data'];
+			this.allClasses = res['data'];
   			this.closeOpenMonthViewDay();
   			this.docenteS.getCampus()
   				.then((res) => {
@@ -224,7 +224,6 @@ export class VirtualScheduleComponent implements OnInit {
 	var events = [];
 	var objEvents = {};
 	let dates: any = {};
-	console.log(this.allClasses);
 	this.allClasses.forEach(myclase => {
 		for(var kDay in days){
 			if(SameDay2(RealDate(new Date(myclase.date)), days[kDay])){
@@ -336,6 +335,7 @@ export class VirtualScheduleComponent implements OnInit {
 		})
 			.then((res) => {
 				this.toastr.success('Disponibilidad Eliminada');
+				this.events = [];
 				this.ngOnInit();
 				this.addModal.close();
 			});
