@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { LoginService } from '../services/login.service';
 import { SessionService } from '../services/session.service';
+import { DocenteService } from '../services/docente.service';
 import { Encrypt } from '../helpers/general';
 import { AppSettings } from '../app.settings';
 import { Router } from '@angular/router';
@@ -22,11 +23,21 @@ export class LoginComponent implements OnInit {
 	loading = false;
 	showLinks = false;
 
+	@ViewChild('registropostulanteModal') registropostulanteModal: any;	
+	nombre = '';
+	apaterno = '';
+	amaterno = '';
+	fnacimiento = '';
+	correo = '';
+	dni = '';
+	postulanteForm: FormGroup;
+
 	constructor(private formBuilder: FormBuilder,
     	private toastr: ToastrService,
     	private loginS: LoginService,
     	private session: SessionService,
-    	private router: Router,
+		private router: Router,
+		private docenteS: DocenteService,
     	private deviceS: DeviceDetectorService) { }
 
 	ngOnInit() {
@@ -47,6 +58,15 @@ export class LoginComponent implements OnInit {
 			this.ip = '0.0.0.0';
 		});
 		this.data_browser = this.deviceS.getDeviceInfo();
+
+		this.postulanteForm = this.formBuilder.group({
+			nombre: ['', Validators.required],
+			apaterno: ['', Validators.required],
+			amaterno: ['', Validators.required],
+			fnacimiento: ['', Validators.required],
+			correo: ['', [Validators.required, Validators.email]],
+			dni: ['', [Validators.required, Validators.pattern("[0(9)-9]{8}")]]
+		});
 	}
 
 	login(){
@@ -152,6 +172,79 @@ export class LoginComponent implements OnInit {
 
 	showTypes(){
 		this.showLinks = !this.showLinks;
+	}
+
+	openRegistroPostulante(){
+		this.nombre = '';
+		this.apaterno = '';
+		this.amaterno = '';
+		this.fnacimiento = '';
+		this.correo = '';
+		this.dni = '';
+		this.registropostulanteModal.open(); 		
+	}
+
+	savePostulante(){
+		if (this.postulanteForm.invalid) { 
+			
+			if(this.nombre.length == 0){
+				this.toastr.error('Nombre requerido');	
+				return;	
+			}
+
+			if(this.apaterno.length == 0){
+				this.toastr.error('Apellido Paterno requerido'); 
+				return;	
+			}
+
+			if(this.amaterno.length == 0){
+				this.toastr.error('Apellido Materno requerido'); return;
+			}	
+
+			if(this.fnacimiento.length == 0){
+				this.toastr.error('Fecha Nacimiento requerido'); 
+				return;		
+			}
+
+			if(this.dni.length < 8){
+				this.toastr.error('Dni invalido'); 
+				return;	
+			}	
+
+			if(this.correo.length == 0){
+				this.toastr.error('Correo requerido'); 
+				return; 
+			}	
+
+				this.toastr.error('Formato de correo invalido'); return; 
+
+			return;			
+		}
+		this.loading = true;
+		this.docenteS.savePostulante({
+			'unidad' : '002',
+			'apellido_paterno' : this.apaterno,
+			'apellido_materno' : this.amaterno,
+			'nombre_completo' : this.nombre,
+			'tipo_documento' : 'DNI',
+			'nro_documento' : this.dni,
+			'fecha_nacimiento' : this.fnacimiento,
+			'nacionalidad' : null,
+			'email' : this.correo,
+			'estado_civil' : null,
+			'sexo' : null,
+			'id_solicitud' : null
+		})
+		.then(res => {
+			this.loading = false;
+			if(res.status){			
+				this.toastr.success('Datos guardados exitósamente');
+				this.registropostulanteModal.close();			
+			}
+			else{
+				this.toastr.error(res.mensaje);
+			}
+		})
 	}
 
 }

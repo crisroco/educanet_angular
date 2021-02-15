@@ -252,4 +252,8 @@ export class DocenteService {
         return this.http.post(AppSettings.BASE_UCSUR_LARAVEL + '/juanjo/saveCursoDocente', data).toPromise();
     }
 
+    public savePostulante(data: any): Promise<any>{
+        return this.http.post(AppSettings.SERVICES_INCORPORACION + '/api/postulante/savePostulante', data).toPromise();
+    } 
+    
 }
