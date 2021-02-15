@@ -1,28 +1,28 @@
 <div class="bg-gray full-content">
-	<div class="row container-2 mx-auto py-2">
-		<div class="col-md-12 col-lg-3 pr-3">
-			<div class="py-3 bg-white full-content rounded-1 d-none d-lg-block">
-				<div class="col-12 ">
-					<div class="row justify-content-center mt-5 mb-4">
-			            <img src="{{config_initial.img}}" width="50%" alt="">
-			        </div>
-					<div class="text-center mb-4">
-						<i class="fa fa-user fa-4x mb-4"></i>
-						<p class="mb-1 text-m">Te damos la bienvenida</p>
-						<h5 class="text-xm"><strong>{{ user.name + ' ' + user.surname }}</strong></h5>
-						<p class="m-0">{{ user.email2 }}</p>
-						<p>{{ user.emplid_moodle }}</p>
-						<a class="btn bg-gray rounded-2 text-normal">Datos Personales</a>
-					</div>
-				</div>
+    <div class="row container-2 mx-auto py-2">
+        <div class="col-md-12 col-lg-3 pr-3">
+            <div class="py-3 bg-white full-content rounded-1 d-none d-lg-block">
+                <div class="col-12 ">
+                    <div class="row justify-content-center mt-5 mb-4">
+                        <img src="{{config_initial.img}}" width="50%" alt="">
+                    </div>
+                    <div class="text-center mb-4">
+                        <i class="fa fa-user fa-4x mb-4"></i>
+                        <p class="mb-1 text-m">Te damos la bienvenida</p>
+                        <h5 class="text-xm"><strong>{{ user.name + ' ' + user.surname }}</strong></h5>
+                        <p class="m-0">{{ user.email2 }}</p>
+                        <p>{{ user.emplid_moodle }}</p>
+                        <a class="btn bg-gray rounded-2 text-normal" (click)="goIncorporacion();">Datos Personales</a>
+                    </div>
+                </div>
 
-				<ul class="col-12 pr-0 pb-5">
-					 <!-- Aca van los menús -->
-					 <div *ngFor="let menu of menus">
+                <ul class="col-12 pr-0 pb-5">
+                    <!-- Aca van los menús -->
+                    <div *ngFor="let menu of menus">
                         <li *ngIf="menu.uri=='noticias'">
                             <a class="w-100 hover-{{config_initial.code}}" (click)="goTraining()">+ Capacítate aquí</a>
                         </li>
-                        <li  *ngIf="menu.uri!='noticias'">
+                        <li *ngIf="menu.uri!='noticias'">
                             <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="'/docente/' + (menu.uri?menu.uri:'general')">+ {{menu.title}}</a>
                         </li>
                         <div *ngFor="let submenu of menu.below">
@@ -34,119 +34,120 @@
                     <!-- <li> <a href="/docente/horario-virtual" class="w-100 hover-{{config_initial.code}}">+ Disponibilidad Horarios y Cursos </a> </li> -->
                     <!-- <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/horario-virtual']">- Disponibilidad Horario</a> </li>
                     <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/cursos-clases']">- Disponibilidad Cursos </a> </li> -->
-					<li> <a class="w-100 hover-{{config_initial.code}}" href="http://cultura.educad.pe/" target="_blank">+ Somos Educa_d</a> </li>
-                    <li *ngIf="cod_company === '003'"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="http://aulavirtual.sise.edu.pe/local/wseducad/auth/sso.php?strm=0000&class=0000&course=000000&emplid={{emplid_real}}&token=DOCENTE" >+ Inducción Docente</a> </li>
+                    <li> <a class="w-100 hover-{{config_initial.code}}" href="http://cultura.educad.pe/" target="_blank">+ Somos Educa_d</a> </li>
+                    <li *ngIf="cod_company === '003'"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="http://aulavirtual.sise.edu.pe/local/wseducad/auth/sso.php?strm=0000&class=0000&course=000000&emplid={{emplid_real}}&token=DOCENTE">+ Inducción Docente</a> </li>
+
                     <li> <a class="w-100 hover-{{config_initial.code}}" (click)="getBenefits()">+ Beneficios</a> </li>
                     <li> <a href="/docente/general" class="w-100 hover-{{config_initial.code}}">+ Canal de Ética</a> </li>
                     <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="https://grupoeducad.sharepoint.com/sites/RepositorioProceso/SitePages/doc/DGT-RES-POL-01%20C%C3%B3digo%20de%20%C3%89tica.pdf">- Código de Ética</a> </li>
-                    <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="https://grupoeducad.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=p&chid=bb8aab6b-b381-4a09-b6c2-e185835c743b&vid=b63a720d-4a5f-440e-801a-9eeb15f3d4a9">- Procedimiento</a> </li>
+                    <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="https://grupoeducad.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=p&chid=bb8aab6b-b381-4a09-b6c2-e185835c743b&vid=b63a720d-4a5f-440e-801a-9eeb15f3d4a9">- Procedimiento</a>                        </li>
                     <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['denuncia']">- Portal de Denuncia</a> </li>
-                    <li> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="https://grupoeducad.sharepoint.com/sites/RepositorioProceso/SitePages/RepositorioProceso.aspx" >+ Procedimientos y Políticas</a></li>
+                    <li> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="https://grupoeducad.sharepoint.com/sites/RepositorioProceso/SitePages/RepositorioProceso.aspx">+ Procedimientos y Políticas</a></li>
                     <li> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/biblioteca']">+ Biblioteca</a></li>
                     <li> <a class="w-100 hover-{{config_initial.code}}" (click)="logout()">+ Cerrar Sesión</a></li>
-				</ul>
-				
-			</div>
-			<div class="bg-white rounded-1 d-lg-none mb-2 py-2 px-3">
-				<div class="row align-items-center justify-content-between">
-					<img src="{{config_initial.img}}" width="100px" alt="">
+                </ul>
 
-					<button class="btn bg-{{config_initial.code}} text-white" (click)="menu_bars = !menu_bars">
+            </div>
+            <div class="bg-white rounded-1 d-lg-none mb-2 py-2 px-3">
+                <div class="row align-items-center justify-content-between">
+                    <img src="{{config_initial.img}}" width="100px" alt="">
+
+                    <button class="btn bg-{{config_initial.code}} text-white" (click)="menu_bars = !menu_bars">
 						<i class="fa fa-bars"></i>
 					</button>
-				</div>
+                </div>
 
-				<div *ngIf="menu_bars">
-					<ul class="mb-2 mt-2">
-						 <div *ngFor="let menu of menus">
-	                        <li *ngIf="menu.uri=='noticias'">
-	                            <a class="w-100 hover-{{config_initial.code}} px-2" (click)="goTraining()">+ Capacítate aquí</a>
-	                        </li>
-	                        <li  *ngIf="menu.uri!='noticias'">
-	                            <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="'/docente/' + (menu.uri?menu.uri:'general')">+ {{menu.title}}</a>
-	                        </li>
-	                        <div *ngFor="let submenu of menu.below">
-	                            <li>
-	                                <a class="w-100 hover-{{config_initial.code}} px-3" routerLinkActive="active-link" [routerLink]="submenu.uri">- {{submenu.title}}</a>
-	                            </li>
-	                        </div>
-	                    </div>
-	                    <!-- <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/horario-virtual']">+ Disponibilidad Horario</a> </li>
+                <div *ngIf="menu_bars">
+                    <ul class="mb-2 mt-2">
+                        <div *ngFor="let menu of menus">
+                            <li *ngIf="menu.uri=='noticias'">
+                                <a class="w-100 hover-{{config_initial.code}} px-2" (click)="goTraining()">+ Capacítate aquí</a>
+                            </li>
+                            <li *ngIf="menu.uri!='noticias'">
+                                <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="'/docente/' + (menu.uri?menu.uri:'general')">+ {{menu.title}}</a>
+                            </li>
+                            <div *ngFor="let submenu of menu.below">
+                                <li>
+                                    <a class="w-100 hover-{{config_initial.code}} px-3" routerLinkActive="active-link" [routerLink]="submenu.uri">- {{submenu.title}}</a>
+                                </li>
+                            </div>
+                        </div>
+                        <!-- <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/horario-virtual']">+ Disponibilidad Horario</a> </li>
 	                    <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/cursos-clases']">+ Disponibilidad Cursos </a> </li> -->
-	                    <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/biblioteca']">+ Biblioteca</a></li>
-	                    <li> <a class="w-100 hover-{{config_initial.code}} px-2" (click)="logout()">+ Cerrar Sesión</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-12 col-lg-9 pl-3">
-			<div class="panel mb-2">
-				<a href="https://es.surveymonkey.com/r/WPSCTXS" target="_blank">
-					<img class="rounded-1" alt="" src="assets/Encuesta2.jpg" width="100%">
-				</a>
-			</div>
+                        <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/biblioteca']">+ Biblioteca</a></li>
+                        <li> <a class="w-100 hover-{{config_initial.code}} px-2" (click)="logout()">+ Cerrar Sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-9 pl-3">
+            <div class="panel mb-2">
+                <a href="https://es.surveymonkey.com/r/WPSCTXS" target="_blank">
+                    <img class="rounded-1" alt="" src="assets/Encuesta2.jpg" width="100%">
+                </a>
+            </div>
 
-			<router-outlet></router-outlet>
-		</div>
-	</div>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
 </div>
 
 <div class="position-fixed float-wsp-br row align-items-end flex-column">
-	<div class="row flex-column bg-white m-2 p-3 rounded-1 shadow position-relative" *ngIf="showwsp">
-		<div class="triangle-b bd-t-white position-absolute float-triangle-br"></div>
-		<a href="https://api.whatsapp.com/send?phone=5117071810" target="_blank" class="text-black text-xm p-1"><i class="fa fa-whatsapp text-wsp text-l"></i> Atención Docente ( SAED ) </a>
-	</div>
-	<div class="text-right">
-		<a (click)="showwsp = !showwsp" class="circle-mi row justify-content-center align-items-center bg-wsp pointer">
-			<img style="width: 40px" src="./assets/wsp.png">
-		</a>
-	</div>
+    <div class="row flex-column bg-white m-2 p-3 rounded-1 shadow position-relative" *ngIf="showwsp">
+        <div class="triangle-b bd-t-white position-absolute float-triangle-br"></div>
+        <a href="https://api.whatsapp.com/send?phone=5117071810" target="_blank" class="text-black text-xm p-1"><i class="fa fa-whatsapp text-wsp text-l"></i> Atención Docente ( SAED ) </a>
+    </div>
+    <div class="text-right">
+        <a (click)="showwsp = !showwsp" class="circle-mi row justify-content-center align-items-center bg-wsp pointer">
+            <img style="width: 40px" src="./assets/wsp.png">
+        </a>
+    </div>
 </div>
 
 <ngx-smart-modal #ethnicityModal identifier="ethnicityModal" [closable]="false" [escapable]="false" [dismissable]="false" [customClass]="''">
-	<div class="text-center mb-3">
-		<h5>Actualización de Datos</h5>
-	</div>
-	<p class="m-0">Estimado docente, </p>
-	<p>A solicitud del MINEDU requerimos su apoyo para registrar la siguiente información:</p>
+    <div class="text-center mb-3">
+        <h5>Actualización de Datos</h5>
+    </div>
+    <p class="m-0">Estimado docente, </p>
+    <p>A solicitud del MINEDU requerimos su apoyo para registrar la siguiente información:</p>
 
-  	<div class="form">
-  		<div class="form-group">
-  			<label class="form-label"> Etnía a la que pertenece </label>
-  			<select class="form-control" name="etnia" [(ngModel)]="realEthnicity">
+    <div class="form">
+        <div class="form-group">
+            <label class="form-label"> Etnía a la que pertenece </label>
+            <select class="form-control" name="etnia" [(ngModel)]="realEthnicity">
   				<option value=""> SELECCIONE </option>
   				<option *ngFor="let ethnicity of ethnicities" value="{{ethnicity.value}}"> {{ethnicity.name}} </option>
   			</select>
-  		</div>
+        </div>
 
-  		<div *ngIf="realEthnicity == '08'" class="form-group">
-  			<label class="form-label"> Por favor Registre </label>
-  			<input class="form-control" type="text" name="otros" [(ngModel)]="realOther" placeholder="Otros">
-  		</div>
-  	</div>
+        <div *ngIf="realEthnicity == '08'" class="form-group">
+            <label class="form-label"> Por favor Registre </label>
+            <input class="form-control" type="text" name="otros" [(ngModel)]="realOther" placeholder="Otros">
+        </div>
+    </div>
 
-	<div class="text-center">
-	    <button (click)="ethnicityModal.close()" class="btn btn-secondary mr-2">Cerrar</button>
-	    <button (click)="saveEthnicity()" class="btn btn-success">Guardar</button>
-  	</div>
+    <div class="text-center">
+        <button (click)="ethnicityModal.close()" class="btn btn-secondary mr-2">Cerrar</button>
+        <button (click)="saveEthnicity()" class="btn btn-success">Guardar</button>
+    </div>
 </ngx-smart-modal>
 
 <ngx-smart-modal #surveyModal identifier="surveyModal" [closable]="false" [escapable]="true" [dismissable]="true" [customClass]="''">
-	<div class="mb-3 row justify-content-between pb-2 bd-b-1 bd-{{config_initial.code}}">
-		<h5 class=""> <strong> Encuesta 2020 </strong> </h5>
-		<a (click)="surveyModal.close()" class="pointer"><i class="fa fa-times text-{{config_initial.code}} text-l"></i></a>
-	</div>
-  	<div class="h-fn scroll fullModal px-2">
-		<a target="_blank" href="https://es.surveymonkey.com/r/JJFJD52"><img class="w-100" src="./assets/encuesta.png"></a>
-		<p class="mt-2 text-center"><a class="text-{{config_initial.code}}" target="_blank" href="https://es.surveymonkey.com/r/JJFJD52">Ingresar a la encuesta</a></p>
-	</div>
+    <div class="mb-3 row justify-content-between pb-2 bd-b-1 bd-{{config_initial.code}}">
+        <h5 class=""> <strong> Encuesta 2020 </strong> </h5>
+        <a (click)="surveyModal.close()" class="pointer"><i class="fa fa-times text-{{config_initial.code}} text-l"></i></a>
+    </div>
+    <div class="h-fn scroll fullModal px-2">
+        <a target="_blank" href="https://es.surveymonkey.com/r/JJFJD52"><img class="w-100" src="./assets/encuesta.png"></a>
+        <p class="mt-2 text-center"><a class="text-{{config_initial.code}}" target="_blank" href="https://es.surveymonkey.com/r/JJFJD52">Ingresar a la encuesta</a></p>
+    </div>
 </ngx-smart-modal>
 
 <ngx-smart-modal #piezaModal identifier="piezaModal" [closable]="true" [escapable]="true" [dismissable]="true" [customClass]="'smallModal fullModal'">
-	<a href="https://isise.sharepoint.com/:b:/s/DUCIENTIFICA/EQmyXpkEfhxJsNj_y7hfHdsBvUoFZKHy5Ym0U7KfcCH4Pg?e=N4Qnde" target="_blank">
-		<img class="w-100 rounded-1" src="./assets/img/pieza_portal.jpg">
-	</a>
-	<div class="btn-close-float p-2">
-		<a (click)="piezaModal.close()" class="pointer d-block p-2 bg-black-a circle-x"><i class="fa fa-times text-white text-l"></i></a>
-	</div>
+    <a href="https://isise.sharepoint.com/:b:/s/DUCIENTIFICA/EQmyXpkEfhxJsNj_y7hfHdsBvUoFZKHy5Ym0U7KfcCH4Pg?e=N4Qnde" target="_blank">
+        <img class="w-100 rounded-1" src="./assets/img/pieza_portal.jpg">
+    </a>
+    <div class="btn-close-float p-2">
+        <a (click)="piezaModal.close()" class="pointer d-block p-2 bg-black-a circle-x"><i class="fa fa-times text-white text-l"></i></a>
+    </div>
 </ngx-smart-modal>

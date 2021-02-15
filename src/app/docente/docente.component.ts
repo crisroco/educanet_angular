@@ -7,6 +7,8 @@ import { LoginService } from '../services/login.service';
 import { Decrypt, Encrypt } from '../helpers/general';
 import { ToastrService } from 'ngx-toastr';
 
+import * as CryptoJS from 'crypto-js';
+
 @Component({
   selector: 'app-docente',
   templateUrl: './docente.component.html',
@@ -157,6 +159,13 @@ export class DocenteComponent implements OnInit {
 	logout(){
 		this.session.allCLear();
     	this.router.navigate(['/']);
+	}
+
+	goIncorporacion(){
+		let emplid =	 CryptoJS.AES.encrypt(JSON.stringify(this.emplid), "QJChPEmBp4d6rZSHf3dA@@").toString();
+		let email =	 CryptoJS.AES.encrypt(JSON.stringify(this.user['email']), "QJChPEmBp4d6rZSHf3dA@@").toString();
+		let nombre =	 CryptoJS.AES.encrypt(JSON.stringify(this.user['name']+ ' ' + this.user['surname']), "QJChPEmBp4d6rZSHf3dA@@").toString();
+		window.open("http://dev-incorporacion.cientifica.edu.pe/login/"+emplid+"/"+email+"/"+nombre, "_blank");		           		    
 	}
 
 }

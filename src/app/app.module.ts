@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -26,6 +27,7 @@ import { LoginService } from './services/login.service';
     NgxLoadingModule.forRoot({}),
     ToastrModule.forRoot(),
     DeviceDetectorModule.forRoot(),
+    NgxSmartModalModule.forRoot(),
     HttpClientModule,
     AppRoutingModule
   ],
