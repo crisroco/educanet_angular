@@ -165,8 +165,8 @@ export class DocenteComponent implements OnInit {
 		let emplid =	 encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(this.emplid), "QJChPEmBp4d6rZSHf3dA@@").toString());
 		let email =	 encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(this.user['email']), "QJChPEmBp4d6rZSHf3dA@@").toString());
 		let nombre =	 encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(this.user['name']+ ' ' + this.user['surname']), "QJChPEmBp4d6rZSHf3dA@@").toString());
-		// window.open("http://dev-incorporacion.cientifica.edu.pe/login/"+emplid+"/"+email+"/"+nombre, "_blank");    		    
-		window.open("http://localhost:4200/login/"+emplid+"/"+email+"/"+nombre, "_blank");
+		window.open("http://incorporacion.educad.pe/login/"+emplid+"/"+email+"/"+nombre, "_blank");    		    
+		// window.open("http://localhost:4200/login/"+emplid+"/"+email+"/"+nombre, "_blank");
 	}
 
 }
