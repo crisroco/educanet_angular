@@ -51,7 +51,7 @@
                 <p><a class="link top-t-60 text-white" href="https://vimeo.com/400822289/cb32dd5d69" target="_blank">Aprende como ingresar a tus clases virtuales </a></p>
                 <!-- <p><a class="link top-t-20 text-white" href="https://vimeo.com/401169151/4a36ffd5ed" target="_blank">Para Docentes CPE Aprende como ingresar a tus clases virtuales</a></p> -->
                 <p><a class="link top-t-20 text-white" href="https://vimeo.com/284443622/7f3c42ff11" target="_blank">Cómo subir materiales a mi clases</a></p>
-                <p><a class="link top-t-20 text-white" (click)="confirmpostulanteModal.open();" target="_blank">Ingreso a nuevos Postulantes</a></p>
+                <p><a class="pointer link top-t-20 text-white" (click)="confirmpostulanteModal.open();" target="_blank">Ingreso a nuevos Postulantes</a></p>
             </div>
         </div>
     </div>
@@ -60,7 +60,7 @@
 <ngx-smart-modal #confirmpostulanteModal identifier="confirmpostulanteModal" [closable]="false" [escapable]="false" [dismissable]="false" [customClass]="''">
     <h6>Estimado Postulante:</h6>
     <hr>
-    <a class="link top-t-20" style="color:#007bff !important" (click)="openRegistroPostulante(); confirmpostulanteModal.close();"> Si eres nuevo registrate ingresando aquí <i class="fa fa-angle-double-right"></i></a><br>
+    <a class="pointer link top-t-20" style="color:#007bff !important" (click)="openRegistroPostulante(); confirmpostulanteModal.close();"> Si eres nuevo registrate ingresando aquí <i class="fa fa-angle-double-right"></i></a><br>
     <a class="link top-t-20" style="color:#007bff !important" href="http://incorporacion.educad.pe" (click)="confirmpostulanteModal.close();"> Si ya te encuentras registrado accede ingresando aquí <i class="fa fa-angle-double-right"></i></a><br>
     <hr>
     <div class="text-center">
