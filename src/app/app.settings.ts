@@ -58,7 +58,7 @@ export class AppSettings {
     public static URL_LOGIN  = "http://login-ad.educad.pe/";
     public static BASE_NODEJS = 'http://apirest.educad.pe:3000';
     public static SERVICES_EDUCAD = "http://wsasistencia.educad.pe";
-    public static SERVICES_INCORPORACION = "http://pasarela.incorporacion.educad.pe/";
+    public static SERVICES_INCORPORACION = "http://back-incorporacion.educad.pe/";
     public static BASE_SISE_CODEIGNITER = 'http://proyectos.educad.pe';
     //------------------------------- ENV PRODUCTION -------------------------------//
     public static BASE_UCSUR_LARAVEL = 'http://dev.pasarela.educad.pe/api';
