@@ -61,13 +61,13 @@ export class AppSettings {
     public static SERVICES_INCORPORACION = "http://back-incorporacion.educad.pe/";
     public static BASE_SISE_CODEIGNITER = 'http://proyectos.educad.pe';
     //------------------------------- ENV PRODUCTION -------------------------------//
-    public static BASE_UCSUR_LARAVEL = 'http://dev.pasarela.educad.pe/api';
-    public static BASE_SISE_LARAVEL = 'https://pasarela.sise.edu.pe/api';
-    public static PRODUCTION = "http://educanet.back.educad.pe";
+    // public static BASE_UCSUR_LARAVEL = 'http://dev.pasarela.educad.pe/api';
+    // public static BASE_SISE_LARAVEL = 'https://pasarela.sise.edu.pe/api';
+    // public static PRODUCTION = "http://educanet.back.educad.pe";
     //------------------------------- ENV DEVELOP -------------------------------//
-    // public static BASE_UCSUR_LARAVEL = 'http://dev2.pasarela.educad.pe/api';
-    // public static BASE_SISE_LARAVEL  = 'http://dev.pasarela.sise.edu.pe/api';
-    // public static PRODUCTION = "http://dev-educanet.back.educad.pe";
+    public static BASE_UCSUR_LARAVEL = 'http://dev2.pasarela.educad.pe/api';
+    public static BASE_SISE_LARAVEL  = 'http://dev.pasarela.sise.edu.pe/api';
+    public static PRODUCTION = "http://dev-educanet.back.educad.pe";
     //------------------------------- ENV DEVELOP -------------------------------//
     public static ACCESS_PS = AppSettings.PRODUCTION + `/resources_portal/access_ps`;
     public static LOGIN_TOKEN = AppSettings.PRODUCTION + '/ucsur_token/access';

@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
 	loading = false;
 	showLinks = false;
 
-	@ViewChild('registropostulanteModal') registropostulanteModal: any;	
+	@ViewChild('registropostulanteModal') registropostulanteModal: any;
+	@ViewChild('siseModalCloseWebsite') siseModalCloseWebsite: any;
 	nombre = '';
 	apaterno = '';
 	amaterno = '';
@@ -245,6 +246,12 @@ export class LoginComponent implements OnInit {
 				this.toastr.error(res.mensaje);
 			}
 		})
+	}
+
+	siseModalCheck(evt){
+		if (evt.target.value == '003') {
+			this.siseModalCloseWebsite.open();
+		}
 	}
 
 }
