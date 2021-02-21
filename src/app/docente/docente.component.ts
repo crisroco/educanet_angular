@@ -165,8 +165,8 @@ export class DocenteComponent implements OnInit {
 		if (this.cod_company == '002') {
 			let data = Encrypt(this.emplid + '|' + this.user.email + '|' + this.user['name']+ ' ' + this.user['surname'], 'g$@p3Xnh$E');
 			// window.open("http://incorporacion.educad.pe/login/"+data, "_blank");
-			// window.open("http://incorporacion.educad.pe/login/"+data.replace('/', '-'), "_blank");
-			window.open("http://localhost:4200/login/"+data.replace('/', '-'), "_blank");
+			window.open("http://incorporacion.educad.pe/login/"+data.replace('/', '-'), "_blank");
+			// window.open("http://localhost:4200/login/"+data.replace('/', '-'), "_blank");
 		}
 	}
 

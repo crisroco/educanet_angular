@@ -248,10 +248,10 @@ export class LoginComponent implements OnInit {
 		})
 	}
 
-	siseModalCheck(evt){
-		if (evt.target.value == '003') {
-			this.siseModalCloseWebsite.open();
-		}
-	}
+	// siseModalCheck(evt){
+	// 	if (evt.target.value == '003') {
+	// 		this.siseModalCloseWebsite.open();
+	// 	}
+	// }
 
 }
