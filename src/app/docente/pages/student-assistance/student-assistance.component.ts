@@ -202,9 +202,13 @@ export class StudentAssistanceComponent implements OnInit {
 	}
 
 	saveAssistance(){
-		if(this.cod_company == '002' && ((this.data_delegates['EMPLID1'] && !this.data_delegates['EMPLID2']) || (!this.data_delegates['EMPLID1'] && this.data_delegates['EMPLID2'])) ){
+		if(this.cod_company == '002' && this.studentsDetail.length > 1 && ((this.data_delegates['EMPLID1'] && !this.data_delegates['EMPLID2']) || (!this.data_delegates['EMPLID1'] && this.data_delegates['EMPLID2'])) ){
 			this.toastr.error('Atención! Recuerde que debe seleccionar al delegado y subdelegado.');
 			return;
+		}
+		if (this.studentsDetail.length == 1) {
+			this.data_delegates['EMPLID1'] = this.data_delegates['EMPLID2']?this.data_delegates['EMPLID2']:this.data_delegates['EMPLID1'];
+			this.data_delegates['EMPLID2'] = '';
 		}
 		var url = '';
 		if(this.cod_company == '002') url = AppSettings.BASE_UCSUR_LARAVEL + '/guardar_asistencia_alumnos_cientifica';
