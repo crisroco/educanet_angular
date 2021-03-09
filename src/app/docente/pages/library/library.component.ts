@@ -69,7 +69,7 @@ export class LibraryComponent implements OnInit {
 						name: 'Multidisciplinaria',
 						libraries: [
 							{
-								img: 'http://www.e-libro.com/Content/images/logo-dark@2x.png',
+								img: 'https://docs.cientifica.edu.pe/biblioteca/imagenes/elibro%20(2).png',
 								url: 'https://elibro.net/es/lc/ucsur/inicio',
 								width: '100px',
 								description: 'user: correo institucional \n pass: Código de usuario'
