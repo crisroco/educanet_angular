@@ -161,28 +161,12 @@ export class DocenteComponent implements OnInit {
     	this.router.navigate(['/']);
 	}
 
-
 	goIncorporacion(){
-		var name = this.user['name'];
-		var surname = this.user['surname'];
+		let data = Encrypt(this.emplid, 'g$@p3Xnh$E');
 
-		var tittles = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç";
-		var original = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc";
-		
-		for (var i = 0; i < tittles.length; i++) {
-			name = name.replace(tittles.charAt(i), original.charAt(i));
-		};
-
-		for (var i = 0; i < tittles.length; i++) {
-			surname = surname.replace(tittles.charAt(i), original.charAt(i));
-		};
-		
 		if (this.cod_company == '002') {
-			let data = Encrypt(this.emplid + '|' + this.user.email + '|' + name + ' ' + surname, 'g$@p3Xnh$E');
-			// window.open("http://incorporacion.educad.pe/login/"+data, "_blank");
-			window.open("http://incorporacion.educad.pe/login/"+data.replace('/', '-'), "_blank");
-			// window.open("http://localhost:4200/login/"+data.replace('/', '-'), "_blank");
+			var url = "http://incorporacion.educad.pe/login?emplid=" + data.replace('+', '-') + '&email=' + btoa(this.user.email2).replace('+', '-') + '&name=' + btoa(this.user.name+'|'+this.user.surname).replace('+', '-');
+			window.open(url, "_blank");
 		}
 	}
-
 }
