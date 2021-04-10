@@ -187,6 +187,7 @@ export class StudentGradesComponent implements OnInit {
 
 	saveGrade(student){
 		var grade = student.SISE_REST_CONSNOTREG_NOT.filter(item => item.DESCRSHORT == this.gradeName)[0];
+		console.log(grade);
 		if(grade.ACTN_TYPE_CD != grade.lastgrade){
 			student.change = true;
 			student.intents++;
