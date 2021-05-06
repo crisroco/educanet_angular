@@ -199,7 +199,8 @@ export class LoginComponent implements OnInit {
 			}
 
 			if(this.amaterno.length == 0){
-				this.toastr.error('Apellido Materno requerido'); return;
+				this.toastr.error('Apellido Materno requerido'); 
+				return;
 			}	
 
 			if(this.fnacimiento.length == 0){
@@ -218,7 +219,7 @@ export class LoginComponent implements OnInit {
 			}	
 
 			this.toastr.error('Formato de correo invalido'); 
-			
+
 			return;			
 		}
 
