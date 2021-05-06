@@ -185,7 +185,7 @@ export class LoginComponent implements OnInit {
 		this.registropostulanteModal.open(); 		
 	}
 
-	savePostulante(){
+	savePostulante(){	
 		if (this.postulanteForm.invalid) { 
 			
 			if(this.nombre.length == 0){
@@ -217,35 +217,48 @@ export class LoginComponent implements OnInit {
 				return; 
 			}	
 
-				this.toastr.error('Formato de correo invalido'); return; 
-
+			this.toastr.error('Formato de correo invalido'); 
+			
 			return;			
 		}
-		this.loading = true;
-		this.docenteS.savePostulante({
-			'unidad' : '002',
-			'apellido_paterno' : this.apaterno,
-			'apellido_materno' : this.amaterno,
-			'nombre_completo' : this.nombre,
-			'tipo_documento' : 'DNI',
-			'nro_documento' : this.dni,
-			'fecha_nacimiento' : this.fnacimiento,
-			'nacionalidad' : null,
-			'email' : this.correo,
-			'estado_civil' : null,
-			'sexo' : null,
-			'id_solicitud' : null
-		})
-		.then(res => {
-			this.loading = false;
-			if(res.status){			
-				this.toastr.success('Datos guardados exitósamente');
-				this.registropostulanteModal.close();			
-			}
-			else{
-				this.toastr.error(res.mensaje);
-			}
-		})
+
+		if(this.correo.trim() != '' && this.correo.indexOf('@') >= 0){
+			let dominio = this.correo.substr(this.correo.indexOf('@'), this.correo.length).toLowerCase();
+			if(dominio == '@cientifica.edu.pe' || dominio == '@gmail.com' || dominio == '@hotmail.com' || dominio == '@outlook.com' || dominio == '@yahoo.com' || dominio == '@icloud.com'){
+				
+				this.loading = true;
+				this.docenteS.savePostulante({
+					'unidad' : '002',
+					'apellido_paterno' : this.apaterno,
+					'apellido_materno' : this.amaterno,
+					'nombre_completo' : this.nombre,
+					'tipo_documento' : 'DNI',
+					'nro_documento' : this.dni,
+					'fecha_nacimiento' : this.fnacimiento,
+					'nacionalidad' : null,
+					'email' : this.correo,
+					'estado_civil' : null,
+					'sexo' : null,
+					'id_solicitud' : null
+				})
+				.then(res => {
+					this.loading = false;
+					if(res.status){			
+						this.toastr.success('Datos guardados exitósamente');
+						this.registropostulanteModal.close();			
+					}
+					else{
+						this.toastr.error(res.mensaje);
+					}
+				})
+
+			}else{
+				this.toastr.warning('Dominio de correo no permitido');
+			}	
+		}else{
+			this.toastr.error('Correo invalido');
+		}
+		
 	}
 
 	// siseModalCheck(evt){
