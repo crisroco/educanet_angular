@@ -20,13 +20,11 @@ import { HistoricalMarkingComponent } from './pages/historical-marking/historica
 import { PaymentHistoryComponent } from './pages/payment-history/payment-history.component';
 import { WeeklyScheduleComponent } from './pages/weekly-schedule/weekly-schedule.component';
 import { LibraryComponent } from './pages/library/library.component';
-import { VirtualScheduleComponent } from './pages/virtual-schedule/virtual-schedule.component';
-import { CoursesandclassesComponent } from './pages/coursesandclasses/coursesandclasses.component';
 
 import localePE from '@angular/common/locales/es-PE';
 registerLocaleData(localePE, 'es-PE');
 @NgModule({
-  declarations: [DocenteComponent, MarkingComponent, VirtualScheduleComponent, CourseManagementComponent, StudentGradesComponent, StudentAssistanceComponent, VirtualClassroomComponent, HistoricalMarkingComponent, PaymentHistoryComponent, WeeklyScheduleComponent, LibraryComponent, CoursesandclassesComponent],
+  declarations: [DocenteComponent, MarkingComponent, CourseManagementComponent, StudentGradesComponent, StudentAssistanceComponent, VirtualClassroomComponent, HistoricalMarkingComponent, PaymentHistoryComponent, WeeklyScheduleComponent, LibraryComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
