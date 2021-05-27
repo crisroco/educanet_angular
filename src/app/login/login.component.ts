@@ -187,7 +187,6 @@ export class LoginComponent implements OnInit {
 
 	savePostulante(){	
 		if (this.postulanteForm.invalid) { 
-			
 			if(this.nombre.length == 0){
 				this.toastr.error('Nombre requerido');	
 				return;	
@@ -251,8 +250,10 @@ export class LoginComponent implements OnInit {
 					else{
 						this.toastr.error(res.mensaje);
 					}
-				})
-
+				}, (err) => {
+					this.toastr.error('Ocurrio un Error, Por favor vuelve a intentarlo');
+					this.loading = false;
+				});
 			}else{
 				this.toastr.warning('Dominio de correo no permitido');
 			}	

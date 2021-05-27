@@ -70,6 +70,9 @@ export class DocenteComponent implements OnInit {
 					}
 				}
 			}
+			if (this.cod_company != '003') {
+				this.menus[0].below.push({new: true, title: 'Inducciones', description: 'Inducciones', uri: 'https://vimeo.com/555819732'});
+			}
 		}, error => {
 			this.loginS.get_Token_WS_Vacaciones()
 			.then(res => {

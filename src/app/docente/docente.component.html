@@ -27,7 +27,8 @@
                         </li>
                         <div *ngFor="let submenu of menu.below">
                             <li class="pl-2">
-                                <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="submenu.uri">- {{submenu.title}}</a>
+                                <a *ngIf="!submenu.new" class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="submenu.uri">- {{submenu.title}}</a>
+                                <a *ngIf="submenu.new" target="_blank" class="w-100 hover-{{config_initial.code}}" [href]="submenu.uri">- {{submenu.title}}</a>
                             </li>
                         </div>
                     </div>
