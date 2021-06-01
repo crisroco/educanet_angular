@@ -205,10 +205,15 @@ export class LoginComponent implements OnInit {
 			if(this.fnacimiento.length == 0){
 				this.toastr.error('Fecha Nacimiento requerido'); 
 				return;		
+			}else{
+				if(this.fnacimiento.length > 10){
+					this.toastr.error('Ingresar Fecha Nacimiento válido'); 
+					return;		
+				}
 			}
 
 			if(this.dni.length < 8){
-				this.toastr.error('Dni invalido'); 
+				this.toastr.error('Ingresar Dni válido'); 
 				return;	
 			}	
 
@@ -217,50 +222,38 @@ export class LoginComponent implements OnInit {
 				return; 
 			}	
 
-			this.toastr.error('Formato de correo invalido'); 
-
+			this.toastr.error('Ingresar Formato de correo válido');
 			return;			
-		}
-
-		if(this.correo.trim() != '' && this.correo.indexOf('@') >= 0){
-			let dominio = this.correo.substr(this.correo.indexOf('@'), this.correo.length).toLowerCase();
-			if(dominio == '@cientifica.edu.pe' || dominio == '@gmail.com' || dominio == '@hotmail.com' || dominio == '@outlook.com' || dominio == '@yahoo.com' || dominio == '@icloud.com'){
-				
-				this.loading = true;
-				this.docenteS.savePostulante({
-					'unidad' : '002',
-					'apellido_paterno' : this.apaterno,
-					'apellido_materno' : this.amaterno,
-					'nombre_completo' : this.nombre,
-					'tipo_documento' : 'DNI',
-					'nro_documento' : this.dni,
-					'fecha_nacimiento' : this.fnacimiento,
-					'nacionalidad' : null,
-					'email' : this.correo,
-					'estado_civil' : null,
-					'sexo' : null,
-					'id_solicitud' : null
-				})
-				.then(res => {
-					this.loading = false;
-					if(res.status){			
-						this.toastr.success('Datos guardados exitósamente');
-						this.registropostulanteModal.close();			
-					}
-					else{
-						this.toastr.error(res.mensaje);
-					}
-				}, (err) => {
-					this.toastr.error('Ocurrio un Error, Por favor vuelve a intentarlo');
-					this.loading = false;
-				});
-			}else{
-				this.toastr.warning('Dominio de correo no permitido');
-			}	
-		}else{
-			this.toastr.error('Correo invalido');
-		}
-		
+		}	
+			
+		this.loading = true;
+		this.docenteS.savePostulante({
+			'unidad' : '002',
+			'apellido_paterno' : this.apaterno,
+			'apellido_materno' : this.amaterno,
+			'nombre_completo' : this.nombre,
+			'tipo_documento' : 'DNI',
+			'nro_documento' : this.dni,
+			'fecha_nacimiento' : this.fnacimiento,
+			'nacionalidad' : null,
+			'email' : this.correo,
+			'estado_civil' : null,
+			'sexo' : null,
+			'id_solicitud' : null
+		})
+		.then(res => {
+			this.loading = false;
+			if(res.status){			
+				this.toastr.success('Datos guardados exitósamente');
+				this.registropostulanteModal.close();			
+			}
+			else{
+				this.toastr.error(res.mensaje);
+			}
+		}, (err) => {
+			this.toastr.error('Ocurrio un Error, Por favor vuelve a intentarlo');
+			this.loading = false;
+		});		
 	}
 
 	// siseModalCheck(evt){
