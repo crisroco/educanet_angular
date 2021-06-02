@@ -44,6 +44,11 @@ export class DocenteComponent implements OnInit {
 		// if (this.cod_company == '002') {this.piezaModal.open();}
 		this.getMenu();
 		this.getEthnicity();
+		this.showModals();
+	}
+
+	showModals(){
+		this.surveyModal.open();
 	}
 
 	getEthnicity(){
