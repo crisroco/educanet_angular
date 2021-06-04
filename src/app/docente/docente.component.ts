@@ -79,6 +79,7 @@ export class DocenteComponent implements OnInit {
 			if (this.cod_company != '004') {
 				this.menus[0].below.push({new: true, title: 'Inducciones GDT', description: 'Inducciones', uri: 'https://vimeo.com/555819732'});
 			}
+			this.menus[0].below.push({new: true, title: 'Como descargar mi boleta de pago', description: 'Como descargar mi boleta de pago', uri: 'https://vimeo.com/559086745'});
 		}, error => {
 			this.loginS.get_Token_WS_Vacaciones()
 			.then(res => {
