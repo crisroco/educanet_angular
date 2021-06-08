@@ -135,12 +135,15 @@ export class DocenteComponent implements OnInit {
 	}
 
 	goTraining(){
-		let realDate = new Date();
-	    let date = new Date(realDate.getFullYear() + '-' + (realDate.getMonth()+1) + '-' + realDate.getDate() + ' 00:00:00');
-	    let timestamp = String(date.getTime());
-	    let key = timestamp.slice(0,-3);
+		// let realDate = new Date();
+	    // let date = new Date(realDate.getFullYear() + '-' + (realDate.getMonth()+1) + '-' + '-' + realDate.getDate() + ' 00:00:00');
+	    // console.log(date);
+		// let timestamp = String(date.getTime());
+		// console.log(timestamp);
+	    // let key = timestamp.slice(0,-3);
+		// console.log(key);
 		var data = {
-			credencial: Encrypt('QJChPEmBp4d6rZSHf3dA@@' + this.emplid, key),
+			credencial: Encrypt('QJChPEmBp4d6rZSHf3dA@@' + this.emplid, 'W5Q8f89HmgjhbwGWdy'),
 		}
 		let form = document.createElement('form');
 	    document.body.appendChild(form);
@@ -153,6 +156,11 @@ export class DocenteComponent implements OnInit {
 	        input.value = data[name];
 	        form.appendChild(input);
 	    }
+		var input2 = document.createElement('input');
+		input2.type = 'hidden';
+		input2.name = 'educanet';
+		input2.value = 'true';
+		form.appendChild(input2);
 	    form.submit();
 	}
 
