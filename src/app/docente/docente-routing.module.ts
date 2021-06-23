@@ -11,7 +11,7 @@ import { HistoricalMarkingComponent } from './pages/historical-marking/historica
 import { PaymentHistoryComponent } from './pages/payment-history/payment-history.component';
 import { WeeklyScheduleComponent } from './pages/weekly-schedule/weekly-schedule.component';
 import { LibraryComponent } from './pages/library/library.component';
-
+import { DenunciaComponent } from './pages/denuncia/denuncia.component';
 const routes: Routes = [
 	{ 
 		path: '', 
@@ -65,6 +65,10 @@ const routes: Routes = [
 			{
 				path: 'docentes-horario',
 				component: WeeklyScheduleComponent
+			},
+			{
+				path: 'denuncia',
+				component: DenunciaComponent
 			},
 			{
 				path: 'biblioteca',

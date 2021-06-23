@@ -21,12 +21,19 @@ export class GeneralService {
 		return header;
 	}
 
+	public makeHeadersComplaint(){
+		return {
+		    'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': this.session.getItem('token')
+		};
+	}
+
 	public makeHeaderNormal(){
 		return {
 		    'Content-Type': 'application/json',
             'Authorization': this.session.getItem('token')
 		};
-	} 
+	}
 
 	public formatJsonCrypto = {
 	  'stringify': function (cipherParams) {

@@ -22,9 +22,10 @@ import { WeeklyScheduleComponent } from './pages/weekly-schedule/weekly-schedule
 import { LibraryComponent } from './pages/library/library.component';
 
 import localePE from '@angular/common/locales/es-PE';
+import { DenunciaComponent } from './pages/denuncia/denuncia.component';
 registerLocaleData(localePE, 'es-PE');
 @NgModule({
-  declarations: [DocenteComponent, MarkingComponent, CourseManagementComponent, StudentGradesComponent, StudentAssistanceComponent, VirtualClassroomComponent, HistoricalMarkingComponent, PaymentHistoryComponent, WeeklyScheduleComponent, LibraryComponent],
+  declarations: [DocenteComponent, MarkingComponent, CourseManagementComponent, StudentGradesComponent, StudentAssistanceComponent, VirtualClassroomComponent, HistoricalMarkingComponent, PaymentHistoryComponent, WeeklyScheduleComponent, LibraryComponent, DenunciaComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,

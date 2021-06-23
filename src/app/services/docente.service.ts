@@ -210,6 +210,21 @@ export class DocenteService {
         return this.http.get("https://aulavirtualcpe.cientifica.edu.pe/mod/zoom/client/zoom_link_teacher.php?strm=" + cicle + '&nbr=' + myclass + '&date=' + date + '&section=' + section + '&teacher=' + teacher, {responseType: 'text'}).toPromise();
     }
 
+    public getComplaints(params): Promise<any> {
+        let url = `${AppSettings.BASE_PATH_DENUNCIA}contacto`;
+        return this.http.post(url, this.getFormUrlEncoded(params), { headers: this.generalS.makeHeadersComplaint() }).toPromise();
+    }
+
+    public getFormUrlEncoded(toConvert) {
+        const formBody = [];
+        for (const property in toConvert) {
+            const encodedKey = encodeURIComponent(property);
+            const encodedValue = encodeURIComponent(toConvert[property]);
+            formBody.push(encodedKey + '=' + encodedValue);
+        }
+        return formBody.join('&');
+    }
+
     /* VIRTUAL CLASSES */
 
     public getVirtualSchedule(emplid){
