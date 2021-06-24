@@ -53,7 +53,6 @@ export class DocenteComponent implements OnInit {
 
 	getEthnicity(){
 		if(this.cod_company == '002'){
-			this.surveyModal.open();
 			this.docenteS.existEthnicity({
 				"EMPLID": this.emplid
 			})
