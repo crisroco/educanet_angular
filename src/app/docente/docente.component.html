@@ -23,7 +23,7 @@
                             <a class="w-100 hover-{{config_initial.code}}" (click)="goTraining()">+ Capacítate aquí</a>
                         </li>
                         <li *ngIf="menu.uri!='noticias'">
-                            <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="'/docente/' + (menu.uri?menu.uri:'general')">+ {{menu.title}}</a>
+                            <a [ngClass]="{'no_pointer': menu.below}" class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="'/docente/' + (menu.uri?menu.uri:'general')">+ {{menu.title}}</a>
                         </li>
                         <div *ngFor="let submenu of menu.below">
                             <li class="pl-2">
@@ -35,9 +35,9 @@
                     <li> <a class="w-100 hover-{{config_initial.code}}" href="http://cultura.educad.pe/" target="_blank">+ Somos Educa_d</a> </li>
                     <li *ngIf="cod_company === '003'"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="http://aulavirtual.sise.edu.pe/local/wseducad/auth/sso.php?strm=0000&class=0000&course=000000&emplid={{emplid_real}}&token=DOCENTE">+ Inducción Docente</a> </li>
 
-                    <li> <a class="w-100 hover-{{config_initial.code}}" (click)="getBenefits()">+ Beneficios</a> </li>
-                    <li> <a class="w-100 hover-{{config_initial.code}}">+ Canal de Ética</a> </li>
-                    <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="https://grupoeducad.sharepoint.com/sites/RepositorioProceso/SitePages/doc/DGT-RES-POL-01%20C%C3%B3digo%20de%20%C3%89tica.pdf">- Código de Ética</a> </li>
+                    <!-- <li> <a class="w-100 hover-{{config_initial.code}}" (click)="getBenefits()">+ Beneficios</a> </li> -->
+                    <li> <a class="w-100 hover-{{config_initial.code}} no_pointer">+ Canal de Ética</a> </li>
+                    <!-- <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="https://grupoeducad.sharepoint.com/sites/RepositorioProceso/SitePages/doc/DGT-RES-POL-01%20C%C3%B3digo%20de%20%C3%89tica.pdf">- Código de Ética</a> </li> -->
                     <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="https://grupoeducad.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=p&chid=bb8aab6b-b381-4a09-b6c2-e185835c743b&vid=b63a720d-4a5f-440e-801a-9eeb15f3d4a9">- Procedimiento</a>                        </li>
                     <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/denuncia']">- Portal de Denuncia</a> </li>
                     <li> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="https://grupoeducad.sharepoint.com/sites/RepositorioProceso/SitePages/RepositorioProceso.aspx">+ Procedimientos y Políticas</a></li>
@@ -79,7 +79,7 @@
         <div class="col-md-12 col-lg-9 pl-3">
             <div class="panel mb-2">
                 <!-- <a *ngIf="cod_company == '002'" href="https://es.surveymonkey.com/r/53NVRQP" target="_blank"> -->
-                    <img class="rounded-1" alt="" src="assets/bck_2.png" width="100%">
+                    <img class="rounded-1" alt="" src="assets/bck_3.jpg" width="100%">
                 <!-- </a> -->
             </div>
 

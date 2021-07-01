@@ -161,6 +161,7 @@ export class StudentGradesComponent implements OnInit {
 
 	getToken(){
 		this.docenteS.getToken({ 'emplid': this.emplid,  'numero': this.course.PHONE, 'email': this.user.email2})
+		// this.docenteS.getToken({ 'emplid': this.emplid,  'numero': '992330712', 'email': 'eacostac@cientifica.edu.pe'})
 		.then(res => {
 			if(res.data){
 				this.message = 'Token enviado al teléfono: *** *** ' + (this.course.PHONE + '').substring(this.course.PHONE.length - 3);
