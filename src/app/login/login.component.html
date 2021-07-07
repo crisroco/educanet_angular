@@ -111,18 +111,30 @@
 
         <div class="form-group">
             <div class="row">
-                <div class="col-md-6" style="padding-right: 5px !important; padding-left: 5px !important;">
-                    <label class="form-label"> Email* </label>
-                    <input class="form-control" type="text" formControlName="correo" [(ngModel)]="correo" placeholder="Email">
+                <div class="col-lg-6" style="padding-right: 5px !important; padding-left: 5px !important;">
+                    <label class="form-label">Tipo Documento* </label>
+                    <select formControlName="tipo_documento" [(ngModel)]="tipo_documento" class="custom-select">
+                        <option value="">Selecciona . . .</option>
+                        <option *ngFor="let tdi of allTDI" [value]="tdi.codigo_referencia">{{tdi.descripcion}}</option>
+                    </select>
                 </div>
+
                 <div class="col-lg-6" style="padding-right: 5px !important; padding-left: 5px !important;">
                     <label class="form-label"> DNI* </label>
-                    <input class="form-control" type="text" formControlName="dni" [(ngModel)]="dni" placeholder="DNI" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" onKeyDown="if(this.value.length==8 && event.keyCode!=8) return false;">
-
+                    <input type="text" class="form-control" formControlName="dni" [(ngModel)]="dni" placeholder="Número de documento">
+                    <!--<input class="form-control" type="text" formControlName="dni" [(ngModel)]="dni" placeholder="DNI" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" onKeyDown="if(this.value.length==8 && event.keyCode!=8) return false;">-->
                 </div>
             </div>
         </div>
 
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12" style="padding-right: 5px !important; padding-left: 5px !important;">
+                    <label class="form-label"> Email* </label>
+                    <input class="form-control" type="text" formControlName="correo" [(ngModel)]="correo" placeholder="Email">
+                </div>
+            </div>
+        </div>
     </form>
 
     <div class="text-center">
