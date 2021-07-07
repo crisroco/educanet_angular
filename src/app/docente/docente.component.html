@@ -23,7 +23,8 @@
                             <a class="w-100 hover-{{config_initial.code}}" (click)="goTraining()">+ Capacítate aquí</a>
                         </li>
                         <li *ngIf="menu.uri!='noticias'">
-                            <a [ngClass]="{'no_pointer': menu.below}" class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="'/docente/' + (menu.uri?menu.uri:'general')">+ {{menu.title}}</a>
+                            <a *ngIf="menu.title == 'Autoservicio GDT'" [ngClass]="{'no_pointer': menu.below}" class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}">+ {{menu.title}}</a>
+                            <a *ngIf="menu.title != 'Autoservicio GDT'" class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="'/docente/' + (menu.uri?menu.uri:'general')">+ {{menu.title}}</a>
                         </li>
                         <div *ngFor="let submenu of menu.below">
                             <li class="pl-2">

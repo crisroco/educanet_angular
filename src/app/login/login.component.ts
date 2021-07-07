@@ -26,11 +26,11 @@ export class LoginComponent implements OnInit {
 	@ViewChild('registropostulanteModal') registropostulanteModal: any;
 	@ViewChild('siseModalCloseWebsite') siseModalCloseWebsite: any;
 	public allTDI = [
-						{codigo_referencia:'DNI', descripcion: 'DNI'},
-						{codigo_referencia:'CE', descripcion: 'CARNET EXTRANJERÍA'},        
-						{codigo_referencia:'PP', descripcion: 'PASAPORTE'},
-						{codigo_referencia:'PTP', descripcion: 'CARNET PTP'}                          
-					]; 
+		{codigo_referencia:'DNI', descripcion: 'DNI'},
+		{codigo_referencia:'CE', descripcion: 'CARNET EXTRANJERÍA'},        
+		{codigo_referencia:'PP', descripcion: 'PASAPORTE'},
+		{codigo_referencia:'PTP', descripcion: 'CARNET PTP'}                          
+	];
 	nombre = '';
 	apaterno = '';
 	amaterno = '';
@@ -66,7 +66,6 @@ export class LoginComponent implements OnInit {
 			this.ip = '0.0.0.0';
 		});
 		this.data_browser = this.deviceS.getDeviceInfo();
-
 		this.postulanteForm = this.formBuilder.group({
 			nombre: ['', Validators.required],
 			apaterno: ['', Validators.required],
