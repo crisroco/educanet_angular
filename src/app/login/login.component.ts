@@ -25,12 +25,19 @@ export class LoginComponent implements OnInit {
 
 	@ViewChild('registropostulanteModal') registropostulanteModal: any;
 	@ViewChild('siseModalCloseWebsite') siseModalCloseWebsite: any;
+	public allTDI = [
+						{codigo_referencia:'DNI', descripcion: 'DNI'},
+						{codigo_referencia:'CE', descripcion: 'CARNET EXTRANJERÍA'},        
+						{codigo_referencia:'PP', descripcion: 'PASAPORTE'},
+						{codigo_referencia:'PTP', descripcion: 'CARNET PTP'}                          
+					]; 
 	nombre = '';
 	apaterno = '';
 	amaterno = '';
 	fnacimiento = '';
 	correo = '';
 	dni = '';
+	tipo_documento = '';
 	postulanteForm: FormGroup;
 
 	constructor(private formBuilder: FormBuilder,
@@ -65,8 +72,9 @@ export class LoginComponent implements OnInit {
 			apaterno: ['', Validators.required],
 			amaterno: ['', Validators.required],
 			fnacimiento: ['', Validators.required],
+			tipo_documento: ['', Validators.required],
 			correo: ['', [Validators.required, Validators.email]],
-			dni: ['', [Validators.required, Validators.pattern("[0(9)-9]{8}")]]
+			dni: ['', Validators.required]
 		});
 	}
 
@@ -181,6 +189,7 @@ export class LoginComponent implements OnInit {
 		this.amaterno = '';
 		this.fnacimiento = '';
 		this.correo = '';
+		this.tipo_documento = '';
 		this.dni = '';
 		this.registropostulanteModal.open(); 		
 	}
@@ -211,12 +220,17 @@ export class LoginComponent implements OnInit {
 					return;		
 				}
 			}
-
-			if(this.dni.length < 8){
-				this.toastr.error('Ingresar Dni válido'); 
-				return;	
+		
+			if(this.tipo_documento.length == 0){
+				this.toastr.error('Seleccione tipo documento'); 
+				return; 
 			}	
 
+			if(this.dni.length == 0){
+				this.toastr.error('Campo nro documento requerido'); 
+				return; 
+			}	
+			
 			if(this.correo.length == 0){
 				this.toastr.error('Correo requerido'); 
 				return; 
@@ -232,7 +246,7 @@ export class LoginComponent implements OnInit {
 			'apellido_paterno' : this.apaterno,
 			'apellido_materno' : this.amaterno,
 			'nombre_completo' : this.nombre,
-			'tipo_documento' : 'DNI',
+			'tipo_documento' : this.tipo_documento,
 			'nro_documento' : this.dni,
 			'fecha_nacimiento' : this.fnacimiento,
 			'nacionalidad' : null,
@@ -248,7 +262,7 @@ export class LoginComponent implements OnInit {
 				this.registropostulanteModal.close();			
 			}
 			else{
-				this.toastr.error(res.mensaje);
+				this.toastr.warning(res.mensaje);
 			}
 		}, (err) => {
 			this.toastr.error('Ocurrio un Error, Por favor vuelve a intentarlo');
