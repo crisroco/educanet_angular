@@ -91,6 +91,7 @@ export class CourseManagementComponent implements OnInit {
 	}
 
 	confirmCloseRecord(){
+		console.log(this.realCourse);
 		this.docenteS.closeRecords(this.realCourse)
 		.then(res => {
 			if(res.UCS_ACTIV_ACTAS_RES && res.UCS_ACTIV_ACTAS_RES.UCS_ACTIV_ACTAS_COM){

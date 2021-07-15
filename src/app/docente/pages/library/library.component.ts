@@ -133,6 +133,18 @@ export class LibraryComponent implements OnInit {
 								url: 'https://www.nejm.org',
 								width: '103px',
 								description: ''
+							},
+							{
+								img: 'assets/2-5.png',
+								url: 'https://www.investigacionyciencia.es',
+								width: '103px',
+								description: ''
+							},
+							{
+								img: 'assets/2-6.jpg',
+								url: 'www.embase.com',
+								width: '103px',
+								description: ''
 							}
 						],
 						isOpen: true,
@@ -152,12 +164,12 @@ export class LibraryComponent implements OnInit {
 					{
 						name: 'Ciencias Ambientales',
 						libraries: [
-							{
-								img: 'https://www.architectureopenlibrary.com/img/logo.png',
-								url: 'http://www.architectureopenlibrary.com/autologin/?userid=4027&salt=8d697804f7156dc79a512fb0fa80e6ad44b5fafd',
-								width: '130px',
-								description: ''
-							},
+							// {
+							// 	img: 'https://www.architectureopenlibrary.com/img/logo.png',
+							// 	url: 'http://www.architectureopenlibrary.com/autologin/?userid=4027&salt=8d697804f7156dc79a512fb0fa80e6ad44b5fafd',
+							// 	width: '130px',
+							// 	description: ''
+							// },
 							{
 								img: 'https://www.cabi.org/gfx/cabidotorg/cabi-logo-narrow.svg',
 								url: 'https://www.cabdirect.org/',
