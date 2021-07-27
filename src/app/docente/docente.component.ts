@@ -141,6 +141,7 @@ export class DocenteComponent implements OnInit {
 		// console.log(timestamp);
 	    // let key = timestamp.slice(0,-3);
 		// console.log(key);
+		console.log(this.emplid);
 		var data = {
 			credencial: Encrypt('QJChPEmBp4d6rZSHf3dA@@' + this.emplid, 'W5Q8f89HmgjhbwGWdy'),
 		}
