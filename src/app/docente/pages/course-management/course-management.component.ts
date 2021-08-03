@@ -49,7 +49,7 @@ export class CourseManagementComponent implements OnInit {
 		var url = '';
 		var rdate = Math.floor(Date.now() / 1000);
 		var crypto = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(this.emplid_real + '//' + rdate), 'Educad123', {format: this.generalS.formatJsonCrypto}).toString());
-		if(this.cod_company != '002' && (course['STRM'] == '2993' || course['STRM'] == '2992')){
+		if(this.cod_company != '002' && (course['STRM'] == '2993' || course['STRM'] == '2992' || course['STRM'] == '2994')){
 			url = 'http://new-aulavirtual.sise.edu.pe/local/wseducad/auth/sso.php?strm=' + course.STRM + '&class=' + (course.CLASS_NBR2?course.CLASS_NBR2:course.CLASS_NBR) + '&course=' + (course.CRES_ID?course.CRES_ID:course.CRSE_ID) + '&emplid=' + crypto + '&token=DOCENTE';
 		}
 		else if(this.cod_company == '002' && (course.INSTITUTION != 'PSTGR' && course.INSTITUTION != 'ESPEC')) {
