@@ -58,6 +58,7 @@ export class AppSettings {
     public static URL_LOGIN  = "http://login-ad.educad.pe/";
     public static BASE_NODEJS = 'http://apirest.educad.pe:3000';
     public static SERVICES_EDUCAD = "http://wsasistencia.educad.pe";
+    public static BASE_DESEMPENO_DOCENTE = "https://back-desempeno.educad.pe/";
     public static SERVICES_INCORPORACION = "https://back-incorporacion.educad.pe/";
     public static BASE_SISE_CODEIGNITER = 'http://proyectos.educad.pe';
     //------------------------------- ENV PRODUCTION -------------------------------//
@@ -76,5 +77,6 @@ export class AppSettings {
     public static WS_DRUPAL_LOGINVACACIONES = AppSettings.PRODUCTION+'/vacaciones/user';
     public static BASE_PATH = AppSettings.PRODUCTION + '/resources_portal/';
     public static BASE_PAYMENT_HISTORY = 'http://200.121.226.233/ServicioRestWebFRACTAL/api/DescargarBoletaRemuneracion';
+    public static BASE_FRACTAL = 'http://fractal.grupoeducad.edu.pe/ServicioRestWebFRACTAL/api';
     public static MOODLE = "http://aulavirtual.educad.pe/local/wseducad/auth/sso.php?";
 }

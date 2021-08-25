@@ -27,6 +27,8 @@
     "font-awesome": "^4.7.0",
     "jspdf": "^1.5.3",
     "jspdf-autotable": "^3.5.3",
+    "moment": "^2.29.1",
+    "ngx-daterangepicker-material": "^2.0.0",
     "ngx-device-detector": "^1.4.4",
     "ngx-loading": "^3.0.1",
     "ngx-responsive": "^7.0.1",
