@@ -29,6 +29,7 @@ export class DocenteComponent implements OnInit {
 	ethnicities = AppSettings.ETHNICITIES;
 	realEthnicity = '';
 	realOther = '';
+	flag_vacaciones: boolean = false;
 
 	constructor(private session: SessionService,
 		private loginS: LoginService,
@@ -42,7 +43,14 @@ export class DocenteComponent implements OnInit {
 
 	ngOnInit() {
 		// if (this.cod_company == '002') {this.piezaModal.open();}
-		this.getMenu();
+		this.docenteS.accesoVacaciones((this.cod_company == '002'?this.emplid:this.emplid_real), this.cod_company)
+		.then(res => {
+		this.flag_vacaciones = res.status;	
+		this.getMenu();	
+		},(err)=>{
+			this.flag_vacaciones = false;
+			this.getMenu();
+		});
 		this.getEthnicity();
 		this.showModals();
 	}
@@ -76,6 +84,7 @@ export class DocenteComponent implements OnInit {
 				}
 			}
 			if (this.cod_company != '004') {
+				this.menus[0].below.push({new: false, title: 'Vacaciones', description: 'Vacaciones', uri: '/docente/vacaciones'});
 				this.menus[0].below.push({new: true, title: 'Inducciones GDT', description: 'Inducciones', uri: 'https://vimeo.com/555819732'});
 			}
 			this.menus[0].below.push({new: true, title: 'Como descargar mi boleta de pago', description: 'Como descargar mi boleta de pago', uri: 'https://vimeo.com/559086745'});

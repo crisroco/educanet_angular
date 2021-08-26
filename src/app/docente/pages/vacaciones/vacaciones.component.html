@@ -1,0 +1,128 @@
+<div class="bg-white p-3 rounded-1">
+
+    <div class="row p-2">
+        <div class="col-sm-12">
+            <h5 class="pb-2 bd-b-1 bd-{{config_initial.code}}"> Mis Vacaciones </h5>
+            <button class="btn btn-primary mr-2" (click)="openTab(1)"><i class="fa fa-calendar-check-o"></i> Solicitar Vacaciones</button>
+            <button class="btn btn-success text-white" (click)="openTab(2)"><i class="fa fa-list"></i> Mis Solicitudes </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="mb-3 rounded-1 scroll bd-1 bd-{{config_initial.code}}">
+                <table class="w-100">
+                    <thead class="bg-{{config_initial.code}}">
+                        <tr class="text-white text-left text-s">
+                            <th class="px-3 py-2 align-middle" colspan="2">Mi Estatus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-justify text-s bd-b-1">
+                            <td class="p-2">Días Vencidos</td>
+                            <td class="p-2 text-right"><strong>{{d_vencidas}}</strong></td>
+                        </tr>
+                        <tr class="text-justify text-s bd-b-1">
+                            <td class="p-2">Días Pendientes</td>
+                            <td class="p-2 text-right"><strong>{{d_pendientes}}</strong></td>
+                        </tr>
+                        <tr class="text-justify text-s">
+                            <td class="p-2">Días Truncos</td>
+                            <td class="p-2 text-right"><strong>{{d_truncos}}</strong></td>
+                        </tr>
+                        <tr class="text-white text-left text-s bg-{{config_initial.code}}">
+                            <td class="p-2"><strong>Total de Días</strong></td>
+                            <td class="p-2 text-right"><strong>{{d_vencidas+d_pendientes+d_truncos}}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-8" *ngIf="solicitarVacaciones">
+            <div class="mb-3 rounded-1 scroll bd-1 bd-{{config_initial.code}}" style="max-height: inherit;">
+                <table class="w-100">
+                    <thead class="bg-{{config_initial.code}}">
+                        <tr class="text-white text-left text-s">
+                            <th class="px-3 py-2 align-middle">Formulario de Solicitud de Vacaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-justify text-s">
+                            <td class="p-2">
+                                <div class="row">
+                                    <div class="col-md-8 ajusdiv" style="position: inherit !important;">
+                                        <label class="my-1 mr-2" for="cuc">Fecha de Solicitud</label>
+                                        <!--minDate="{{daterange.start}}"-->
+                                        <input type="text" ngxDaterangepickerMd [(ngModel)]="selectedDate" [alwaysShowCalendars]="true" [locale]="this.locale" [linkedCalendars]="true" [showClearButton]="true" [minDate]="this.minDate" placeholder=" Seleccione . . . " (datesUpdated)="datesUpdated($event) "
+                                            class="form-control form-control-sm " readonly="true " />
+                                    </div>
+                                    <div class="col-md-4 ajusdiv ">
+                                        <label class="my-1 mr-2 " for="convo ">Dias Vacaciones</label>
+                                        <input type="text " class="form-control form-control-sm " disabled="true " value="{{n_diasvaca}} ">
+                                    </div>
+                                    <div class="col-md-4 ajusdiv ">
+                                        <label class="my-1 mr-2 " for="convo ">Retorno</label>
+                                        <input type="text " class="form-control form-control-sm " disabled="true " value="{{s_fecha_retorno}} ">
+                                    </div>
+                                    <div class="col-md-8 ajusdiv ">
+                                        <label class="my-1 mr-2 " for="convo ">Aprobador</label>
+                                        <input type="text " class="form-control form-control-sm " disabled="true " value="{{nombre_jefe}} ">
+                                    </div>
+                                    <div class="col-md-12 ajusdiv ">
+                                        <br><button [disabled]="btn_off " (click)="enviarSolicitud() " class="btn btn-primary btn-xs "><i class="fa fa-paper-plane-o "></i> Enviar Solicitud de Vacaciones</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class=" col-sm-8 " *ngIf="misSolicitudes ">
+            <div class="mb-3 rounded-1 scroll bd-1 bd-{{config_initial.code}} " style="max-height: inherit; ">
+                <table class="w-100 ">
+                    <thead class="bg-{{config_initial.code}} ">
+                        <tr class="text-white text-center text-s ">
+                            <th class="px-3 py-2 align-middle ">Inicio Vacaciones</th>
+                            <th class="px-3 py-2 align-middle ">Fin Vacaciones</th>
+                            <th class="px-3 py-2 align-middle ">Nro.Días</th>
+                            <th class="px-3 py-2 align-middle ">Estatus</th>
+                            <th class="px-3 py-2 align-middle ">Comentario</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="solicitudes && solicitudes.length> 0">
+                        <tr class="text-center text-s {{c < solicitudes.length - 1?'bd-b-1 ':' '}}" *ngFor="let item of solicitudes; let c = 'index '">
+                            <td class="p-2">{{ item.inicio_vacaciones }}</td>
+                            <td class="p-2">{{ item.fin_vacaciones }}</td>
+                            <td class="p-2">{{ item.nro_dias }}</td>
+                            <td class="p-2">
+                                <span *ngIf="item.estatus=='pendiente'" class="badge badge-warning text-white">{{ item.estatus }}</span>
+                                <span *ngIf="item.estatus=='aprobado'" class="badge badge-success">{{ item.estatus }}</span>
+                                <span *ngIf="item.estatus=='rechazado'" class="badge badge-danger">{{ item.estatus }}</span>
+                            </td>
+                            <td class="p-2">{{ item.comentario_estatus }}</td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="solicitudes && solicitudes.length == 0">
+                        <tr class="text-center text-s">
+                            <td class="p-2" colspan="100%">
+                                <div class="alert alert-warning m-0"> Atención! No se encontraron registros </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="!solicitudes">
+                        <tr class="text-center text-s">
+                            <td class="p-2" colspan="100%">
+                                <div class="alert alert-info m-0"> Cargando clases... </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true }"></ngx-loading>

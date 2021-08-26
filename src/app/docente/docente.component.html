@@ -28,8 +28,9 @@
                         </li>
                         <div *ngFor="let submenu of menu.below">
                             <li class="pl-2">
-                                <a *ngIf="!submenu.new" class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="submenu.uri">- {{submenu.title}}</a>
-                                <a *ngIf="submenu.new" target="_blank" class="w-100 hover-{{config_initial.code}}" [href]="submenu.uri">- {{submenu.title}}</a>
+                                <a *ngIf="submenu.title =='Vacaciones' && flag_vacaciones" class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="submenu.uri">- {{submenu.title}}</a>
+                                <a *ngIf="submenu.title !='Vacaciones' && !submenu.new" class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="submenu.uri">- {{submenu.title}}</a>
+                                <a *ngIf="submenu.title !='Vacaciones' && submenu.new" target="_blank" class="w-100 hover-{{config_initial.code}}" [href]="submenu.uri">- {{submenu.title}}</a>
                             </li>
                         </div>
                     </div>
@@ -80,7 +81,7 @@
         <div class="col-md-12 col-lg-9 pl-3">
             <div class="panel mb-2">
                 <!-- <a href="https://es.surveymonkey.com/r/53NVRQP" target="_blank"> -->
-                    <img *ngIf="cod_company == '002'" class="rounded-1" alt="" src="assets/bck_3.jpg" width="100%">
+                <img *ngIf="cod_company == '002'" class="rounded-1" alt="" src="assets/bck_3.jpg" width="100%">
                 <!-- </a> -->
             </div>
 

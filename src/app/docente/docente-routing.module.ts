@@ -12,6 +12,7 @@ import { PaymentHistoryComponent } from './pages/payment-history/payment-history
 import { WeeklyScheduleComponent } from './pages/weekly-schedule/weekly-schedule.component';
 import { LibraryComponent } from './pages/library/library.component';
 import { DenunciaComponent } from './pages/denuncia/denuncia.component';
+import { VacacionesComponent } from './pages/vacaciones/vacaciones.component';
 const routes: Routes = [
 	{ 
 		path: '', 
@@ -74,6 +75,10 @@ const routes: Routes = [
 				path: 'biblioteca',
 				component: LibraryComponent
 			},
+			{
+				path: 'vacaciones',
+				component: VacacionesComponent
+			},			
 			{
 				path: '**',
 				redirectTo: '/docente/docentes-marcacion',

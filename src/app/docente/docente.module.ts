@@ -23,9 +23,11 @@ import { LibraryComponent } from './pages/library/library.component';
 
 import localePE from '@angular/common/locales/es-PE';
 import { DenunciaComponent } from './pages/denuncia/denuncia.component';
+import { VacacionesComponent } from './pages/vacaciones/vacaciones.component';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 registerLocaleData(localePE, 'es-PE');
 @NgModule({
-  declarations: [DocenteComponent, MarkingComponent, CourseManagementComponent, StudentGradesComponent, StudentAssistanceComponent, VirtualClassroomComponent, HistoricalMarkingComponent, PaymentHistoryComponent, WeeklyScheduleComponent, LibraryComponent, DenunciaComponent],
+  declarations: [DocenteComponent, MarkingComponent, CourseManagementComponent, StudentGradesComponent, StudentAssistanceComponent, VirtualClassroomComponent, HistoricalMarkingComponent, PaymentHistoryComponent, WeeklyScheduleComponent, LibraryComponent, DenunciaComponent, VacacionesComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -37,6 +39,7 @@ registerLocaleData(localePE, 'es-PE');
     NgxSmartModalModule.forRoot(),
     ToastrModule.forRoot(),
     NgxLoadingModule.forRoot({}),
+    NgxDaterangepickerMd.forRoot(),
     DocenteRoutingModule
   ],
   providers: [

@@ -22,6 +22,20 @@ export class DocenteService {
         return this.http.get(AppSettings.BASE_PATH + 'get_beneficios', { headers: this.generalS.makeHeaderNormal() });
     }
 
+    //INICIO VACACIONES EDUCANET BACK
+    public getmisvacaciones(emplid: any, cod_empresa: any, inicio: any, fin: any) {
+        return this.http.get(AppSettings.PRODUCTION + '/vacaciones/list?action=lista&' + 'emplid='+emplid+'&compania='+cod_empresa + (inicio!=undefined ? '&start_date='+inicio : '')+(fin!=undefined ? '&finish_date='+fin: ''), { headers: this.generalS.makeHeader() }).toPromise();
+    }
+
+    public getvacaciones(emplid: any, cod_empresa:any) {
+        return this.http.get(AppSettings.BASE_FRACTAL + '/ConsultaRecordEmpleado?' + 'cuc='+emplid+'&codigoCompania='+cod_empresa).toPromise();
+    }
+
+    public registrarvacaciones(data: any) {
+        return this.http.post(AppSettings.PRODUCTION + '/vacaciones/solicitud?_format=json', data, { headers: this.generalS.makeHeader() }).toPromise();
+    }
+    //FIN VACACIONES EDUCANET BACK
+
     public getClassDocentes(data: any): Promise<any> {
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
@@ -274,5 +288,8 @@ export class DocenteService {
     public savePostulante(data: any): Promise<any>{
         return this.http.post(AppSettings.SERVICES_INCORPORACION + '/api/postulante/savePostulante', data).toPromise();
     } 
-    
+
+    public accesoVacaciones(cuc, unidad): Promise<any>{
+        return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/accesoVacaciones?cuc=' + cuc + '&unidad=' + unidad).toPromise();
+    }    
 }
