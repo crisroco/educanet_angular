@@ -218,7 +218,7 @@ export class MarkingComponent implements OnInit {
 	}
 
 	markingExit(data, uri, secondClass?, data2?){
-		data.LVF_STATUS_MTG = 'E';
+		data.datos['LVF_STATUS_MTG'] = 'E';
 		this.docenteS.registerMarking3(data)
 		.then( res => {
 			this.sendLog(uri + '3', data.datos, res);
