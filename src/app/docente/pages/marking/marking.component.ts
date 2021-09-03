@@ -181,13 +181,13 @@ export class MarkingComponent implements OnInit {
 			.then( res => {
 				this.message = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].MENSAJE:'';
 				this.typeMessage = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].RESTRINGE:'';
+				this.sendLog(uri, data.datos, res);
 				if (this.typeMessage == 'Y') {
 					this.goToZoom();
 					if(this.cod_company == '002') this.markingExit(data, uri, secondClass, data2);
 					else this.getListClassroom();
 				}
 				else this.getListClassroom();
-				this.sendLog(uri, data.datos, res);
 				this.loading = false;
 			}, error => { this.loading = false;  this.sendLog(uri, data.datos, error); });
 		} else {
@@ -201,12 +201,12 @@ export class MarkingComponent implements OnInit {
 				.then( res => {
 					this.message = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].MENSAJE:'';
 					this.typeMessage = res.UCS_REST_MARCA_RES && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM && res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]?res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0].RESTRINGE:'';
+					this.sendLog(uri, data.datos, res);
 					if (this.typeMessage == 'Y') {
 						if(this.cod_company == '002') this.markingExit(data, uri, secondClass, data2);
 						else this.getListClassroom();
 					}
 					else this.getListClassroom();
-					this.sendLog(uri, data.datos, res);
 					this.loading = false;
 				}, error => { this.loading = false;  this.sendLog(uri, data.datos, error); });
 			} else {
