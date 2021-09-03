@@ -147,7 +147,7 @@ export class MarkingComponent implements OnInit {
 		var data = {
 			action: "marcacion",
 			datos: {
-				LVF_STATUS_MTG: 'P',
+				LVF_STATUS_MTG: this.realClassroom.LVF_STATUS_MTG,
 				acad_carrer: this.realClassroom.ACAD_CAREER,
 				cod_marcacion: this.realClassroom.LVF_NUM_MARC,
 				emplid: (this.cod_company == '002'?this.emplid:this.emplid_real),
@@ -167,7 +167,7 @@ export class MarkingComponent implements OnInit {
 			var data2 = {
 				action: "marcacion",
 				datos: {
-					LVF_STATUS_MTG: 'P',
+					LVF_STATUS_MTG: this.realClassroom.LVF_STATUS_MTG,
 					acad_carrer: secondClass.ACAD_CAREER,
 					cod_marcacion: secondClass.LVF_NUM_MARC,
 					emplid: (this.cod_company == '002'?this.emplid:this.emplid_real),
@@ -184,7 +184,7 @@ export class MarkingComponent implements OnInit {
 				this.sendLog(uri, data.datos, res);
 				if (this.typeMessage == 'Y') {
 					this.goToZoom();
-					if(this.cod_company == '002') this.markingExit(data, uri, secondClass, data2);
+					if(this.cod_company == '002') this.markingExit(data, uri, res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0], secondClass, data2);
 					else this.getListClassroom();
 				}
 				else this.getListClassroom();
@@ -217,8 +217,8 @@ export class MarkingComponent implements OnInit {
 		}
 	}
 
-	markingExit(data, uri, secondClass?, data2?){
-		data.datos['LVF_STATUS_MTG'] = 'E';
+	markingExit(data, uri, status, secondClass?, data2?){
+		data.datos['LVF_STATUS_MTG'] = status.UCS_STATUS_MTG;
 		this.docenteS.registerMarking3(data)
 		.then( res => {
 			this.sendLog(uri + '3', data.datos, res);
@@ -226,7 +226,7 @@ export class MarkingComponent implements OnInit {
 				this.docenteS.registerMarking2(data2)
 				.then( res => {
 					this.sendLog(uri + '2', data2.datos, res);
-					this.markingExit(data2, uri);
+					this.markingExit(data2, uri , res.UCS_REST_MARCA_RES.UCS_REST_MARCA_COM[0]);
 				}, error => { this.loading = false;  this.sendLog(uri + '2', data2.datos, error); });
 			}
 			else { this.loading = false; this.getListClassroom(); }
