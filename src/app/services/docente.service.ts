@@ -14,6 +14,14 @@ export class DocenteService {
         private generalS: GeneralService,
         private session: SessionService) {  }
 
+    public signUp(data){
+        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL + '/auth/signup', data).toPromise();
+    }
+
+    public login(data){
+        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL + '/auth/login', data).toPromise();
+    }
+
 	public getMenu(cod_empresa: any) {
         return this.http.get(AppSettings.PRODUCTION + '/api/menu_items/' + cod_empresa, { headers: this.generalS.makeHeader() }).pipe(timeout(10000));
     }
@@ -39,24 +47,24 @@ export class DocenteService {
     public getClassDocentes(data: any): Promise<any> {
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
-        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/clase-cientifica-docentes';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/clase-docentes';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/clase-cientifica-docentes';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/clase-docentes';
         return this.http.post(uri, data).toPromise();
     }
 
     public getCourseFormule(data: any): Promise<any>{
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
-        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/formula_curso';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/formula_curso';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/formula_curso';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/formula_curso';
         return this.http.post(uri, data).toPromise();
     }
 
     public getGradeRecordClass(data: any): Promise<any>{
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
-        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/notas-cientifica-registradas';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/notas_registradas';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/notas-cientifica-registradas';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/notas_registradas';
         return this.http.post(uri, data).toPromise();
     }
 
@@ -71,56 +79,56 @@ export class DocenteService {
     public updateGrade(data: any): Promise<any>{
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
-        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/actulizar-cientifica-notas';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/actulizar_notas_registradas';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/actulizar-cientifica-notas';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/actulizar_notas_registradas';
         return this.http.post(uri, data).toPromise();
     }
 
     public getClassAssistance(data: any): Promise<any>{
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
-        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/get_asistencia_alumno';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/get_asistencia_alumno_sise';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/get_asistencia_alumno';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/get_asistencia_alumno_sise';
         return this.http.post(uri, data).toPromise();
     }
 
     public listStudentClass(data: any): Promise<any>{
-        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL + '/lista_alumno_clase', data).toPromise();
+        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/lista_alumno_clase', data).toPromise();
     }
 
     public classroomAverage(data: any): Promise<any>{
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
         if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/get_promedio_alumno';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/get_promedio_alumno_sise';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/get_promedio_alumno_sise';
         return this.http.post(uri, data).toPromise();
     }
 
     public closeRecords(data: any): Promise<any>{
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
-        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/cerrar-acta-cientifica';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/cerrar-acta-sise';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/cerrar-acta-cientifica';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/cerrar-acta-sise';
         return this.http.post(uri, data).toPromise();
     }
 
     public getAssistanceDays(data: any): Promise<any>{
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
-        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/get_asistencia_alumno_detalle';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/get_lsta_asistencia_alumno_clase';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/get_asistencia_alumno_detalle';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/get_lsta_asistencia_alumno_clase';
         return this.http.post(uri, data).toPromise();
     }
 
     public getAssistanceHistory(data:any): Promise<any>{
-        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL + '/lista_x_alumno_clase', data).toPromise();
+        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/lista_x_alumno_clase', data).toPromise();
     }
 
     public getDetailClassroomStudent(data:any): Promise<any>{
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
-        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/lista_alumnos_cientifica';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/lista-alumnos';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/lista_alumnos_cientifica';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/lista-alumnos';
         return this.http.post(uri, data).toPromise();
     }
 
@@ -131,24 +139,24 @@ export class DocenteService {
     public saveAssistance(data: any): Promise<any>{
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
-        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/guardar_asistencia_alumnos_cientifica';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/guardar_asistencia';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/guardar_asistencia_alumnos_cientifica';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/guardar_asistencia';
         return this.http.post(uri, data).toPromise();
     }
 
     public listClassroom(data: any): Promise<any>{
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
-        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/lista_clases_docente';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/marcacion_docente';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/lista_clases_docente';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/marcacion_docente';
         return this.http.post(uri, data).toPromise();
     }
 
     public registerMarking(data: any): Promise<any>{
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
-        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/marcar_asistencia_docente_cientifica';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/actualizar_marcacion_docente';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/marcar_asistencia_docente_cientifica';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/actualizar_marcacion_docente';
         return this.http.put(uri, data).toPromise();
     }
 
@@ -156,7 +164,7 @@ export class DocenteService {
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
         if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/marcar_asistencia_docente_cientifica2';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/actualizar_marcacion_docente';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/actualizar_marcacion_docente';
         return this.http.put(uri, data).toPromise();
     }
 
@@ -164,27 +172,27 @@ export class DocenteService {
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
         if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/marcar_asistencia_docente_cientifica3';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/actualizar_marcacion_docente';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/actualizar_marcacion_docente';
         return this.http.put(uri, data).toPromise();
     }
 
     public getVirtualClassroowm(data: any): Promise<any>{
-        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL + '/clases-virtuales', data).toPromise();
+        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/clases-virtuales', data).toPromise();
     }
 
     public getPaymentPeriod(data: any): Promise<any>{
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
-        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/get_periodo_pagos';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/get_periodo_pagos_sise';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/get_periodo_pagos';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/get_periodo_pagos_sise';
         return this.http.post(uri, data).toPromise();
     }
 
     public getHistoricalMarking(data: any): Promise<any>{
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
-        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/get_historial_marcacion';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/get_historial_marcacion_sise';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/get_historial_marcacion';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/get_historial_marcacion_sise';
         return this.http.post(uri, data).toPromise();
     }
 
@@ -195,24 +203,24 @@ export class DocenteService {
     public getTeacherSchedule(data: any): Promise<any>{
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
-        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/get_horario_docente';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/get_horario_docente_sise';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/get_horario_docente';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/get_horario_docente_sise';
         return this.http.post(uri, data).toPromise();
     }
 
     public saveEthnicity(data: any): Promise<any>{
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
-        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/guardar_etnia';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/guardar_etnia';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/guardar_etnia';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/guardar_etnia';
         return this.http.post(uri, data).toPromise();
     }
 
     public existEthnicity(data: any): Promise<any>{
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
-        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/existe_etnia';
-        else uri = AppSettings.BASE_SISE_LARAVEL + '/existe_etnia';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/existe_etnia';
+        else uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/existe_etnia';
         return this.http.post(uri, data).toPromise();
     }
 
@@ -241,6 +249,11 @@ export class DocenteService {
             formBody.push(encodedKey + '=' + encodedValue);
         }
         return formBody.join('&');
+    }
+
+    public getDataDocente(data: any){
+        let uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/getDataDocente';
+        return this.http.post(uri, data).toPromise();
     }
 
     /* VIRTUAL CLASSES */
