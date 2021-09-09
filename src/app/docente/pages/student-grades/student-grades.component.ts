@@ -194,7 +194,6 @@ export class StudentGradesComponent implements OnInit {
 				oprid: atob(this.user.oprid),
 				course: student.DESCR2
 			}
-			console.log(dataStudent);
 			this.docenteS.updateGrade(dataStudent)
 			.then(res => {
 				if(res.UCS_ACTIV_NOTAS_RES && res.UCS_ACTIV_NOTAS_RES.UCS_ACTIV_NOTAS_COM && res.UCS_ACTIV_NOTAS_RES.UCS_ACTIV_NOTAS_COM[0] && res.UCS_ACTIV_NOTAS_RES.UCS_ACTIV_NOTAS_COM[0].Estado == '9' && student.intents < 3){
@@ -262,6 +261,8 @@ export class StudentGradesComponent implements OnInit {
 		this.loading = true;
 		if(this.cod_company == '002'){
 			this.updateStudentsGrades();
+			this.token = '';
+			this.message = '';
 		}
 		else{
 			var dataListStudentGrades = [];
