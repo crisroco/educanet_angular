@@ -243,7 +243,12 @@ export class StudentGradesComponent implements OnInit {
 			}
 		}
 		if(errors > 0) { this.toastr.error('Hubo uno o varios errores al registrar las calificaciones, vuelva a intentarlo.'); this.loading = false; }
-		else { this.getGradeRecordClass(); this.toastr.success('Se registraron las calificaciones correctamente.'); this.loading = false; }
+		else { 
+			this.getGradeRecordClass();
+			this.toastr.success('Se registraron las calificaciones correctamente.');
+			this.gradeName = '';
+			this.loading = false;
+		}
 	}
 
 	updateStudentsGrades(){
