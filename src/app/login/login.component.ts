@@ -104,12 +104,13 @@ export class LoginComponent implements OnInit {
         		this.sendLog(AppSettings.ACCESS_PS, res);
         		return; 
         	}
+			let exname = res.usuario;
 			this.session.setItem('token', this.variable);
 			res.oprid = btoa(res.oprid);
 			res.usuario = btoa(res.usuario);
 			this.session.setObject('user', res);
 			this.session.setItem('cod_company', cod_empresa);
-			this.docenteS.signUp({name: res.usuario, email: res.email, password: data.password})
+			this.docenteS.signUp({name: exname, email: res.email, password: data.password})
 				.then((res) => {
 					this.session.setItem('token_edu', res['access_token']);
 					this.loginToken();

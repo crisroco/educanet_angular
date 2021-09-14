@@ -42,7 +42,7 @@ export class DocenteComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		// if (this.cod_company == '002') {this.piezaModal.open();}
+		if (this.cod_company == '002') {this.piezaModal.open();}
 		this.docenteS.accesoVacaciones((this.cod_company == '002'?this.emplid:this.emplid_real), this.cod_company)
 		.then(res => {
 		this.flag_vacaciones = res.status;	

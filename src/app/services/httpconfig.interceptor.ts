@@ -19,7 +19,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token: string = this.student.getItem('token_edu');
-        if (request.url.includes('http://dev2.pasarela.educad.pe') && token) {
+        if (request.url.includes('http://dev.pasarela.educad.pe') && token) {
             request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
         }
 
