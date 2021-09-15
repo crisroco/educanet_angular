@@ -79,7 +79,6 @@ export class LoginComponent implements OnInit {
 
 	login(){
 		if (this.loginForm.invalid) { this.toastr.error('Complete todos los campos.'); return;}
-
 		let data = this.loginForm.value;
 		let empresa_url: string = '';
 		let cod_empresa: string = '';
@@ -110,7 +109,11 @@ export class LoginComponent implements OnInit {
 			res.usuario = btoa(res.usuario);
 			this.session.setObject('user', res);
 			this.session.setItem('cod_company', cod_empresa);
-			this.loginToken();
+			// this.docenteS.signUp({name: res.usuario, email: res.email, password: data.password})
+			// 	.then((res) => {
+					// this.session.setItem('token_edu', res['access_token']);
+					this.loginToken();
+				// });
         }, error => { this.session.allCLear(); this.sendLog(AppSettings.ACCESS_PS, error); });
 	}
 

@@ -64,9 +64,11 @@ export class AppSettings {
     //------------------------------- ENV PRODUCTION -------------------------------//
     public static BASE_UCSUR_LARAVEL = 'http://dev.pasarela.educad.pe/api';
     public static BASE_SISE_LARAVEL = 'https://pasarela.sise.edu.pe/api';
+    public static BASE_UCSUR_LARAVEL_AUTH = 'http://dev.pasarela.educad.pe/api/auth';
     public static PRODUCTION = "http://educanet.back.educad.pe";
     //------------------------------- ENV DEVELOP -------------------------------//
     // public static BASE_UCSUR_LARAVEL = 'http://dev2.pasarela.educad.pe/api';
+    // public static BASE_UCSUR_LARAVEL_AUTH = 'http://dev2.pasarela.educad.pe/api/auth';
     // public static BASE_SISE_LARAVEL  = 'http://dev.pasarela.sise.edu.pe/api';
     // public static PRODUCTION = "http://dev-educanet.back.educad.pe";
     //------------------------------- ENV DEVELOP -------------------------------//

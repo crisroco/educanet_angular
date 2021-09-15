@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { SessionService } from './services/session.service';
 import { LoginService } from './services/login.service';
+import { HttpConfigInterceptor } from './services/httpconfig.interceptor';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { LoginService } from './services/login.service';
   ],
   providers: [
     SessionService,
-    LoginService
+    LoginService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })

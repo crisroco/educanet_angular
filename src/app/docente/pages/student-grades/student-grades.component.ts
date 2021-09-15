@@ -116,7 +116,6 @@ export class StudentGradesComponent implements OnInit {
 
 			// (['dsadas', 'dsadas']).forEach()
 			this.students.forEach((student) => {
-				// console.log(student);
 				if(student.SISE_REST_CONSNOTREG_NOT.length){
 					student.SISE_REST_CONSNOTREG_NOT.forEach((grade) => {
 						grade.ACTN_TYPE_CD = grade.ACTN_TYPE_CD.replace(/[^0-9]&*\./g, "");
@@ -177,20 +176,8 @@ export class StudentGradesComponent implements OnInit {
 		}, eror => { });
 	}
 
-	updateStudentsGrades(){
-		for (var i = 0; i < this.students.length; i++) {
-			this.students[i].updated = false;
-			this.students[i].intents = 0;
-			this.students[i].success = false;
-			this.students[i].change = false;
-			this.students[i].error = false;
-			this.saveGrade(this.students[i]);
-		}
-	}
-
 	saveGrade(student){
 		var grade = student.SISE_REST_CONSNOTREG_NOT.filter(item => item.DESCRSHORT == this.gradeName)[0];
-		console.log(grade);
 		if(grade.ACTN_TYPE_CD != grade.lastgrade){
 			student.change = true;
 			student.intents++;
@@ -203,6 +190,7 @@ export class StudentGradesComponent implements OnInit {
 				lam_type: grade.LAM_TYPE,
 				strm: student.STRM,
 				student_grade: grade.ACTN_TYPE_CD,
+				token: this.token,
 				oprid: atob(this.user.oprid),
 				course: student.DESCR2
 			}
@@ -255,28 +243,31 @@ export class StudentGradesComponent implements OnInit {
 			}
 		}
 		if(errors > 0) { this.toastr.error('Hubo uno o varios errores al registrar las calificaciones, vuelva a intentarlo.'); this.loading = false; }
-		else { this.getGradeRecordClass(); this.toastr.success('Se registraron las calificaciones correctamente.'); this.loading = false; }
+		else { 
+			this.getGradeRecordClass();
+			this.toastr.success('Se registraron las calificaciones correctamente.');
+			this.gradeName = '';
+			this.loading = false;
+		}
+	}
+
+	updateStudentsGrades(){
+		for (var i = 0; i < this.students.length; i++) {
+			this.students[i].updated = false;
+			this.students[i].intents = 0;
+			this.students[i].success = false;
+			this.students[i].change = false;
+			this.students[i].error = false;
+			this.saveGrade(this.students[i]);
+		}
 	}
 
 	startUpdateStudentGrades(){
 		this.loading = true;
 		if(this.cod_company == '002'){
-			this.docenteS.putToken({ 'emplid': this.emplid,  'numero': this.course.PHONE, 'token': this.token})
-			.then(res => {
-				if(res.data && res.data.status == 'ok'){
-					this.updateStudentsGrades();
-					this.token = '';
-					this.message = '';
-				}
-				else{
-					this.message = '';
-					this.toastr.error('Vuelva a intentar en unos minutos.');
-				}
-			}, error => {
-				this.loading = false;
-				console.log(error);
-				this.toastr.error(error && error.error && error.error.message?error.error.message:'Vuelva a intentar en unos minutos.');
-			});
+			this.updateStudentsGrades();
+			this.token = '';
+			this.message = '';
 		}
 		else{
 			var dataListStudentGrades = [];
@@ -300,6 +291,7 @@ export class StudentGradesComponent implements OnInit {
 				}
 		    });
 		    this.allStudents = JSON.parse(JSON.stringify(this.students));
+			console.log(dataListStudentGrades);
 		    this.docenteS.updateGrade({ 'data': JSON.stringify(dataListStudentGrades) })
 			.then(res => {
 				console.log(res.length);

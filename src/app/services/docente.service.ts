@@ -14,6 +14,14 @@ export class DocenteService {
         private generalS: GeneralService,
         private session: SessionService) {  }
 
+    public signUp(data){
+        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL + '/auth/signup', data).toPromise();
+    }
+
+    public login(data){
+        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL + '/auth/login', data).toPromise();
+    }
+
 	public getMenu(cod_empresa: any) {
         return this.http.get(AppSettings.PRODUCTION + '/api/menu_items/' + cod_empresa, { headers: this.generalS.makeHeader() }).pipe(timeout(10000));
     }
@@ -222,7 +230,7 @@ export class DocenteService {
 
     public getLinkZoom(cicle, myclass, date, section, teacher): Promise<any> {
         let url = "https://cientificavirtual.cientifica.edu.pe//mod/zoom/client/zoom_link.php?strm=";
-        if(cicle == '1072' || cicle == '1073' || cicle == '1117' || cicle == '1118' || cicle == '1156' || cicle == '1157' || cicle == '2220' || cicle == '2222' || cicle == '2225' || cicle == '2228' || cicle == '2235' || cicle == '2237' || cicle == '2238'){
+        if(cicle == '1072' || cicle == '1073' || cicle == '1117' || cicle == '1118' || cicle == '1156' || cicle == '1157' || cicle == '2220' || cicle == '2222' || cicle == '2225' || cicle == '2228' || cicle == '2235' || cicle == '2237' || cicle == '2238' || cicle == '2210' || cicle == '2224' || cicle == '0965' || cicle == '2236' || cicle == '1031' || cicle == '1128' || cicle == '2221' || cicle == '1030' || cicle == '2228' || cicle == '2226' || cicle == '1116' || cicle == '2239' || cicle == '1125' || cicle == '1081'){
             url = "https://aulavirtualcpe.cientifica.edu.pe/mod/zoom/client/zoom_link.php?strm=";
         }
         return this.http.get(url + cicle + '&nbr=' + myclass + '&date=' + date + '&section=' + section + '&teacher=' + teacher, {responseType: 'text'}).toPromise();
@@ -241,6 +249,11 @@ export class DocenteService {
             formBody.push(encodedKey + '=' + encodedValue);
         }
         return formBody.join('&');
+    }
+
+    public getDataDocente(data: any){
+        let uri = AppSettings.BASE_UCSUR_LARAVEL + '/getDataDocente';
+        return this.http.post(uri, data).toPromise();
     }
 
     /* VIRTUAL CLASSES */
