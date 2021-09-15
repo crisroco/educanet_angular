@@ -1,0 +1,23 @@
+a.one {
+    text-decoration: underline;
+    color: #506AD4;
+    font-weight: bold;
+}
+
+a.one:hover {
+    text-decoration: underline;
+    color: #204491;
+    font-weight: bold;
+}
+
+.col-ucs {
+    border-left-color: #204491;
+    border-left-style: solid;
+    border-left-width: 1px;
+}
+
+.col-sise {
+    border-left-color: #e12726;
+    border-left-style: solid;
+    border-left-width: 1px;
+}

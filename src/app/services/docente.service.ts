@@ -291,5 +291,17 @@ export class DocenteService {
 
     public accesoVacaciones(cuc, unidad): Promise<any>{
         return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/accesoVacaciones?cuc=' + cuc + '&unidad=' + unidad).toPromise();
-    }    
+    }  
+    
+    public getresumenevaluation(emplid): Promise<any>{
+        return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/resumenevaluation?emplid=' + emplid).toPromise();
+    }
+
+    public getrankdocente(emplid): Promise<any>{
+        return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/getrankdocente?emplid=' + emplid).toPromise();
+    }
+
+    public getdetailevaluation(emplid, codigo, fecha_inicio, fecha_fin, tipo): Promise<any>{
+        return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/detailevaluation?emplid=' + emplid + '&codigo=' + codigo + '&fecha_inicio=' + fecha_inicio + '&fecha_fin=' + fecha_fin + '&tipo=' + tipo).toPromise();
+    }
 }

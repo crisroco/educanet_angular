@@ -85,6 +85,7 @@ export class DocenteComponent implements OnInit {
 			}
 			if (this.cod_company != '004') {
 				this.menus[0].below.push({new: false, title: 'Vacaciones', description: 'Vacaciones', uri: '/docente/vacaciones'});
+				//this.menus[0].below.push({new: false, title: 'Resultados de Evaluación', description: 'Resultados de Evaluación', uri: '/docente/resultados-evaluacion'});
 				this.menus[0].below.push({new: true, title: 'Inducciones GDT', description: 'Inducciones', uri: 'https://vimeo.com/555819732'});
 			}
 			this.menus[0].below.push({new: true, title: 'Como descargar mi boleta de pago', description: 'Como descargar mi boleta de pago', uri: 'https://vimeo.com/559086745'});
@@ -186,6 +187,10 @@ export class DocenteComponent implements OnInit {
 	logout(){
 		this.session.allCLear();
     	this.router.navigate(['/']);
+	}
+
+	goEvaluacion(){
+		this.router.navigate(['/docente/resultados-evaluacion']);
 	}
 
 	goIncorporacion(){
