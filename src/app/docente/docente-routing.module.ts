@@ -13,6 +13,7 @@ import { WeeklyScheduleComponent } from './pages/weekly-schedule/weekly-schedule
 import { LibraryComponent } from './pages/library/library.component';
 import { DenunciaComponent } from './pages/denuncia/denuncia.component';
 import { VacacionesComponent } from './pages/vacaciones/vacaciones.component';
+import { ResultadosEvaluacionComponent } from './pages/resultados-evaluacion/resultados-evaluacion.component';
 const routes: Routes = [
 	{ 
 		path: '', 
@@ -78,6 +79,10 @@ const routes: Routes = [
 			{
 				path: 'vacaciones',
 				component: VacacionesComponent
+			},
+			{
+				path: 'resultados-evaluacion',
+				component: ResultadosEvaluacionComponent
 			},			
 			{
 				path: '**',

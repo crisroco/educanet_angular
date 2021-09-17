@@ -18,7 +18,7 @@ export class VacacionesComponent implements OnInit {
   config_initial: any;
 	user = this.session.getObject('user');
   cod_company: any = this.user['cod_company'];
-  emplid: any = this.cod_company == '002'? Decrypt(this.user['emplid']):Decrypt(this.user['emplid_real']);
+  emplid: any = Decrypt(this.user['emplid']);
   p_correo: any = this.user['email2'];
   solicitudes:Array<any> = [];
   vacaciones:Array<any> = [];
@@ -272,7 +272,7 @@ export class VacacionesComponent implements OnInit {
     }, (err) => {
         try {
           let caderr = err['error'].text;
-          let cadenaJs = err['error'].text.substring(err['error'].text.indexOf("{"), caderr.length);
+          let cadenaJs = caderr.substring(caderr.indexOf("{"), caderr.length);
           let resJS = JSON.parse(cadenaJs);
           if (resJS['status']=='fail') {            
             this.toastr.error(resJS['message']);
