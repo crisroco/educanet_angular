@@ -98,6 +98,7 @@ export class LoginComponent implements OnInit {
 		this.variable = btoa(empresa_url + "&&" + data.email.toUpperCase() + "&&" + data.password);
         this.loginS.getAccess_ps(this.variable)
         .then(res => {
+			console.log(res);
         	if(res.noaccess || res.error){ 
         		this.toastr.error(res.noaccess); 
         		this.session.allCLear();
