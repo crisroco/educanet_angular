@@ -150,3 +150,12 @@
         <img src="./assets/img/times-modal.svg" alt="">
     </div>
 </ngx-smart-modal>
+
+<ngx-smart-modal #piezaModalSise identifier="piezaModalSise" [closable]="false" [escapable]="true" [dismissable]="true" [customClass]="'smallModal fullModal noBordersModal'">
+    <a href="https://aulavirtual.sise.edu.pe" target="_blank">
+        <img class="w-100 rounded-1" src="./assets/notice_sise.png">
+    </a>
+    <div (click)="piezaModalSise.close()" class="times-close">
+        <img src="./assets/img/times-modal.svg" alt="">
+    </div>
+</ngx-smart-modal>
