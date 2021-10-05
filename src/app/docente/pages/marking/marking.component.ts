@@ -176,7 +176,6 @@ export class MarkingComponent implements OnInit {
 				}
 			}
 		}
-		console.log(this.realClassroom);
 		if (this.realClassroom['MARC_TIME_START'] == '') {
 			this.docenteS.registerMarking(data)
 			.then( res => {
