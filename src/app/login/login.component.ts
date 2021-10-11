@@ -8,6 +8,7 @@ import { Encrypt } from '../helpers/general';
 import { AppSettings } from '../app.settings';
 import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
 	dni = '';
 	tipo_documento = '';
 	postulanteForm: FormGroup;
-
+	cod_user: any;
 	constructor(private formBuilder: FormBuilder,
     	private toastr: ToastrService,
     	private loginS: LoginService,
@@ -98,7 +99,6 @@ export class LoginComponent implements OnInit {
 		this.variable = btoa(empresa_url + "&&" + data.email.toUpperCase() + "&&" + data.password);
         this.loginS.getAccess_ps(this.variable)
         .then(res => {
-			console.log(res);
         	if(res.noaccess || res.error){ 
         		this.toastr.error(res.noaccess); 
         		this.session.allCLear();
@@ -110,6 +110,8 @@ export class LoginComponent implements OnInit {
 			res.usuario = btoa(res.usuario);
 			this.session.setObject('user', res);
 			this.session.setItem('cod_company', cod_empresa);
+			this.cod_user = data.email;
+			this.session.setItem('cod_user', this.cod_user);
 			// this.docenteS.signUp({name: res.usuario, email: res.email, password: data.password})
 				// .then((res) => {
 					// this.session.setItem('token_edu', res['access_token']);

@@ -6,7 +6,7 @@ import { DocenteService } from '../services/docente.service';
 import { LoginService } from '../services/login.service';
 import { Decrypt, Encrypt } from '../helpers/general';
 import { ToastrService } from 'ngx-toastr';
-
+import { FormControl, FormBuilder } from '@angular/forms';
 import * as CryptoJS from 'crypto-js';
 
 @Component({
@@ -31,10 +31,27 @@ export class DocenteComponent implements OnInit {
 	realEthnicity = '';
 	realOther = '';
 	flag_vacaciones: boolean = false;
-
+	cod_user: any = this.session.getItem('cod_user');
+	remotex: any;
+	digital1: any;
+	digital2: any;
+	digital3: any;
+	digital4: any;
+	DigitalLibraryAttribute1: FormControl;
+	DigitalLibraryAttribute2: FormControl;
+	DigitalLibraryAttribute3: FormControl;
+	DigitalLibraryAttribute4: FormControl;
+	DigitalLibraryAttribute5: FormControl;
+	DigitalLibraryAttribute6: FormControl;
+	DigitalLibraryAttribute7: FormControl;
+	DigitalLibraryAttribute8: FormControl;
+	DigitalLibraryAttribute9: FormControl;
+	DigitalLibraryAttribute10: FormControl;
+	formulario1: FormControl;
 	constructor(private session: SessionService,
 		private loginS: LoginService,
     	private toastr: ToastrService,
+		private formBuilder: FormBuilder,
 		private router: Router,
 		private docenteS: DocenteService) { 
 		this.cod_company = this.session.getItem('cod_company');
@@ -188,6 +205,46 @@ export class DocenteComponent implements OnInit {
 	logout(){
 		this.session.allCLear();
     	this.router.navigate(['/']);
+	}
+
+	getDataRemotex(){
+		this.docenteS.getDataDocente({email: this.cod_user}).then(res => {
+			console.log(res);		
+			this.remotex = res['UcsMetodoDatosPersRespuesta'];
+			this.session.setObject('remotex', this.remotex);
+			const SECRETKEY = "K4GxggYzW6vl0TwxJrBL8RJaZR2eVg60";
+				const DIGITAL_LIBRARY_URL = "https://bennett.remotexs.in/alumni/login";
+				const DIGITAL_LIBRARY_URL2 = "https://cientifica.remotexs.co/alumni/login";
+
+				this.digital1 = "Docente";
+				this.digital2 = this.remotex.codigoAlumno;
+				this.digital3 = this.remotex.correo;
+				if (CryptoJS) {
+					var hash = CryptoJS.HmacSHA256(DIGITAL_LIBRARY_URL2 + this.digital1 + this.digital2 + this.digital3, SECRETKEY);
+					this.digital4 = CryptoJS.enc.Base64.stringify(hash);
+					//////////////////////////////
+					this.DigitalLibraryAttribute1 = new FormControl(this.digital1);
+					this.DigitalLibraryAttribute2 = new FormControl(this.digital2);
+					this.DigitalLibraryAttribute3 = new FormControl(this.digital3);
+					this.DigitalLibraryAttribute4 = new FormControl(this.digital4);
+					this.DigitalLibraryAttribute5 = new FormControl(this.remotex.nombreAlumno + " " + this.remotex.apellidoAlumno);
+					this.DigitalLibraryAttribute6 = new FormControl(this.remotex.programa_actual);
+					this.DigitalLibraryAttribute7 = new FormControl(this.remotex.ind_modalidad);
+					this.DigitalLibraryAttribute8 = new FormControl(this.remotex.campus);
+					this.DigitalLibraryAttribute9 = new FormControl(this.remotex.ciclo_lectivo);
+					this.DigitalLibraryAttribute10 = new FormControl(this.remotex.institucion);
+				} else {
+					alert("Error: CryptoJS is undefined");
+				}
+				this.session.setObject('hash', this.digital4);
+		})
+		this.goRemoteX();
+	}
+
+	goRemoteX(){
+		console.log(document.forms['formulario1']);
+		var formularioRemoteX = document.forms['formulario1'];
+		formularioRemoteX.submit();
 	}
 
 	goEvaluacion(){

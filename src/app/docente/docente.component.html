@@ -42,9 +42,10 @@
                     <li> <a class="w-100 hover-{{config_initial.code}} no_pointer">+ Canal de Ética</a> </li>
                     <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="https://grupoeducad.sharepoint.com/sites/RepositorioProceso/SitePages/doc/DGT-RES-POL-01%20C%C3%B3digo%20de%20%C3%89tica.pdf">- Código de Ética</a> </li>
                     <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="https://grupoeducad.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=p&chid=bb8aab6b-b381-4a09-b6c2-e185835c743b&vid=b63a720d-4a5f-440e-801a-9eeb15f3d4a9">- Procedimiento</a>                        </li>
-                    <!-- <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/denuncia']">- Portal de Denuncia</a> </li> -->
+                    <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/denuncia']">- Portal de Denuncia</a> </li>
                     <li> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="https://grupoeducad.sharepoint.com/sites/RepositorioProceso/SitePages/RepositorioProceso.aspx">+ Procedimientos y Políticas</a></li>
-                    <li> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/biblioteca']">+ Biblioteca</a></li>
+                    <!-- <li> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/biblioteca']">+ Biblioteca</a></li> -->
+                    <li> <a class="w-100 hover-{{config_initial.code}}" (click)="getDataRemotex()">+ Biblioteca</a></li>
                     <li> <a class="w-100 hover-{{config_initial.code}}" (click)="logout()">+ Cerrar Sesión</a></li>
                 </ul>
 
@@ -102,6 +103,30 @@
         </a>
     </div>
 </div>
+
+<form target="_blank" action="https://cientifica.remotexs.co/alumni/login" method=post id="formulario1"
+    name="formulario1">
+    <input [formControl]="DigitalLibraryAttribute1" name="DigitalLibraryAttribute1" id="DigitalLibraryAttribute1"
+        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute2" name="DigitalLibraryAttribute2" id="DigitalLibraryAttribute2"
+        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute3" name="DigitalLibraryAttribute3" id="DigitalLibraryAttribute3"
+        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute4" name="DigitalLibraryAttribute4" id="DigitalLibraryAttribute4"
+        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute5" name="DigitalLibraryAttribute5" id="DigitalLibraryAttribute5"
+        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute6" name="DigitalLibraryAttribute6" id="DigitalLibraryAttribute6"
+        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute7" name="DigitalLibraryAttribute7" id="DigitalLibraryAttribute7"
+        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute8" name="DigitalLibraryAttribute8" id="DigitalLibraryAttribute8"
+        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute9" name="DigitalLibraryAttribute9" id="DigitalLibraryAttribute9"
+        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute10" name="DigitalLibraryAttribute10" id="DigitalLibraryAttribute10"
+        type="text" /><br />
+</form>
 
 <ngx-smart-modal #ethnicityModal identifier="ethnicityModal" [closable]="false" [escapable]="false" [dismissable]="false" [customClass]="''">
     <div class="text-center mb-3">
