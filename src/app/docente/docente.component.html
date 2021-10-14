@@ -35,6 +35,16 @@
                             </li>
                         </div>
                     </div>
+                    <!-- <li> <a class="w-100 hover-{{config_initial.code}} no_pointer">+ Disponibilidad</a> </li>
+                    <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/horario-virtual']">- Disponibilidad Horario</a> </li>
+                    <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/cursos-clases']">- Disponibilidad Cursos </a> </li>
+                    <ng-container *ngIf="director">
+                        <li> <a class="w-100 hover-{{config_initial.code}} no_pointer">+ Director</a> </li>
+                        <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/director/anadir_docente']">- Añadir Docente</a> </li>
+                        <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/director/anadir_curso']">- Añadir Curso</a> </li>
+                        <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/director/consulta_docente']">- Consulta Docente</a> </li>
+                        <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/director/consulta_cursos']">- Consulta Cursos</a> </li>
+                    </ng-container> -->
                     <li> <a class="w-100 hover-{{config_initial.code}}" href="http://cultura.educad.pe/" target="_blank">+ Somos Educa_d</a> </li>
                     <li *ngIf="cod_company === '003'"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="http://aulavirtual-historico.sise.edu.pe/local/wseducad/auth/sso.php?strm=0000&class=0000&course=000000&emplid={{emplid_real}}&token=DOCENTE">+ Inducción Docente</a> </li>
 
@@ -74,6 +84,8 @@
                                 </li>
                             </div>
                         </div>
+                        <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/horario-virtual']">+ Disponibilidad Horario</a> </li>
+-	                    <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/cursos-clases']">+ Disponibilidad Cursos </a> </li>
                         <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/biblioteca']">+ Biblioteca</a></li>
                         <li> <a class="w-100 hover-{{config_initial.code}} px-2" (click)="logout()">+ Cerrar Sesión</a></li>
                     </ul>
@@ -105,7 +117,7 @@
 </div>
 
 <form target="_blank" action="https://cientifica.remotexs.co/alumni/login" method=post id="formulario1"
-    name="formulario1">
+    name="formulario1" #hello>
     <input [formControl]="DigitalLibraryAttribute1" name="DigitalLibraryAttribute1" id="DigitalLibraryAttribute1"
         type="text" /><br />
     <input [formControl]="DigitalLibraryAttribute2" name="DigitalLibraryAttribute2" id="DigitalLibraryAttribute2"

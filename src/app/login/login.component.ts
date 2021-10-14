@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { LoginService } from '../services/login.service';
 import { SessionService } from '../services/session.service';
 import { DocenteService } from '../services/docente.service';
+import { DisponibilityService } from '../services/disponibility.service';
 import { Encrypt } from '../helpers/general';
 import { AppSettings } from '../app.settings';
 import { Router } from '@angular/router';
@@ -43,6 +44,7 @@ export class LoginComponent implements OnInit {
 	cod_user: any;
 	constructor(private formBuilder: FormBuilder,
     	private toastr: ToastrService,
+		private dispoS: DisponibilityService,
     	private loginS: LoginService,
     	private session: SessionService,
 		private router: Router,
@@ -105,17 +107,21 @@ export class LoginComponent implements OnInit {
         		this.sendLog(AppSettings.ACCESS_PS, res);
         		return; 
         	}
-			this.session.setItem('token', this.variable);
 			res.oprid = btoa(res.oprid);
 			res.usuario = btoa(res.usuario);
 			this.session.setObject('user', res);
-			this.session.setItem('cod_company', cod_empresa);
-			this.cod_user = data.email;
-			this.session.setItem('cod_user', this.cod_user);
+			// this.dispoS.checkDirector(data.email)
+			// 	.then((res) => {
+					// this.session.setItem('DI', res.UCS_LOGINDIR_RES.VALOR);
+					this.session.setItem('token', this.variable);
+					this.session.setItem('cod_company', cod_empresa);
+					this.cod_user = data.email;
+					this.session.setItem('cod_user', this.cod_user);
+					this.loginToken();
+				// });
 			// this.docenteS.signUp({name: res.usuario, email: res.email, password: data.password})
 				// .then((res) => {
 					// this.session.setItem('token_edu', res['access_token']);
-					this.loginToken();
 				// });
         }, error => { this.session.allCLear(); this.sendLog(AppSettings.ACCESS_PS, error); });
 	}

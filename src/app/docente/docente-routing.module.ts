@@ -14,6 +14,13 @@ import { LibraryComponent } from './pages/library/library.component';
 import { DenunciaComponent } from './pages/denuncia/denuncia.component';
 import { VacacionesComponent } from './pages/vacaciones/vacaciones.component';
 import { ResultadosEvaluacionComponent } from './pages/resultados-evaluacion/resultados-evaluacion.component';
+import { VirtualScheduleComponent } from './pages/virtual-schedule/virtual-schedule.component';
+import { CoursesandclassesComponent } from './pages/coursesandclasses/coursesandclasses.component';
+import { AddCourseComponent } from './pages/director/add-course/add-course.component';
+import { AddTeacherComponent } from './pages/director/add-teacher/add-teacher.component';
+import { ConsultCourseComponent } from './pages/director/consult-course/consult-course.component';
+import { ConsultTeacherComponent } from './pages/director/consult-teacher/consult-teacher.component';
+
 const routes: Routes = [
 	{ 
 		path: '', 
@@ -57,6 +64,14 @@ const routes: Routes = [
 				component: VirtualClassroomComponent
 			},
 			{
+				path: 'horario-virtual',
+				component: VirtualScheduleComponent
+			},
+			{
+				path: 'cursos-clases',
+				component: CoursesandclassesComponent
+			},
+			{
 				path: 'docentes-historico_marcacion',
 				component: HistoricalMarkingComponent
 			},
@@ -83,7 +98,24 @@ const routes: Routes = [
 			{
 				path: 'resultados-evaluacion',
 				component: ResultadosEvaluacionComponent
-			},			
+			},
+			// Director
+			{
+				path: 'director/anadir_docente',
+				component: AddTeacherComponent
+			},
+			{
+				path: 'director/anadir_curso',
+				component: AddCourseComponent
+			},
+			{
+				path: 'director/consulta_docente',
+				component: ConsultTeacherComponent
+			},
+			{
+				path: 'director/consulta_cursos',
+				component: ConsultCourseComponent
+			},
 			{
 				path: '**',
 				redirectTo: '/docente/docentes-marcacion',
