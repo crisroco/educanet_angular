@@ -1,32 +1,19 @@
 <div class="bg-white p-3 rounded-1">
-	<h5 class="pb-2 bd-b-1 bd-ucs"> Añadir Curso</h5>
-	<div class="col-md-12 form-group">
-    <div class="row">
+  <h5 class="pb-2 bd-b-1 bd-ucs"> Consulta Cursos</h5>
+  <div class="col-md-12 form-group">
+    <div class="row my-4">
       <div class="col-lg-6">
         <select [(ngModel)]="type" (change)="loadCarrers(type)" class="form-control" id="type">
           <option value="">Selecciona Tipo . . .</option>
           <option value="CPE">CPE</option>
-          <option value="PREG">PREG</option>
-				</select>
+          <option value="PREG">PRGS</option>
+        </select>
       </div>
       <div class="col-lg-6">
-        <select [(ngModel)]="carrer" (change)="loadCourses(carrer)" class="form-control" id="type">
+        <select [(ngModel)]="carrer" (change)="search()" class="form-control" id="carrer">
           <option value="">Selecciona Carrera . . .</option>
-          <option *ngFor="let carr of allCarrers" [ngValue]="carr">{{carr.DETALLE_PROGR}}</option>
-				</select>
-      </div>
-    </div>
-    <div class="row my-4">
-      <div class="col-lg-4">
-        <input [(ngModel)]="searchFields.code" type="text" class="form-control" id="code" placeholder="Código">
-      </div>
-      <div class="col-lg-4">
-        <input [(ngModel)]="searchFields.name" type="text" class="form-control" id="name_course" placeholder="Nombre del Curso">
-      </div>
-      <div class="col-lg-4">
-        <div class="text-right">
-          <button (click)="search()" class="btn btn-primary">Buscar</button>
-        </div>
+          <option *ngFor="let carr of allCarrers" [ngValue]="carr.ACAD_PROG">{{carr.DETALLE_PROGR}}</option>
+        </select>
       </div>
     </div>
     <div class="row">
@@ -37,17 +24,19 @@
               <tr class="text-white text-center text-s">
                 <th class="px-3 py-2 align-middle">Código</th>
                 <th class="px-3 py-2 align-middle">Nombre Curso</th>
-                <th class="px-3 py-2 align-middle">Acciones</th>
+                <th class="px-3 py-2 align-middle">Carrera</th>
+                <th class="px-3 py-2 align-middle">Grado</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let crse of allCourses" class="text-center text-s">
-                <td class="p-2">{{crse.CRSE_ID}}</td>
-                <td class="p-2">{{crse.DETALLE_CURSO}}</td>
-                <td class="p-2">
-                  <i (click)="add(crse)" class="fa fa-plus pointer mr-2" aria-hidden="true"></i>
-                  <i (click)="remove(crse)" class="fa fa-trash pointer" aria-hidden="true"></i>
-                </td>
+                <td class="p-2">{{crse.ccurso}}</td>
+                <td class="p-2">{{crse.dcurso}}</td>
+                <td class="p-2">{{crse.carrera}}</td>
+                <td class="p-2">{{crse.grado}}</td>
+              </tr>
+              <tr *ngIf="allCourses.length==0">
+                <td class="p-2" colspan="4">No se encontraron Cursos</td>
               </tr>
             </tbody>
           </table>
@@ -56,5 +45,4 @@
     </div>
   </div>
 </div>
-
 <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true }"></ngx-loading>

@@ -237,7 +237,7 @@ export class DocenteComponent implements OnInit {
 				this.DigitalLibraryAttribute10 = new FormControl(this.remotex.institucion);
 				setTimeout(() => {
 					this.goRemoteX();
-				}, 1000);
+				}, 500);
 			} else {
 				alert("Error: CryptoJS is undefined");
 			}

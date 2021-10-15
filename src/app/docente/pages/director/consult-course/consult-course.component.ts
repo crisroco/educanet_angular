@@ -11,120 +11,63 @@ import { DisponibilityService } from '../../../../services/disponibility.service
 })
 export class ConsultCourseComponent implements OnInit {
 
-  user = this.session.getObject('user');
-  allCourses:Array<any> = [];
-  realAllCourses:Array<any> = [];
-  allCarrers:Array<any> = [];
   loading: boolean = false;
-  public carrer:String = '';
-  public type:String = '';
-  public currentCarrer = {
-    DETALLE_PROGR: ''
-  };
-  public searchFields = {
-    code: '',
-    name: ''
-  }
+  public user = this.session.getObject('user');
+  public allCoursesReal:Array<any> = [];
+  public allCarrers:Array<any> = [];
+  public type = '';
+  public carrer = '';
+	public allCourses:Array<any> = [];
   constructor(private session: SessionService,
-		private toastr: ToastrService,
-		private dispoS: DisponibilityService) { 
-	}
+  private toastr: ToastrService,
+  private dispoS: DisponibilityService) { }
 
   ngOnInit() {
-  	// this.loading = true;
-  	// this.getCourses();
+  	this.loading = true;
+  	this.dispoS.getAllCourses()
+  		.then((res:any) => {
+  			// this.allCourses = this.alphabeticalOrder(res.data);
+        this.allCoursesReal = res.data;
+  			this.loading = false;
+  		});
   }
 
   loadCarrers(e){
-    this.loading = true;
-    this.dispoS.getCarrers({emplid: this.user.emplid_moodle, type: e})
-      .then((res) => {
-        this.allCarrers = res.RES_CARR_DIREC.COM_CARR_DIREC;
-        this.loading = false;
-      });
-  }
-
-  loadCourses(e){
-    this.currentCarrer = e;
-    this.loading = true;
-    this.dispoS.getCourses({emplid: this.user.emplid_moodle, type: this.type, prog: e.ACAD_PROG})
-      .then((res) => {
-        if (res.RES_CURSO_DIREC.COM_CURSO_DIREC) {
-          this.allCourses = this.alphabeticalOrder(res.RES_CURSO_DIREC.COM_CURSO_DIREC);
-          this.realAllCourses = res.RES_CURSO_DIREC.COM_CURSO_DIREC;
-        } else {
-          this.toastr.warning('No se encontraron Cursos')
-        }
-        this.loading = false;
-      });
-  }
-
-  add(crse){
-    this.loading = true;
-    let data = {
-      institucion :'UCS',
-      grado: this.type, //this.type=='PREG'?'PRGS':this.type,
-      ccurso: crse.CRSE_ID,
-      dcurso: crse.DETALLE_CURSO,
-      codigo_carrera: crse.ACAD_PROG,
-      carrera: this.currentCarrer.DETALLE_PROGR
+    if (!e) {
+      this.allCourses = JSON.parse(JSON.stringify(this.allCoursesReal));
+      this.carrer = '';
+    } else {
+      this.loading = true;
+        this.dispoS.getCarrers({emplid: this.user.emplid_moodle, type: e})
+          .then((res) => {
+            this.allCarrers = res.RES_CARR_DIREC.COM_CARR_DIREC;
+            this.loading = false;
+          });
     }
-    this.dispoS.addToCourses(data)
-      .then((res) => {
-        if (res.status) {
-          this.toastr.success(res.msg);
-        } else {
-          this.toastr.warning(res.msg);
-        }
-        this.loading = false;
-      });
-  }
-
-  remove(crse){
-    this.loading = true;
-    let data = {
-      grado: this.type,// this.type=='PREG'?'PRGS':this.type,
-      ccurso: crse.CRSE_ID,
-      codigo_carrera: crse.ACAD_PROG,
-    }
-    this.dispoS.removeFromCourses(data)
-      .then((res) => {
-        if (res.status) {
-          this.toastr.success(res.msg);
-        } else {
-          this.toastr.warning(res.msg);
-        }
-        this.loading = false;
-      });
   }
 
   search(){
-    if (this.realAllCourses) {
-      let totalData = JSON.parse(JSON.stringify(this.realAllCourses));
-      if (this.validateFields()) {
-        this.loading = true;
-        totalData = totalData.filter(el => el.CRSE_ID.includes(this.searchFields.code));
-        totalData = totalData.filter(el => el.DETALLE_CURSO.includes(this.searchFields.name));
-        this.loading = false;
-      } else {
-        this.toastr.warning('Falta añadir un codigo o nombre del curso');
-      }
-      this.allCourses = this.alphabeticalOrder(totalData);
+    console.log(1);
+    this.loading = true;
+    let data = JSON.parse(JSON.stringify(this.allCoursesReal));
+    if (this.type) {
+      // let type = this.type=='PREG'?'PRGS':this.type;
+      let type = this.type;
+      data = data.filter(el => el.grado == type);
     }
-  }
-
-  validateFields(){
-    if (!this.searchFields.code && !this.searchFields.name) {
-      return false
+    if (this.carrer) {
+      data = data.filter(el => el.codigo_carrera == this.carrer);
     }
-    return true
+    this.allCourses = this.alphabeticalOrder(data);
+    this.loading = false;
   }
 
   alphabeticalOrder(arr){
     return arr.sort(function(a, b){
-      if(a.DETALLE_CURSO < b.DETALLE_CURSO) { return -1; }
-      if(a.DETALLE_CURSO > b.DETALLE_CURSO) { return 1; }
+      if(a.dcurso < b.dcurso) { return -1; }
+      if(a.dcurso > b.dcurso) { return 1; }
       return 0;
-    });
+    })
   }
+
 }

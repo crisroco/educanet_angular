@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
 
 	@ViewChild('registropostulanteModal') registropostulanteModal: any;
 	@ViewChild('siseModalCloseWebsite') siseModalCloseWebsite: any;
+	@ViewChild('loginModalImg') loginModalImg:any;
 	public allTDI = [
 		{codigo_referencia:'DNI', descripcion: 'DNI'},
 		{codigo_referencia:'CE', descripcion: 'CARNET EXTRANJERÍA'},        
@@ -78,6 +79,7 @@ export class LoginComponent implements OnInit {
 			correo: ['', [Validators.required, Validators.email]],
 			dni: ['', Validators.required]
 		});
+		this.loginModalImg.open();
 	}
 
 	login(){
@@ -111,7 +113,7 @@ export class LoginComponent implements OnInit {
 			res.usuario = btoa(res.usuario);
 			this.session.setObject('user', res);
 			// this.dispoS.checkDirector(data.email)
-			// 	.then((res) => {
+				// .then((res) => {
 					// this.session.setItem('DI', res.UCS_LOGINDIR_RES.VALOR);
 					this.session.setItem('token', this.variable);
 					this.session.setItem('cod_company', cod_empresa);
