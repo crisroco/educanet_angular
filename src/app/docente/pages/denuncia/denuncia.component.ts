@@ -21,22 +21,40 @@ export class DenunciaComponent implements OnInit {
 		email: this.user.email2
 	};
 
-  constructor(private session: SessionService,
+  	constructor(private session: SessionService,
 	public toastr: ToastrService,
 	private docenteS: DocenteService) {
 		this.cod_company = this.session.getItem('cod_company');
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 	}
 
-  ngOnInit() {
-  }
+	ngOnInit() {
+	}
 
-  send(){
-	  console.log(this.data);
+	keyPress(evt){
+		var inp = String.fromCharCode(evt.keyCode);
+		if (/[a-zA-Z0-9@ñáéíóúÁÉÍÓÚ ]/.test(inp)) {
+			return true;
+		} else {
+			evt.preventDefault();
+			return false;
+		}
+	}
+
+	onPaste(evt){
+		let txt = evt.clipboardData.getData('text');
+		var regex = /[^a-zA-Z0-9@ñáéíóúÁÉÍÓÚ ]/;
+		if(txt.match(regex)){
+			this.toastr.warning('Tu mensaje cuenta con carácteres especiales');
+			evt.returnValue = false;
+			evt.preventDefault();
+		}
+	}
+
+  	send(){
 	  let a = JSON.stringify( { data : [this.data] });
 	  this.docenteS.getComplaints({ data : a })
 	  	.then((res) => {
-			console.log(res);
 			if(res){
 				this.toastr.success('Mensaje enviado correctamente');
 				this.data = {
@@ -47,7 +65,7 @@ export class DenunciaComponent implements OnInit {
 					email: this.user.email2
 				};
 			}
-		  });
-  }
+		});
+  	}
 
 }

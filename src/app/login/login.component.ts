@@ -4,10 +4,12 @@ import { ToastrService } from 'ngx-toastr';
 import { LoginService } from '../services/login.service';
 import { SessionService } from '../services/session.service';
 import { DocenteService } from '../services/docente.service';
+import { DisponibilityService } from '../services/disponibility.service';
 import { Encrypt } from '../helpers/general';
 import { AppSettings } from '../app.settings';
 import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +27,7 @@ export class LoginComponent implements OnInit {
 
 	@ViewChild('registropostulanteModal') registropostulanteModal: any;
 	@ViewChild('siseModalCloseWebsite') siseModalCloseWebsite: any;
+	@ViewChild('loginModalImg') loginModalImg:any;
 	public allTDI = [
 		{codigo_referencia:'DNI', descripcion: 'DNI'},
 		{codigo_referencia:'CE', descripcion: 'CARNET EXTRANJERÍA'},        
@@ -46,9 +49,10 @@ export class LoginComponent implements OnInit {
 	dni = '';
 	tipo_documento = '';
 	postulanteForm: FormGroup;
-
+	cod_user: any;
 	constructor(private formBuilder: FormBuilder,
     	private toastr: ToastrService,
+		private dispoS: DisponibilityService,
     	private loginS: LoginService,
     	private session: SessionService,
 		private router: Router,
@@ -83,6 +87,7 @@ export class LoginComponent implements OnInit {
 			correo: ['', [Validators.required, Validators.email]],
 			dni: ['', Validators.required]
 		});
+		// this.loginModalImg.open();
 	}
 
 	login(){
@@ -106,25 +111,28 @@ export class LoginComponent implements OnInit {
 		this.variable = btoa(empresa_url + "&&" + data.email.toUpperCase() + "&&" + data.password);
         this.loginS.getAccess_ps(this.variable)
         .then(res => {
-			console.log(res);
         	if(res.noaccess || res.error){ 
         		this.toastr.error(res.noaccess); 
         		this.session.allCLear();
         		this.sendLog(AppSettings.ACCESS_PS, res);
         		return; 
         	}
-			this.session.setItem('token', this.variable);
 			res.oprid = btoa(res.oprid);
 			res.usuario = btoa(res.usuario);
 			this.session.setObject('user', res);
-			this.session.setItem('cod_company', cod_empresa);
-			/*
-			this.docenteS.signUp({name: res.usuario, email: res.email, password: data.password})
-				.then((res) => {
-					this.session.setItem('token_edu', res['access_token']);					
-				});
-			*/
-			this.loginToken();
+			// this.dispoS.checkDirector(data.email)
+				// .then((res) => {
+					// this.session.setItem('DI', res.UCS_LOGINDIR_RES.VALOR);
+					this.session.setItem('token', this.variable);
+					this.session.setItem('cod_company', cod_empresa);
+					this.cod_user = data.email;
+					this.session.setItem('cod_user', this.cod_user);
+					this.loginToken();
+				// });
+			// this.docenteS.signUp({name: res.usuario, email: res.email, password: data.password})
+				// .then((res) => {
+					// this.session.setItem('token_edu', res['access_token']);
+				// });
         }, error => { this.session.allCLear(); this.sendLog(AppSettings.ACCESS_PS, error); });
 	}
 

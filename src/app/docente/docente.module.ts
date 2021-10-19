@@ -26,9 +26,15 @@ import { DenunciaComponent } from './pages/denuncia/denuncia.component';
 import { VacacionesComponent } from './pages/vacaciones/vacaciones.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { ResultadosEvaluacionComponent } from './pages/resultados-evaluacion/resultados-evaluacion.component';
+import { VirtualScheduleComponent } from './pages/virtual-schedule/virtual-schedule.component';
+import { CoursesandclassesComponent } from './pages/coursesandclasses/coursesandclasses.component';
+import { AddTeacherComponent } from './pages/director/add-teacher/add-teacher.component';
+import { AddCourseComponent } from './pages/director/add-course/add-course.component';
+import { ConsultTeacherComponent } from './pages/director/consult-teacher/consult-teacher.component';
+import { ConsultCourseComponent } from './pages/director/consult-course/consult-course.component';
 registerLocaleData(localePE, 'es-PE');
 @NgModule({
-  declarations: [DocenteComponent, MarkingComponent, CourseManagementComponent, StudentGradesComponent, StudentAssistanceComponent, VirtualClassroomComponent, HistoricalMarkingComponent, PaymentHistoryComponent, WeeklyScheduleComponent, LibraryComponent, DenunciaComponent, VacacionesComponent, ResultadosEvaluacionComponent],
+  declarations: [DocenteComponent, MarkingComponent, CourseManagementComponent, StudentGradesComponent, StudentAssistanceComponent, VirtualClassroomComponent, HistoricalMarkingComponent, PaymentHistoryComponent, WeeklyScheduleComponent, LibraryComponent, DenunciaComponent, VacacionesComponent, ResultadosEvaluacionComponent, VirtualScheduleComponent, CoursesandclassesComponent, AddTeacherComponent, AddCourseComponent, ConsultTeacherComponent, ConsultCourseComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
