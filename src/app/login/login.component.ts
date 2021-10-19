@@ -31,6 +31,13 @@ export class LoginComponent implements OnInit {
 		{codigo_referencia:'PP', descripcion: 'PASAPORTE'},
 		{codigo_referencia:'PTP', descripcion: 'CARNET PTP'}                          
 	];
+
+	public allCompany = [
+		{codigo_referencia:'002', descripcion: 'UNIVERSIDAD CIENTIFÍCA DEL SUR'},
+		{codigo_referencia:'003', descripcion: 'INSTITUTO SISE'},                               
+	];
+
+	unidad = '';
 	nombre = '';
 	apaterno = '';
 	amaterno = '';
@@ -67,6 +74,7 @@ export class LoginComponent implements OnInit {
 		});
 		this.data_browser = this.deviceS.getDeviceInfo();
 		this.postulanteForm = this.formBuilder.group({
+			unidad: ['', Validators.required],
 			nombre: ['', Validators.required],
 			apaterno: ['', Validators.required],
 			amaterno: ['', Validators.required],
@@ -201,6 +209,11 @@ export class LoginComponent implements OnInit {
 
 	savePostulante(){	
 		if (this.postulanteForm.invalid) { 
+			if(this.unidad.length == 0){
+				this.toastr.error('Seleccione Institución donde realizará su Postulación');	
+				return;	
+			}
+
 			if(this.nombre.length == 0){
 				this.toastr.error('Nombre requerido');	
 				return;	
@@ -247,7 +260,7 @@ export class LoginComponent implements OnInit {
 			
 		this.loading = true;
 		this.docenteS.savePostulante({
-			'unidad' : '002',
+			'unidad' : this.unidad,
 			'apellido_paterno' : this.apaterno,
 			'apellido_materno' : this.amaterno,
 			'nombre_completo' : this.nombre,

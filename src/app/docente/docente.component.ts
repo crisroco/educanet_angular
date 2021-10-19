@@ -196,9 +196,9 @@ export class DocenteComponent implements OnInit {
 	goIncorporacion(){
 		let data = Encrypt(this.emplid, 'g$@p3Xnh$E');
 
-		if (this.cod_company == '002') {
-			var url = "http://incorporacion.educad.pe/login?emplid=" + data.replace('+', '-') + '&email=' + btoa(this.user.email2).replace('+', '-') + '&name=' + btoa(this.user.name+'|'+this.user.surname).replace('+', '-');
+		//if (this.cod_company == '002') {
+			var url = "http://localhost:4200/login?emplid=" + data.replace('+', '-') + '&email=' + btoa(this.user.email2).replace('+', '-') + '&name=' + btoa(this.user.name+'|'+this.user.surname).replace('+', '-') + '&company=' + btoa(this.cod_company).replace('+', '-');
 			window.open(url, "_blank");
-		}
+		//}
 	}
 }

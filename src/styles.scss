@@ -236,15 +236,15 @@ li a:not([href]):hover {
 /* MODAL */
 
 .smallModal {
-	max-width: 600px;
+    max-width: 600px;
 }
 
 .noBordersModal {
-	.nsm-content {
-		padding: 0;
-		background-color: transparent;
-		box-shadow: none;
-	}
+    .nsm-content {
+        padding: 0;
+        background-color: transparent;
+        box-shadow: none;
+    }
 }
 
 .custom-modal {
@@ -565,21 +565,22 @@ a.text-wsp:hover {
 
 /* CIRCLE END */
 
+
 /* CLOSE MODAL */
 
 .times-close {
-	background-color: #202a48;
-	width: 35px;
-	height: 35px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: #FFFFFF;
-	border-radius: 50%;
-	position: absolute;
-	cursor: pointer;
-	right: -5px;
-	top: -5px;
+    background-color: #202a48;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    border-radius: 50%;
+    position: absolute;
+    cursor: pointer;
+    right: -5px;
+    top: -5px;
 }
 
 @media (max-width: 991px) {

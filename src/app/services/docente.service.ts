@@ -317,4 +317,16 @@ export class DocenteService {
     public getdetailevaluation(emplid, codigo, fecha_inicio, fecha_fin, tipo): Promise<any>{
         return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/detailevaluation?emplid=' + emplid + '&codigo=' + codigo + '&fecha_inicio=' + fecha_inicio + '&fecha_fin=' + fecha_fin + '&tipo=' + tipo).toPromise();
     }
+    
+    public getSubOrdinadosJefe(emplid, company): Promise<any>{
+        return this.http.get(AppSettings.BASE_FRACTAL + '/ConsultaRecordJefe?cuc='+emplid+'&codigoCompania='+company+'&correoJefe=&indicadorAlcance=T').toPromise();
+    }
+
+    public getParametria(company): Promise<any>{
+        return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/getParametria?unidad=' + company).toPromise();
+    }
+
+    public getReporte(data): Promise<any>{
+        return this.http.post(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/getreporte', data).toPromise();
+    }    
 }
