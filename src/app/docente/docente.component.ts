@@ -79,6 +79,7 @@ export class DocenteComponent implements OnInit {
 
 	showModals(){
 		// this.surveyModal.open();
+		this.piezaModal.open();
 	}
 
 	getEthnicity(){

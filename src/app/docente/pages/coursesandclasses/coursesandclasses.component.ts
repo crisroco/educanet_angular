@@ -46,7 +46,7 @@ export class CoursesandclassesComponent implements OnInit {
         setTimeout(() => {
           this.readAlreadyCheck();
           this.loading = false;
-        }, 2000);
+        }, 4000);
   		});
   }
 
