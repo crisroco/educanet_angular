@@ -140,7 +140,7 @@ export class MarkingComponent implements OnInit {
 
 	registerMarking(){
 		var uri = '';
-        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/marcar_asistencia_docente_cientifica';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/marcar_asistencia_docente_cientifica';
         else uri = AppSettings.BASE_SISE_LARAVEL + '/actualizar_marcacion_docente';
 
 		this.loading = true;

@@ -19,6 +19,11 @@ import * as CryptoJS from 'crypto-js';
 export class LoginComponent implements OnInit {
 	loginForm: FormGroup;
 	ip: any;
+	remotex: any;
+	rmtx_usuario:any;
+	rmtx_emplid:any;
+	rmtx_telefono:any;
+	rmtx_email:any
 	data_browser: any;
 	nom_empresa: string = '';
 	variable: string = '';
@@ -117,22 +122,32 @@ export class LoginComponent implements OnInit {
         		this.sendLog(AppSettings.ACCESS_PS, res);
         		return; 
         	}
-			res.oprid = btoa(res.oprid);
+			this.rmtx_usuario = res.usuario;
+			this.rmtx_emplid = res.emplid_moodle;
+			res.oprid = btoa(res.oprid);			
 			res.usuario = btoa(res.usuario);
 			this.session.setObject('user', res);
-			// this.dispoS.checkDirector(data.email)
-				// .then((res) => {
-					// this.session.setItem('DI', res.UCS_LOGINDIR_RES.VALOR);
-					this.session.setItem('token', this.variable);
-					this.session.setItem('cod_company', cod_empresa);
-					this.cod_user = data.email;
-					this.session.setItem('cod_user', this.cod_user);
-					this.loginToken();
-				// });
-			// this.docenteS.signUp({name: res.usuario, email: res.email, password: data.password})
-				// .then((res) => {
-					// this.session.setItem('token_edu', res['access_token']);
-				// });
+			
+			this.docenteS.getDataDocente({email: atob(res.oprid)}).then(res => {
+			this.remotex = res['UcsMetodoDatosPersRespuesta'];
+			this.rmtx_email = this.remotex['correo'];
+			this.rmtx_telefono = this.remotex['telefono'];				
+
+				this.docenteS.signUp({name: this.rmtx_usuario, email: this.rmtx_email, password: data.password, emplid :this.rmtx_emplid, telefono: this.rmtx_telefono})
+				.then((res) => {			
+					this.session.setItem('token_edu', res['access_token']);		
+	
+					this.dispoS.checkDirector(data.email)
+					.then((res) => {
+						this.session.setItem('DI', res.UCS_LOGINDIR_RES.VALOR);
+						this.session.setItem('token', this.variable);
+						this.session.setItem('cod_company', cod_empresa);
+						this.cod_user = data.email;
+						this.session.setItem('cod_user', this.cod_user);
+						this.loginToken();
+					});
+				});	
+			});			
         }, error => { this.session.allCLear(); this.sendLog(AppSettings.ACCESS_PS, error); });
 	}
 

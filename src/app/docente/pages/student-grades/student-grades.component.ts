@@ -204,12 +204,12 @@ export class StudentGradesComponent implements OnInit {
 					student.success = true;
 					this.endUpdateStudentGrades();
 				}
-				this.sendLog(AppSettings.BASE_UCSUR_LARAVEL + '/actulizar-cientifica-notas', dataStudent, res);
+				this.sendLog(AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/actulizar-cientifica-notas', dataStudent, res);
 			}, error => {
 				student.updated = true;
 				student.error = true;
 				this.endUpdateStudentGrades();
-				this.sendLog(AppSettings.BASE_UCSUR_LARAVEL + '/actulizar-cientifica-notas', dataStudent, error);
+				this.sendLog(AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/actulizar-cientifica-notas', dataStudent, error);
 			});
 		}
 		else{
