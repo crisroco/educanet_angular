@@ -46,7 +46,7 @@
                         <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/director/consulta_cursos']">- Consulta Cursos</a> </li>
                     </ng-container> -->
                     <li> <a class="w-100 hover-{{config_initial.code}}" href="http://cultura.educad.pe/" target="_blank">+ Somos Educa_d</a> </li>
-                    <li *ngIf="cod_company === '003'"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="http://aulavirtual-historico.sise.edu.pe/local/wseducad/auth/sso.php?strm=0000&class=0000&course=000000&emplid={{emplid_real}}&token=DOCENTE">+ Inducción Docente</a> </li>
+                    <li *ngIf="cod_company === '003'"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="http://aulavirtual-historico.sise.edu.pe/local/wseducad/auth/sso.php?strm=0000&class=0000&course=000000&emplid={{emplid_real}}&token=DOCENTE">+ Inducción Docente</a>                        </li>
 
                     <!-- <li> <a class="w-100 hover-{{config_initial.code}}" (click)="getBenefits()">+ Beneficios</a> </li> -->
                     <li> <a class="w-100 hover-{{config_initial.code}} no_pointer">+ Canal de Ética</a> </li>
@@ -116,6 +116,7 @@
     </div>
 </div>
 
+<<<<<<< HEAD
 <form target="_blank" action="https://cientifica.remotexs.co/alumni/login" method=post id="formulario1" #hello>
     <input [formControl]="DigitalLibraryAttribute1" name="DigitalLibraryAttribute1" id="DigitalLibraryAttribute1"
         type="text" /><br />
@@ -137,6 +138,19 @@
         type="text" /><br />
     <input [formControl]="DigitalLibraryAttribute10" name="DigitalLibraryAttribute10" id="DigitalLibraryAttribute10"
         type="text" /><br />
+=======
+<form target="_blank" action="https://cientifica.remotexs.co/alumni/login" method=post id="formulario1" name="formulario1" #hello>
+    <input [formControl]="DigitalLibraryAttribute1" name="DigitalLibraryAttribute1" id="DigitalLibraryAttribute1" type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute2" name="DigitalLibraryAttribute2" id="DigitalLibraryAttribute2" type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute3" name="DigitalLibraryAttribute3" id="DigitalLibraryAttribute3" type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute4" name="DigitalLibraryAttribute4" id="DigitalLibraryAttribute4" type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute5" name="DigitalLibraryAttribute5" id="DigitalLibraryAttribute5" type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute6" name="DigitalLibraryAttribute6" id="DigitalLibraryAttribute6" type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute7" name="DigitalLibraryAttribute7" id="DigitalLibraryAttribute7" type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute8" name="DigitalLibraryAttribute8" id="DigitalLibraryAttribute8" type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute9" name="DigitalLibraryAttribute9" id="DigitalLibraryAttribute9" type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute10" name="DigitalLibraryAttribute10" id="DigitalLibraryAttribute10" type="text" /><br />
+>>>>>>> 5dcd480d4d26cc84bea585a64a63b8d232689283
 </form>
 
 <ngx-smart-modal #ethnicityModal identifier="ethnicityModal" [closable]="false" [escapable]="false" [dismissable]="false" [customClass]="''">

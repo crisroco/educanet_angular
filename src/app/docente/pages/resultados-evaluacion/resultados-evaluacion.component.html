@@ -1,45 +1,59 @@
 <div class="bg-white p-3 rounded-1">
 
     <h5 class="pb-2 bd-b-1 bd-{{config_initial.code}}"> Mis resultados de Evaluación de Desempeño </h5>
-    <!--
+
     <div class="pull-right">
-        <button class="btn bg-{{config_initial.code}} text-white" disabled><i class="fa fa-trophy"></i> {{this.rank}} </button>
-    </div>
-    -->
-    <div class="row">
-        <div class="col-md-6 mb-2">
-            <select name="document" class="form-control mb-2" (change)="filerPostPeriodo($event)">
-              <option value="">Seleccione Periodo de Evaluación . . . </option>
-              <option *ngFor="let ar of allFilterPeriodo" [value]="ar.codigo_referencia">{{ar.descripcion}}</option>
-          </select>
-        </div>
-        <div class="col-md-6 text-right mt-3 mb-2">
-            {{ evaluation.length }} registro(s) encontrado(s)
-        </div>
+        <button class="btn bg-{{config_initial.code}} text-white" (click)="selectReporteModal.open()"><i class=" fa fa-file-excel-o mr-2"></i> Reporte Desempeño Docentes</button>
     </div>
 
-    <div class="mb-3 rounded-1 scroll bd-1 bd-{{config_initial.code}}">
-        <table class="w-100">
-            <thead class="bg-{{config_initial.code}}">
-                <tr class="text-white text-center text-s">
-                    <th width="22%" class="px-3 py-2 align-middle">Periodo de Evaluación</th>
-                    <th width="12%" class="px-3 py-2 align-middle">Evaluación Desempeño (Encuesta al Alumno)</th>
-                    <th width="12%" class="px-3 py-2 align-middle">Evaluación de Clase</th>
-                    <th width="12%" class="px-3 py-2 align-middle">Desarrollo y Capacitación</th>
-                    <th width="12%" class="px-3 py-2 align-middle">Compromiso Docente</th>
-                    <th width="10%" class="px-3 py-2 align-middle">Puntaje</th>
-                    <th width="10%" class="px-3 py-2 align-middle">Resultado</th>
-                    <th width="10%" class="px-3 py-2 align-middle">Nivel de Logro</th>
+    <div class="row ">
+        <div class="col-md-12 mb-2 ">
+            <select name="document " class="form-control mb-2 " (change)="filerPostPeriodo($event) ">
+            <option value=" ">Seleccione Periodo de Evaluación . . . </option>
+            <option *ngFor="let ar of allFilterPeriodo " [value]="ar.codigo_referencia ">{{ar.descripcion}}</option>
+        </select>
+        </div>
+        <!--
+        <div class="col-md-6 text-right mt-3 mb-2 ">
+            {{ evaluation.length }} registro(s) encontrado(s)
+        </div>
+        -->
+    </div>
+
+    <div class="mb-3 rounded-1 scroll bd-1 bd-{{config_initial.code}} ">
+        <table class="w-100 ">
+            <thead class="bg-{{config_initial.code}} ">
+                <tr class="text-white text-center text-s ">
+                    <th width="22% " class="px-3 py-2 align-middle ">Periodo de Evaluación</th>
+                    <th width="12% " class="px-3 py-2 align-middle ">Evaluación Desempeño (Encuesta al Alumno)</th>
+                    <th width="12% " class="px-3 py-2 align-middle ">Evaluación de Clase</th>
+                    <th width="12% " class="px-3 py-2 align-middle ">Desarrollo y Capacitación</th>
+                    <th width="12% " class="px-3 py-2 align-middle ">Compromiso Docente</th>
+                    <th width="10% " class="px-3 py-2 align-middle ">Puntaje</th>
+                    <th width="10% " class="px-3 py-2 align-middle ">Resultado</th>
+                    <th width="10% " class="px-3 py-2 align-middle ">Nivel de Logro</th>
                 </tr>
             </thead>
-            <tbody *ngIf="evaluation && evaluation.length > 0">
+            <tbody *ngIf="evaluation && evaluation.length> 0">
                 <tr class="text-center text-s {{c < evaluation.length - 1?'bd-b-1':''}}" *ngFor="let item of evaluation; let c = 'index'">
                     <td class="p-2">{{ item.descripcion }}</td>
-                    <td class="p-2"><a (click)="openModal(item, 1)" class="one pointer"><span><i class="fa fa-eye mr-1" aria-hidden="true"></i>{{ item.puntaje_encuesta | number:'1.2-2'}}</span></a></td>
-                    <td class="p-2"><a (click)="openModal(item, 2)" class="one pointer"><span><i class="fa fa-eye mr-1" aria-hidden="true"></i>{{ item.puntaje_clase | number:'1.2-2'}}</span></a></td>
-                    <td class="p-2"><a (click)="openModal(item, 3)" class="one pointer"><span><i class="fa fa-eye mr-1" aria-hidden="true"></i>{{ item.puntaje_desarrollo | number:'1.2-2'}}</span></a></td>
-                    <td class="p-2"><a (click)="openModal(item, 4)" class="one pointer"><span><i class="fa fa-eye mr-1" aria-hidden="true"></i>{{ item.puntaje_compromiso | number:'1.2-2'}}</span></a></td>
-                    <td class="p-2 col-{{config_initial.code}}">{{ (item.total === 'No Aplica')?item.total:item.total | number:'1.2-2' }}</td>
+                    <td class="p-2">
+                        <a *ngIf="item.puntaje_encuesta!='No Disponible'" (click)="openModal(item, 1)" class="one pointer"><span><i class="fa fa-eye mr-1" aria-hidden="true"></i>{{ item.puntaje_encuesta | number:'1.2-2'}}</span></a>
+                        <span *ngIf="item.puntaje_encuesta=='No Disponible'"><i class="fa fa-eye-slash mr-1" aria-hidden="true"></i>{{ item.puntaje_encuesta }}</span>
+                    </td>
+                    <td class="p-2">
+                        <a *ngIf="item.puntaje_clase!='No Disponible'" (click)="openModal(item, 2)" class="one pointer"><span><i class="fa fa-eye mr-1" aria-hidden="true"></i>{{ item.puntaje_clase | number:'1.2-2'}}</span></a>
+                        <span *ngIf="item.puntaje_clase=='No Disponible'"><i class="fa fa-eye-slash mr-1" aria-hidden="true"></i>{{ item.puntaje_clase }}</span>
+                    </td>
+                    <td class="p-2">
+                        <a *ngIf="item.puntaje_desarrollo!='No Disponible'" (click)="openModal(item, 3)" class="one pointer"><span><i class="fa fa-eye mr-1" aria-hidden="true"></i>{{ item.puntaje_desarrollo | number:'1.2-2'}}</span></a>
+                        <span *ngIf="item.puntaje_desarrollo=='No Disponible'"><i class="fa fa-eye-slash mr-1" aria-hidden="true"></i>{{ item.puntaje_desarrollo }}</span>
+                    </td>
+                    <td class="p-2">
+                        <a *ngIf="item.puntaje_compromiso!='No Disponible'" (click)="openModal(item, 4)" class="one pointer"><span><i class="fa fa-eye mr-1" aria-hidden="true"></i>{{ item.puntaje_compromiso | number:'1.2-2'}}</span></a>
+                        <span *ngIf="item.puntaje_compromiso=='No Disponible'"><i class="fa fa-eye-slash mr-1" aria-hidden="true"></i>{{ item.puntaje_compromiso }}</span>
+                    </td>
+                    <td class="p-2 col-{{config_initial.code}}">{{ (item.total==='No Aplica')?item.total:item.total | number:'1.2-2' }}</td>
                     <td class="p-2">
                         <span *ngIf="item.resultado=='APROBADO'" class="badge badge-success">{{ item.resultado }}</span>
                         <span *ngIf="item.resultado=='OBSERVADO'" class="badge badge-warning text-white">{{ item.resultado }}</span>
@@ -65,7 +79,7 @@
             <tbody *ngIf="!evaluation">
                 <tr class="text-center text-s">
                     <td class="p-2" colspan="100%">
-                        <div class="alert alert-info m-0"> Cargando clases... </div>
+                        <div class="alert alert-info m-0"> Cargando resultados... </div>
                     </td>
                 </tr>
             </tbody>
@@ -249,6 +263,21 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+</ngx-smart-modal>
+
+<ngx-smart-modal #selectReporteModal identifier="selectReporteModal" [closable]="false" [customClass]="'smalModal'">
+    <h5 class="text-ucs mb-2">Reporte de Evaluación de Desempeño <a (click)="selectReporteModal.close()" class="pull-right pointer"><i class="fa fa-times text-black text-l"></i></a></h5>
+    <h6 class="text-center text-ucs mb-2"> {{ periodo_eva }} </h6>
+    <div class="rounded-1 bd-1 scroll bd-{{config_initial.code}}">
+        <select [(ngModel)]="codigo" class="custom-select">
+        <option value="">Seleccione Periodo . . .</option>
+        <option *ngFor="let ar of allParametria " [value]="ar.codigo ">{{ar.descripcion}}</option>          
+        </select>
+    </div>
+    <div class="mt-3 buttons text-center">
+        <button [disabled]="!codigo" class="btn btn-primary mr-2" (click)="getReporte()"><i class="fa fa-download"></i> Exportar</button>
+        <button class="btn btn-danger" (click)="selectReporteModal.close()">Cancelar</button>
     </div>
 </ngx-smart-modal>
 
