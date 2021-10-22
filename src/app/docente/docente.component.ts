@@ -64,6 +64,7 @@ export class DocenteComponent implements OnInit {
 	ngOnInit() {
 		if (this.cod_company == '002') {
 			this.director = this.session.getItem('DI')=='false'?false:true;
+			this.piezaModalSise.open();
 		} else {}
 		this.docenteS.accesoVacaciones((this.cod_company == '002'?this.emplid:this.emplid_real), this.cod_company)
 		.then(res => {
@@ -78,6 +79,7 @@ export class DocenteComponent implements OnInit {
 	}
 
 	showModals(){
+		console.log(1);
 		// this.surveyModal.open();
 		this.piezaModal.open();
 	}
