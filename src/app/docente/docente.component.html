@@ -35,7 +35,7 @@
                             </li>
                         </div>
                     </div>
-                    <!-- <li> <a class="w-100 hover-{{config_initial.code}} no_pointer">+ Disponibilidad</a> </li>
+                    <li> <a class="w-100 hover-{{config_initial.code}} no_pointer">+ Disponibilidad</a> </li>
                     <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/horario-virtual']">- Disponibilidad Horario</a> </li>
                     <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/cursos-clases']">- Disponibilidad Cursos </a> </li>
                     <ng-container *ngIf="director">
@@ -44,7 +44,7 @@
                         <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/director/anadir_curso']">- Añadir Curso</a> </li>
                         <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/director/consulta_docente']">- Consulta Docente</a> </li>
                         <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/director/consulta_cursos']">- Consulta Cursos</a> </li>
-                    </ng-container> -->
+                    </ng-container>
                     <li> <a class="w-100 hover-{{config_initial.code}}" href="http://cultura.educad.pe/" target="_blank">+ Somos Educa_d</a> </li>
                     <li *ngIf="cod_company === '003'"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="http://aulavirtual-historico.sise.edu.pe/local/wseducad/auth/sso.php?strm=0000&class=0000&course=000000&emplid={{emplid_real}}&token=DOCENTE">+ Inducción Docente</a>                        </li>
 
@@ -85,8 +85,8 @@
                                 </li>
                             </div>
                         </div>
-                        <!-- <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/horario-virtual']">+ Disponibilidad Horario</a> </li>
-	                    <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/cursos-clases']">+ Disponibilidad Cursos </a> </li> -->
+                        <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/horario-virtual']">+ Disponibilidad Horario</a> </li>
+	                    <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/cursos-clases']">+ Disponibilidad Cursos </a> </li>
                         <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/biblioteca']">+ Biblioteca</a></li>
                         <li> <a class="w-100 hover-{{config_initial.code}} px-2" (click)="logout()">+ Cerrar Sesión</a></li>
                     </ul>
@@ -117,17 +117,27 @@
     </div>
 </div>
 
-<form target="_blank" action="https://cientifica.remotexs.co/alumni/login" method=post id="formulario1" name="formulario1" #hello>
-    <input [formControl]="DigitalLibraryAttribute1" name="DigitalLibraryAttribute1" id="DigitalLibraryAttribute1" type="text" /><br />
-    <input [formControl]="DigitalLibraryAttribute2" name="DigitalLibraryAttribute2" id="DigitalLibraryAttribute2" type="text" /><br />
-    <input [formControl]="DigitalLibraryAttribute3" name="DigitalLibraryAttribute3" id="DigitalLibraryAttribute3" type="text" /><br />
-    <input [formControl]="DigitalLibraryAttribute4" name="DigitalLibraryAttribute4" id="DigitalLibraryAttribute4" type="text" /><br />
-    <input [formControl]="DigitalLibraryAttribute5" name="DigitalLibraryAttribute5" id="DigitalLibraryAttribute5" type="text" /><br />
-    <input [formControl]="DigitalLibraryAttribute6" name="DigitalLibraryAttribute6" id="DigitalLibraryAttribute6" type="text" /><br />
-    <input [formControl]="DigitalLibraryAttribute7" name="DigitalLibraryAttribute7" id="DigitalLibraryAttribute7" type="text" /><br />
-    <input [formControl]="DigitalLibraryAttribute8" name="DigitalLibraryAttribute8" id="DigitalLibraryAttribute8" type="text" /><br />
-    <input [formControl]="DigitalLibraryAttribute9" name="DigitalLibraryAttribute9" id="DigitalLibraryAttribute9" type="text" /><br />
-    <input [formControl]="DigitalLibraryAttribute10" name="DigitalLibraryAttribute10" id="DigitalLibraryAttribute10" type="text" /><br />
+<form target="_blank" action="https://cientifica.remotexs.co/alumni/login" method=post id="formulario1" #hello>
+    <input [formControl]="DigitalLibraryAttribute1" name="DigitalLibraryAttribute1" id="DigitalLibraryAttribute1"
+        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute2" name="DigitalLibraryAttribute2" id="DigitalLibraryAttribute2"
+        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute3" name="DigitalLibraryAttribute3" id="DigitalLibraryAttribute3"
+        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute4" name="DigitalLibraryAttribute4" id="DigitalLibraryAttribute4"
+        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute5" name="DigitalLibraryAttribute5" id="DigitalLibraryAttribute5"
+        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute6" name="DigitalLibraryAttribute6" id="DigitalLibraryAttribute6"
+        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute7" name="DigitalLibraryAttribute7" id="DigitalLibraryAttribute7"
+        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute8" name="DigitalLibraryAttribute8" id="DigitalLibraryAttribute8"
+        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute9" name="DigitalLibraryAttribute9" id="DigitalLibraryAttribute9"
+        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute10" name="DigitalLibraryAttribute10" id="DigitalLibraryAttribute10"
+        type="text" /><br />
 </form>
 
 <ngx-smart-modal #ethnicityModal identifier="ethnicityModal" [closable]="false" [escapable]="false" [dismissable]="false" [customClass]="''">
@@ -170,8 +180,8 @@
 </ngx-smart-modal>
 
 <ngx-smart-modal #piezaModal identifier="piezaModal" [closable]="false" [escapable]="true" [dismissable]="true" [customClass]="'smallModal fullModal noBordersModal'">
-    <a href="https://cientificavirtual.cientifica.edu.pe" target="_blank">
-        <img class="w-100 rounded-1" src="./assets/notice.png">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDsU0-Jrk6M59I3AhpjCsUG2--CKs6-Zki0RO4um6It0jCXw/viewform" target="_blank">
+        <img class="w-100 rounded-1" src="./assets/formulario_1.png">
     </a>
     <div (click)="piezaModal.close()" class="times-close">
         <img src="./assets/img/times-modal.svg" alt="">
@@ -179,9 +189,9 @@
 </ngx-smart-modal>
 
 <ngx-smart-modal #piezaModalSise identifier="piezaModalSise" [closable]="false" [escapable]="true" [dismissable]="true" [customClass]="'smallModal fullModal noBordersModal'">
-    <a href="https://aulavirtual.sise.edu.pe" target="_blank">
-        <img class="w-100 rounded-1" src="./assets/notice_sise.png">
-    </a>
+    <!--<a href="https://aulavirtual.sise.edu.pe" target="_blank"> -->
+        <img class="w-100 rounded-1" src="./assets/notice_ucs.png">
+    <!--</a>-->
     <div (click)="piezaModalSise.close()" class="times-close">
         <img src="./assets/img/times-modal.svg" alt="">
     </div>

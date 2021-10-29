@@ -120,15 +120,15 @@ export class LoginComponent implements OnInit {
 			res.oprid = btoa(res.oprid);
 			res.usuario = btoa(res.usuario);
 			this.session.setObject('user', res);
-			// this.dispoS.checkDirector(data.email)
-				// .then((res) => {
-					// this.session.setItem('DI', res.UCS_LOGINDIR_RES.VALOR);
+			this.dispoS.checkDirector(data.email)
+				.then((res) => {
+					this.session.setItem('DI', res.UCS_LOGINDIR_RES.VALOR);
 					this.session.setItem('token', this.variable);
 					this.session.setItem('cod_company', cod_empresa);
 					this.cod_user = data.email;
 					this.session.setItem('cod_user', this.cod_user);
 					this.loginToken();
-				// });
+				});
 			// this.docenteS.signUp({name: res.usuario, email: res.email, password: data.password})
 				// .then((res) => {
 					// this.session.setItem('token_edu', res['access_token']);
