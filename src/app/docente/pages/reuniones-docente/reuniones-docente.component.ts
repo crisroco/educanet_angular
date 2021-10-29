@@ -5,7 +5,7 @@ import { SessionService } from '../../../services/session.service';
 import { DocenteService } from '../../../services/docente.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
-import * as $ from 'jquery';
+//import * as $ from 'jquery';
 
 @Component({
   selector: 'app-reuniones-docente',
@@ -126,11 +126,11 @@ export class ReunionesDocenteComponent implements OnInit {
   }
 
   checkAll(container){
-    $('#'+container +' input[type="checkbox"]' ).prop('checked', true) 
+    //$('#'+container +' input[type="checkbox"]' ).prop('checked', true) 
   }
   
   noCheckAll(container){
-    $('#'+container +' input[type="checkbox"]' ).prop('checked', false)    
+    //$('#'+container +' input[type="checkbox"]' ).prop('checked', false)    
   }
 
   deleteOpen(u){
@@ -188,12 +188,12 @@ export class ReunionesDocenteComponent implements OnInit {
     this.loading = true;
     let i=0;
     let data = [];
-    
+    /*
     $("#containerModal input:checkbox:checked").each(function() {      
       data[i] = {cuc: this.id} 
       i++;  
     });
-    
+    */
     formData.append('asignados', JSON.stringify(data));
     formData.append('compania', this.cod_company);
     formData.append('codigo_referencia', this.codigo_referencia);
@@ -215,7 +215,7 @@ export class ReunionesDocenteComponent implements OnInit {
     this.loading = true;
     let i=0;
     let data = [];
-    
+    /*
     $("#container input:checkbox:checked").each(function() {      
       data[i] = {
                   cuc: this.id,
@@ -225,6 +225,7 @@ export class ReunionesDocenteComponent implements OnInit {
                 } 
       i++;  
     });
+    */
     
     formData.append('asignados', JSON.stringify(data));
     formData.append('compania', this.cod_company);
@@ -246,9 +247,9 @@ export class ReunionesDocenteComponent implements OnInit {
     let a = 0;
     let b = 1;
     
-    a = $('#ASIS_'+index).val();
-    b = $('#PROG_'+index).val();
-    $('#CALC_'+index).val((a/b).toFixed(2));
+    //a = $('#ASIS_'+index).val();
+    //b = $('#PROG_'+index).val();
+    //$('#CALC_'+index).val((a/b).toFixed(2));
   }
 
   getColaboratorAsignado(){
