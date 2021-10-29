@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ResultadosEvaluacionComponent implements OnInit {
 
-  cod_company: any;
+  	cod_company: any;
 	config_initial: any;
 	user = this.session.getObject('user');
 	emplid = Decrypt(this.user['emplid']);
@@ -30,6 +30,7 @@ export class ResultadosEvaluacionComponent implements OnInit {
 	periodo_eva:Array<any> = [];
 	allFilterPeriodo:Array<any> = [];
 	puntaje_final: any;
+	puntaje_final_2: any;
 	nivel_final: any;
 	rank: any;
 
@@ -81,13 +82,16 @@ export class ResultadosEvaluacionComponent implements OnInit {
 			this.detail_eva = res.data;		
 			if(tipo=='1'){
 				this.Modaldetail_eva1.open();
+				this.puntaje_final_2 = res.data_aux[0].puntaje_final_2;
+				this.puntaje_final = res.data_aux[0].puntaje_final;
+		        this.nivel_final = res.data_aux[0].nivel_logro;
 			}else if(tipo=='2'){
 				this.dataobs_fortalezas = res.dataobs_fortalezas;	
 				this.dataobs_oportunidad = res.dataobs_oportunidad;
 				this.Modaldetail_eva2.open();
 			}else if(tipo=='3'){
-        this.puntaje_final = res.data_aux[0].puntaje_final;
-        this.nivel_final = res.data_aux[0].nivel_logro;
+		        this.puntaje_final = res.data_aux[0].puntaje_final;
+		        this.nivel_final = res.data_aux[0].nivel_logro;
 				this.Modaldetail_eva3.open();
 			}else if(tipo=='4'){
 				this.Modaldetail_eva4.open();

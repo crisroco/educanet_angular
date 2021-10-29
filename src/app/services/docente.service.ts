@@ -298,9 +298,30 @@ export class DocenteService {
         return this.http.post(AppSettings.BASE_UCSUR_LARAVEL + '/juanjo/saveCursoDocente', data).toPromise();
     }
 
+    public getSubOrdinadosJefe(emplid, company): Promise<any>{
+        return this.http.get(AppSettings.BASE_FRACTAL + '/ConsultaRecordJefe?cuc='+emplid+'&codigoCompania='+company+'&correoJefe=&indicadorAlcance=T').toPromise();
+    }
+
     public savePostulante(data: any): Promise<any>{
-        return this.http.post(AppSettings.SERVICES_INCORPORACION + '/api/postulante/savePostulante', data).toPromise();
+        return this.http.post(AppSettings.SERVICES_INCORPORACION + '/postulante/savePostulante', data).toPromise();
     } 
+
+    public getAllColaborators(): Promise<any>{
+        return this.http.get(AppSettings.SERVICES_INCORPORACION + '/integradocente/getAllColaboratorsFractalFilter').toPromise();
+    } 
+
+    public getDatosOrganizacion(type_search, code?): Promise<any> {
+        let extra = code?'&codigo=' + code:'';
+        return this.http.get(AppSettings.SERVICES_INCORPORACION + '/integradocente/getDatosOrganizacion?codigo_compania=002&tipo_busqueda=' + type_search + extra).toPromise();
+    }
+
+    public getDatoswithoutCode(type_search, code_register, code_registro_sede = null): Promise<any> {
+        if(code_registro_sede == null){
+          return this.http.get(AppSettings.SERVICES_INCORPORACION + '/integradocente/getDatosOrganizacion?codigo_compania=002&tipo_busqueda=' + type_search + '&codigo_registro=' + code_register).toPromise();
+        }else{
+          return this.http.get(AppSettings.SERVICES_INCORPORACION + '/integradocente/getDatosOrganizacion?codigo_compania=002&tipo_busqueda=' + type_search + '&codigo_registro=' + code_register+ '&codigo_registro_sede=' + code_registro_sede).toPromise();
+        }
+    }
 
     public accesoVacaciones(cuc, unidad): Promise<any>{
         return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/accesoVacaciones?cuc=' + cuc + '&unidad=' + unidad).toPromise();
@@ -317,10 +338,6 @@ export class DocenteService {
     public getdetailevaluation(emplid, codigo, fecha_inicio, fecha_fin, tipo): Promise<any>{
         return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/detailevaluation?emplid=' + emplid + '&codigo=' + codigo + '&fecha_inicio=' + fecha_inicio + '&fecha_fin=' + fecha_fin + '&tipo=' + tipo).toPromise();
     }
-    
-    public getSubOrdinadosJefe(emplid, company): Promise<any>{
-        return this.http.get(AppSettings.BASE_FRACTAL + '/ConsultaRecordJefe?cuc='+emplid+'&codigoCompania='+company+'&correoJefe=&indicadorAlcance=T').toPromise();
-    }
 
     public getParametria(company): Promise<any>{
         return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/getParametria?unidad=' + company).toPromise();
@@ -328,5 +345,18 @@ export class DocenteService {
 
     public getReporte(data): Promise<any>{
         return this.http.post(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/getreporte', data).toPromise();
-    }    
+    }  
+
+    public getColaboratorAsignados(compania, codigo_referencia, asignador): Promise<any>{
+        return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/getColaboratorAsignados?compania=' + compania + '&codigo_referencia=' + codigo_referencia + '&asignador=' + asignador).toPromise();
+    }  
+    
+    public deleteParticipacionReuniones(data): Promise<any>{
+        return this.http.post(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/deleteParticipacionReuniones', data).toPromise();
+    }   
+    
+    public replyParticipacionReuniones(data): Promise<any>{
+        return this.http.post(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/replyParticipacionReuniones', data).toPromise();
+    }
+    
 }

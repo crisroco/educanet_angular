@@ -1,0 +1,177 @@
+<div class="bg-white p-3 rounded-1">
+
+    <h5 class="pb-2 bd-b-1 bd-{{config_initial.code}}"> Participación Reuniones Programadas </h5>
+
+    <div class="pull-right">
+        <button class="btn bg-{{config_initial.code}} text-white" [disabled]="!codigo_referencia" (click)="openNewModal()"><i class="fa fa-user-plus mr-2"></i>Agregar Docente(s)</button>
+    </div>
+
+    <div class="row ">
+        <div class="col-md-12 mb-2 ">
+            <select [(ngModel)]="codigo_referencia" class="form-control mb-2 " (change)="getColaboratorAsignado() ">
+            <option value="">Seleccione Periodo de Evaluación . . . </option>      
+            <option *ngFor="let par of allParametria" [value]="par.codigo">{{par.descripcion}}</option>    
+          </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9 mb-2">
+            <button [disabled]="!codigo_referencia" (click)="replyModal.open()" class="mr-2 btn bg-{{config_initial.code}} text-white"><i class="fa fa-reply mr-1" aria-hidden="true"></i> Replicar Periodo Anterior</button>
+            <button [disabled]="!codigo_referencia" (click)="saveData()" class="mr-2 btn bg-{{config_initial.code}} text-white"><i class="fa fa-floppy-o mr-1" aria-hidden="true"></i> Guardar</button>
+        </div>
+        <div class="col-md-3 text-right mt-2 mb-2">
+            {{ allColaboratorsAsignados.length }} registro(s) encontrado(s)
+        </div>
+    </div>
+
+    <div class="mb-3 rounded-1 scroll bd-1 bd-{{config_initial.code}} ">
+        <table class="w-100" id="container">
+            <thead class="bg-{{config_initial.code}} ">
+                <tr class="text-white text-center text-s ">
+                    <th width="5%" class="px-3 py-2 align-middle ">#</th>
+                    <th width="10%" class="px-3 py-2 align-middle ">Codigo PS</th>
+                    <th width="40%" class="px-3 py-2 align-middle ">Nombres</th>
+                    <th width="10%" class="px-3 py-2 align-middle ">Documento</th>
+                    <th width="10%" class="px-3 py-2 align-middle ">Reuniones Asistidas</th>
+                    <th width="10%" class="px-3 py-2 align-middle ">Reuniones Programadas</th>
+                    <th width="10%" class="px-3 py-2 align-middle ">Puntaje Obtenido</th>
+                    <th width="5%" class="px-3 py-2 align-middle ">Acciones</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="allColaboratorsAsignados && allColaboratorsAsignados.length> 0">
+                <tr class="text-center text-s {{c < allColaboratorsAsignados.length - 1?'bd-b-1':''}}" *ngFor="let item of allColaboratorsAsignados; let c = 'index'">
+                    <td class="p-2">{{ c+1 }}<input class="mr-2" type="checkbox" style="display:none" id="{{item.asignado}}" name="{{item.asignado}}" checked/></td>
+                    <td class="p-2">{{ item.asignado }}</td>
+                    <td class="p-2">{{ item.nombre }} {{ item.apellido_paterno }} {{ item.apellido_materno }}</td>
+                    <td class="p-2">{{ item.tipo_documento }} {{ item.nro_documento }}</td>
+                    <td class="p-1"><input type="number" id="ASIS_{{item.asignado}}" class="form-control text-center" (change)="calculo(item.asignado)" value="{{item.reuniones_asistidas}}" /></td>
+                    <td class="p-1"><input type="number" id="PROG_{{item.asignado}}" class="form-control text-center" (change)="calculo(item.asignado)" value="{{item.reuniones_programadas}}" /></td>
+                    <td class="p-1"><input type="number" id="CALC_{{item.asignado}}" class="form-control text-center" readonly value="{{item.participacion_reuniones}}" /></td>
+                    <td class="p-1"><button (click)="deleteOpen(item)" class="mr-2 btn bg-{{config_initial.code}} text-white" data-tooltip="Quitar Colaborador"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="allColaboratorsAsignados && allColaboratorsAsignados.length == 0">
+                <tr class="text-center text-s">
+                    <td class="p-2" colspan="100%">
+                        <div class="alert alert-warning m-0"> Atención! No se encontraron registros </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="!allColaboratorsAsignados">
+                <tr class="text-center text-s">
+                    <td class="p-2" colspan="100%">
+                        <div class="alert alert-info m-0"> Cargando resultados... </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ngx-smart-modal #createUserModal identifier="createUserModal" [closable]="false" [customClass]="'largeModal'">
+    <h5 class="text-ucs mb-2">EVALUACIÓN DEL DESEMPEÑO (ENCUESTA) <a (click)="createUserModal.close()" class="pull-right pointer"><i class="fa fa-times text-black text-l"></i></a></h5>
+    <div class="row">
+        <div class="col-md-2">
+            <label class="my-1 mr-2" for="cuc">CUC</label>
+            <input [(ngModel)]="newRequest.cuc " type="text " class="form-control " [ngModelOptions]="{standalone: true}" placeholder="Codigo PeopleSoft">
+        </div>
+        <div class="col-md-3">
+            <label class="my-1 mr-2" for="nombre">Nombre</label>
+            <input [(ngModel)]="newRequest.nombre " type="text " class="form-control " [ngModelOptions]="{standalone: true}" placeholder="Nombre">
+        </div>
+        <div class="col-md-3">
+            <label class="my-1 mr-2" for="apellido_paterno">Apellido Paterno</label>
+            <input [(ngModel)]="newRequest.apellido_paterno " type="text " class="form-control " [ngModelOptions]="{standalone: true}" placeholder="Apellido Paterno">
+        </div>
+        <div class="col-md-3">
+            <label class="my-1 mr-2" for="apellido_materno">Apellido Materno</label>
+            <input [(ngModel)]="newRequest.apellido_materno " type="text " class="form-control " [ngModelOptions]="{standalone: true}" placeholder="Apellido Materno">
+        </div>
+        <div class="col-md-5">
+            <label class="my-1 mr-2" for="area">Área</label>
+            <select [(ngModel)]="newRequest.area" (change)="changeArea($event.target.value)" [ngModelOptions]="{standalone: true}" class="form-control ">
+          <option value="">Selecciona . . .</option>
+          <option *ngFor="let aa of allAreas" [value]="aa.codigo_registro+'|'+aa.codigo_referencia">{{aa.descripcion}}</option>
+      </select>
+        </div>
+        <div class="col-md-3">
+            <label class="my-1 mr-2" for="sede">Sede</label>
+            <select [(ngModel)]="newRequest.sede" [ngModelOptions]="{standalone: true}" class="form-control ">
+          <option value="">Selecciona . . .</option>
+          <option *ngFor="let ase of allSedes" [value]="ase.codigo_registro+'|'+ase.codigo_referencia">{{ase.descripcion}}</option>
+      </select>
+        </div>
+        <div class="col-md-3">
+            <label class="my-1 mr-2" for="puesto">Puesto</label>
+            <select [(ngModel)]="newRequest.puesto" [ngModelOptions]="{standalone: true}" class="form-control ">
+          <option value="">Selecciona . . .</option>
+          <option *ngFor="let ase of allPuesto" [value]="ase.codigo_referencia">{{ase.descripcion}}</option>
+      </select>
+        </div>
+        <div class="col-md-1 text-right">
+            <label class="my-1 mr-2" for="puesto">&nbsp;</label><br>
+            <button (click)="filterModal(newRequest.area, newRequest.sede, newRequest.puesto, newRequest.cuc, newRequest.nombre, newRequest.apellido_paterno, newRequest.apellido_materno)" class="btn btn-primary"> Buscar</button>
+        </div>
+        <div class="col-md-4 mt-2">
+            <button (click)="checkAll('containerModal')" class="mr-2 btn btn-secondary" data-tooltip="Marcar Todo"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+            <button (click)="noCheckAll('containerModal')" class="mr-2 btn btn-secondary" data-tooltip="Desmarcar Todo"><i class="fa fa-square-o" aria-hidden="true"></i></button>
+            <button (click)="addColaborators()" class="btn btn-primary"><i class="fa fa-user-plus mr-1" aria-hidden="true"></i> Agregar</button>
+        </div>
+        <div class="col-md-8 text-right mt-4">
+            {{ allColaborators.length }} registro(s) encontrado(s)
+        </div>
+    </div>
+    <div class="mt-2">
+    </div>
+    <div class="rounded-1 bd-1 scroll bd-{{config_initial.code}}">
+        <table id="table-students" class="w-100" id="containerModal">
+            <thead class="bg-{{config_initial.code}}">
+                <tr class="text-white text-center text-s">
+                    <th class="px-3 py-2 align-middle "><i class="fa fa-check-square-o fa-2x" aria-hidden="true"></i></th>
+                    <th class="px-3 py-2 align-middle ">CUC</th>
+                    <th class="px-3 py-2 align-middle ">Nombres</th>
+                    <th class="px-3 py-2 align-middle ">Documento</th>
+                    <th class="px-3 py-2 align-middle ">Área</th>
+                    <th class="px-3 py-2 align-middle ">Sede</th>
+                    <th class="px-3 py-2 align-middle ">Puesto</th>
+                    <th class="px-3 py-2 align-middle ">Tipo Planilla</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center text-s {{s < allColaborators.length - 1?'bd-b-1':''}}" *ngFor="let item of allColaborators; let s = 'index'">
+                    <td class="p-1"><input class="mr-2" type="checkbox" style="transform: scale(1.5);" id="{{item.cuc}}" name="{{item.cuc}}" /></td>
+                    <td class="p-1">{{ item.cuc }}</td>
+                    <td class="p-1">{{ item.nombre }} {{ item.apellido_paterno }} {{ item.apellido_materno }}</td>
+                    <td class="p-1">{{ item.tipo_documento }} {{ item.nro_documento }}</td>
+                    <td class="p-1">{{ item.nombre_area }}</td>
+                    <td class="p-1">{{ item.nombre_sede }}</td>
+                    <td class="p-1">{{ item.nombre_puesto }}</td>
+                    <td class="p-1">{{ item.tipo_planilla }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</ngx-smart-modal>
+
+<ngx-smart-modal #deleteModal identifier="deleteModal" [closable]="false" [escapable]="false" [dismissable]="false" [customClass]="'smallModall fullModal pt-4'">
+    <div class="row justify-content-center mb-3 px-5">
+        <h6 class="text-center text-ucs">¿Estas seguro que desea quitar al Colaborador {{selectedUser.nombre}} {{selectedUser.apellido_paterno}} {{selectedUser.apellido_materno}}?</h6>
+        <div class="buttons">
+            <button class="btn btn-primary mr-2" (click)="confirmDelete()">Confirmar</button>
+            <button class="btn btn-danger" (click)="deleteModal.close()">Cancelar</button>
+        </div>
+    </div>
+</ngx-smart-modal>
+
+<ngx-smart-modal #replyModal identifier="replyModal" [closable]="false" [escapable]="false" [dismissable]="false" [customClass]="'smallModall fullModal pt-4'">
+    <div class="row justify-content-center mb-3 px-5">
+        <h6 class="text-center text-ucs">¿Estas seguro que desea replicar la data del Periodo Anterior?</h6>
+        <div class="buttons">
+            <button class="btn btn-primary mr-2" (click)="confirmReply()">Confirmar</button>
+            <button class="btn btn-danger" (click)="replyModal.close()">Cancelar</button>
+        </div>
+    </div>
+</ngx-smart-modal>
+
+<ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true }"></ngx-loading>

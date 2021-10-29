@@ -116,6 +116,18 @@
                         <span *ngIf="item.nivel_logro=='NO LOGRADO'" class="badge badge-danger">{{ item.nivel_logro }}</span>
                     </td>
                 </tr>
+                <tr class="bg-{{config_initial.code}} text-white text-center text-s">
+                    <th class="p-1 text-left" colspan="2">Puntataje Final</th>
+                    <th class="p-1">{{ this.puntaje_final_2 | number:'1.2-2' }}</th>
+                    <th class="p-1">{{ this.puntaje_final | number:'1.2-2' }}</th>
+                    <th class="p-1">35%</th>
+                    <td class="p-1">
+                        <span *ngIf="this.nivel_final=='LOGRO DESTACADO'" class="badge badge-primary">{{ this.nivel_final }}</span>
+                        <span *ngIf="this.nivel_final=='LOGRADO'" class="badge badge-success">{{ this.nivel_final }}</span>
+                        <span *ngIf="this.nivel_final=='EN DESARROLLO'" class="badge badge-warning text-white">{{ this.nivel_final }}</span>
+                        <span *ngIf="this.nivel_final=='NO LOGRADO'" class="badge badge-danger">{{ this.nivel_final }}</span>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

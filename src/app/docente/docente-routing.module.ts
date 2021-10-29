@@ -20,6 +20,8 @@ import { AddCourseComponent } from './pages/director/add-course/add-course.compo
 import { AddTeacherComponent } from './pages/director/add-teacher/add-teacher.component';
 import { ConsultCourseComponent } from './pages/director/consult-course/consult-course.component';
 import { ConsultTeacherComponent } from './pages/director/consult-teacher/consult-teacher.component';
+import { ReunionesDocenteComponent } from './pages/reuniones-docente/reuniones-docente.component';
+
 
 const routes: Routes = [
 	{ 
@@ -98,6 +100,10 @@ const routes: Routes = [
 			{
 				path: 'resultados-evaluacion',
 				component: ResultadosEvaluacionComponent
+			},
+			{
+				path: 'participacion-reuniones',
+				component: ReunionesDocenteComponent
 			},
 			// Director
 			{
