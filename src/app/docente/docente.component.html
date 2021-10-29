@@ -56,7 +56,7 @@
                     <li> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="https://grupoeducad.sharepoint.com/sites/RepositorioProceso/SitePages/RepositorioProceso.aspx">+ Procedimientos y Políticas</a></li>
                     <!-- <li> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/biblioteca']">+ Biblioteca</a></li> -->
                     <li> <a class="w-100 hover-{{config_initial.code}}" (click)="getDataRemotex()">+ Biblioteca</a></li>
-                    <!-- <li> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link" [routerLink]="['/docente/participacion-reuniones']">+ Participación Reuniones </a> </li> -->
+                    <li *ngIf="director"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link" [routerLink]="['/docente/participacion-reuniones']">+ Participación Reuniones </a> </li>
                     <li> <a class="w-100 hover-{{config_initial.code}}" (click)="logout()">+ Cerrar Sesión</a></li>
                 </ul>
 
@@ -86,7 +86,7 @@
                             </div>
                         </div>
                         <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/horario-virtual']">+ Disponibilidad Horario</a> </li>
-	                    <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/cursos-clases']">+ Disponibilidad Cursos </a> </li>
+                        <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/cursos-clases']">+ Disponibilidad Cursos </a> </li>
                         <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/biblioteca']">+ Biblioteca</a></li>
                         <li> <a class="w-100 hover-{{config_initial.code}} px-2" (click)="logout()">+ Cerrar Sesión</a></li>
                     </ul>
@@ -118,26 +118,16 @@
 </div>
 
 <form target="_blank" action="https://cientifica.remotexs.co/alumni/login" method=post id="formulario1" #hello>
-    <input [formControl]="DigitalLibraryAttribute1" name="DigitalLibraryAttribute1" id="DigitalLibraryAttribute1"
-        type="text" /><br />
-    <input [formControl]="DigitalLibraryAttribute2" name="DigitalLibraryAttribute2" id="DigitalLibraryAttribute2"
-        type="text" /><br />
-    <input [formControl]="DigitalLibraryAttribute3" name="DigitalLibraryAttribute3" id="DigitalLibraryAttribute3"
-        type="text" /><br />
-    <input [formControl]="DigitalLibraryAttribute4" name="DigitalLibraryAttribute4" id="DigitalLibraryAttribute4"
-        type="text" /><br />
-    <input [formControl]="DigitalLibraryAttribute5" name="DigitalLibraryAttribute5" id="DigitalLibraryAttribute5"
-        type="text" /><br />
-    <input [formControl]="DigitalLibraryAttribute6" name="DigitalLibraryAttribute6" id="DigitalLibraryAttribute6"
-        type="text" /><br />
-    <input [formControl]="DigitalLibraryAttribute7" name="DigitalLibraryAttribute7" id="DigitalLibraryAttribute7"
-        type="text" /><br />
-    <input [formControl]="DigitalLibraryAttribute8" name="DigitalLibraryAttribute8" id="DigitalLibraryAttribute8"
-        type="text" /><br />
-    <input [formControl]="DigitalLibraryAttribute9" name="DigitalLibraryAttribute9" id="DigitalLibraryAttribute9"
-        type="text" /><br />
-    <input [formControl]="DigitalLibraryAttribute10" name="DigitalLibraryAttribute10" id="DigitalLibraryAttribute10"
-        type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute1" name="DigitalLibraryAttribute1" id="DigitalLibraryAttribute1" type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute2" name="DigitalLibraryAttribute2" id="DigitalLibraryAttribute2" type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute3" name="DigitalLibraryAttribute3" id="DigitalLibraryAttribute3" type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute4" name="DigitalLibraryAttribute4" id="DigitalLibraryAttribute4" type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute5" name="DigitalLibraryAttribute5" id="DigitalLibraryAttribute5" type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute6" name="DigitalLibraryAttribute6" id="DigitalLibraryAttribute6" type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute7" name="DigitalLibraryAttribute7" id="DigitalLibraryAttribute7" type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute8" name="DigitalLibraryAttribute8" id="DigitalLibraryAttribute8" type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute9" name="DigitalLibraryAttribute9" id="DigitalLibraryAttribute9" type="text" /><br />
+    <input [formControl]="DigitalLibraryAttribute10" name="DigitalLibraryAttribute10" id="DigitalLibraryAttribute10" type="text" /><br />
 </form>
 
 <ngx-smart-modal #ethnicityModal identifier="ethnicityModal" [closable]="false" [escapable]="false" [dismissable]="false" [customClass]="''">
@@ -190,7 +180,7 @@
 
 <ngx-smart-modal #piezaModalSise identifier="piezaModalSise" [closable]="false" [escapable]="true" [dismissable]="true" [customClass]="'smallModal fullModal noBordersModal'">
     <!--<a href="https://aulavirtual.sise.edu.pe" target="_blank"> -->
-        <img class="w-100 rounded-1" src="./assets/notice_ucs.png">
+    <img class="w-100 rounded-1" src="./assets/notice_ucs.png">
     <!--</a>-->
     <div (click)="piezaModalSise.close()" class="times-close">
         <img src="./assets/img/times-modal.svg" alt="">

@@ -8,6 +8,7 @@ import { Decrypt, Encrypt } from '../helpers/general';
 import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormBuilder } from '@angular/forms';
 import * as CryptoJS from 'crypto-js';
+import { parse } from 'querystring';
 
 @Component({
   selector: 'app-docente',
@@ -62,7 +63,7 @@ export class DocenteComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		if (this.cod_company == '002') {
+		if (this.cod_company == '002') {		
 			this.director = this.session.getItem('DI')=='false'?false:true;
 			this.piezaModalSise.open();
 		}
