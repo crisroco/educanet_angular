@@ -69,7 +69,7 @@ export class MarkingComponent implements OnInit {
 	}
 
 	getListClassroom(){
-		this.docenteS.listClassroom({emplid: (this.cod_company == '002'?this.emplid:this.emplid_real), institucion: this.config_initial.institution})
+		this.docenteS.listClassroom({})
 		.then(res => {
 			this.classrooms = res.UCS_REST_MARCACION_RES && res.UCS_REST_MARCACION_RES.UCS_REST_MARCACION_COM?res.UCS_REST_MARCACION_RES.UCS_REST_MARCACION_COM:[];
 			if(this.realClassroom.EMPLID){
