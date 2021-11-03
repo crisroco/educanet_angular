@@ -111,7 +111,7 @@ export class LoginComponent implements OnInit {
 		this.variable = btoa(empresa_url + "&&" + data.email.toUpperCase() + "&&" + data.password);
         this.loginS.getAccess_ps(this.variable)
         .then(res => {
-        	if(res.noaccess || res.error){ 
+        	if(res.noaccess || res.error){
         		this.toastr.error(res.noaccess); 
         		this.session.allCLear();
         		this.sendLog(AppSettings.ACCESS_PS, res);
@@ -120,19 +120,11 @@ export class LoginComponent implements OnInit {
 			res.oprid = btoa(res.oprid);
 			res.usuario = btoa(res.usuario);
 			this.session.setObject('user', res);
-			this.dispoS.checkDirector(data.email)
-				.then((res) => {
-					this.session.setItem('DI', res.UCS_LOGINDIR_RES.VALOR);
-					this.session.setItem('token', this.variable);
-					this.session.setItem('cod_company', cod_empresa);
-					this.cod_user = data.email;
-					this.session.setItem('cod_user', this.cod_user);
-					this.loginToken();
-				});
-			// this.docenteS.signUp({name: res.usuario, email: res.email, password: data.password})
-				// .then((res) => {
-					// this.session.setItem('token_edu', res['access_token']);
-				// });
+			this.session.setItem('token', this.variable);
+			this.session.setItem('cod_company', cod_empresa);
+			this.cod_user = data.email;
+			this.session.setItem('cod_user', this.cod_user);
+			this.loginToken();
         }, error => { this.session.allCLear(); this.sendLog(AppSettings.ACCESS_PS, error); });
 	}
 

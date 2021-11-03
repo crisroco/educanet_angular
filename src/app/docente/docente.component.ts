@@ -64,7 +64,7 @@ export class DocenteComponent implements OnInit {
 
 	ngOnInit() {
 		if (this.cod_company == '002') {		
-			this.director = this.session.getItem('DI')=='false'?false:true;
+			// this.director = this.session.getItem('DI')=='false'?false:true;
 			this.piezaModalSise.open();
 		}
 		
