@@ -114,7 +114,7 @@ export class LoginComponent implements OnInit {
 		}
 		this.loading = true;
 		this.variable = btoa(empresa_url + "&&" + data.email.toUpperCase() + "&&" + data.password);
-		this.docenteS.signUp({credencial: this.variable ,name: this.rmtx_usuario, email: this.rmtx_email, password: data.password, emplid :this.rmtx_emplid, telefono: this.rmtx_telefono, oprid: data.email})
+		this.docenteS.signUp({credencial: this.variable, password: data.password,oprid: data.email})
 		.then((res) => {		
 			this.rmtx_usuario = res['credentials'].usuario;
 			this.rmtx_emplid = res['credentials'].emplid_moodle;
