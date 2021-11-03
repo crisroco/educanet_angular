@@ -266,7 +266,7 @@ export class StudentGradesComponent implements OnInit {
 		this.loading = true;
 		if(this.cod_company == '002'){
 			this.docenteS.putToken({})
-			.then(res => {
+			.then((res) => {
 				if(res.data && res.data.status == 'ok'){
 					this.updateStudentsGrades();
 					this.token = '';
@@ -274,11 +274,11 @@ export class StudentGradesComponent implements OnInit {
 				}
 				else{
 					this.message = '';
-					this.toastr.error('Vuelva a intentar en unos minutos.');
+					this.loading = false;
+					this.toastr.error(res.message);
 				}
-			}, error => {
+			}, (error) => {
 				this.loading = false;
-				console.log(error);
 				this.toastr.error(error && error.error && error.error.message?error.error.message:'Vuelva a intentar en unos minutos.');
 			});
 		}
