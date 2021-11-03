@@ -31,7 +31,7 @@ export class VirtualClassroomComponent implements OnInit {
 
 	ngOnInit() {
 		this.realDate = RealDate();
-		this.docenteS.getVirtualClassroowm({emplid: (this.cod_company == '002'?this.emplid:this.emplid_real), institucion: this.config_initial.institution, unidad: this.cod_company})
+		this.docenteS.getVirtualClassroowm({emplid: (this.cod_company == '002'?'':this.emplid_real), institucion: this.config_initial.institution, unidad: this.cod_company})
 		.then(res => {
 			console.log(res);
 			this.classrooms = res.SISE_CLASE_DOCENTE_RES && res.SISE_CLASE_DOCENTE_RES.UCS_CLASE_DOCENTE_COM?res.SISE_CLASE_DOCENTE_RES.UCS_CLASE_DOCENTE_COM:[];

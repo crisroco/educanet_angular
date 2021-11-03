@@ -67,7 +67,7 @@ export class WeeklyScheduleComponent implements OnInit {
 		var realLastDayWeek = RealDate(GetLastDayWeek(new Date()));
 		this.reallastDayWeek = realLastDayWeek.year + '-' + realLastDayWeek.month + '-' + realLastDayWeek.day;
 		this.docenteS.getTeacherSchedule({
-			EMPLID: (this.cod_company == '002'?this.emplid:this.emplid_real), 
+			EMPLID: (this.cod_company == '002'?'':this.emplid_real), 
 			FECHA_AL: this.lastDayWeek,
 			FECHA_DEL: this.firstDayWeek,
 		})

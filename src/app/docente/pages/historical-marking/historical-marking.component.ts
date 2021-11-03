@@ -40,7 +40,7 @@ export class HistoricalMarkingComponent implements OnInit {
 
 	getPaymentPeriod(){
 		this.loading = true;
-		this.docenteS.getPaymentPeriod({emplid: this.emplid, emplid_sise: this.emplid_real})
+		this.docenteS.getPaymentPeriod({emplid: (this.cod_company == '002'?'':this.emplid_real), emplid_sise: this.emplid_real})
 		.then(res => {
 			this.paymentPeriods = res.UCS_REST_PERIODOCAL_RES && res.UCS_REST_PERIODOCAL_RES.UCS_REST_PERIODOCAL_COM?res.UCS_REST_PERIODOCAL_RES.UCS_REST_PERIODOCAL_COM:[];
 			this.loading = false;
@@ -51,7 +51,7 @@ export class HistoricalMarkingComponent implements OnInit {
 		var dates = this.realPeriod.split('.');
 		this.dates = null;
 		if(dates.length > 1){
-			this.docenteS.getHistoricalMarking({EMPLID: (this.cod_company == '002'?this.emplid:this.emplid_real), FECHA_AL: dates[0], FECHA_DEL: dates[1]})
+			this.docenteS.getHistoricalMarking({EMPLID: (this.cod_company == '002'?'':this.emplid_real), FECHA_AL: dates[0], FECHA_DEL: dates[1]})
 			.then(res => {
 				this.dates = res.UCS_REST_MARCAPER_RES && res.UCS_REST_MARCAPER_RES.UCS_REST_MARCAPER_COM?res.UCS_REST_MARCAPER_RES.UCS_REST_MARCAPER_COM:[];
 				this.dates.filter(res=>{

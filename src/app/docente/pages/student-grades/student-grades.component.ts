@@ -74,7 +74,7 @@ export class StudentGradesComponent implements OnInit {
 		});
 		this.data_browser = this.deviceS.getDeviceInfo();
 		this.data[AppSettings.STRINGS_COMPANY[this.cod_company].institution] = this.config_initial.institution;
-		this.data[AppSettings.STRINGS_COMPANY[this.cod_company].emplid] = this.cod_company == '002'?this.emplid:this.emplid_real;
+		this.data[AppSettings.STRINGS_COMPANY[this.cod_company].emplid] = this.cod_company == '002'?'':this.emplid_real;
 	}
 
 	ngOnInit() {
@@ -106,7 +106,7 @@ export class StudentGradesComponent implements OnInit {
 	}
 
 	getGradeRecordClass(){
-		this.docenteS.getGradeRecordClass({'acad_career': this.career, 'class_nbr': this.class, 'emplid': (this.cod_company == '002'?this.emplid:this.emplid_real), 'institucion': this.course.INSTITUTION, 'strm': this.strm})
+		this.docenteS.getGradeRecordClass({'acad_career': this.career, 'class_nbr': this.class, 'emplid': (this.cod_company == '002'?'':this.emplid_real), 'institucion': this.course.INSTITUTION, 'strm': this.strm})
 		.then(res => {
 			this.students = res.SISE_REST_CONSNOTREG_RES && res.SISE_REST_CONSNOTREG_RES.SISE_REST_CONSNOTREG_COM && res.SISE_REST_CONSNOTREG_RES.SISE_REST_CONSNOTREG_COM.length? res.SISE_REST_CONSNOTREG_RES.SISE_REST_CONSNOTREG_COM : [];
 			this.allStudents = JSON.parse(JSON.stringify(this.students));
@@ -137,7 +137,7 @@ export class StudentGradesComponent implements OnInit {
 	getClassroomAverage(){
 		var data = JSON.parse(JSON.stringify(this.course));
 		data.emplid = this.emplid;
-		data.EMPLID = this.emplid;
+		data.EMPLID = this.cod_company == '002'?'':this.emplid_real;
 		data.CLASS_NBR = data.class;
 		delete data.class;
 		this.docenteS.classroomAverage(data)
@@ -160,7 +160,7 @@ export class StudentGradesComponent implements OnInit {
 
 	getToken(){
 		this.loading = true;
-		this.docenteS.getToken({ 'emplid': this.emplid,  'numero': this.course.PHONE, 'email': this.user.email2})
+		this.docenteS.getToken({})
 		// this.docenteS.getToken({ 'emplid': this.emplid,  'numero': '992330712', 'email': 'eacostac@cientifica.edu.pe'})
 		.then(res => {
 			this.loading = false;

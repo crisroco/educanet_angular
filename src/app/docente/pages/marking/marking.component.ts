@@ -150,7 +150,7 @@ export class MarkingComponent implements OnInit {
 				LVF_STATUS_MTG: this.realClassroom.LVF_STATUS_MTG,
 				acad_carrer: this.realClassroom.ACAD_CAREER,
 				cod_marcacion: this.realClassroom.LVF_NUM_MARC,
-				emplid: (this.cod_company == '002'?this.emplid:this.emplid_real),
+				emplid: (this.cod_company == '002'?'':this.emplid_real),
 				institucion: this.realClassroom.INSTITUTION,
 				ip_privada: this.ip,
 			}
@@ -170,7 +170,7 @@ export class MarkingComponent implements OnInit {
 					LVF_STATUS_MTG: this.realClassroom.LVF_STATUS_MTG,
 					acad_carrer: secondClass.ACAD_CAREER,
 					cod_marcacion: secondClass.LVF_NUM_MARC,
-					emplid: (this.cod_company == '002'?this.emplid:this.emplid_real),
+					emplid: (this.cod_company == '002'?'':this.emplid_real),
 					institucion: secondClass.INSTITUTION,
 					ip_privada: this.ip,
 				}

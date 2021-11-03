@@ -83,9 +83,7 @@ export class DocenteComponent implements OnInit {
 
 	getEthnicity(){
 		if(this.cod_company == '002'){
-			this.docenteS.existEthnicity({
-				"EMPLID": this.emplid
-			})
+			this.docenteS.existEthnicity({})
 			.then(res => {
 				if(res.UCS_CON_ETNICO_RES && res.UCS_CON_ETNICO_RES.RESULTADO == 'Y'){ }
 				else{ this.ethnicityModal.open(); }
