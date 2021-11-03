@@ -265,9 +265,22 @@ export class StudentGradesComponent implements OnInit {
 	startUpdateStudentGrades(){
 		this.loading = true;
 		if(this.cod_company == '002'){
-			this.updateStudentsGrades();
-			this.token = '';
-			this.message = '';
+			this.docenteS.putToken({ 'emplid': this.emplid,  'numero': this.course.PHONE, 'token': this.token})
+			.then(res => {
+				if(res.data && res.data.status == 'ok'){
+					this.updateStudentsGrades();
+					this.token = '';
+					this.message = '';
+				}
+				else{
+					this.message = '';
+					this.toastr.error('Vuelva a intentar en unos minutos.');
+				}
+			}, error => {
+				this.loading = false;
+				console.log(error);
+				this.toastr.error(error && error.error && error.error.message?error.error.message:'Vuelva a intentar en unos minutos.');
+			});
 		}
 		else{
 			var dataListStudentGrades = [];
