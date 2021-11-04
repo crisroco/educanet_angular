@@ -115,7 +115,12 @@ export class LoginComponent implements OnInit {
 		this.loading = true;
 		this.variable = btoa(empresa_url + "&&" + data.email.toUpperCase() + "&&" + data.password);
 		this.docenteS.signUp({credencial: this.variable, password: data.password,oprid: data.email})
-		.then((res) => {		
+		.then((res) => {
+			if(res['err']){
+				this.toastr.error('Credenciales Incorrectas');
+				this.loading = false;
+				return
+			}
 			this.rmtx_usuario = res['credentials'].usuario;
 			this.rmtx_emplid = res['credentials'].emplid_moodle;
 			this.remotex = res['dataPs'];
@@ -130,6 +135,9 @@ export class LoginComponent implements OnInit {
 			this.cod_user = data.email;
 			this.session.setItem('cod_user', this.cod_user);
 			this.loginToken();
+		}, (err) => {
+			console.log(err);
+			this.loading = false;
 		});
 	}
 
