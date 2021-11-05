@@ -265,7 +265,7 @@ export class StudentGradesComponent implements OnInit {
 	startUpdateStudentGrades(){
 		this.loading = true;
 		if(this.cod_company == '002'){
-			this.docenteS.putToken({})
+			this.docenteS.putToken({'token': this.token})
 			.then((res) => {
 				if(res.data && res.data.status == 'ok'){
 					this.updateStudentsGrades();
