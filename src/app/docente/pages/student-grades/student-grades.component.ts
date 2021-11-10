@@ -191,7 +191,7 @@ export class StudentGradesComponent implements OnInit {
 				strm: student.STRM,
 				student_grade: grade.ACTN_TYPE_CD,
 				token: this.token,
-				oprid: atob(this.user.oprid),
+				oprid: this.cod_company == '002'?'':atob(this.user.oprid),
 				course: student.DESCR2
 			}
 			this.docenteS.updateGrade(dataStudent)
