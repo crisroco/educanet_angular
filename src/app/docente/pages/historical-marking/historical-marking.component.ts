@@ -19,7 +19,6 @@ export class HistoricalMarkingComponent implements OnInit {
 	user = this.session.getObject('user');
 	emplid = Decrypt(this.user['emplid']);
 	emplid_real = Decrypt(this.user['emplid_real']);
-	oprid = atob(this.user['oprid']);
 	paymentPeriods: any = [];
 	dates: any;
 	realPeriod: string = '';

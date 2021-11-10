@@ -22,7 +22,6 @@ export class CourseManagementComponent implements OnInit {
 	user = this.session.getObject('user');
 	emplid = Decrypt(this.user['emplid']);
 	emplid_real = Decrypt(this.user['emplid_real']);
-	oprid = atob(this.user['oprid']);
 	data: any = {};
 	courses: any;
 	realCourse: any;
@@ -86,7 +85,6 @@ export class CourseManagementComponent implements OnInit {
 		modal.open();
 		this.students = [];
 		this.realCourse = JSON.parse(JSON.stringify(course));
-		this.realCourse.OPRID = this.oprid;
 		this.realCourse[AppSettings.STRINGS_COMPANY[this.cod_company].emplid] = this.cod_company == '002'?this.emplid:this.emplid_real;
 		this.docenteS.classroomAverage(this.realCourse)
 		.then(res => {

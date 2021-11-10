@@ -16,7 +16,6 @@ export class WeeklyScheduleComponent implements OnInit {
 	user = this.session.getObject('user');
 	emplid = Decrypt(this.user['emplid']);
 	emplid_real = Decrypt(this.user['emplid_real']);
-	oprid = atob(this.user['oprid']);
 	realDate: any;
 	classrooms: any;
 	firstDayWeek: any;
