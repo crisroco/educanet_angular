@@ -74,7 +74,7 @@ export class StudentGradesComponent implements OnInit {
 		});
 		this.data_browser = this.deviceS.getDeviceInfo();
 		this.data[AppSettings.STRINGS_COMPANY[this.cod_company].institution] = this.config_initial.institution;
-		this.data[AppSettings.STRINGS_COMPANY[this.cod_company].emplid] = this.cod_company == '002'?this.emplid:this.emplid_real;
+		this.data[AppSettings.STRINGS_COMPANY[this.cod_company].emplid] = this.cod_company == '002'?'':this.emplid_real;
 	}
 
 	ngOnInit() {
@@ -106,7 +106,7 @@ export class StudentGradesComponent implements OnInit {
 	}
 
 	getGradeRecordClass(){
-		this.docenteS.getGradeRecordClass({'acad_career': this.career, 'class_nbr': this.class, 'emplid': (this.cod_company == '002'?this.emplid:this.emplid_real), 'institucion': this.course.INSTITUTION, 'strm': this.strm})
+		this.docenteS.getGradeRecordClass({'acad_career': this.career, 'class_nbr': this.class, 'emplid': (this.cod_company == '002'?'':this.emplid_real), 'institucion': this.course.INSTITUTION, 'strm': this.strm})
 		.then(res => {
 			this.students = res.SISE_REST_CONSNOTREG_RES && res.SISE_REST_CONSNOTREG_RES.SISE_REST_CONSNOTREG_COM && res.SISE_REST_CONSNOTREG_RES.SISE_REST_CONSNOTREG_COM.length? res.SISE_REST_CONSNOTREG_RES.SISE_REST_CONSNOTREG_COM : [];
 			this.allStudents = JSON.parse(JSON.stringify(this.students));
@@ -137,7 +137,7 @@ export class StudentGradesComponent implements OnInit {
 	getClassroomAverage(){
 		var data = JSON.parse(JSON.stringify(this.course));
 		data.emplid = this.emplid;
-		data.EMPLID = this.emplid;
+		data.EMPLID = this.cod_company == '002'?'':this.emplid_real;
 		data.CLASS_NBR = data.class;
 		delete data.class;
 		this.docenteS.classroomAverage(data)
@@ -160,7 +160,7 @@ export class StudentGradesComponent implements OnInit {
 
 	getToken(){
 		this.loading = true;
-		this.docenteS.getToken({ 'emplid': this.emplid,  'numero': this.course.PHONE, 'email': this.user.email2})
+		this.docenteS.getToken({})
 		// this.docenteS.getToken({ 'emplid': this.emplid,  'numero': '992330712', 'email': 'eacostac@cientifica.edu.pe'})
 		.then(res => {
 			this.loading = false;
@@ -191,7 +191,7 @@ export class StudentGradesComponent implements OnInit {
 				strm: student.STRM,
 				student_grade: grade.ACTN_TYPE_CD,
 				token: this.token,
-				oprid: atob(this.user.oprid),
+				oprid: this.cod_company == '002'?'':atob(this.user.oprid),
 				course: student.DESCR2
 			}
 			this.docenteS.updateGrade(dataStudent)
@@ -204,12 +204,12 @@ export class StudentGradesComponent implements OnInit {
 					student.success = true;
 					this.endUpdateStudentGrades();
 				}
-				this.sendLog(AppSettings.BASE_UCSUR_LARAVEL + '/actulizar-cientifica-notas', dataStudent, res);
+				this.sendLog(AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/actulizar-cientifica-notas', dataStudent, res);
 			}, error => {
 				student.updated = true;
 				student.error = true;
 				this.endUpdateStudentGrades();
-				this.sendLog(AppSettings.BASE_UCSUR_LARAVEL + '/actulizar-cientifica-notas', dataStudent, error);
+				this.sendLog(AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/actulizar-cientifica-notas', dataStudent, error);
 			});
 		}
 		else{
@@ -265,8 +265,8 @@ export class StudentGradesComponent implements OnInit {
 	startUpdateStudentGrades(){
 		this.loading = true;
 		if(this.cod_company == '002'){
-			this.docenteS.putToken({ 'emplid': this.emplid,  'numero': this.course.PHONE, 'token': this.token})
-			.then(res => {
+			this.docenteS.putToken({'token': this.token})
+			.then((res) => {
 				if(res.data && res.data.status == 'ok'){
 					this.updateStudentsGrades();
 					this.token = '';
@@ -274,12 +274,11 @@ export class StudentGradesComponent implements OnInit {
 				}
 				else{
 					this.message = '';
+					this.loading = false;
 					this.toastr.error(res.message);
 				}
+			}, (error) => {
 				this.loading = false;
-			}, error => {
-				this.loading = false;
-				console.log(error);
 				this.toastr.error(error && error.error && error.error.message?error.error.message:'Vuelva a intentar en unos minutos.');
 			});
 		}

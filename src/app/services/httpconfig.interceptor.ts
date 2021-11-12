@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AppSettings } from '../app.settings';
 import {
     HttpInterceptor,
     HttpRequest,
@@ -18,8 +19,8 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     constructor(private router: Router, private student: SessionService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const token: string = this.student.getItem('token_edu');
-        if (request.url.includes('http://dev.pasarela.educad.pe/api') && token) {
+        const token: string = this.student.getItem('token_edu');        
+        if (request.url.includes(AppSettings.BASE_UCSUR_LARAVEL_AUTH) && token) {
             request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
         }
 

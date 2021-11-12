@@ -63,7 +63,7 @@ export class StudentAssistanceComponent implements OnInit {
 				CLASS_NBR: parts[2],
 				COD_CURSE: parts[6],
 				CURSE_DESC: parts[7],
-				EMPLID: (this.cod_company == '002'?this.emplid:this.emplid_real),//parts[3]
+				EMPLID: (this.cod_company == '002'?'':this.emplid_real),//parts[3]
 				INSTITUTION: parts[0],
 				SECTION: parts[4],
 				SESSION_CODE: parts[8],
