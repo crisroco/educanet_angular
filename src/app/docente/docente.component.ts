@@ -82,7 +82,7 @@ export class DocenteComponent implements OnInit {
 
 	showModals(){
 		// this.surveyModal.open();
-		this.piezaModal.open();
+		// this.piezaModal.open();
 	}
 
 	getEthnicity(){
@@ -180,8 +180,6 @@ export class DocenteComponent implements OnInit {
 		var data = {
 			credencial: Encrypt('QJChPEmBp4d6rZSHf3dA@@' + this.emplid, 'W5Q8f89HmgjhbwGWdy'),
 		}
-		console.log(this.emplid);
-		return
 		let form = document.createElement('form');
 	    document.body.appendChild(form);
 	    form.method = 'get';
