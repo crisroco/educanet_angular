@@ -19,7 +19,7 @@ export class MarkingComponent implements OnInit {
 	user = this.session.getObject('user');
 	emplid = Decrypt(this.user['emplid']);
 	emplid_real = Decrypt(this.user['emplid_real']);
-	oprid = atob(this.user['oprid']);
+	// oprid = atob(this.user['oprid']);
 	classrooms: any;
 	realClassroom: any = {};
 	message: string = '';
@@ -69,7 +69,7 @@ export class MarkingComponent implements OnInit {
 	}
 
 	getListClassroom(){
-		this.docenteS.listClassroom({emplid: (this.cod_company == '002'?this.emplid:this.emplid_real), institucion: this.config_initial.institution})
+		this.docenteS.listClassroom({})
 		.then(res => {
 			this.classrooms = res.UCS_REST_MARCACION_RES && res.UCS_REST_MARCACION_RES.UCS_REST_MARCACION_COM?res.UCS_REST_MARCACION_RES.UCS_REST_MARCACION_COM:[];
 			if(this.realClassroom.EMPLID){
@@ -140,7 +140,7 @@ export class MarkingComponent implements OnInit {
 
 	registerMarking(){
 		var uri = '';
-        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL + '/marcar_asistencia_docente_cientifica';
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/marcar_asistencia_docente_cientifica';
         else uri = AppSettings.BASE_SISE_LARAVEL + '/actualizar_marcacion_docente';
 
 		this.loading = true;
@@ -150,7 +150,7 @@ export class MarkingComponent implements OnInit {
 				LVF_STATUS_MTG: this.realClassroom.LVF_STATUS_MTG,
 				acad_carrer: this.realClassroom.ACAD_CAREER,
 				cod_marcacion: this.realClassroom.LVF_NUM_MARC,
-				emplid: (this.cod_company == '002'?this.emplid:this.emplid_real),
+				emplid: (this.cod_company == '002'?'':this.emplid_real),
 				institucion: this.realClassroom.INSTITUTION,
 				ip_privada: this.ip,
 			}
@@ -170,7 +170,7 @@ export class MarkingComponent implements OnInit {
 					LVF_STATUS_MTG: this.realClassroom.LVF_STATUS_MTG,
 					acad_carrer: secondClass.ACAD_CAREER,
 					cod_marcacion: secondClass.LVF_NUM_MARC,
-					emplid: (this.cod_company == '002'?this.emplid:this.emplid_real),
+					emplid: (this.cod_company == '002'?'':this.emplid_real),
 					institucion: secondClass.INSTITUTION,
 					ip_privada: this.ip,
 				}

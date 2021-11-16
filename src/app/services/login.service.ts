@@ -30,6 +30,10 @@ export class LoginService {
         return this.http.post(AppSettings.LOGIN_TOKEN, GetFormUrlEncoded({ credential: data }), {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}).toPromise();
     }
 
+    public userHolidays(token): Promise<any> {
+        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/userHolidays', {token}).toPromise();
+    }
+
     public get_Token_WS_Vacaciones(): Promise<any> {
         return this.http.get(AppSettings.WS_DRUPAL_GENERARTOKEN, {responseType: 'text'}).toPromise();
     }

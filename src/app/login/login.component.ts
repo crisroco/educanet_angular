@@ -19,6 +19,11 @@ import * as CryptoJS from 'crypto-js';
 export class LoginComponent implements OnInit {
 	loginForm: FormGroup;
 	ip: any;
+	remotex: any;
+	rmtx_usuario:any;
+	rmtx_emplid:any;
+	rmtx_telefono:any;
+	rmtx_email:any
 	data_browser: any;
 	nom_empresa: string = '';
 	variable: string = '';
@@ -109,27 +114,50 @@ export class LoginComponent implements OnInit {
 		}
 		this.loading = true;
 		this.variable = btoa(empresa_url + "&&" + data.email.toUpperCase() + "&&" + data.password);
-        this.loginS.getAccess_ps(this.variable)
-        .then(res => {
-        	if(res.noaccess || res.error){
-        		this.toastr.error(res.noaccess); 
-        		this.session.allCLear();
-        		this.sendLog(AppSettings.ACCESS_PS, res);
-        		return; 
-        	}
-			res.oprid = btoa(res.oprid);
-			res.usuario = btoa(res.usuario);
-			this.session.setObject('user', res);
-			this.dispoS.checkDirector(data.email)
-				.then((res) => {
-					this.session.setItem('DI', res.UCS_LOGINDIR_RES.VALOR);
-					this.session.setItem('token', this.variable);
-					this.session.setItem('cod_company', cod_empresa);
-					this.cod_user = data.email;
-					this.session.setItem('cod_user', this.cod_user);
-					this.loginToken();
+		if(cod_empresa == '002'){
+			this.docenteS.signUp({credencial: this.variable, password: data.password,oprid: data.email})
+			.then((res) => {
+				if(res['err']){
+					this.toastr.error('Credenciales Incorrectas');
+					this.loading = false;
+					return
+				}
+				this.rmtx_usuario = res['credentials'].usuario;
+				this.rmtx_emplid = res['credentials'].emplid_moodle;
+				this.remotex = res['dataPs'];
+				this.rmtx_email = this.remotex['correo'];
+				this.rmtx_telefono = this.remotex['telefono'];	
+
+				this.session.setObject('user', res['credentials']);
+				this.session.setItem('token_edu', res['access_token']);		
+				this.session.setItem('DI', res['dataDI']['UCS_LOGINDIR_RES'].VALOR);
+				this.session.setItem('token', this.variable);
+				this.session.setItem('cod_company', cod_empresa);
+				this.cod_user = data.email;
+				this.session.setItem('cod_user', this.cod_user);
+				this.loginToken();
+			}, (err) => {
+				this.loading = false;
 			});
-        }, error => { this.session.allCLear(); this.sendLog(AppSettings.ACCESS_PS, error); });
+		}else {
+			this.loginS.getAccess_ps(this.variable)
+			.then(res => {
+				if(res.noaccess || res.error){
+					this.toastr.error(res.noaccess); 
+					this.session.allCLear();
+					this.sendLog(AppSettings.ACCESS_PS, res);
+					return; 
+				}
+				res.oprid = btoa(res.oprid);
+				res.usuario = btoa(res.usuario);
+				this.session.setObject('user', res);
+				this.session.setItem('token', this.variable);
+				this.session.setItem('cod_company', cod_empresa);
+				this.cod_user = data.email;
+				this.session.setItem('cod_user', this.cod_user);
+				this.loginToken();
+			});
+		}
 	}
 
 	loginToken() {
@@ -157,7 +185,7 @@ export class LoginComponent implements OnInit {
 		.then(res => {
 			this.session.setItem('token_vac', res);
 			let data = JSON.stringify(AppSettings.ACCESS_VAC);
-			this.loginS.login_WS_Vacaciones(data)
+			this.loginS.userHolidays(res)
 			.then(result => {
 				this.loading = false;
 				let obj_login: any = result;
