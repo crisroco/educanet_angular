@@ -93,7 +93,11 @@ export class DocenteService {
     }
 
     public listStudentClass(data: any): Promise<any>{
-        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/lista_alumno_clase', data).toPromise();
+        var uri = '';
+        this.cod_company = this.session.getItem('cod_company');
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/lista_alumno_clase';
+        else uri = AppSettings.BASE_SISE_LARAVEL + '/lista_alumno_clase';
+        return this.http.post(uri, data).toPromise();
     }
 
     public classroomAverage(data: any): Promise<any>{
@@ -121,7 +125,11 @@ export class DocenteService {
     }
 
     public getAssistanceHistory(data:any): Promise<any>{
-        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/lista_x_alumno_clase', data).toPromise();
+        var uri = '';
+        this.cod_company = this.session.getItem('cod_company');
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/lista_x_alumno_clase';
+        else uri = AppSettings.BASE_SISE_LARAVEL + '/lista_x_alumno_clase';
+        return this.http.post(uri, data).toPromise();
     }
 
     public getDetailClassroomStudent(data:any): Promise<any>{
@@ -133,7 +141,11 @@ export class DocenteService {
     }
 
     public updateDelegate(data: any): Promise<any>{
-        return this.http.put(AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/actualizar_delegados', data, {responseType: 'text'}).toPromise();
+        var uri = '';
+        this.cod_company = this.session.getItem('cod_company');
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/actualizar_delegados';
+        else uri = AppSettings.BASE_SISE_LARAVEL + '/actualizar_delegados';
+        return this.http.put(uri, data, {responseType: 'text'}).toPromise();
     }
 
     public saveAssistance(data: any): Promise<any>{
@@ -177,7 +189,11 @@ export class DocenteService {
     }
 
     public getVirtualClassroowm(data: any): Promise<any>{
-        return this.http.post(AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/clases-virtuales', data).toPromise();
+        var uri = '';
+        this.cod_company = this.session.getItem('cod_company');
+        if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/clases-virtuales';
+        else uri = AppSettings.BASE_SISE_LARAVEL + '/clases-virtuales';
+        return this.http.post(uri, data).toPromise();
     }
 
     public getPaymentPeriod(data: any): Promise<any>{

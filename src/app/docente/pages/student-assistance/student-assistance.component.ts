@@ -136,7 +136,7 @@ export class StudentAssistanceComponent implements OnInit {
 			if(startDate.getTime() <= realDate && realDate <= endDate.getTime())this.disabledMarking = false;
 			else this.disabledMarking = true;
 		}
-		this.realAssistanceDay.emplid = (this.cod_company == '002'?this.emplid:this.emplid_real);
+		this.realAssistanceDay.emplid = (this.cod_company == '002'?'':this.emplid_real);
 		this.studentsDetail = null;
 		this.haveChanges = false;
 		this.docenteS.getDetailClassroomStudent(this.realAssistanceDay)
