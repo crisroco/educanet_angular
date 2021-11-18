@@ -63,17 +63,17 @@ export class AppSettings {
     public static BASE_SISE_CODEIGNITER = 'http://proyectos.educad.pe';
     //------------------------------- ENV PRODUCTION -------------------------------//
     // public static BASE_UCSUR_LARAVEL = 'http://dev3.pasarela.educad.pe/api'; // FAKE PROD
-    public static BASE_UCSUR_LARAVEL = 'http://dev.pasarela.educad.pe/api'; // REAL PROD
-    public static BASE_SISE_LARAVEL = 'https://pasarela.sise.edu.pe/api';
-    public static BASE_UCSUR_LARAVEL_AUTH = AppSettings.BASE_UCSUR_LARAVEL + '/auth';
-    public static PRODUCTION = "http://educanet.back.educad.pe";
-    public static DISPO = "https://cuadernosevaluacion-back.cientifica.edu.pe/v1/";
+    // public static BASE_UCSUR_LARAVEL = 'http://dev.pasarela.educad.pe/api'; // REAL PROD
+    // public static BASE_SISE_LARAVEL = 'https://pasarela.sise.edu.pe/api';
+    // public static BASE_UCSUR_LARAVEL_AUTH = AppSettings.BASE_UCSUR_LARAVEL + '/auth';
+    // public static PRODUCTION = "http://educanet.back.educad.pe";
+    // public static DISPO = "https://cuadernosevaluacion-back.cientifica.edu.pe/v1/";
     //------------------------------- ENV DEVELOP -------------------------------//
-    // public static BASE_UCSUR_LARAVEL = 'http://dev2.pasarela.educad.pe/api';
-    // public static BASE_UCSUR_LARAVEL_AUTH = 'http://dev2.pasarela.educad.pe/api/auth';
-    // public static BASE_SISE_LARAVEL  = 'https://dev-pasarela.sise.edu.pe/api';
-    // public static PRODUCTION = "http://dev-educanet.back.educad.pe";
-    // public static DISPO = "https://dev-disponibilidad-back.educad.pe/v1/";
+    public static BASE_UCSUR_LARAVEL = 'http://dev2.pasarela.educad.pe/api';
+    public static BASE_UCSUR_LARAVEL_AUTH = 'http://dev2.pasarela.educad.pe/api/auth';
+    public static BASE_SISE_LARAVEL  = 'https://dev-pasarela.sise.edu.pe/api';
+    public static PRODUCTION = "http://dev-educanet.back.educad.pe";
+    public static DISPO = "https://dev-disponibilidad-back.educad.pe/v1/";
     //------------------------------- ENV DEVELOP -------------------------------//
     public static BASE_PATH_DENUNCIA = AppSettings.PRODUCTION + '/denuncia/';
     public static ACCESS_PS = AppSettings.PRODUCTION + `/resources_portal/access_ps`;
