@@ -66,6 +66,7 @@ export class DocenteComponent implements OnInit {
 		if (this.cod_company == '002') {		
 			this.director = this.session.getItem('DI')=='false'?false:true;
 			this.piezaModalSise.open();
+			this.piezaModal.open();
 		}
 		
 		this.docenteS.accesoVacaciones((this.cod_company == '002'?this.emplid:this.emplid_real), this.cod_company)
@@ -82,7 +83,7 @@ export class DocenteComponent implements OnInit {
 
 	showModals(){
 		// this.surveyModal.open();
-		this.piezaModal.open();
+		// this.piezaModal.open();
 	}
 
 	getEthnicity(){
