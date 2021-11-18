@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit {
 			correo: ['', [Validators.required, Validators.email]],
 			dni: ['', Validators.required]
 		});
-		// this.loginModalImg.open();
+		this.loginModalImg.open();
 	}
 
 	login(){

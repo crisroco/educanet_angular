@@ -59,21 +59,23 @@
             </div>
             <div class="col-6 text-right">
                 <a href="https://api.whatsapp.com/send?phone=+51988576507">
-                    <img src="./assets/img/login_wsp.png" alt="">
+                    <img class="w-100" src="./assets/img/login_wsp.png" alt="">
                 </a>
             </div>
         </div>
     </div>
 </div>
 
-<ngx-smart-modal #loginModalImg identifier="loginModalImg" [closable]="false" [escapable]="true" [dismissable]="true" [customClass]="''">
-    <div class="mb-3 row justify-content-between pb-2 bd-b-1">
-        <a (click)="loginModalImg.close()" class="pointer"><i class="fa fa-times text-l"></i></a>
-    </div>
-    <div class="h-fn fullModal px-2">
-        <img class="w-100" src="./assets/img/library.jpg">
-    </div>
-</ngx-smart-modal>
+<div class="loginModal">
+    <ngx-smart-modal #loginModalImg identifier="loginModalImg" [closable]="false" [escapable]="true" [dismissable]="true" [customClass]="'loginModal'">
+        <div class="mb-3 row justify-content-between pb-2 bd-b-1">
+            <a (click)="loginModalImg.close()" class="pointer"><i class="fa fa-times text-l"></i></a>
+        </div>
+        <div class="h-fn fullModal px-2">
+            <img class="w-100" src="https://docs.cientifica.edu.pe/miportal_sise/educanet/actualiza-181121.png">
+        </div>
+    </ngx-smart-modal>
+</div>
 
 <ngx-smart-modal #siseModalCloseWebsite identifier="siseModalCloseWebsite" [closable]="false" [escapable]="false" [dismissable]="false" [customClass]="''">
     <h6 class="m0">PAGINA WEB EN MANTENIMIENTO</h6>

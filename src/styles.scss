@@ -18,6 +18,12 @@ h5 {
     font-size: 1.5rem;
 }
 
+div.loginModal div.overlay {
+    top: 15% !important;
+    right: 50% !important;
+    background-color: transparent !important;
+}
+
 ul,
 ul li a:hover {
     text-decoration: none;
@@ -606,5 +612,11 @@ a.text-wsp:hover {
     }
     .scroll .w-100.rounding-1 {
         min-width: 850px;
+    }
+}
+
+@media(max-width: 600px) {
+    div.loginModal {
+        display: none;
     }
 }
