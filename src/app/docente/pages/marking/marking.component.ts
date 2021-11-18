@@ -80,7 +80,7 @@ export class MarkingComponent implements OnInit {
 				this.checkNextClass();
 			}, error => { });
 		} else {
-			this.docenteS.listClassroom({emplid: this.emplid, institucion: this.config_initial.institution})
+			this.docenteS.listClassroom({emplid: this.emplid_real, institucion: this.config_initial.institution})
 			.then(res => {
 				this.classrooms = res.UCS_REST_MARCACION_RES && res.UCS_REST_MARCACION_RES.UCS_REST_MARCACION_COM?res.UCS_REST_MARCACION_RES.UCS_REST_MARCACION_COM:[];
 				if(this.realClassroom.EMPLID){
