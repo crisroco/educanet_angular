@@ -69,15 +69,27 @@ export class MarkingComponent implements OnInit {
 	}
 
 	getListClassroom(){
-		this.docenteS.listClassroom({})
-		.then(res => {
-			this.classrooms = res.UCS_REST_MARCACION_RES && res.UCS_REST_MARCACION_RES.UCS_REST_MARCACION_COM?res.UCS_REST_MARCACION_RES.UCS_REST_MARCACION_COM:[];
-			if(this.realClassroom.EMPLID){
-				var tClassroom = this.classrooms.filter(item => item.LVF_NUM_MARC == this.realClassroom.LVF_NUM_MARC);
-				this.realClassroom = tClassroom[0]?tClassroom[0]:this.realClassroom;
-			}
-			this.checkNextClass();
-		}, error => { });
+		if(this.cod_company == '002'){
+			this.docenteS.listClassroom({})
+			.then(res => {
+				this.classrooms = res.UCS_REST_MARCACION_RES && res.UCS_REST_MARCACION_RES.UCS_REST_MARCACION_COM?res.UCS_REST_MARCACION_RES.UCS_REST_MARCACION_COM:[];
+				if(this.realClassroom.EMPLID){
+					var tClassroom = this.classrooms.filter(item => item.LVF_NUM_MARC == this.realClassroom.LVF_NUM_MARC);
+					this.realClassroom = tClassroom[0]?tClassroom[0]:this.realClassroom;
+				}
+				this.checkNextClass();
+			}, error => { });
+		} else {
+			this.docenteS.listClassroom({emplid: this.emplid, institucion: this.config_initial.institution})
+			.then(res => {
+				this.classrooms = res.UCS_REST_MARCACION_RES && res.UCS_REST_MARCACION_RES.UCS_REST_MARCACION_COM?res.UCS_REST_MARCACION_RES.UCS_REST_MARCACION_COM:[];
+				if(this.realClassroom.EMPLID){
+					var tClassroom = this.classrooms.filter(item => item.LVF_NUM_MARC == this.realClassroom.LVF_NUM_MARC);
+					this.realClassroom = tClassroom[0]?tClassroom[0]:this.realClassroom;
+				}
+				this.checkNextClass();
+			}, error => { });
+		}
 	}
 
 	checkNextClass(){
