@@ -214,37 +214,41 @@ export class DocenteComponent implements OnInit {
 	}
 
 	getDataRemotex(){
-		this.docenteS.getDataDocente({email: this.cod_user}).then(res => {
-			this.remotex = res['UcsMetodoDatosPersRespuesta'];
-			this.session.setObject('remotex', this.remotex);
-			const SECRETKEY = "K4GxggYzW6vl0TwxJrBL8RJaZR2eVg60";
-			const DIGITAL_LIBRARY_URL = "https://bennett.remotexs.in/alumni/login";
-			const DIGITAL_LIBRARY_URL2 = "https://cientifica.remotexs.co/alumni/login";
-			this.digital1 = "Docente";
-			this.digital2 = this.remotex.codigoAlumno;
-			this.digital3 = this.remotex.correo;
-			if (CryptoJS) {
-				var hash = CryptoJS.HmacSHA256(DIGITAL_LIBRARY_URL2 + this.digital1 + this.digital2 + this.digital3, SECRETKEY);
-				this.digital4 = CryptoJS.enc.Base64.stringify(hash);
-				//////////////////////////////
-				this.DigitalLibraryAttribute1 = new FormControl(this.digital1);
-				this.DigitalLibraryAttribute2 = new FormControl(this.digital2);
-				this.DigitalLibraryAttribute3 = new FormControl(this.digital3);
-				this.DigitalLibraryAttribute4 = new FormControl(this.digital4);
-				this.DigitalLibraryAttribute5 = new FormControl(this.remotex.nombreAlumno + " " + this.remotex.apellidoAlumno);
-				this.DigitalLibraryAttribute6 = new FormControl(this.remotex.programa_actual);
-				this.DigitalLibraryAttribute7 = new FormControl(this.remotex.ind_modalidad);
-				this.DigitalLibraryAttribute8 = new FormControl(this.remotex.campus);
-				this.DigitalLibraryAttribute9 = new FormControl(this.remotex.ciclo_lectivo);
-				this.DigitalLibraryAttribute10 = new FormControl(this.remotex.institucion);
-				setTimeout(() => {
-					this.goRemoteX();
-				}, 500);
-			} else {
-				alert("Error: CryptoJS is undefined");
-			}
-			this.session.setObject('hash', this.digital4);
-		});
+		if(this.cod_company == '002'){
+			this.docenteS.getDataDocente({email: this.cod_user}).then(res => {
+				this.remotex = res['UcsMetodoDatosPersRespuesta'];
+				this.session.setObject('remotex', this.remotex);
+				const SECRETKEY = "K4GxggYzW6vl0TwxJrBL8RJaZR2eVg60";
+				const DIGITAL_LIBRARY_URL = "https://bennett.remotexs.in/alumni/login";
+				const DIGITAL_LIBRARY_URL2 = "https://cientifica.remotexs.co/alumni/login";
+				this.digital1 = "Docente";
+				this.digital2 = this.remotex.codigoAlumno;
+				this.digital3 = this.remotex.correo;
+				if (CryptoJS) {
+					var hash = CryptoJS.HmacSHA256(DIGITAL_LIBRARY_URL2 + this.digital1 + this.digital2 + this.digital3, SECRETKEY);
+					this.digital4 = CryptoJS.enc.Base64.stringify(hash);
+					//////////////////////////////
+					this.DigitalLibraryAttribute1 = new FormControl(this.digital1);
+					this.DigitalLibraryAttribute2 = new FormControl(this.digital2);
+					this.DigitalLibraryAttribute3 = new FormControl(this.digital3);
+					this.DigitalLibraryAttribute4 = new FormControl(this.digital4);
+					this.DigitalLibraryAttribute5 = new FormControl(this.remotex.nombreAlumno + " " + this.remotex.apellidoAlumno);
+					this.DigitalLibraryAttribute6 = new FormControl(this.remotex.programa_actual);
+					this.DigitalLibraryAttribute7 = new FormControl(this.remotex.ind_modalidad);
+					this.DigitalLibraryAttribute8 = new FormControl(this.remotex.campus);
+					this.DigitalLibraryAttribute9 = new FormControl(this.remotex.ciclo_lectivo);
+					this.DigitalLibraryAttribute10 = new FormControl(this.remotex.institucion);
+					setTimeout(() => {
+						this.goRemoteX();
+					}, 500);
+				} else {
+					alert("Error: CryptoJS is undefined");
+				}
+				this.session.setObject('hash', this.digital4);
+			});
+		} else {
+			this.router.navigate(['/docente/biblioteca']);
+		}
 	}
 
 	goRemoteX(){
