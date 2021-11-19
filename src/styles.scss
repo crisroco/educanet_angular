@@ -24,6 +24,12 @@ div.loginModal div.overlay {
     background-color: transparent !important;
 }
 
+div.loginModal .nsm-content{
+    padding: 0 !important;
+    margin: 0;
+    background: rgba(0,0,0,0)
+}
+
 ul,
 ul li a:hover {
     text-decoration: none;
