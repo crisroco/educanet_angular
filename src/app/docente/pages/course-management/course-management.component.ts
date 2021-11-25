@@ -28,6 +28,7 @@ export class CourseManagementComponent implements OnInit {
 	students: any = [];
 	message: string = '';
 	typeMessage: number = 0;
+	oprid = atob(this.user['oprid']);
 
 	constructor( private session: SessionService,
 		private docenteS: DocenteService,
@@ -86,6 +87,8 @@ export class CourseManagementComponent implements OnInit {
 		this.students = [];
 		this.realCourse = JSON.parse(JSON.stringify(course));
 		this.realCourse[AppSettings.STRINGS_COMPANY[this.cod_company].emplid] = this.cod_company == '002'?this.emplid:this.emplid_real;
+		this.realCourse.OPRID = this.cod_company == '002'?'':this.oprid;
+		console.log(this.realCourse);
 		this.docenteS.classroomAverage(this.realCourse)
 		.then(res => {
 			this.students = res.SISE_REST_CONSNOTREG_RES && res.SISE_REST_CONSNOTREG_RES.SISE_REST_CONSNOTREG_COM?res.SISE_REST_CONSNOTREG_RES.SISE_REST_CONSNOTREG_COM:[];
@@ -96,7 +99,6 @@ export class CourseManagementComponent implements OnInit {
 	}
 
 	confirmCloseRecord(){
-		console.log(this.realCourse);
 		this.docenteS.closeRecords(this.realCourse)
 		.then(res => {
 			if(res.UCS_ACTIV_ACTAS_RES && res.UCS_ACTIV_ACTAS_RES.UCS_ACTIV_ACTAS_COM){
