@@ -20,6 +20,8 @@ export class DocenteComponent implements OnInit {
 	@ViewChild('surveyModal') surveyModal: any;
 	@ViewChild('piezaModal') piezaModal: any;
 	@ViewChild('piezaModalSise') piezaModalSise: any;
+	@ViewChild('piezaModalCientifica') piezaModalCientifica: any;
+
 	config_initial: any;
 	director:boolean = false;
 	menus: any;
@@ -65,8 +67,9 @@ export class DocenteComponent implements OnInit {
 	ngOnInit() {
 		if (this.cod_company == '002') {		
 			this.director = this.session.getItem('DI')=='false'?false:true;
-			this.piezaModalSise.open();
+			// this.piezaModalSise.open();
 			this.piezaModal.open();
+			this.piezaModalCientifica.open();
 		}
 		
 		this.docenteS.accesoVacaciones((this.cod_company == '002'?this.emplid:this.emplid_real), this.cod_company)

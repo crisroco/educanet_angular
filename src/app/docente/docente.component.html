@@ -187,3 +187,12 @@
         <img src="./assets/img/times-modal.svg" alt="">
     </div>
 </ngx-smart-modal>
+
+<ngx-smart-modal #piezaModalCientifica identifier="piezaModalCientifica" [closable]="false" [escapable]="true" [dismissable]="true" [customClass]="'smallModal fullModal noBordersModal'">
+    <a href="https://forms.gle/MM7YJ2HUnuxMZb2R7" target="_blank">
+        <img class="w-100 rounded-1" src="https://docs.cientifica.edu.pe/miportal_sise/educanet/noticias/encuesta-221121.jpg">
+    </a>
+    <div (click)="piezaModalCientifica.close()" class="times-close">
+        <img src="./assets/img/times-modal.svg" alt="">
+    </div>
+</ngx-smart-modal>
