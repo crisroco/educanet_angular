@@ -23,6 +23,7 @@ export class ReunionesDocenteComponent implements OnInit {
 	codigo_referencia:string='';
 
   public allParametria:Array<any> = [];
+  allSubOrdinados:Array<any> = [];
   public allColaborators:Array<any> = [];
   public allColaboratorsOrigen:Array<any> = [];
   public allColaboratorsClone:Array<any> = [];
@@ -61,7 +62,18 @@ export class ReunionesDocenteComponent implements OnInit {
 
 	ngOnInit() {
 		this.loading = true;
-    this.docenteS.getAllColaborators()
+    this.docenteS.getSubOrdinadosJefe(this.emplid, this.cod_company)
+  	.then(res => {
+  		this.allSubOrdinados = res;
+  		let subordinados = [];
+  		for (let index = 0; index < this.allSubOrdinados.length; index++) {
+  			subordinados[index] = {'cuc': this.allSubOrdinados[index]['CUC']} 
+  		}	
+      let data = { 
+                  'compania':this.cod_company, 
+                  'subordinados': subordinados 
+                 };
+      this.docenteS.getAllColaborators(data)
       .then((res) => {    
         this.allColaborators = res['data'];
         this.allColaboratorsOrigen = res['data'];
@@ -74,7 +86,12 @@ export class ReunionesDocenteComponent implements OnInit {
           this.loading = false;
           });
         });      
-    });
+      });
+
+  	}, (error)=>{
+  		this.toastr.error('Ocurrio un Error, Por favor vuelve a intentarlo');
+  	});
+
 	}
 
   changeArea(input_value){

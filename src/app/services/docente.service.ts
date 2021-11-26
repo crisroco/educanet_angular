@@ -322,8 +322,8 @@ export class DocenteService {
         return this.http.post(AppSettings.SERVICES_INCORPORACION + '/postulante/savePostulante', data).toPromise();
     } 
 
-    public getAllColaborators(): Promise<any>{
-        return this.http.get(AppSettings.SERVICES_INCORPORACION + '/integradocente/getAllColaboratorsFractalFilter').toPromise();
+    public getAllColaborators(data): Promise<any>{
+        return this.http.post(AppSettings.SERVICES_INCORPORACION + '/integradocente/getAllColaboratorsFractalFilter', data).toPromise();
     } 
 
     public getDatosOrganizacion(type_search, code?): Promise<any> {

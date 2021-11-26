@@ -91,7 +91,7 @@
     <h5 class="text-ucs mb-2">EVALUACIÓN DEL DESEMPEÑO (ENCUESTA) <a (click)="Modaldetail_eva1.close()" class="pull-right pointer"><i class="fa fa-times text-black text-l"></i></a></h5>
     <h6 class="text-center text-ucs mb-2"> {{ periodo_eva }} </h6>
     <div class="rounded-1 bd-1 scroll bd-{{config_initial.code}}">
-        <table id="table-students" class="w-100">
+        <table class="w-100">
             <thead class="bg-{{config_initial.code}}">
                 <tr class="text-white text-center text-s">
                     <th class="px-3 py-2 align-middle">Ciclo Lectivo</th>
@@ -137,7 +137,7 @@
     <h5 class="text-ucs mb-2">EVALUACIÓN DE CLASE <a (click)="Modaldetail_eva2.close()" class="pull-right pointer"><i class="fa fa-times text-black text-l"></i></a></h5>
     <h6 class="text-center text-ucs mb-2"> {{ periodo_eva }} </h6>
     <div class="rounded-1 bd-1 scroll bd-{{config_initial.code}}">
-        <table id="table-students" class="w-100">
+        <table class="w-100">
             <thead class="bg-{{config_initial.code}}">
                 <tr class="text-white text-center text-s">
                     <th class="px-3 py-2 align-middle">Ciclo Lectivo</th>
@@ -197,10 +197,42 @@
     <h5 class="text-ucs mb-2">DESARROLLO Y CAPACITACIÓN <a (click)="Modaldetail_eva3.close()" class="pull-right pointer"><i class="fa fa-times text-black text-l"></i></a></h5>
     <h6 class="text-center text-ucs mb-2"> {{ periodo_eva }} </h6>
     <div class="rounded-1 bd-1 scroll bd-{{config_initial.code}}">
-        <table id="table-students" class="w-100">
+        <table *ngIf="this.detail_eva_capa_int.length > 0" class="w-100">
             <thead class="bg-{{config_initial.code}}">
                 <tr class="text-white text-center text-s">
-                    <th class="px-3 py-2 align-middle">Tipo</th>
+                    <th class="px-3 py-2 align-middle">Capacitación Interna</th>
+                    <th class="px-3 py-2 align-middle">Nombre Capacitación/Logro</th>
+                    <th class="px-3 py-2 align-middle">Nro Horas</th>
+                    <th class="px-3 py-2 align-middle">Puntaje Hora</th>
+                    <th class="px-3 py-2 align-middle">Puntaje</th>
+                    <th class="px-3 py-2 align-middle">Puntaje Nota</th>
+                    <th class="px-3 py-2 align-middle">Puntaje CI</th>
+                    <th class="px-3 py-2 align-middle">Nivel de Logro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center text-s {{s < detail_eva_capa_int.length - 1?'bd-b-1':''}}" *ngFor="let item of detail_eva_capa_int; let s = 'index'">
+                    <td class="p-1">{{ item.nivel }}</td>
+                    <td class="p-1">{{ item.nombre?item.nombre:'-' }}</td>
+                    <td class="p-1">{{ item.nro_horas }}</td>
+                    <td class="p-1">{{ item.puntaje_capacitacion }}</td>
+                    <td class="p-1">{{ item.puntaje }}</td>
+                    <td class="p-1">{{ item.puntaje_nota_ex | number:'1.2-2' }}</td>
+                    <td class="p-1">{{ item.calculo | number:'1.2-2' }}</td>
+                    <td class="p-1">
+                        <span *ngIf="item.nivel_logro=='LOGRO DESTACADO' " class="badge badge-primary ">{{ item.nivel_logro }}</span>
+                        <span *ngIf="item.nivel_logro=='LOGRADO' " class="badge badge-success ">{{ item.nivel_logro }}</span>
+                        <span *ngIf="item.nivel_logro=='EN DESARROLLO' " class="badge badge-warning text-white ">{{ item.nivel_logro }}</span>
+                        <span *ngIf="item.nivel_logro=='NO LOGRADO' " class="badge badge-danger ">{{ item.nivel_logro }}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table *ngIf="this.detail_eva_capa.length > 0" class="w-100">
+            <thead class="bg-{{config_initial.code}}">
+                <tr class="text-white text-center text-s">
+                    <th class="px-3 py-2 align-middle">Capacitación Externa</th>
                     <th class="px-3 py-2 align-middle">Nombre Capacitación/Logro</th>
                     <th class="px-3 py-2 align-middle">Nro Horas</th>
                     <th class="px-3 py-2 align-middle">Puntaje Parcial</th>
@@ -210,29 +242,45 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="text-center text-s {{s < detail_eva.length - 1?'bd-b-1':''}}" *ngFor="let item of detail_eva; let s = 'index'">
-                    <td class="p-1">{{ item.tipo }}</td>
+                <tr class="text-center text-s bd-b-1" *ngFor="let item of detail_eva_capa; let s = 'index'">
+                    <td class="p-1">{{ item.nivel }}</td>
                     <td class="p-1">{{ item.nombre?item.nombre:'-' }}</td>
-                    <td class="p-1">{{ item.nro_horas?item.nro_horas:'-' }}</td>
-                    <td class="p-1">{{ item.puntaje | number:'1.2-2' }}</td>
-                    <td class="p-1">{{ (item.nivel==='CAPACITACIONES')?'75%':'25%' }} </td>
-                    <td class="p-1">{{ item.puntaje * ((item.nivel==='CAPACITACIONES')?0.75:0.25) | number:'1.2-2' }}</td>
-                    <td class="p-1">
-                        <span *ngIf="item.nivel_logro=='LOGRO DESTACADO'" class="badge badge-primary">{{ item.nivel_logro }}</span>
-                        <span *ngIf="item.nivel_logro=='LOGRADO'" class="badge badge-success">{{ item.nivel_logro }}</span>
-                        <span *ngIf="item.nivel_logro=='EN DESARROLLO'" class="badge badge-warning text-white">{{ item.nivel_logro }}</span>
-                        <span *ngIf="item.nivel_logro=='NO LOGRADO'" class="badge badge-danger">{{ item.nivel_logro }}</span>
+                    <td *ngIf="s == 0" class="p-1 bd-b-1 col-{{config_initial.code}}" [attr.rowspan]="this.ct_final">{{ this.horas_final }}</td>
+                    <td *ngIf="s == 0" class="p-1 bd-b-1" [attr.rowspan]="this.ct_final">{{ this.puntaje_final | number:'1.2-2' }}</td>
+                    <td *ngIf="s == 0" class="p-1 bd-b-1" [attr.rowspan]="this.ct_final"> 75% </td>
+                    <td *ngIf="s == 0" class="p-1 bd-b-1" [attr.rowspan]="this.ct_final">{{ this.puntaje_final * 0.75 | number:'1.2-2' }}</td>
+                    <td *ngIf="s == 0" class="p-1 bd-b-1" [attr.rowspan]="this.ct_final">
+                        <span *ngIf="this.nivel_final=='LOGRO DESTACADO' " class="badge badge-primary ">{{ this.nivel_final }}</span>
+                        <span *ngIf="this.nivel_final=='LOGRADO' " class="badge badge-success ">{{ this.nivel_final }}</span>
+                        <span *ngIf="this.nivel_final=='EN DESARROLLO' " class="badge badge-warning text-white ">{{ this.nivel_final }}</span>
+                        <span *ngIf="this.nivel_final=='NO LOGRADO' " class="badge badge-danger ">{{ this.nivel_final }}</span>
                     </td>
                 </tr>
-                <tr class="bg-{{config_initial.code}} text-white text-center text-s">
-                    <th class="p-1 text-left" colspan="4">Puntataje Final</th>
-                    <td class="p-1">100%</td>
-                    <th class="p-1">{{ this.puntaje_final | number:'1.2-2' }}</th>
-                    <td class="p-1">
-                        <span *ngIf="this.nivel_final=='LOGRO DESTACADO'" class="badge badge-primary">{{ this.nivel_final }}</span>
-                        <span *ngIf="this.nivel_final=='LOGRADO'" class="badge badge-success">{{ this.nivel_final }}</span>
-                        <span *ngIf="this.nivel_final=='EN DESARROLLO'" class="badge badge-warning text-white">{{ this.nivel_final }}</span>
-                        <span *ngIf="this.nivel_final=='NO LOGRADO'" class="badge badge-danger">{{ this.nivel_final }}</span>
+
+                <tr class="text-center text-s {{s < detail_eva_logros.length - 1?'bd-b-1':''}}" *ngFor="let item of detail_eva_logros; let s = 'index'">
+                    <td class="p-1">{{ item.nivel }}</td>
+                    <td class="p-1">{{ item.nombre?item.nombre:'-' }}</td>
+                    <td *ngIf="s == 0" class="p-1 col-{{config_initial.code}}" [attr.rowspan]="this.ct_final">{{ this.horas_final_2 }}</td>
+                    <td *ngIf="s == 0" class="p-1" [attr.rowspan]="this.ct_final_2">{{ this.puntaje_final_2 | number:'1.2-2' }}</td>
+                    <td *ngIf="s == 0" class="p-1" [attr.rowspan]="this.ct_final_2"> 25% </td>
+                    <td *ngIf="s == 0" class="p-1" [attr.rowspan]="this.ct_final_2">{{ this.puntaje_final_2 * 0.25 | number:'1.2-2' }}</td>
+                    <td *ngIf="s == 0" class="p-1" [attr.rowspan]="this.ct_final_2">
+                        <span *ngIf="this.nivel_final_2=='LOGRO DESTACADO' " class="badge badge-primary ">{{ this.nivel_final_2 }}</span>
+                        <span *ngIf="this.nivel_final_2=='LOGRADO' " class="badge badge-success ">{{ this.nivel_final_2 }}</span>
+                        <span *ngIf="this.nivel_final_2=='EN DESARROLLO' " class="badge badge-warning text-white ">{{ this.nivel_final_2 }}</span>
+                        <span *ngIf="this.nivel_final_2=='NO LOGRADO' " class="badge badge-danger ">{{ this.nivel_final_2 }}</span>
+                    </td>
+                </tr>
+
+                <tr class="bg-{{config_initial.code}} text-white text-center text-s ">
+                    <th class="p-1 text-left " colspan="4 ">Puntataje CE</th>
+                    <td class="p-1 ">100%</td>
+                    <th class="p-1 ">{{ this.puntaje_foot | number:'1.2-2' }}</th>
+                    <td class="p-1 ">
+                        <span *ngIf="this.nivel_foot=='LOGRO DESTACADO' " class="badge badge-primary ">{{ this.nivel_foot }}</span>
+                        <span *ngIf="this.nivel_foot=='LOGRADO' " class="badge badge-success ">{{ this.nivel_foot }}</span>
+                        <span *ngIf="this.nivel_foot=='EN DESARROLLO' " class="badge badge-warning text-white ">{{ this.nivel_foot }}</span>
+                        <span *ngIf="this.nivel_foot=='NO LOGRADO' " class="badge badge-danger ">{{ this.nivel_foot }}</span>
                     </td>
                 </tr>
             </tbody>
@@ -240,37 +288,37 @@
     </div>
 </ngx-smart-modal>
 
-<ngx-smart-modal #Modaldetail_eva4 identifier="Modaldetail_eva4" [closable]="false" [customClass]="'mediumModal'">
-    <h5 class="text-ucs mb-2">COMPROMISO DOCENTE <a (click)="Modaldetail_eva4.close()" class="pull-right pointer"><i class="fa fa-times text-black text-l"></i></a></h5>
-    <h6 class="text-center text-ucs mb-2"> {{ periodo_eva }} </h6>
-    <div class="rounded-1 bd-1 scroll bd-{{config_initial.code}}">
-        <table id="table-students" class="w-100">
-            <thead class="bg-{{config_initial.code}}">
-                <tr class="text-white text-center text-s">
-                    <th class="px-3 py-2 align-middle">Expediente Personal</th>
-                    <th class="px-3 py-2 align-middle">Puntualidad Asistencia Clases</th>
-                    <th class="px-3 py-2 align-middle">Registro Ingreso Notas</th>
-                    <th class="px-3 py-2 align-middle">Carpetas Instruccionales Completas</th>
-                    <th class="px-3 py-2 align-middle">Participación Reuniones Programadas</th>
-                    <th class="px-3 py-2 align-middle">Puntaje Compromiso Docente</th>
-                    <th class="px-3 py-2 align-middle">Peso</th>
-                    <th class="px-3 py-2 align-middle">Nivel de Logro</th>
+<ngx-smart-modal #Modaldetail_eva4 identifier="Modaldetail_eva4 " [closable]="false " [customClass]=" 'mediumModal' ">
+    <h5 class="text-ucs mb-2 ">COMPROMISO DOCENTE <a (click)="Modaldetail_eva4.close() " class="pull-right pointer "><i class="fa fa-times text-black text-l "></i></a></h5>
+    <h6 class="text-center text-ucs mb-2 "> {{ periodo_eva }} </h6>
+    <div class="rounded-1 bd-1 scroll bd-{{config_initial.code}} ">
+        <table class="w-100 ">
+            <thead class="bg-{{config_initial.code}} ">
+                <tr class="text-white text-center text-s ">
+                    <th class="px-3 py-2 align-middle ">Expediente Personal</th>
+                    <th class="px-3 py-2 align-middle ">Puntualidad Asistencia Clases</th>
+                    <th class="px-3 py-2 align-middle ">Registro Ingreso Notas</th>
+                    <th class="px-3 py-2 align-middle ">Carpetas Instruccionales Completas</th>
+                    <th class="px-3 py-2 align-middle ">Participación Reuniones Programadas</th>
+                    <th class="px-3 py-2 align-middle ">Puntaje Compromiso Docente</th>
+                    <th class="px-3 py-2 align-middle ">Peso</th>
+                    <th class="px-3 py-2 align-middle ">Nivel de Logro</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="text-center text-s {{s < detail_eva.length - 1?'bd-b-1':''}}" *ngFor="let item of detail_eva; let s = 'index'">
-                    <td class="p-1">{{ item.expediente_personal?(item.expediente_personal | percent:'1.0-0'):'-' }}</td>
-                    <td class="p-1">{{ item.puntualidad_asistencia?(item.puntualidad_asistencia | percent:'1.0-0'):'-' }}</td>
-                    <td class="p-1">{{ item.registro_notas?(item.registro_notas | percent:'1.0-0'):'-' }}</td>
-                    <td class="p-1">{{ item.carpetas_instruccionales?(item.carpetas_instruccionales | percent:'1.0-0'):'-' }}</td>
-                    <td class="p-1">{{ item.participacion_reuniones?(item.participacion_reuniones | percent:'1.0-0'):'-' }} </td>
-                    <td class="p-1">{{ item.puntaje?(item.puntaje | number:'1.2-2'):'-' }}</td>
-                    <td class="p-1" valign="TOP">10%</td>
-                    <td class="p-1">
-                        <span *ngIf="item.nivel_logro=='LOGRO DESTACADO'" class="badge badge-primary">{{ item.nivel_logro }}</span>
-                        <span *ngIf="item.nivel_logro=='LOGRADO'" class="badge badge-success">{{ item.nivel_logro }}</span>
-                        <span *ngIf="item.nivel_logro=='EN DESARROLLO'" class="badge badge-warning text-white">{{ item.nivel_logro }}</span>
-                        <span *ngIf="item.nivel_logro=='NO LOGRADO'" class="badge badge-danger">{{ item.nivel_logro }}</span>
+                <tr class="text-center text-s {{s < detail_eva.length - 1? 'bd-b-1': ''}} " *ngFor="let item of detail_eva; let s='index' ">
+                    <td class="p-1 ">{{ item.expediente_personal?(item.expediente_personal | percent:'1.0-0'):'-' }}</td>
+                    <td class="p-1 ">{{ item.puntualidad_asistencia?(item.puntualidad_asistencia | percent:'1.0-0'):'-' }}</td>
+                    <td class="p-1 ">{{ item.registro_notas?(item.registro_notas | percent:'1.0-0'):'-' }}</td>
+                    <td class="p-1 ">{{ item.carpetas_instruccionales?(item.carpetas_instruccionales | percent:'1.0-0'):'-' }}</td>
+                    <td class="p-1 ">{{ item.participacion_reuniones?(item.participacion_reuniones | percent:'1.0-0'):'-' }} </td>
+                    <td class="p-1 ">{{ item.puntaje?(item.puntaje | number:'1.2-2'):'-' }}</td>
+                    <td class="p-1 " valign="TOP ">10%</td>
+                    <td class="p-1 ">
+                        <span *ngIf="item.nivel_logro=='LOGRO DESTACADO' " class="badge badge-primary ">{{ item.nivel_logro }}</span>
+                        <span *ngIf="item.nivel_logro=='LOGRADO' " class="badge badge-success ">{{ item.nivel_logro }}</span>
+                        <span *ngIf="item.nivel_logro=='EN DESARROLLO' " class="badge badge-warning text-white ">{{ item.nivel_logro }}</span>
+                        <span *ngIf="item.nivel_logro=='NO LOGRADO' " class="badge badge-danger ">{{ item.nivel_logro }}</span>
                     </td>
                 </tr>
             </tbody>
@@ -278,19 +326,19 @@
     </div>
 </ngx-smart-modal>
 
-<ngx-smart-modal #selectReporteModal identifier="selectReporteModal" [closable]="false" [customClass]="'smalModal'">
-    <h5 class="text-ucs mb-2">Reporte de Evaluación de Desempeño <a (click)="selectReporteModal.close()" class="pull-right pointer"><i class="fa fa-times text-black text-l"></i></a></h5>
-    <h6 class="text-center text-ucs mb-2"> {{ periodo_eva }} </h6>
-    <div class="rounded-1 bd-1 scroll bd-{{config_initial.code}}">
-        <select [(ngModel)]="codigo" class="custom-select">
+<ngx-smart-modal #selectReporteModal identifier="selectReporteModal " [closable]="false " [customClass]=" 'smalModal' ">
+    <h5 class="text-ucs mb-2 ">Reporte de Evaluación de Desempeño <a (click)="selectReporteModal.close() " class="pull-right pointer "><i class="fa fa-times text-black text-l "></i></a></h5>
+    <h6 class="text-center text-ucs mb-2 "> {{ periodo_eva }} </h6>
+    <div class="rounded-1 bd-1 scroll bd-{{config_initial.code}} ">
+        <select [(ngModel)]="codigo " class="custom-select ">
         <option value="">Seleccione Periodo . . .</option>
         <option *ngFor="let ar of allParametria " [value]="ar.codigo ">{{ar.descripcion}}</option>          
         </select>
     </div>
-    <div class="mt-3 buttons text-center">
-        <button [disabled]="!codigo" class="btn btn-primary mr-2" (click)="getReporte()"><i class="fa fa-download"></i> Exportar</button>
-        <button class="btn btn-danger" (click)="selectReporteModal.close()">Cancelar</button>
+    <div class="mt-3 buttons text-center ">
+        <button [disabled]="!codigo " class="btn btn-primary mr-2 " (click)="getReporte() "><i class="fa fa-download "></i> Exportar</button>
+        <button class="btn btn-danger " (click)="selectReporteModal.close() ">Cancelar</button>
     </div>
 </ngx-smart-modal>
 
-<ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true }"></ngx-loading>
+<ngx-loading [show]="loading " [config]="{ fullScreenBackdrop: true } "></ngx-loading>

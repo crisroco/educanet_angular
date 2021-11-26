@@ -18,19 +18,32 @@ export class ResultadosEvaluacionComponent implements OnInit {
 	user = this.session.getObject('user');
 	emplid = Decrypt(this.user['emplid']);
 	emplid_real = Decrypt(this.user['emplid_real']);
+	oprid = atob(this.user['oprid']);
 	codigo:string='';
 	evaluation:Array<any> = [];
 	allSubOrdinados:Array<any> = [];
 	allSolicitudsClone:Array<any> = [];
 	allParametria:Array<any> = [];
 	detail_eva:Array<any> = [];
+	detail_eva_capa_int:Array<any> = [];
+	detail_eva_capa:Array<any> = [];
+	detail_eva_logros:Array<any> = [];
+	detail_foot:Array<any> = [];
+
 	dataobs_fortalezas:Array<any> = [];
 	dataobs_oportunidad:Array<any> = [];
 	periodo_eva:Array<any> = [];
 	allFilterPeriodo:Array<any> = [];
 	puntaje_final: any;
-	puntaje_final_2: any;
+	horas_final: any;
 	nivel_final: any;
+	ct_final: any;
+	puntaje_final_2: any;	
+	horas_final_2: any;
+	nivel_final_2: any;
+	ct_final_2: any;
+	puntaje_foot: any;	
+	nivel_foot: any;
 	rank: any;
 
 	@ViewChild('Modaldetail_eva1') Modaldetail_eva1:any;
@@ -78,19 +91,37 @@ export class ResultadosEvaluacionComponent implements OnInit {
 		this.loading = true;	
 		this.docenteS.getdetailevaluation(item.codigo_docente, item.codigo_referencia, item.fecha_inicio, item.fecha_fin, tipo)
 		.then(res => {
-			this.detail_eva = res.data;		
+			this.detail_eva = res.data;	
 			if(tipo=='1'){
 				this.Modaldetail_eva1.open();
-				this.puntaje_final_2 = res.data_aux[0].puntaje_final_2;
-				this.puntaje_final = res.data_aux[0].puntaje_final;
-		        this.nivel_final = res.data_aux[0].nivel_logro;
+				this.puntaje_final_2 = res.data_aux_1[0].puntaje_final_2;
+				this.puntaje_final = res.data_aux_1[0].puntaje_final;
+		        this.nivel_final = res.data_aux_1[0].nivel_logro;
 			}else if(tipo=='2'){
 				this.dataobs_fortalezas = res.dataobs_fortalezas;	
 				this.dataobs_oportunidad = res.dataobs_oportunidad;
 				this.Modaldetail_eva2.open();
 			}else if(tipo=='3'){
-		        this.puntaje_final = res.data_aux[0].puntaje_final;
-		        this.nivel_final = res.data_aux[0].nivel_logro;
+				this.detail_eva_capa_int =  res.data_aux;
+				this.detail_eva_capa = this.detail_eva.filter(a => a.nivel == 'CAPACITACIONES' && a.interna == 0);	
+				this.detail_eva_logros = this.detail_eva.filter(a => a.nivel == 'LOGROS');
+
+				if(res.data_aux_1.length > 0) {
+					this.puntaje_final = res.data_aux_1[0].puntaje_final;
+					this.horas_final = res.data_aux_1[0].horas_final;
+					this.ct_final = res.data_aux_1[0].ct;
+			        this.nivel_final = res.data_aux_1[0].nivel_logro;
+				}
+		        
+				if(res.data_aux_2.length > 0) {
+					this.puntaje_final_2 = res.data_aux_2[0].puntaje_final;
+					this.horas_final_2 = res.data_aux_2[0].horas_final;
+					this.ct_final_2 = res.data_aux_2[0].ct;
+			        this.nivel_final_2 = res.data_aux_2[0].nivel_logro;
+				}
+				
+				this.puntaje_foot = res.dta[0].puntaje_foot;
+				this.nivel_foot = res.dta[0].nivel_foot;
 				this.Modaldetail_eva3.open();
 			}else if(tipo=='4'){
 				this.Modaldetail_eva4.open();
