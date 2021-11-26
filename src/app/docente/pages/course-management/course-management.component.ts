@@ -28,7 +28,7 @@ export class CourseManagementComponent implements OnInit {
 	students: any = [];
 	message: string = '';
 	typeMessage: number = 0;
-	oprid = atob(this.user['oprid']);
+	oprid:any = '';
 
 	constructor( private session: SessionService,
 		private docenteS: DocenteService,
@@ -42,6 +42,9 @@ export class CourseManagementComponent implements OnInit {
 
 	ngOnInit() {
 		this.getClassDocentes();
+		if(this.cod_company != '002'){
+			this.oprid = atob(this.user['oprid']);
+		}
 	}
 
 	goMoodle(course){
