@@ -129,7 +129,7 @@ export class MarkingComponent implements OnInit {
 		this.realModal = modal;
 		this.realClassroom = classroom; //JSON.parse(JSON.stringify(classroom));
 		modal.open();
-		// this.goToZoom();
+		this.goToZoom();
 		this.setRealDate();
 	}
 
