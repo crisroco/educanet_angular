@@ -112,7 +112,11 @@
         <a href="https://api.whatsapp.com/send?phone=5117071810" target="_blank" class="text-black text-xm p-1"><i class="fa fa-whatsapp text-wsp text-l"></i> Atención Docente ( SAED ) </a>
     </div>
     <div class="text-right">
-        <a (click)="showwsp = !showwsp" class="row justify-content-center align-items-center pointer">
+        <!-- (click)="showwsp = !showwsp" -->
+        <a *ngIf="cod_company==2" href="https://api.whatsapp.com/send?phone=51988576507" target="_blank" class="row justify-content-center align-items-center pointer">
+            <img style="width: 73px" src="./assets/wsp.svg">
+        </a>
+        <a *ngIf="cod_company!=2" href="https://api.whatsapp.com/send?phone=5117071810" target="_blank" class="row justify-content-center align-items-center pointer">
             <img style="width: 73px" src="./assets/wsp.svg">
         </a>
     </div>
