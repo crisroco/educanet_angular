@@ -38,6 +38,8 @@ export class PaymentHistoryComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.loading = true;
+		this.loading = false;
 	}
 
 	downloadPayment(){

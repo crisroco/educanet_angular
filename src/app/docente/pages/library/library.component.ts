@@ -212,7 +212,7 @@ export class LibraryComponent implements OnInit {
 				libraries: [
 					{
 						img: 'https://docs.cientifica.edu.pe/crm/elibro.png',
-						url: 'https://elibro.net/es/lc/bibliotecasise/inicio',
+						url: 'https://elibro.net/es/lc/bibliotecasise/login_usuario/',
 						width: '100px',
 						description: ''
 					}

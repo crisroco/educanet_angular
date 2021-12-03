@@ -9,6 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormBuilder } from '@angular/forms';
 import * as CryptoJS from 'crypto-js';
 import { parse } from 'querystring';
+import { Observable } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-docente',
@@ -21,7 +23,6 @@ export class DocenteComponent implements OnInit {
 	@ViewChild('piezaModal') piezaModal: any;
 	@ViewChild('piezaModalSise') piezaModalSise: any;
 	@ViewChild('piezaModalCientifica') piezaModalCientifica: any;
-
 	config_initial: any;
 	director:boolean = false;
 	menus: any;
@@ -65,6 +66,7 @@ export class DocenteComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		console.log(this.session.getloadingObserver().pipe(delay(500)));
 		if (this.cod_company == '002') {		
 			this.director = this.session.getItem('DI')=='false'?false:true;
 			// this.piezaModalSise.open();

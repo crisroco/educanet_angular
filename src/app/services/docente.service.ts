@@ -44,12 +44,12 @@ export class DocenteService {
     }
     //FIN VACACIONES EDUCANET BACK
 
-    public getClassDocentes(data: any): Promise<any> {
+    public async getClassDocentes(data: any): Promise<any> {
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
         if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/clase-cientifica-docentes';
         else uri = AppSettings.BASE_SISE_LARAVEL + '/clase-docentes';
-        return this.http.post(uri, data).toPromise();
+        return await this.http.post(uri, data).toPromise();
     }
 
     public getCourseFormule(data: any): Promise<any>{

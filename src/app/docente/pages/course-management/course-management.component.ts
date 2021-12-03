@@ -29,19 +29,21 @@ export class CourseManagementComponent implements OnInit {
 	message: string = '';
 	typeMessage: number = 0;
 	oprid:any = '';
+	loading: boolean = false;
 
 	constructor( private session: SessionService,
 		private docenteS: DocenteService,
 		private generalS: GeneralService,
-		private router: Router ) { 
+		private router: Router ) {
+		this.loading = true;
 		this.cod_company = this.session.getItem('cod_company');
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 		this.data[AppSettings.STRINGS_COMPANY[this.cod_company].institution] = this.config_initial.institution;
 		this.data[AppSettings.STRINGS_COMPANY[this.cod_company].emplid] = this.cod_company == '002'?'':this.emplid_real;
 	}
 
-	ngOnInit() {
-		this.getClassDocentes();
+	async ngOnInit() {
+		await this.getClassDocentes();
 		if(this.cod_company != '002'){
 			this.oprid = atob(this.user['oprid']);
 		}
@@ -52,7 +54,7 @@ export class CourseManagementComponent implements OnInit {
 		var url = '';
 		var rdate = Math.floor(Date.now() / 1000);
 		var crypto = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(this.emplid_real + '//' + rdate), 'Educad123', {format: this.generalS.formatJsonCrypto}).toString());
-		if(this.cod_company == '002' && (course['STRM'] == '1072' || course['STRM'] == '1073' || course['STRM'] == '1117' || course['STRM'] == '1118' || course['STRM'] == '1156' || course['STRM'] == '1157' || course['STRM'] == '2220' || course['STRM'] == '2222' || course['STRM'] == '2225' || course['STRM'] == '2228' || course['STRM'] == '2235' || course['STRM'] == '2237' || course['STRM'] == '2238' || course['STRM'] == '2210' || course['STRM'] == '2224' || course['STRM'] == '0965' || course['STRM'] == '2236' || course['STRM'] == '1031' || course['STRM'] == '1128' || course['STRM'] == '2221' || course['STRM'] == '1030' || course['STRM'] == '2228' || course['STRM'] == '2226' || course['STRM'] == '1116' || course['STRM'] == '2239' || course['STRM'] == '1125' || course['STRM'] == '1081')){
+		if(this.cod_company == '002' && (course['STRM'] == '1072' || course['STRM'] == '1073' || course['STRM'] == '1117' || course['STRM'] == '1118' || course['STRM'] == '1156' || course['STRM'] == '1157' || course['STRM'] == '2220' || course['STRM'] == '2222' || course['STRM'] == '2225' || course['STRM'] == '2228' || course['STRM'] == '2235' || course['STRM'] == '2237' || course['STRM'] == '2238' || course['STRM'] == '2210' || course['STRM'] == '2224' || course['STRM'] == '0965' || course['STRM'] == '2236' || course['STRM'] == '1031' || course['STRM'] == '1128' || course['STRM'] == '2221' || course['STRM'] == '1030' || course['STRM'] == '2228' || course['STRM'] == '2226' || course['STRM'] == '1116' || course['STRM'] == '2239' || course['STRM'] == '1125' || course['STRM'] == '1081' || course['STRM'] == '2240')){
 			url = 'http://aulavirtualcpe.cientifica.edu.pe/local/wseducad/auth/sso.php?strm=' + course.STRM + '&class=' + (course.CLASS_NBR2?course.CLASS_NBR2:course.CLASS_NBR) + '&course=' + (course.CRES_ID?course.CRES_ID:course.CRSE_ID) + '&emplid=' + crypto + '&token=DOCENTE';
 		}
 		else if(this.cod_company == '002' && (course.INSTITUTION == 'PSTGR' || course.INSTITUTION == 'ESPEC')){
@@ -71,15 +73,16 @@ export class CourseManagementComponent implements OnInit {
 		window.open(url, '_blank');
 	}
 
-	getClassDocentes() {
+	async getClassDocentes() {
 		this.docenteS.getClassDocentes(this.data)
-		.then(res => {
+		.then(async res => {
 			this.courses = res.SISE_CLASE_DOCENTE_RES && res.SISE_CLASE_DOCENTE_RES.SISE_CLASE_DOCENTE_COM?res.SISE_CLASE_DOCENTE_RES.SISE_CLASE_DOCENTE_COM:(res.SISE_REST_CLASE_DOCENTE_RES && res.SISE_REST_CLASE_DOCENTE_RES.SISE_REST_CLASE_DOCENTE_COM?res.SISE_REST_CLASE_DOCENTE_RES.SISE_REST_CLASE_DOCENTE_COM:[]);
 			for (var i = this.courses.length - 1; i >= 0; i--) {
 				var class_nbr = this.courses[i].CLASS_NBR.split('.');
 				this.courses[i].CLASS_NBR = class_nbr[0];
 				this.courses[i].CLASS_NBR2 = class_nbr[1];
 			}
+			this.loading = false;
 		}, error => { });
 	}
 
