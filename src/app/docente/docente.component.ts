@@ -27,6 +27,7 @@ export class DocenteComponent implements OnInit {
 	director:boolean = false;
 	menus: any;
 	cod_company: any;
+	public loading = false;
 	menu_bars = false;
 	user = this.session.getObject('user');
 	emplid = Decrypt(this.user['emplid']);
