@@ -72,7 +72,7 @@ export class DocenteComponent implements OnInit {
 			this.director = this.session.getItem('DI')=='false'?false:true;
 			// this.piezaModalSise.open();
 			// this.piezaModal.open();
-			this.piezaModalCientifica.open();
+			// this.piezaModalCientifica.open();
 		}
 		
 		this.docenteS.accesoVacaciones((this.cod_company == '002'?this.emplid:this.emplid_real), this.cod_company)

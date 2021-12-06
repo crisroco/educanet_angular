@@ -46,6 +46,7 @@ export class MarkingComponent implements OnInit {
 		private deviceS: DeviceDetectorService,
 		private loginS: LoginService,
 		private router: Router ) {
+		this.loading = true;
 		this.cod_company = this.session.getItem('cod_company');
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 	}
@@ -109,6 +110,7 @@ export class MarkingComponent implements OnInit {
 				actualC['nextClass'] = false;
 			}
 		}
+		this.loading = false;
 		setTimeout(() => {
 			this.checkNextClass();
 		}, 60000);

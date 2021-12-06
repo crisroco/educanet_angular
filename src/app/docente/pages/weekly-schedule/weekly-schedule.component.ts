@@ -17,6 +17,7 @@ export class WeeklyScheduleComponent implements OnInit {
 	emplid = Decrypt(this.user['emplid']);
 	emplid_real = Decrypt(this.user['emplid_real']);
 	realDate: any;
+	loading: boolean = false;
 	classrooms: any;
 	firstDayWeek: any;
 	lastDayWeek: any;
@@ -53,7 +54,8 @@ export class WeeklyScheduleComponent implements OnInit {
 	}
 
 	constructor(private session: SessionService,
-		private docenteS: DocenteService) { 
+		private docenteS: DocenteService) {
+		this.loading = true;
 		this.cod_company = this.session.getItem('cod_company');
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 	}
@@ -87,6 +89,7 @@ export class WeeklyScheduleComponent implements OnInit {
 			for(var kHour in objHours){
 				this.listHours.push(objHours[kHour]);
 			}
+			this.loading = false;
 		}, error => { });
 	}
 

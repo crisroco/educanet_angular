@@ -47,6 +47,7 @@ export class HistoricalMarkingComponent implements OnInit {
 	}
 
 	changePeriod(){
+		this.loading = true;
 		var dates = this.realPeriod.split('.');
 		this.dates = null;
 		if(dates.length > 1){
@@ -55,7 +56,8 @@ export class HistoricalMarkingComponent implements OnInit {
 				this.dates = res.UCS_REST_MARCAPER_RES && res.UCS_REST_MARCAPER_RES.UCS_REST_MARCAPER_COM?res.UCS_REST_MARCAPER_RES.UCS_REST_MARCAPER_COM:[];
 				this.dates.filter(res=>{
                   this.totalHours += parseFloat(res.HORA);
-                })
+                });
+				this.loading = false;
 			}, error => { });
 		}
 	}
