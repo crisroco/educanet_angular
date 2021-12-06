@@ -14,6 +14,11 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 import { SessionService } from './services/session.service';
 import { LoginService } from './services/login.service';
 import { HttpConfigInterceptor } from './services/httpconfig.interceptor';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -30,12 +35,17 @@ import { HttpConfigInterceptor } from './services/httpconfig.interceptor';
     DeviceDetectorModule.forRoot(),
     NgxSmartModalModule.forRoot(),
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatMenuModule,
+    MatRadioModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [
     SessionService,
     LoginService,
-    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

@@ -1,105 +1,112 @@
-<div class="row bg-purple full-content align-items-center justify-content-center">
-    <div class="row container-2 align-items-center">
-        <div class="col-md-6">
-            <div class="row justify-content-center">
-                <img src="assets/img/logo.png">
-            </div>
+<div class="content-login">
+    <div class="content-img d-md-block d-none">
+        <img src="assets/new-login/logo-educad.svg" class="logo mb-4" width="230px" height="62px" alt="EDUCAD">
+        <div class="content-text bg-sise mb-4">
+            <img src="assets/new-login/sise-icon.svg" class="d-block mb-2" alt="S">
+            Aula Virtual
+            Instituto SISE
+            <img src="assets/new-login/ic_chevron_right.svg" class="float-right" alt=">">
         </div>
-        <div class="row col-md-6 justify-content-center">
-            <div class="col-md-10 mb-5">
-                <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
-                    <div class="form-group text-center text-white">
-                        <label class="form-label"> <strong><span class="text-danger">E</span>ducanet</strong> :: Utilizar credenciales de PeopleSof </label>
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control bg-transparent text-white" formControlName="empresa">
-							<option value="">-- Seleccione Institución --</option>
-							<option value="002">Universidad Científica del Sur</option>
-							<option value="003">Instituto SISE</option>
-						</select>
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control bg-transparent text-white" type="" oninput="this.value = this.value.toUpperCase()" formControlName="email" placeholder="Ingrese su Usuario">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control bg-transparent text-white" type="password" formControlName="password" placeholder="Ingrese su Clave">
-                    </div>
-
-                    <div class="col-md-12 m-0 p-0 row mb-2">
-                        <div class="col-9">
-                            <div class="mb-1"><a class="link top-t-60 text-white pointer" (click)="showTypes()">¿Olvidaste tu contraseña? </a></div>
-                            <div class="menu-forgot ml-4 flex flex-column" *ngIf="showLinks">
-                                <a class="text-white" href="https://recuperacontrasena.cientifica.edu.pe/docente" target="_blank">Cambia tu contraseña Científica</a>
-                                <a class="text-white" href="https://recuperacontrasena.sise.edu.pe/docente" target="_blank">Cambia tu contraseña SISE</a>
-                            </div>
-                            <div><a class="link top-t-20 text-white" [href]="'recuperar/contrasena'" target="_blank">¿No puedes acceder a alguna de nuestras plataformas?</a></div>
-                        </div>
-                    </div>
-
-                    <div class="row justify-content-end">
-                        <button type="submit" class="btn btn-danger"> Ingresar </button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="text-right col-md-10">
-                <p><a class="link top-t-60 text-white" href="https://vimeo.com/400822289/cb32dd5d69" target="_blank">Aprende como ingresar a tus clases virtuales </a></p>
-                <!-- <p><a class="link top-t-20 text-white" href="https://vimeo.com/401169151/4a36ffd5ed" target="_blank">Para Docentes CPE Aprende como ingresar a tus clases virtuales</a></p> -->
-                <p><a class="link top-t-20 text-white" href="https://vimeo.com/284443622/7f3c42ff11" target="_blank">Cómo subir materiales a mi clases</a></p>
-                <p><a class="pointer link top-t-20 text-white" (click)="confirmpostulanteModal.open();" target="_blank">Ingreso a nuevos Postulantes</a></p>
-            </div>
+        <div class="content-text bg-ucs mb-4">
+            <img src="assets/new-login/ucs-icon.svg" class="d-block mb-2" alt="S">
+            Aula Virtual
+            Científica Pre/CPE
+            <img src="assets/new-login/ic_chevron_right.svg" class="float-right" alt=">">
         </div>
-        <div class="col-md-12 d-flex align-items-center justify-content-around">
-            <div class="col-6">
-                <p class="text-white m-0">Comunidad SISE</p>
-                <p class="text-white m-0">¿Necesitas ayuda?</p>
-                <a href="https://api.whatsapp.com/send?phone=5117071846" class="btn bg-wsp">
-                    <img src="./assets/wsp.png" style="width: 30px">
-                </a>
-            </div>
-            <div class="col-6 text-right">
-                <a href="https://api.whatsapp.com/send?phone=+51988576507">
-                    <img class="wspUCS" src="./assets/img/login_wsp.png" alt="">
-                </a>
-            </div>
+        <div class="content-text bg-posgrado">
+            <img src="assets/new-login/pos-icon.svg" class="d-block mb-2" alt="S">
+            Aula Virtual
+            Científica Posgrado
+            <img src="assets/new-login/ic_chevron_right.svg" class="float-right" alt=">">
         </div>
     </div>
-</div>
+    <div class="content-form">
+        <div class="form-login">
+            <div>
+                <h1 class="text-dark">¡Bienvenido!</h1>
+                <p class="mb-5">
+                    Para iniciar sesión selecciona tu entidad educativa, 
+                    luego ingresa tu usuario y contraseña.
+                </p>
+                <mat-radio-group aria-label="Select an option" class="d-flex justify-content-between mb-4">
+                    <mat-radio-button color="primary" value="1">Universidad Cientifica de Sur</mat-radio-button>
+                    <mat-radio-button color="primary" value="2">Instituto SISE</mat-radio-button>
+                </mat-radio-group>
+                
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Usuario</mat-label>
+                    <input type="text" matInput autocomplete="off">
+                </mat-form-field>
 
-<div class="loginModal">
-    <ngx-smart-modal #loginModalImg identifier="loginModalImg" [closable]="false" [escapable]="true" [dismissable]="true" [customClass]="'loginModal'">
-        <div (click)="loginModalImg.close()" class="">
-            <img class="w-100" src="https://docs.cientifica.edu.pe/miportal_sise/educanet/aviso-actualiza-181121.png">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input [type]="icon_password?'text':'password'" matInput autocomplete="off">
+                    <img matSuffix *ngIf="icon_password" (click)="icon_password=false" src="assets/new-login/ic_eye_on.svg" alt="e" class="mb-3 cursor-pointer">
+                    <img matSuffix *ngIf="!icon_password" (click)="icon_password=true" src="assets/new-login/ic_eye_off.svg" alt="eo" class="mb-3 cursor-pointer">
+                </mat-form-field>
+                
+                <button mat-raised-button color="primary" class="w-100 py-1 mb-4">Iniciar Sesión</button>
+
+                <div class="text-center">
+                    <a href="#" class="d-block mb-5 font-weight-bold">¿Olvidaste tu contraseña?</a>
+                    <span>¿Aún no eres docente? <a href="#" class="font-weight-bold">Regístrate aquí</a></span>
+                </div>
+                <div class="wsp-link">
+                    <mat-menu #appMenu="matMenu" xPosition="before">
+                        <div style="font-weight: 600; color: #262626; font-size: 14px;" class="pl-4 pt-3 pb-2">
+                            ¿Necesitas Ayuda?
+                        </div>
+                        <button mat-menu-item>
+                            <img src="assets/new-login/wsp-mini-icon.svg" alt="W"> Comunidad Científica
+                        </button>
+                        <button mat-menu-item>
+                            <img src="assets/new-login/wsp-mini-icon.svg" alt="W"> Comunidad SISE
+                        </button>
+                    </mat-menu>
+                    <img src="assets/new-login/wsp-icon.svg" [matMenuTriggerFor]="appMenu" alt="">
+                </div>
+            </div>
         </div>
-    </ngx-smart-modal>
+        <div class="mt-auto footer">
+            © 2021 Grupo Educa_d - Todos los derechos reservados
+        </div>
+    </div>
 </div>
 
 <div class="relative full-page">
     <div class="absolute-">
-        
+
     </div>
 </div>
 
-<ngx-smart-modal #siseModalCloseWebsite identifier="siseModalCloseWebsite" [closable]="false" [escapable]="false" [dismissable]="false" [customClass]="''">
+<ngx-smart-modal #siseModalCloseWebsite identifier="siseModalCloseWebsite" [closable]="false" [escapable]="false"
+    [dismissable]="false" [customClass]="''">
     <h6 class="m0">PAGINA WEB EN MANTENIMIENTO</h6>
     <hr>
     <p>
-        Con la finalidad de mejorar nuestros servicios, les comunicamos que se realizará un mantenimiento de nuestros sistemas.
+        Con la finalidad de mejorar nuestros servicios, les comunicamos que se realizará un mantenimiento de nuestros
+        sistemas.
     </p>
 </ngx-smart-modal>
 
-<ngx-smart-modal #confirmpostulanteModal identifier="confirmpostulanteModal" [closable]="false" [escapable]="false" [dismissable]="false" [customClass]="''">
+<ngx-smart-modal #confirmpostulanteModal identifier="confirmpostulanteModal" [closable]="false" [escapable]="false"
+    [dismissable]="false" [customClass]="''">
     <h6>Estimado Postulante:</h6>
     <hr>
-    <a class="pointer link top-t-20" style="color:#007bff !important" (click)="openRegistroPostulante(); confirmpostulanteModal.close();"> Si eres nuevo registrate ingresando aquí <i class="fa fa-angle-double-right"></i></a><br>
-    <a class="link top-t-20" style="color:#007bff !important" href="http://incorporacion.educad.pe" (click)="confirmpostulanteModal.close();"> Si ya te encuentras registrado accede ingresando aquí <i class="fa fa-angle-double-right"></i></a><br>
+    <a class="pointer link top-t-20" style="color:#007bff !important"
+        (click)="openRegistroPostulante(); confirmpostulanteModal.close();"> Si eres nuevo registrate ingresando aquí <i
+            class="fa fa-angle-double-right"></i></a><br>
+    <a class="link top-t-20" style="color:#007bff !important" href="http://incorporacion.educad.pe"
+        (click)="confirmpostulanteModal.close();"> Si ya te encuentras registrado accede ingresando aquí <i
+            class="fa fa-angle-double-right"></i></a><br>
     <hr>
     <div class="text-center">
         <button (click)="confirmpostulanteModal.close()" class="btn btn-secondary mr-2">Cerrar</button>
     </div>
 </ngx-smart-modal>
 
-<ngx-smart-modal #registropostulanteModal identifier="registropostulanteModal" [closable]="false" [escapable]="false" [dismissable]="false" [customClass]="''">
+<ngx-smart-modal #registropostulanteModal identifier="registropostulanteModal" [closable]="false" [escapable]="false"
+    [dismissable]="false" [customClass]="''">
     <h5>Registro Postulante</h5>
 
     <hr>
@@ -110,9 +117,10 @@
             <div class="row">
                 <div class="col-md-12" style="padding-right: 5px !important; padding-left: 5px !important;">
                     <label class="form-label"> Seleccione Institución a Postular* </label>
-                    <select formControlName="unidad" [(ngModel)]="unidad" class="custom-select">
+                    <select formControlName="unidad" [(ngModel)]="unidad" name="unidad" class="custom-select">
                         <option value="">Selecciona . . .</option>
-                        <option *ngFor="let tco of allCompany" [value]="tco.codigo_referencia">{{tco.descripcion}}</option>
+                        <option *ngFor="let tco of allCompany" [value]="tco.codigo_referencia">{{tco.descripcion}}
+                        </option>
                     </select>
                 </div>
             </div>
@@ -122,11 +130,13 @@
             <div class="row">
                 <div class="col-md-6" style="padding-right: 5px !important; padding-left: 5px !important;">
                     <label class="form-label"> Nombre* </label>
-                    <input class="form-control" type="text" formControlName="nombre" [(ngModel)]="nombre" placeholder="Nombre">
+                    <input class="form-control" type="text" formControlName="nombre" [(ngModel)]="nombre"
+                        placeholder="Nombre">
                 </div>
                 <div class="col-lg-6" style="padding-right: 5px !important; padding-left: 5px !important;">
                     <label class="form-label"> Apellido Paterno* </label>
-                    <input class="form-control" type="text" formControlName="apaterno" [(ngModel)]="apaterno" placeholder="Apellido Paterno">
+                    <input class="form-control" type="text" formControlName="apaterno" [(ngModel)]="apaterno"
+                        placeholder="Apellido Paterno">
                 </div>
             </div>
         </div>
@@ -135,7 +145,8 @@
             <div class="row">
                 <div class="col-md-6" style="padding-right: 5px !important; padding-left: 5px !important;">
                     <label class="form-label"> Apellido Materno* </label>
-                    <input class="form-control" type="text" formControlName="amaterno" [(ngModel)]="amaterno" placeholder="Apellido Materno">
+                    <input class="form-control" type="text" formControlName="amaterno" [(ngModel)]="amaterno"
+                        placeholder="Apellido Materno">
                 </div>
                 <div class="col-lg-6" style="padding-right: 5px !important; padding-left: 5px !important;">
                     <label for="">Fecha Nacimiento</label>
@@ -156,7 +167,8 @@
 
                 <div class="col-lg-6" style="padding-right: 5px !important; padding-left: 5px !important;">
                     <label class="form-label"> Nro Documento* </label>
-                    <input type="text" class="form-control" formControlName="dni" [(ngModel)]="dni" placeholder="Número de documento">
+                    <input type="text" class="form-control" formControlName="dni" [(ngModel)]="dni"
+                        placeholder="Número de documento">
                     <!--<input class="form-control" type="text" formControlName="dni" [(ngModel)]="dni" placeholder="DNI" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" onKeyDown="if(this.value.length==8 && event.keyCode!=8) return false;">-->
                 </div>
             </div>
@@ -166,7 +178,8 @@
             <div class="row">
                 <div class="col-md-12" style="padding-right: 5px !important; padding-left: 5px !important;">
                     <label class="form-label"> Email* </label>
-                    <input class="form-control" type="text" formControlName="correo" [(ngModel)]="correo" placeholder="Email">
+                    <input class="form-control" type="text" formControlName="correo" [(ngModel)]="correo"
+                        placeholder="Email">
                 </div>
             </div>
         </div>

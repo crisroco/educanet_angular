@@ -12,3 +12,75 @@
 	list-style: inherit;
 	list-style-position: inside;
 }
+
+.content-login {	
+	display: flex;
+	position: relative;
+	.content-img {
+		background-image: url(../../assets/new-login/banner-login.svg);
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size:  cover;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		min-height: 100vh;
+		width: 50%;
+		padding: 63px 56px;
+		position: relative;
+	}
+	.content-form{
+		width: 50%;
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		.form-login{
+			width: 360px;
+			height: 100%;
+			margin: 0 auto;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			a{
+				color: #212B36;
+				text-decoration: none;
+			}
+		}
+		.footer{
+			color: #637381;
+			background-color: #F4F6F8;
+			height: 47px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+}
+
+.wsp-link{
+	position: fixed;
+	cursor: pointer;
+	bottom: 80px;
+	right: 40px;
+}
+
+.bg-sise{
+	background-color: #EE2D2C;
+}
+
+.bg-ucs{
+	background-color: #22468F;
+}
+
+.bg-posgrado{
+	background-color: #1A213D;
+}
+
+.content-text{
+	width: 121px;
+	height: 134px;
+	color: #fff;
+	cursor: pointer;
+	padding: 20px;
+	border-radius: 13.49px;
+	font-size: 14px;
+}

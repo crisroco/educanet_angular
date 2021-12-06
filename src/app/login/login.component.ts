@@ -29,10 +29,11 @@ export class LoginComponent implements OnInit {
 	variable: string = '';
 	loading = false;
 	showLinks = false;
+	icon_password=false;
 
 	@ViewChild('registropostulanteModal') registropostulanteModal: any;
 	@ViewChild('siseModalCloseWebsite') siseModalCloseWebsite: any;
-	@ViewChild('loginModalImg') loginModalImg:any;
+	// @ViewChild('loginModalImg') loginModalImg:any;
 	public allTDI = [
 		{codigo_referencia:'DNI', descripcion: 'DNI'},
 		{codigo_referencia:'CE', descripcion: 'CARNET EXTRANJERÍA'},        
@@ -92,7 +93,7 @@ export class LoginComponent implements OnInit {
 			correo: ['', [Validators.required, Validators.email]],
 			dni: ['', Validators.required]
 		});
-		this.loginModalImg.open();
+		// this.loginModalImg.open();
 	}
 
 	login(){
