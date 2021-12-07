@@ -13,14 +13,14 @@
 	list-style-position: inside;
 }
 
-.content-login {	
+.content-login {
 	display: flex;
 	position: relative;
 	.content-img {
 		background-image: url(../../assets/new-login/banner-login.svg);
 		background-repeat: no-repeat;
 		background-position: center center;
-		background-size:  cover;
+		background-size: cover;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		min-height: 100vh;
@@ -28,54 +28,55 @@
 		padding: 63px 56px;
 		position: relative;
 	}
-	.content-form{
+	.content-form {
 		width: 50%;
 		min-height: 100vh;
 		display: flex;
 		flex-direction: column;
-		.form-login{
+		.form-login {
 			width: 360px;
 			height: 100%;
 			margin: 0 auto;
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			a{
-				color: #212B36;
+			a {
+				color: #212b36;
 				text-decoration: none;
 			}
-		}
-		.footer{
-			color: #637381;
-			background-color: #F4F6F8;
-			height: 47px;
-			display: flex;
-			justify-content: center;
-			align-items: center;
 		}
 	}
 }
 
-.wsp-link{
+.footer {
+	color: #637381;
+	background-color: #f4f6f8;
+	height: 50px !important;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.wsp-link {
 	position: fixed;
 	cursor: pointer;
 	bottom: 80px;
 	right: 40px;
 }
 
-.bg-sise{
-	background-color: #EE2D2C;
+.bg-sise {
+	background-color: #ee2d2c;
 }
 
-.bg-ucs{
-	background-color: #22468F;
+.bg-ucs {
+	background-color: #22468f;
 }
 
-.bg-posgrado{
-	background-color: #1A213D;
+.bg-posgrado {
+	background-color: #1a213d;
 }
 
-.content-text{
+.content-text {
 	width: 121px;
 	height: 134px;
 	color: #fff;
@@ -83,4 +84,60 @@
 	padding: 20px;
 	border-radius: 13.49px;
 	font-size: 14px;
+}
+
+.header-responsive {
+	height: 87px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #040505;
+}
+
+.content-urls {
+	.content-text {
+		img:first-child {
+			margin-right: 24px;
+		}
+		label {
+			margin: 0;
+		}
+		width: 100%;
+		height: 76px;
+		margin-bottom: 2px;
+		color: #fff;
+		cursor: pointer;
+		padding: 24px 37px;
+		font-size: 14px;
+		border-radius: 0 !important;
+	}
+}
+
+@media (max-width: 770px) {
+	.content-form {
+		width: 100% !important;
+	}
+}
+
+@media (max-width: 400px) {
+	.content-login {
+		.content-form {
+			.form-login {
+				width: 230px !important;
+			}
+		}
+	}
+
+	.content-urls {
+		.content-text {
+			img:first-child {
+				float: left;
+				margin-right: 24px;
+			}
+			label {
+				margin: 0;
+				width: 140px;
+			}
+		}
+	}
 }

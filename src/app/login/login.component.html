@@ -1,3 +1,6 @@
+<div class="header-responsive mb-5 d-md-none">
+    <img src="assets/new-login/logo-educad-black.svg" width="144px" height="39px" alt="EDUCAD">
+</div>
 <div class="content-login">
     <div class="content-img d-md-block d-none">
         <img src="assets/new-login/logo-educad.svg" class="logo mb-4" width="230px" height="62px" alt="EDUCAD">
@@ -22,36 +25,52 @@
     </div>
     <div class="content-form">
         <div class="form-login">
-            <div>
+            <form [formGroup]="loginForm" (submit)="login()">
                 <h1 class="text-dark">¡Bienvenido!</h1>
                 <p class="mb-5">
                     Para iniciar sesión selecciona tu entidad educativa, 
                     luego ingresa tu usuario y contraseña.
                 </p>
-                <mat-radio-group aria-label="Select an option" class="d-flex justify-content-between mb-4">
-                    <mat-radio-button color="primary" value="1">Universidad Cientifica de Sur</mat-radio-button>
-                    <mat-radio-button color="primary" value="2">Instituto SISE</mat-radio-button>
+                <mat-radio-group formControlName="empresa" aria-label="Select an option" class="d-sm-flex justify-content-between mb-4">
+                    <mat-radio-button class="d-block d-sm-inline" color="primary" value="002">Universidad Cientifica de Sur</mat-radio-button>
+                    <mat-radio-button color="primary" value="003">Instituto SISE</mat-radio-button>
                 </mat-radio-group>
                 
                 <mat-form-field class="w-100" appearance="outline">
                     <mat-label>Usuario</mat-label>
-                    <input type="text" matInput autocomplete="off">
+                    <input type="text" oninput="this.value = this.value.toUpperCase()" formControlName="email" matInput autocomplete="off">
+                    <mat-error>Este campo es obligatorio</mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="w-100" appearance="outline">
                     <mat-label>Contraseña</mat-label>
-                    <input [type]="icon_password?'text':'password'" matInput autocomplete="off">
+                    <input formControlName="password" [type]="icon_password?'text':'password'" matInput autocomplete="off">
                     <img matSuffix *ngIf="icon_password" (click)="icon_password=false" src="assets/new-login/ic_eye_on.svg" alt="e" class="mb-3 cursor-pointer">
                     <img matSuffix *ngIf="!icon_password" (click)="icon_password=true" src="assets/new-login/ic_eye_off.svg" alt="eo" class="mb-3 cursor-pointer">
+                    <mat-error>Este campo es obligatorio</mat-error>
                 </mat-form-field>
                 
-                <button mat-raised-button color="primary" class="w-100 py-1 mb-4">Iniciar Sesión</button>
+                <button mat-raised-button type="submit" color="primary" class="w-100 py-1 mb-4">Iniciar Sesión</button>
 
                 <div class="text-center">
-                    <a href="#" class="d-block mb-5 font-weight-bold">¿Olvidaste tu contraseña?</a>
+                    <a [href]="forgotPasswordUrl" target="_blank" class="d-block mb-3 mb-md-5 font-weight-bold">¿Olvidaste tu contraseña?</a>
                     <span>¿Aún no eres docente? <a href="#" class="font-weight-bold">Regístrate aquí</a></span>
                 </div>
-                <div class="wsp-link">
+                <div class="text-right d-block d-md-none mb-2">
+                    <mat-menu #appMenu="matMenu" xPosition="before">
+                        <div style="font-weight: 600; color: #262626; font-size: 14px;" class="pl-4 pt-3 pb-2">
+                            ¿Necesitas Ayuda?
+                        </div>
+                        <button mat-menu-item>
+                            <img src="assets/new-login/wsp-mini-icon.svg" alt="W"> Comunidad Científica
+                        </button>
+                        <button mat-menu-item>
+                            <img src="assets/new-login/wsp-mini-icon.svg" alt="W"> Comunidad SISE
+                        </button>
+                    </mat-menu>
+                    <img src="assets/new-login/wsp-icon.svg" width="52px" height="52px" class="cursor-pointer" [matMenuTriggerFor]="appMenu" alt="">
+                </div>
+                <div class="wsp-link d-none d-md-block">
                     <mat-menu #appMenu="matMenu" xPosition="before">
                         <div style="font-weight: 600; color: #262626; font-size: 14px;" class="pl-4 pt-3 pb-2">
                             ¿Necesitas Ayuda?
@@ -65,9 +84,29 @@
                     </mat-menu>
                     <img src="assets/new-login/wsp-icon.svg" [matMenuTriggerFor]="appMenu" alt="">
                 </div>
+            </form>
+        </div>
+        <div class="content-urls d-block d-md-none">
+            <div class="content-text bg-sise">
+                <img src="assets/new-login/sise-icon.svg" alt="S">
+                <label> Aula Virtual
+                Instituto SISE</label>
+                <img src="assets/new-login/ic_chevron_right.svg" class="float-right" alt=">">
+            </div>
+            <div class="content-text bg-ucs">
+                <img src="assets/new-login/ucs-icon.svg" alt="S">
+                <label>Aula Virtual
+                Científica Pre/CPE</label>
+                <img src="assets/new-login/ic_chevron_right.svg" class="float-right" alt=">">
+            </div>
+            <div class="content-text bg-posgrado">
+                <img src="assets/new-login/pos-icon.svg" alt="S">
+                <label>Aula Virtual
+                Científica Posgrado</label>
+                <img src="assets/new-login/ic_chevron_right.svg" class="float-right" alt=">">
             </div>
         </div>
-        <div class="mt-auto footer">
+        <div class="mt-auto footer py-5 py-md-4 text-center">
             © 2021 Grupo Educa_d - Todos los derechos reservados
         </div>
     </div>
