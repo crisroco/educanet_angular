@@ -50,7 +50,6 @@ export class CourseManagementComponent implements OnInit {
 	}
 
 	goMoodle(course){
-		console.log(course);
 		var url = '';
 		var rdate = Math.floor(Date.now() / 1000);
 		var crypto = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(this.emplid_real + '//' + rdate), 'Educad123', {format: this.generalS.formatJsonCrypto}).toString());
@@ -94,7 +93,6 @@ export class CourseManagementComponent implements OnInit {
 		this.realCourse = JSON.parse(JSON.stringify(course));
 		this.realCourse[AppSettings.STRINGS_COMPANY[this.cod_company].emplid] = this.cod_company == '002'?this.emplid:this.emplid_real;
 		this.realCourse.OPRID = this.cod_company == '002'?'':this.oprid;
-		console.log(this.realCourse);
 		this.docenteS.classroomAverage(this.realCourse)
 		.then(res => {
 			this.students = res.SISE_REST_CONSNOTREG_RES && res.SISE_REST_CONSNOTREG_RES.SISE_REST_CONSNOTREG_COM?res.SISE_REST_CONSNOTREG_RES.SISE_REST_CONSNOTREG_COM:[];

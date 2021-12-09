@@ -47,7 +47,6 @@ export class ConsultCourseComponent implements OnInit {
   }
 
   search(){
-    console.log(1);
     this.loading = true;
     let data = JSON.parse(JSON.stringify(this.allCoursesReal));
     if (this.type) {

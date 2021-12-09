@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppSettings } from '../app.settings';
 import { SessionService } from '../services/session.service';
@@ -6,7 +6,7 @@ import { DocenteService } from '../services/docente.service';
 import { LoginService } from '../services/login.service';
 import { Decrypt, Encrypt } from '../helpers/general';
 import { ToastrService } from 'ngx-toastr';
-import { FormControl, FormBuilder } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as CryptoJS from 'crypto-js';
 import { parse } from 'querystring';
 import { Observable } from 'rxjs';
@@ -43,6 +43,7 @@ export class DocenteComponent implements OnInit {
 	digital2: any;
 	digital3: any;
 	digital4: any;
+	digitalLibraryData: FormGroup;
 	DigitalLibraryAttribute1: FormControl;
 	DigitalLibraryAttribute2: FormControl;
 	DigitalLibraryAttribute3: FormControl;
@@ -52,6 +53,7 @@ export class DocenteComponent implements OnInit {
 	DigitalLibraryAttribute7: FormControl;
 	DigitalLibraryAttribute8: FormControl;
 	DigitalLibraryAttribute9: FormControl;
+	@ViewChild('digitalData') digitalData : ElementRef;
 	DigitalLibraryAttribute10: FormControl;
 	formulario1: FormControl;
 	@ViewChild('hello') hello;
@@ -67,13 +69,24 @@ export class DocenteComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		console.log(this.session.getloadingObserver().pipe(delay(500)));
 		if (this.cod_company == '002') {		
 			this.director = this.session.getItem('DI')=='false'?false:true;
 			// this.piezaModalSise.open();
 			// this.piezaModal.open();
 			// this.piezaModalCientifica.open();
 		}
+		this.digitalLibraryData = this.formBuilder.group({
+			DigitalLibraryAttribute1: ['', Validators.required],
+			DigitalLibraryAttribute2: ['', Validators.required],
+			DigitalLibraryAttribute3: ['', Validators.required],
+			DigitalLibraryAttribute4: ['', Validators.required],
+			DigitalLibraryAttribute5: ['', Validators.required],
+			DigitalLibraryAttribute6: ['', Validators.required],
+			DigitalLibraryAttribute7: ['', Validators.required],
+			DigitalLibraryAttribute8: ['', Validators.required],
+			DigitalLibraryAttribute9: ['', Validators.required],
+			DigitalLibraryAttribute10: ['', Validators.required]
+	   	});
 		
 		this.docenteS.accesoVacaciones((this.cod_company == '002'?this.emplid:this.emplid_real), this.cod_company)
 		.then(res => {
@@ -177,11 +190,8 @@ export class DocenteComponent implements OnInit {
 	goTraining(){
 		// let realDate = new Date();
 	    // let date = new Date(realDate.getFullYear() + '-' + (realDate.getMonth()+1) + '-' + '-' + realDate.getDate() + ' 00:00:00');
-	    // console.log(date);
 		// let timestamp = String(date.getTime());
-		// console.log(timestamp);
 	    // let key = timestamp.slice(0,-3);
-		// console.log(key);
 		var data = {
 			credencial: Encrypt('QJChPEmBp4d6rZSHf3dA@@' + this.emplid, 'W5Q8f89HmgjhbwGWdy'),
 		}
@@ -234,16 +244,18 @@ export class DocenteComponent implements OnInit {
 					var hash = CryptoJS.HmacSHA256(DIGITAL_LIBRARY_URL2 + this.digital1 + this.digital2 + this.digital3, SECRETKEY);
 					this.digital4 = CryptoJS.enc.Base64.stringify(hash);
 					//////////////////////////////
-					this.DigitalLibraryAttribute1 = new FormControl(this.digital1);
-					this.DigitalLibraryAttribute2 = new FormControl(this.digital2);
-					this.DigitalLibraryAttribute3 = new FormControl(this.digital3);
-					this.DigitalLibraryAttribute4 = new FormControl(this.digital4);
-					this.DigitalLibraryAttribute5 = new FormControl(this.remotex.nombreAlumno + " " + this.remotex.apellidoAlumno);
-					this.DigitalLibraryAttribute6 = new FormControl(this.remotex.programa_actual);
-					this.DigitalLibraryAttribute7 = new FormControl(this.remotex.ind_modalidad);
-					this.DigitalLibraryAttribute8 = new FormControl(this.remotex.campus);
-					this.DigitalLibraryAttribute9 = new FormControl(this.remotex.ciclo_lectivo);
-					this.DigitalLibraryAttribute10 = new FormControl(this.remotex.institucion);
+					this.digitalLibraryData.setValue({
+						DigitalLibraryAttribute1 : this.digital1,
+						DigitalLibraryAttribute2 : this.digital2,
+						DigitalLibraryAttribute3 : this.digital3,
+						DigitalLibraryAttribute4 : this.digital4,
+						DigitalLibraryAttribute5 : this.remotex.nombreAlumno + " " + this.remotex.apellidoAlumno,
+						DigitalLibraryAttribute6 : this.remotex.programa_actual,
+						DigitalLibraryAttribute7 : this.remotex.ind_modalidad,
+						DigitalLibraryAttribute8 : this.remotex.campus,
+						DigitalLibraryAttribute9 : this.remotex.ciclo_lectivo,
+						DigitalLibraryAttribute10 : this.remotex.institucion
+					});
 					setTimeout(() => {
 						this.goRemoteX();
 					}, 500);
@@ -258,8 +270,7 @@ export class DocenteComponent implements OnInit {
 	}
 
 	goRemoteX(){
-		var formularioRemoteX = document.forms['formulario1'];
-		formularioRemoteX.submit();
+		this.digitalData.nativeElement.submit();
 	}
 
 	goEvaluacion(){

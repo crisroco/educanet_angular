@@ -48,7 +48,6 @@ export class PaymentHistoryComponent implements OnInit {
 		this.docenteS.getPayment(this.data)
 		.then(res => {
 			this.loading = false;
-			console.log(res);
 			if(res.type == "application/json"){
 				var reader = new FileReader();
 				reader.addEventListener("loadend", () => {

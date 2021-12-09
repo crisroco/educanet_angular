@@ -76,7 +76,6 @@ export class StudentAssistanceComponent implements OnInit {
 			this.data_delegates.CRSE_ID = this.course.COD_CURSE;
 			this.data_delegates.SESSION_CODE = this.course.SESSION_CODE;
 			this.data_delegates.emplid = this.emplid;
-			console.log(this.course);
 		});
 		this.data_browser = this.deviceS.getDeviceInfo();
 		this.loginS.getIPAddress()

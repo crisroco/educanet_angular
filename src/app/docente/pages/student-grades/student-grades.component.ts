@@ -304,10 +304,8 @@ export class StudentGradesComponent implements OnInit {
 				}
 		    });
 		    this.allStudents = JSON.parse(JSON.stringify(this.students));
-			console.log(dataListStudentGrades);
 		    this.docenteS.updateGrade({ 'data': JSON.stringify(dataListStudentGrades) })
 			.then(res => {
-				console.log(res.length);
 				this.sendLog(AppSettings.BASE_SISE_LARAVEL + '/actulizar_notas_registradas', JSON.stringify(dataListStudentGrades), res);
 				if(res.ok || res.length == 0) { this.getGradeRecordClass(); this.gradeName = ''; this.toastr.success('Se registraron las calificaciones correctamente.'); this.loading = false; }
 				else { this.toastr.error('Hubo uno o varios errores al registrar las calificaciones, vuelva a intentarlo.'); this.loading = false; }
