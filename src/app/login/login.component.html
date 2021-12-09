@@ -4,19 +4,19 @@
 <div class="content-login">
     <div class="content-img d-md-block d-none">
         <img src="assets/new-login/logo-educad.svg" class="logo mb-4" width="230px" height="62px" alt="EDUCAD">
-        <div class="content-text bg-sise mb-4">
+        <div (click)="goToLinks('sise')" matRipple class="content-text bg-sise mb-4">
             <img src="assets/new-login/sise-icon.svg" class="d-block mb-2" alt="S">
             Aula Virtual
             Instituto SISE
             <img src="assets/new-login/ic_chevron_right.svg" class="float-right" alt=">">
         </div>
-        <div class="content-text bg-ucs mb-4">
+        <div (click)="goToLinks('ucs')" matRipple class="content-text bg-ucs mb-4">
             <img src="assets/new-login/ucs-icon.svg" class="d-block mb-2" alt="S">
             Aula Virtual
             Científica Pre/CPE
             <img src="assets/new-login/ic_chevron_right.svg" class="float-right" alt=">">
         </div>
-        <div class="content-text bg-posgrado">
+        <div (click)="goToLinks('pos')" matRipple class="content-text bg-posgrado">
             <img src="assets/new-login/pos-icon.svg" class="d-block mb-2" alt="S">
             Aula Virtual
             Científica Posgrado
@@ -50,7 +50,7 @@
                     <mat-error>Este campo es obligatorio</mat-error>
                 </mat-form-field>
                 
-                <button mat-raised-button type="submit" color="primary" class="w-100 py-1 mb-4">Iniciar Sesión</button>
+                <button mat-raised-button type="submit" color="primary" class="w-100 hover-custom py-1 mb-4">Iniciar Sesión</button>
 
                 <div class="text-center">
                     <a [href]="forgotPasswordUrl" target="_blank" class="d-block mb-3 mb-md-5 font-weight-bold">¿Olvidaste tu contraseña?</a>
@@ -61,12 +61,12 @@
                         <div style="font-weight: 600; color: #262626; font-size: 14px;" class="pl-4 pt-3 pb-2">
                             ¿Necesitas Ayuda?
                         </div>
-                        <button mat-menu-item>
-                            <img src="assets/new-login/wsp-mini-icon.svg" alt="W"> Comunidad Científica
-                        </button>
-                        <button mat-menu-item>
-                            <img src="assets/new-login/wsp-mini-icon.svg" alt="W"> Comunidad SISE
-                        </button>
+                        <a mat-menu-item href="https://api.whatsapp.com/send?phone=+51988576507" target="_blank">
+                            <img src="assets/new-login/wsp-mini-icon.svg" class="mr-2" alt="W"> Comunidad Científica
+                        </a>
+                        <a mat-menu-item href="https://api.whatsapp.com/send?phone=5117071846" target="_blank">
+                            <img src="assets/new-login/wsp-mini-icon.svg" class="mr-2" alt="W"> Comunidad SISE
+                        </a>
                     </mat-menu>
                     <img src="assets/new-login/wsp-icon.svg" width="52px" height="52px" class="cursor-pointer" [matMenuTriggerFor]="appMenu" alt="">
                 </div>
@@ -75,12 +75,12 @@
                         <div style="font-weight: 600; color: #262626; font-size: 14px;" class="pl-4 pt-3 pb-2">
                             ¿Necesitas Ayuda?
                         </div>
-                        <button mat-menu-item>
-                            <img src="assets/new-login/wsp-mini-icon.svg" alt="W"> Comunidad Científica
-                        </button>
-                        <button mat-menu-item>
-                            <img src="assets/new-login/wsp-mini-icon.svg" alt="W"> Comunidad SISE
-                        </button>
+                        <a mat-menu-item href="https://api.whatsapp.com/send?phone=+51988576507" target="_blank">
+                            <img src="assets/new-login/wsp-mini-icon.svg" class="mr-2" alt="W"> Comunidad Científica
+                        </a>
+                        <a mat-menu-item href="https://api.whatsapp.com/send?phone=5117071846" target="_blank">
+                            <img src="assets/new-login/wsp-mini-icon.svg" class="mr-2" alt="W"> Comunidad SISE
+                        </a>
                     </mat-menu>
                     <img src="assets/new-login/wsp-icon.svg" [matMenuTriggerFor]="appMenu" alt="">
                 </div>

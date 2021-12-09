@@ -339,6 +339,18 @@ export class LoginComponent implements OnInit {
 			});
 	}
 
+	goToLinks(param){
+		const arr = {
+			sise: "https://aulavirtual.sise.edu.pe/login/index.php",
+			ucs: "https://cientificavirtual.cientifica.edu.pe/login",
+			pos: "https://aulavirtualposgrado.cientifica.edu.pe/"
+		}
+		
+		window.open(arr[param], '_blank');
+	}
+
+
+
 	// siseModalCheck(evt){
 	// 	if (evt.target.value == '003') {
 	// 		this.siseModalCloseWebsite.open();

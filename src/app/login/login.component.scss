@@ -75,15 +75,30 @@
 .bg-posgrado {
 	background-color: #1a213d;
 }
-
+a{
+	text-decoration: none;
+	&:hover{
+		color: rgba(0, 0, 0, 0.87);
+	}
+}
 .content-text {
 	width: 121px;
 	height: 134px;
 	color: #fff;
+	text-decoration: none;
 	cursor: pointer;
 	padding: 20px;
 	border-radius: 13.49px;
 	font-size: 14px;
+	&:hover{
+		box-shadow: 5px 5px 15px #777371;
+	}
+}
+
+.hover-custom{
+	&:hover{
+		box-shadow: 5px 5px 15px #777371;
+	}
 }
 
 .header-responsive {
@@ -110,6 +125,9 @@
 		padding: 24px 37px;
 		font-size: 14px;
 		border-radius: 0 !important;
+		&:hover{
+			box-shadow: 5px 5px 15px #777371;
+		}
 	}
 }
 
