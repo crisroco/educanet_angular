@@ -160,8 +160,7 @@ export class StudentGradesComponent implements OnInit {
 
 	getToken(){
 		this.loading = true;
-		this.docenteS.getToken({})
-		// this.docenteS.getToken({ 'emplid': this.emplid,  'numero': '992330712', 'email': 'eacostac@cientifica.edu.pe'})
+		this.docenteS.getToken({'numero': this.session.getItem('phone')})
 		.then(res => {
 			this.loading = false;
 			if(res.data){

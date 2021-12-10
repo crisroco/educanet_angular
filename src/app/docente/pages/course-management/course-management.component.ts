@@ -116,11 +116,12 @@ export class CourseManagementComponent implements OnInit {
 	}
 
 	goStudentGrade(course, cierre){
+		this.session.setItem('phone', course.PHONE);
 		this.router.navigate(['/docente/' + (this.cod_company == '002'?'docentes-cientifica':'docentes') + '/notas/' + encodeURIComponent(
-		      course.CLASS_NBR + '|' + 
-		      course.ACAD_CAREER + '|' + 
-		      course.STRM + '|' +
-		      cierre
+			course.CLASS_NBR + '|' + 
+			course.ACAD_CAREER + '|' + 
+			course.STRM + '|' +
+			cierre
 	    )]);
 	}
 
