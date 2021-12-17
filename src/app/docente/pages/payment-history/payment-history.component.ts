@@ -31,7 +31,7 @@ export class PaymentHistoryComponent implements OnInit {
 	constructor( private session: SessionService,
 		private docenteS: DocenteService,
 		private router: Router ) {
-		this.cod_company = this.session.getItem('cod_company');
+			this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 		this.data.codigoCompania = this.cod_company;
 		this.data.codigoEmpleado = this.emplid;

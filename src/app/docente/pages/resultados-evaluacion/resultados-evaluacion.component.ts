@@ -58,8 +58,8 @@ export class ResultadosEvaluacionComponent implements OnInit {
 		private docenteS: DocenteService,
 		public excel: ExcelService,
     private toastr: ToastrService) { 
-		this.cod_company = this.session.getItem('cod_company');
-		this.config_initial = AppSettings.CONFIG[this.cod_company];		
+		this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
+		this.config_initial = AppSettings.CONFIG[this.cod_company];
 	}
 
 	ngOnInit() {

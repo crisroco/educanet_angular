@@ -36,7 +36,7 @@ export class CourseManagementComponent implements OnInit {
 		private generalS: GeneralService,
 		private router: Router ) {
 		this.loading = true;
-		this.cod_company = this.session.getItem('cod_company');
+		this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 		this.data[AppSettings.STRINGS_COMPANY[this.cod_company].institution] = this.config_initial.institution;
 		this.data[AppSettings.STRINGS_COMPANY[this.cod_company].emplid] = this.cod_company == '002'?'':this.emplid_real;

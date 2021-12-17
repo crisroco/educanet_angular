@@ -225,7 +225,7 @@ export class LibraryComponent implements OnInit {
 	constructor(private session: SessionService,
 		private loginS: LoginService,
 		private docenteS: DocenteService) {
-		this.cod_company = this.session.getItem('cod_company');
+			this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 	}
 

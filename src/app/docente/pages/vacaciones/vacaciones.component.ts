@@ -40,7 +40,7 @@ export class VacacionesComponent implements OnInit {
 		private docenteS: DocenteService,
     private miDatePipe: DatePipe,
     private toastr: ToastrService) { 
-		this.cod_company = this.session.getItem('cod_company');
+      this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];		
 	}
 

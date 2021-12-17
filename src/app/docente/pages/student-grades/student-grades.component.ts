@@ -56,7 +56,7 @@ export class StudentGradesComponent implements OnInit {
     	private deviceS: DeviceDetectorService,
     	private loginS: LoginService,
 		private session: SessionService ) {
-		this.cod_company = this.session.getItem('cod_company');
+		this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 		this.realRoute.paramMap.subscribe((query: any) => {
 			var parts = decodeURIComponent(query.params.idclass).split('|');
