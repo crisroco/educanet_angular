@@ -23,15 +23,17 @@ export class DocenteComponent implements OnInit {
 	@ViewChild('piezaModal') piezaModal: any;
 	@ViewChild('piezaModalSise') piezaModalSise: any;
 	@ViewChild('piezaModalCientifica') piezaModalCientifica: any;
-	config_initial: any;
+	config_initial: any = {
+		code: ''
+	};
 	director:boolean = false;
 	menus: any;
 	cod_company: any;
 	public loading = false;
 	menu_bars = false;
 	user = this.session.getObject('user');
-	emplid = Decrypt(this.user['emplid']);
-	emplid_real = Decrypt(this.user['emplid_real']);
+	emplid = this.user?Decrypt(this.user['emplid']):'';
+	emplid_real = this.user?Decrypt(this.user['emplid_real']):'';
 	showwsp: boolean = false;
 	ethnicities = AppSettings.ETHNICITIES;
 	realEthnicity = '';
@@ -63,7 +65,7 @@ export class DocenteComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private router: Router,
 		private docenteS: DocenteService) { 
-		this.cod_company = this.session.getItem('cod_company');
+		this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 		this.user = this.session.getObject('user');
 	}
@@ -74,6 +76,9 @@ export class DocenteComponent implements OnInit {
 			// this.piezaModalSise.open();
 			// this.piezaModal.open();
 			// this.piezaModalCientifica.open();
+		}
+		if (!this.user) {
+			this.router.navigate(['/login']);
 		}
 		this.digitalLibraryData = this.formBuilder.group({
 			DigitalLibraryAttribute1: ['', Validators.required],

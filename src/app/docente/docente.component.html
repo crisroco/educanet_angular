@@ -9,9 +9,9 @@
                     <div class="text-center mb-4">
                         <i class="fa fa-user fa-4x mb-4"></i>
                         <p class="mb-1 text-m">Te damos la bienvenida</p>
-                        <h5 class="text-xm"><strong>{{ user.name + ' ' + user.surname }}</strong></h5>
-                        <p class="m-0">{{ user.email2 }}</p>
-                        <p>{{ user.emplid_moodle }}</p>
+                        <h5 *ngIf="user" class="text-xm"><strong>{{ user.name + ' ' + user.surname }}</strong></h5>
+                        <p *ngIf="user" class="m-0">{{ user.email2 }}</p>
+                        <p *ngIf="user">{{ user.emplid_moodle }}</p>
                         <a class="btn bg-gray rounded-2 text-normal" (click)="goIncorporacion();">Datos Personales</a>
                         <a *ngIf="cod_company=='002'" class="btn bg-gray rounded-2 text-normal mt-2" (click)="goEvaluacion();"><i class="fa fa-line-chart mr-1" aria-hidden="true"></i> Evaluación 360°</a>
                     </div>
