@@ -18,7 +18,7 @@ export class VacacionesComponent implements OnInit {
   config_initial: any;
 	user = this.session.getObject('user');
   cod_company: any = this.user['cod_company'];
-  emplid: any = Decrypt(this.user['emplid']);
+  emplid = this.user?Decrypt(this.user['emplid']):'';
   p_correo: any = this.user['email2'];
   solicitudes:Array<any> = [];
   vacaciones:Array<any> = [];

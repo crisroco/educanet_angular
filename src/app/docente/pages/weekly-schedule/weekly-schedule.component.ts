@@ -14,8 +14,8 @@ export class WeeklyScheduleComponent implements OnInit {
 	cod_company: any;
 	config_initial: any;
 	user = this.session.getObject('user');
-	emplid = Decrypt(this.user['emplid']);
-	emplid_real = Decrypt(this.user['emplid_real']);
+	emplid = this.user?Decrypt(this.user['emplid']):'';
+	emplid_real = this.user?Decrypt(this.user['emplid_real']):'';
 	realDate: any;
 	loading: boolean = false;
 	classrooms: any;

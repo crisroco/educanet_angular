@@ -30,8 +30,8 @@ export class StudentGradesComponent implements OnInit {
 	message: string = '';
 	messageError: string = '';
 	user = this.session.getObject('user');
-	emplid = Decrypt(this.user['emplid']);
-	emplid_real = Decrypt(this.user['emplid_real']);
+	emplid = this.user?Decrypt(this.user['emplid']):'';
+	emplid_real = this.user?Decrypt(this.user['emplid_real']):'';
 	courseFormule: string;
 	cod_company: string;
 	config_initial: any;
