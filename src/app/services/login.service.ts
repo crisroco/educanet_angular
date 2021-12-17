@@ -46,6 +46,6 @@ export class LoginService {
         return this.http.post(AppSettings.BASE_SISE_CODEIGNITER + '/dashboard/log_sise', data).toPromise();
     }
 
-	public getIPAddress(): Promise<any> { return this.http.get("http://api.ipify.org/?format=json").toPromise(); }
+	public getIPAddress(): Promise<any> { return this.http.get("https://api.ipify.org/?format=json").toPromise(); }
 
 }
