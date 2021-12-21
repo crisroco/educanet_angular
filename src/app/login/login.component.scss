@@ -66,14 +66,23 @@
 
 .bg-sise {
 	background-color: #ee2d2c;
+	&:hover{
+		background-color: #F44746;
+	}
 }
 
 .bg-ucs {
 	background-color: #22468f;
+	&:hover{
+		background-color: #3A5DA4;
+	}
 }
 
 .bg-posgrado {
 	background-color: #1a213d;
+	&:hover{
+		background-color: #2F3654;
+	}
 }
 a{
 	text-decoration: none;
