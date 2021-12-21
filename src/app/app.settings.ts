@@ -63,7 +63,7 @@ export class AppSettings {
     public static BASE_SISE_CODEIGNITER = 'http://proyectos.educad.pe';
     //------------------------------- ENV PRODUCTION -------------------------------//
     // public static BASE_UCSUR_LARAVEL = 'http://dev3.pasarela.educad.pe/api'; // FAKE PROD
-    public static BASE_UCSUR_LARAVEL = 'http://dev.pasarela.educad.pe/api'; // REAL PROD
+    public static BASE_UCSUR_LARAVEL = 'http://pasarela.educad.pe/api'; // REAL PROD
     public static BASE_SISE_LARAVEL = 'https://pasarela.sise.edu.pe/api';
     public static BASE_UCSUR_LARAVEL_AUTH = AppSettings.BASE_UCSUR_LARAVEL + '/auth';
     public static PRODUCTION = "http://educanet.back.educad.pe";
