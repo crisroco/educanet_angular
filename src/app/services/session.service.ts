@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -6,6 +7,15 @@ import { Injectable } from '@angular/core';
 export class SessionService {
 
   constructor() { }
+  public loadingObserver = new Subject<boolean>();
+
+  public getloadingObserver() {
+    return this.loadingObserver.asObservable();
+  }
+
+  public setloadingObserver(data: boolean) {
+    this.loadingObserver.next(data);
+  }
 
   setItem(key, value) {
     if(typeof localStorage !== 'undefined') localStorage.setItem(key, value);

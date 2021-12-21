@@ -29,7 +29,7 @@ export class HistoricalMarkingComponent implements OnInit {
 		private docenteS: DocenteService,
 		private loginS: LoginService,
 		private router: Router ) { 
-		this.cod_company = this.session.getItem('cod_company');
+			this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 	}
 
@@ -47,6 +47,7 @@ export class HistoricalMarkingComponent implements OnInit {
 	}
 
 	changePeriod(){
+		this.loading = true;
 		var dates = this.realPeriod.split('.');
 		this.dates = null;
 		if(dates.length > 1){
@@ -55,7 +56,8 @@ export class HistoricalMarkingComponent implements OnInit {
 				this.dates = res.UCS_REST_MARCAPER_RES && res.UCS_REST_MARCAPER_RES.UCS_REST_MARCAPER_COM?res.UCS_REST_MARCAPER_RES.UCS_REST_MARCAPER_COM:[];
 				this.dates.filter(res=>{
                   this.totalHours += parseFloat(res.HORA);
-                })
+                });
+				this.loading = false;
 			}, error => { });
 		}
 	}

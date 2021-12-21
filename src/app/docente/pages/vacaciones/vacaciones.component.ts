@@ -18,7 +18,7 @@ export class VacacionesComponent implements OnInit {
   config_initial: any;
 	user = this.session.getObject('user');
   cod_company: any = this.user['cod_company'];
-  emplid: any = Decrypt(this.user['emplid']);
+  emplid = this.user?Decrypt(this.user['emplid']):'';
   p_correo: any = this.user['email2'];
   solicitudes:Array<any> = [];
   vacaciones:Array<any> = [];
@@ -40,7 +40,7 @@ export class VacacionesComponent implements OnInit {
 		private docenteS: DocenteService,
     private miDatePipe: DatePipe,
     private toastr: ToastrService) { 
-		this.cod_company = this.session.getItem('cod_company');
+      this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];		
 	}
 

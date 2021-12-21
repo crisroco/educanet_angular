@@ -17,8 +17,8 @@ export class ReunionesDocenteComponent implements OnInit {
   cod_company: any;
 	config_initial: any;
 	user = this.session.getObject('user');
-	emplid = Decrypt(this.user['emplid']);
-	emplid_real = Decrypt(this.user['emplid_real']);
+	emplid = this.user?Decrypt(this.user['emplid']):'';
+	emplid_real = this.user?Decrypt(this.user['emplid_real']):'';
 	oprid = atob(this.user['oprid']);
 	codigo_referencia:string='';
 
@@ -56,7 +56,7 @@ export class ReunionesDocenteComponent implements OnInit {
 		private docenteS: DocenteService,
     public http:HttpClient,
     private toastr: ToastrService) { 
-		this.cod_company = this.session.getItem('cod_company');
+    this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];		
 	}
 

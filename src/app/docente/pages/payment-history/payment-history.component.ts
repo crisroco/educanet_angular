@@ -15,8 +15,8 @@ export class PaymentHistoryComponent implements OnInit {
 	cod_company: any;
 	config_initial: any;
 	user = this.session.getObject('user');
-	emplid = Decrypt(this.user['emplid']);
-	emplid_real = Decrypt(this.user['emplid_real']);
+	emplid = this.user?Decrypt(this.user['emplid']):'';
+	emplid_real = this.user?Decrypt(this.user['emplid_real']):'';
 	data: any = {
 		codigoCompania: '',
 		codigoEmpleado: '',
@@ -31,13 +31,15 @@ export class PaymentHistoryComponent implements OnInit {
 	constructor( private session: SessionService,
 		private docenteS: DocenteService,
 		private router: Router ) {
-		this.cod_company = this.session.getItem('cod_company');
+			this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 		this.data.codigoCompania = this.cod_company;
 		this.data.codigoEmpleado = this.emplid;
 	}
 
 	ngOnInit() {
+		this.loading = true;
+		this.loading = false;
 	}
 
 	downloadPayment(){
@@ -46,7 +48,6 @@ export class PaymentHistoryComponent implements OnInit {
 		this.docenteS.getPayment(this.data)
 		.then(res => {
 			this.loading = false;
-			console.log(res);
 			if(res.type == "application/json"){
 				var reader = new FileReader();
 				reader.addEventListener("loadend", () => {

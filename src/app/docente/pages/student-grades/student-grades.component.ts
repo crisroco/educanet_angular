@@ -30,8 +30,8 @@ export class StudentGradesComponent implements OnInit {
 	message: string = '';
 	messageError: string = '';
 	user = this.session.getObject('user');
-	emplid = Decrypt(this.user['emplid']);
-	emplid_real = Decrypt(this.user['emplid_real']);
+	emplid = this.user?Decrypt(this.user['emplid']):'';
+	emplid_real = this.user?Decrypt(this.user['emplid_real']):'';
 	courseFormule: string;
 	cod_company: string;
 	config_initial: any;
@@ -56,7 +56,7 @@ export class StudentGradesComponent implements OnInit {
     	private deviceS: DeviceDetectorService,
     	private loginS: LoginService,
 		private session: SessionService ) {
-		this.cod_company = this.session.getItem('cod_company');
+		this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 		this.realRoute.paramMap.subscribe((query: any) => {
 			var parts = decodeURIComponent(query.params.idclass).split('|');
@@ -160,8 +160,7 @@ export class StudentGradesComponent implements OnInit {
 
 	getToken(){
 		this.loading = true;
-		this.docenteS.getToken({})
-		// this.docenteS.getToken({ 'emplid': this.emplid,  'numero': '992330712', 'email': 'eacostac@cientifica.edu.pe'})
+		this.docenteS.getToken({'numero': this.course.PHONE})
 		.then(res => {
 			this.loading = false;
 			if(res.data){
@@ -304,10 +303,8 @@ export class StudentGradesComponent implements OnInit {
 				}
 		    });
 		    this.allStudents = JSON.parse(JSON.stringify(this.students));
-			console.log(dataListStudentGrades);
 		    this.docenteS.updateGrade({ 'data': JSON.stringify(dataListStudentGrades) })
 			.then(res => {
-				console.log(res.length);
 				this.sendLog(AppSettings.BASE_SISE_LARAVEL + '/actulizar_notas_registradas', JSON.stringify(dataListStudentGrades), res);
 				if(res.ok || res.length == 0) { this.getGradeRecordClass(); this.gradeName = ''; this.toastr.success('Se registraron las calificaciones correctamente.'); this.loading = false; }
 				else { this.toastr.error('Hubo uno o varios errores al registrar las calificaciones, vuelva a intentarlo.'); this.loading = false; }

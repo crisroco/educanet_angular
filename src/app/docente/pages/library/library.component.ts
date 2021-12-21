@@ -41,8 +41,8 @@ export class LibraryComponent implements OnInit {
 	cod_company: any;
 	config_initial: any;
 	user = this.session.getObject('user');
-	emplid = Decrypt(this.user['emplid']);
-	emplid_real = Decrypt(this.user['emplid_real']);
+	emplid = this.user?Decrypt(this.user['emplid']):'';
+	emplid_real = this.user?Decrypt(this.user['emplid_real']):'';
 	// oprid = atob(this.user['oprid']);
 	isOpen = true;
 	dataTeacher: any;
@@ -212,7 +212,7 @@ export class LibraryComponent implements OnInit {
 				libraries: [
 					{
 						img: 'https://docs.cientifica.edu.pe/crm/elibro.png',
-						url: 'https://elibro.net/es/lc/bibliotecasise/inicio',
+						url: 'https://elibro.net/es/lc/bibliotecasise/login_usuario/',
 						width: '100px',
 						description: ''
 					}
@@ -225,7 +225,7 @@ export class LibraryComponent implements OnInit {
 	constructor(private session: SessionService,
 		private loginS: LoginService,
 		private docenteS: DocenteService) {
-		this.cod_company = this.session.getItem('cod_company');
+			this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 	}
 

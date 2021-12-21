@@ -14,9 +14,10 @@ export class WeeklyScheduleComponent implements OnInit {
 	cod_company: any;
 	config_initial: any;
 	user = this.session.getObject('user');
-	emplid = Decrypt(this.user['emplid']);
-	emplid_real = Decrypt(this.user['emplid_real']);
+	emplid = this.user?Decrypt(this.user['emplid']):'';
+	emplid_real = this.user?Decrypt(this.user['emplid_real']):'';
 	realDate: any;
+	loading: boolean = false;
 	classrooms: any;
 	firstDayWeek: any;
 	lastDayWeek: any;
@@ -53,8 +54,9 @@ export class WeeklyScheduleComponent implements OnInit {
 	}
 
 	constructor(private session: SessionService,
-		private docenteS: DocenteService) { 
-		this.cod_company = this.session.getItem('cod_company');
+		private docenteS: DocenteService) {
+		this.loading = true;
+		this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 	}
 
@@ -87,6 +89,7 @@ export class WeeklyScheduleComponent implements OnInit {
 			for(var kHour in objHours){
 				this.listHours.push(objHours[kHour]);
 			}
+			this.loading = false;
 		}, error => { });
 	}
 

@@ -44,12 +44,12 @@ export class DocenteService {
     }
     //FIN VACACIONES EDUCANET BACK
 
-    public getClassDocentes(data: any): Promise<any> {
+    public async getClassDocentes(data: any): Promise<any> {
         var uri = '';
         this.cod_company = this.session.getItem('cod_company');
         if(this.cod_company == '002') uri = AppSettings.BASE_UCSUR_LARAVEL_AUTH + '/clase-cientifica-docentes';
         else uri = AppSettings.BASE_SISE_LARAVEL + '/clase-docentes';
-        return this.http.post(uri, data).toPromise();
+        return await this.http.post(uri, data).toPromise();
     }
 
     public getCourseFormule(data: any): Promise<any>{
@@ -245,7 +245,7 @@ export class DocenteService {
     }
 
     public getLinkZoom(cicle, myclass, date, section, teacher): Promise<any> {
-        let url = "https://cientificavirtual.cientifica.edu.pe//mod/zoom/client/zoom_link.php?strm=";
+        let url = "https://cientificamoodle.cientifica.edu.pe//mod/zoom/client/zoom_link.php?strm=";
         if(cicle == '1072' || cicle == '1073' || cicle == '1117' || cicle == '1118' || cicle == '1156' || cicle == '1157' || cicle == '2220' || cicle == '2222' || cicle == '2225' || cicle == '2228' || cicle == '2235' || cicle == '2237' || cicle == '2238' || cicle == '2210' || cicle == '2224' || cicle == '0965' || cicle == '2236' || cicle == '1031' || cicle == '1128' || cicle == '2221' || cicle == '1030' || cicle == '2228' || cicle == '2226' || cicle == '1116' || cicle == '2239' || cicle == '1125' || cicle == '1081'){
             url = "https://aulavirtualcpe.cientifica.edu.pe/mod/zoom/client/zoom_link.php?strm=";
         }

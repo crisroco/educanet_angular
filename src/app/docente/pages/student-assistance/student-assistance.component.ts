@@ -15,8 +15,8 @@ import { DocenteService } from '../../../services/docente.service';
 })
 export class StudentAssistanceComponent implements OnInit {
 	user = this.session.getObject('user');
-	emplid = Decrypt(this.user['emplid']);
-	emplid_real = Decrypt(this.user['emplid_real']);
+	emplid = this.user?Decrypt(this.user['emplid']):'';
+	emplid_real = this.user?Decrypt(this.user['emplid_real']):'';
 	cod_company: string;
 	config_initial: any;
 	course:any;
@@ -54,7 +54,7 @@ export class StudentAssistanceComponent implements OnInit {
     	private deviceS: DeviceDetectorService,
 		private loginS: LoginService,
 		private session: SessionService ) {
-		this.cod_company = this.session.getItem('cod_company');
+		this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 		this.realRoute.paramMap.subscribe((query: any) => {
 			var parts = decodeURIComponent(query.params.parts).split('|');
@@ -76,7 +76,6 @@ export class StudentAssistanceComponent implements OnInit {
 			this.data_delegates.CRSE_ID = this.course.COD_CURSE;
 			this.data_delegates.SESSION_CODE = this.course.SESSION_CODE;
 			this.data_delegates.emplid = this.emplid;
-			console.log(this.course);
 		});
 		this.data_browser = this.deviceS.getDeviceInfo();
 		this.loginS.getIPAddress()
