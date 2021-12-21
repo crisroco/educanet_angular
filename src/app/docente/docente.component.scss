@@ -1,3 +1,26 @@
 #formulario1 {
     display: none;
 }
+.header-cust{
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.name-head{
+    width: 44px;
+    height: 44px;
+    border-radius: 50px;
+    border: solid 1px white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    img{
+        position: absolute;
+        padding-left: 80px;
+    }
+}
+.bg-dark-custom{
+    background-color: #000;
+}
