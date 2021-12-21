@@ -32,17 +32,17 @@
                     luego ingresa tu usuario y contraseña.
                 </p>
                 <mat-radio-group formControlName="empresa" aria-label="Select an option" class="d-sm-flex justify-content-between mb-4">
-                    <mat-radio-button class="d-block d-sm-inline" color="primary" value="002">Universidad Cientifica de Sur</mat-radio-button>
-                    <mat-radio-button color="primary" value="003">Instituto SISE</mat-radio-button>
+                    <mat-radio-button class="d-block d-sm-inline mb-3 mb-sm-0" color="accent" value="002">Universidad Cientifica de Sur</mat-radio-button>
+                    <mat-radio-button color="accent" value="003">Instituto SISE</mat-radio-button>
                 </mat-radio-group>
                 
-                <mat-form-field class="w-100" appearance="outline">
+                <mat-form-field class="w-100 mt-3 mt-md-0" color="accent" appearance="outline">
                     <mat-label>Usuario</mat-label>
                     <input type="text" oninput="this.value = this.value.toUpperCase()" formControlName="email" matInput autocomplete="off">
                     <mat-error>Este campo es obligatorio</mat-error>
                 </mat-form-field>
 
-                <mat-form-field class="w-100" appearance="outline">
+                <mat-form-field class="w-100" color="accent" appearance="outline">
                     <mat-label>Contraseña</mat-label>
                     <input formControlName="password" [type]="icon_password?'text':'password'" matInput autocomplete="off">
                     <img matSuffix *ngIf="icon_password" (click)="icon_password=false" src="assets/new-login/ic_eye_on.svg" alt="e" class="mb-3 cursor-pointer">
@@ -52,11 +52,11 @@
                 
                 <button mat-raised-button type="submit" color="primary" class="w-100 hover-custom py-1 mb-4">Iniciar Sesión</button>
 
-                <div class="text-center">
+                <div class="text-center mb-4 mb-md-0">
                     <a [href]="forgotPasswordUrl" target="_blank" class="d-block mb-3 mb-md-5 font-weight-bold">¿Olvidaste tu contraseña?</a>
-                    <span>¿Aún no eres docente? <a href="https://incorporacion.educad.pe/" target="_blank" class="font-weight-bold">Regístrate aquí</a></span>
+                    <span>¿Aún no eres docente? <br class="d-block d-md-none"> <a href="https://incorporacion.educad.pe/" target="_blank" class="font-weight-bold">Regístrate aquí</a></span>
                 </div>
-                <div class="text-right d-block d-md-none mb-2">
+                <div class="text-right d-block d-md-none mb-2 wsp-fixed">
                     <mat-menu #appMenu="matMenu" xPosition="before">
                         <div style="font-weight: 600; color: #262626; font-size: 14px;" class="pl-4 pt-3 pb-2">
                             ¿Necesitas Ayuda?
@@ -87,19 +87,19 @@
             </form>
         </div>
         <div class="content-urls d-block d-md-none">
-            <div class="content-text bg-sise">
+            <div class="content-text bg-sise" (click)="goToLinks('sise')">
                 <img src="assets/new-login/sise-icon.svg" alt="S">
                 <label> Aula Virtual
                 Instituto SISE</label>
                 <img src="assets/new-login/ic_chevron_right.svg" class="float-right" alt=">">
             </div>
-            <div class="content-text bg-ucs">
+            <div class="content-text bg-ucs" (click)="goToLinks('ucs')">
                 <img src="assets/new-login/ucs-icon.svg" alt="S">
                 <label>Aula Virtual
                 Científica Pre/CPE</label>
                 <img src="assets/new-login/ic_chevron_right.svg" class="float-right" alt=">">
             </div>
-            <div class="content-text bg-posgrado">
+            <div class="content-text bg-posgrado" (click)="goToLinks('pos')">
                 <img src="assets/new-login/pos-icon.svg" alt="S">
                 <label>Aula Virtual
                 Científica Posgrado</label>

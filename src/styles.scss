@@ -16,8 +16,15 @@ $my-primary: (
     50: #fff
   )
 );
+
+$my-secondary: (
+  50: #0045FF,
+  contrast: (
+    50: #fff
+  )
+);
 $educad-app-primary: mat-palette($my-primary, 50);
-$educad-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+$educad-app-accent:  mat-palette($my-secondary, 50);
 
 // The warn palette is optional (defaults to red).
 $educad-app-warn:    mat-palette($mat-red);
