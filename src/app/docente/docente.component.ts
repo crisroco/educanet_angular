@@ -76,6 +76,8 @@ export class DocenteComponent implements OnInit {
 			// this.piezaModalSise.open();
 			// this.piezaModal.open();
 			// this.piezaModalCientifica.open();
+		} else {
+			this.piezaModalSise.open();
 		}
 		if (!this.user) {
 			this.router.navigate(['/login']);
