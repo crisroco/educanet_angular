@@ -1,34 +1,235 @@
-<div [class.bg-ucs]="config_initial.code=='ucs'" [class.bg-dark-custom]="config_initial.code=='sise'" class="header-cust">
-    <img *ngIf="config_initial.code=='ucs'" src="assets/new-login/ucs_logo.svg" alt="">
-    <img *ngIf="config_initial.code!='ucs'" src="assets/new-login/sise_logo.svg" alt="">
-    <div class="text-white d-flex align-items-center">
+<div [class.bg-ucs]="config_initial.code=='ucs'" [class.bg-dark-custom]="config_initial.code=='sise'"
+    class="header-cust">
+
+    <div *ngIf="!opened" class="p-2" (click)="drawer.toggle()" matRipple
+        style="cursor: pointer; margin-right: 40px; border-radius: 50%; margin-left: -40px;">
+        <mat-icon svgIcon="ic_menu"></mat-icon>
+    </div>
+    <div *ngIf="opened && mode=='over'" class="p-2" (click)="drawer.toggle()" matRipple
+        style="cursor: pointer; margin-right: 40px; border-radius: 50%; margin-left: -40px;">
+        <mat-icon svgIcon="ic_close"></mat-icon>
+    </div>
+
+    <img *ngIf="config_initial.code=='ucs'" class="mr-auto mr-lg-0" src="assets/new-login/ucs_logo.svg" alt="">
+    <img *ngIf="config_initial.code!='ucs'" class="mr-auto mr-lg-0" src="assets/new-login/sise_logo.svg" alt="">
+    <div *ngIf="isdesktop" class="text-white d-flex align-items-center">
         <div class="mr-4">
-            Carlota Monteiro
+            {{user.abr}}
             <br>
-            ID: 10047813
+            ID: {{emplid_real}}
         </div>
-        <div class="name-head" [matMenuTriggerFor]="appMenu">
-            CM <img src="assets/new-login/up_chevron.svg" alt="">
+        <div class="name-head" (menuOpened)="stateMenu=true" (menuClosed)="stateMenu=false"
+            [matMenuTriggerFor]="appMenu">
+            {{user.initial_names}} <img [class.rotate]="!stateMenu" src="assets/new-login/up_chevron.svg" alt="">
         </div>
 
         <mat-menu #appMenu="matMenu" class="mt-2" xPosition="before">
-            <div class="px-5 pt-3 pb-4">
-                <strong>Carla Monterio</strong>
+            <div class="px-5 pt-3 pb-4" style="color: #637381; font-size: 14px;">
+                <strong style="color: #212B36; font-weight: 500; font-size: 16px;">{{user.abr}}</strong>
                 <br>
-                ID: 10047813
+                ID: {{emplid_real}}
                 <br>
-                cmonteiro@cientifica.edu.pe
+                {{(user.email2 || user.email) | lowercase }}
             </div>
             <mat-divider></mat-divider>
             <div class="text-center px-5 pt-4 pb-3">
-                <button class="w-100" mat-stroked-button>Cerrar sessiòn</button>
+                <button class="w-100" style="color: #212B36;" (click)="logout()" mat-stroked-button>Cerrar
+                    sesión</button>
             </div>
-          </mat-menu>
+        </mat-menu>
     </div>
 </div>
+
+<mat-drawer-container class="example-container" autosize>
+
+    <mat-drawer #drawer class="example-sidenav" [class.w-100]="!isdesktop" [class.w-300]="isdesktop" [class.bg-ucs-desktop]="isdesktop && config_initial.code=='ucs'"
+        [class.bg-ucs-mobile]="!isdesktop && config_initial.code=='ucs'"
+        [class.bg-sise-desktop]="isdesktop && config_initial.code=='sise'"
+        [class.bg-sise-mobile]="!isdesktop && config_initial.code=='sise'"
+        [class.sidenav-content-ucs]="config_initial.code=='ucs'"
+        [class.sidenav-content-sise]="config_initial.code=='sise'" [opened]="opened" (openedStart)="opened=true"
+        (closedStart)="opened=false" [mode]="mode">
+
+        <div class="content-title">
+            GESTIÓN DOCENTE
+        </div>
+
+        <div class="content-item" routerLinkActive="active" routerLink="/docente/docentes-marcacion">
+            <mat-icon class="btn-icon" svgIcon="ic_clock_outline"></mat-icon>
+            Marcación de hoy
+        </div>
+        <div class="content-item" routerLinkActive="active" routerLink="/docente/docentes-historico_marcacion">
+            <mat-icon class="btn-icon" svgIcon="ic_elements"></mat-icon>
+            Historial de marcación
+        </div>
+
+        <div class="content-item">
+            <mat-icon class="btn-icon" svgIcon="ic_videocam"></mat-icon>
+            Aula Virtual Canvas
+        </div>
+
+        <div class="content-item" routerLinkActive="active" routerLink="/docente/docentes-cientifica">
+            <mat-icon class="btn-icon" svgIcon="ic_book"></mat-icon>
+            Mis cursos
+        </div>
+
+        <div class="content-item" routerLinkActive="active" routerLink="/docente/docentes-horario">
+            <mat-icon class="btn-icon" svgIcon="ic_booking"></mat-icon>
+            Mi horario
+        </div>
+
+        <div class="content-item-expand">
+            <div class="expand-content-items" (click)="expandContentSub(contentSub1)">
+                <mat-icon class="btn-icon" svgIcon="ic_check_outline"></mat-icon>
+                Registrar disponibilidad
+                <mat-icon class="btn-icon ml-auto" svgIcon="ic_chevron_right"></mat-icon>
+            </div>
+            <div class="d-none" #contentSub1>
+                <div class="content-sub-item" routerLinkActive="active-sub-item" routerLink="/docente/cursos-clases">
+                    <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
+                    Disponibilidad cursos
+                </div>
+                <div class="content-sub-item" routerLinkActive="active-sub-item" routerLink="/docente/horario-virtual">
+                    <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
+                    Disponibilidad horarios
+                </div>
+            </div>
+        </div>
+
+        <div class="content-item-expand">
+            <div class="expand-content-items" (click)="expandContentSub(contentSub2)">
+                <mat-icon class="btn-icon" svgIcon="ic_copy"></mat-icon>
+                Mis Trámites
+                <mat-icon class="btn-icon ml-auto" svgIcon="ic_chevron_right"></mat-icon>
+            </div>
+            <div class="d-none" #contentSub2>
+                <div class="content-sub-item" routerLinkActive="active-sub-item"
+                    routerLink="/docente/historial-boletas">
+                    <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
+                    Historial de boletas
+                </div>
+                <div *ngIf="flag_vacaciones" class="content-sub-item" routerLinkActive="active-sub-item"
+                    routerLink="/docente/vacaciones">
+                    <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
+                    Solicitar vacaciones
+                </div>
+                <div class="content-sub-item" routerLinkActive="active-sub-item" routerLink="/docente/falta aqui">
+                    <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
+                    Certificado de trabajo
+                </div>
+            </div>
+        </div>
+
+        <div class="content-item-expand">
+            <div class="expand-content-items" (click)="expandContentSub(contentSub3)">
+                <mat-icon class="btn-icon" svgIcon="ic_arrow_right"></mat-icon>
+                Tutoriales
+                <mat-icon class="btn-icon ml-auto" svgIcon="ic_chevron_right"></mat-icon>
+            </div>
+            <div class="d-none" #contentSub3>
+                <div class="content-sub-item" (click)="openTab('https://vimeo.com/555819732')">
+                    <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
+                    Sobre trámites
+                </div>
+                <div class="content-sub-item" (click)="openTab('https://vimeo.com/559086745')">
+                    <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
+                    Sobre boletas
+                </div>
+            </div>
+        </div>
+
+        <div class="content-item" (click)="getDataRemotex()">
+            <mat-icon class="btn-icon" svgIcon="ic_bank"></mat-icon>
+            Biblioteca
+        </div>
+
+        <div class="content-item" (click)="openTab('https://mail.office365.com')">
+            <mat-icon class="btn-icon" svgIcon="ic_mail"></mat-icon>
+            Correo Científica
+        </div>
+
+        <div class="content-title">
+            MI PERFIL
+        </div>
+
+        <div class="content-item" (click)="goIncorporacion()">
+            <mat-icon class="btn-icon" svgIcon="ic_person"></mat-icon>
+            Curriculum vitae
+        </div>
+
+        <div class="content-item" routerLinkActive="active" routerLink="/docente/resultados-evaluacion">
+            <mat-icon class="btn-icon" svgIcon="ic_edit"></mat-icon>
+            Evaluación docente
+        </div>
+
+        <div class="content-item" (click)="goTraining()">
+            <mat-icon class="btn-icon" svgIcon="ic_trophy"></mat-icon>
+            Capacitación virtual
+        </div>
+
+        <div class="content-title">
+            GRUPO EDUCA-D
+        </div>
+
+        <div class="content-item" (click)="openTab('http://cultura.educad.pe/')">
+            <mat-icon class="btn-icon" svgIcon="ic_user_group"></mat-icon>
+            ¿Quienes somos?
+        </div>
+
+        <div class="content-item"
+            (click)="openTab('https://grupoeducad.sharepoint.com/sites/RepositorioProceso/SitePages/RepositorioProceso.aspx')">
+            <mat-icon class="btn-icon" svgIcon="ic_file"></mat-icon>
+            Manual y procedimientos
+        </div>
+
+        <div class="content-item-expand">
+            <div class="expand-content-items" (click)="expandContentSub(contentSub4)">
+                <mat-icon class="btn-icon" svgIcon="ic_star_border"></mat-icon>
+                Canal de ética
+                <mat-icon class="btn-icon ml-auto" svgIcon="ic_chevron_right"></mat-icon>
+            </div>
+            <div class="d-none" #contentSub4>
+                <div class="content-sub-item"
+                    (click)="openTab('https://grupoeducad.sharepoint.com/sites/RepositorioProceso/SitePages/doc/DGT-RES-POL-01%20C%C3%B3digo%20de%20%C3%89tica.pdf')">
+                    <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
+                    Código de ética
+                </div>
+                <div class="content-sub-item" routerLinkActive="active-sub-item" routerLink="/docente/denuncia">
+                    <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
+                    Ingresar denuncia
+                </div>
+
+                <div class="content-sub-item"
+                    (click)="openTab('https://grupoeducad.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=p&chid=bb8aab6b-b381-4a09-b6c2-e185835c743b&vid=b63a720d-4a5f-440e-801a-9eeb15f3d4a9')">
+                    <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
+                    Tutorial denuncia
+                </div>
+            </div>
+        </div>
+
+        <mat-divider *ngIf="!isdesktop" class="my-4" style="background-color: #fff;"></mat-divider>
+
+        <div *ngIf="!isdesktop" class="content-item" (click)="logout()">
+            <mat-icon class=" btn-icon mr-3">logout</mat-icon>
+            Cerrar Sesión
+        </div>
+
+    </mat-drawer>
+
+    <div class="example-sidenav-content pt-4 px-4">
+
+        <router-outlet></router-outlet>
+    
+        <div class="mt-auto footer-custom">
+            © 2021 Grupo Educa_d -  Todos los derechos reservados 
+        </div>
+    </div>
+
+</mat-drawer-container>
+
 <!-- <div class="bg-gray container-fluid">
     <div class="row py-2"> -->
-        <!--<div class="col-md-12 col-lg-3 pr-3">
+<!--<div class="col-md-12 col-lg-3 pr-3">
             <div class="py-3 bg-white full-content rounded-1 d-none d-lg-block">
                  <div class="col-12 ">
                     <div class="row justify-content-center mt-5 mb-4">
@@ -119,13 +320,13 @@
             </div>
         </div>
         -->
-        <!-- <div class="col-md-12 col-lg-9 pl-3"> -->
-            <!-- <div class="panel mb-2">
+<!-- <div class="col-md-12 col-lg-9 pl-3"> -->
+<!-- <div class="panel mb-2">
                 <img *ngIf="cod_company == '002'" class="rounded-1" alt="" src="assets/bck_3.jpg" width="100%">
             </div> -->
 
-            <router-outlet></router-outlet>
-        <!-- </div>
+<!-- <router-outlet></router-outlet> -->
+<!-- </div>
     </div>
 </div> -->
 
@@ -145,20 +346,32 @@
     </div>
 </div> -->
 
-<form target="_blank" action="https://cientifica.remotexs.co/alumni/login" method=post [formGroup]="digitalLibraryData" #digitalData id="formulario1">
-    <input formControlName="DigitalLibraryAttribute1" name="DigitalLibraryAttribute1" id="DigitalLibraryAttribute1" type="text" /><br />
-    <input formControlName="DigitalLibraryAttribute2" name="DigitalLibraryAttribute2" id="DigitalLibraryAttribute2" type="text" /><br />
-    <input formControlName="DigitalLibraryAttribute3" name="DigitalLibraryAttribute3" id="DigitalLibraryAttribute3" type="text" /><br />
-    <input formControlName="DigitalLibraryAttribute4" name="DigitalLibraryAttribute4" id="DigitalLibraryAttribute4" type="text" /><br />
-    <input formControlName="DigitalLibraryAttribute5" name="DigitalLibraryAttribute5" id="DigitalLibraryAttribute5" type="text" /><br />
-    <input formControlName="DigitalLibraryAttribute6" name="DigitalLibraryAttribute6" id="DigitalLibraryAttribute6" type="text" /><br />
-    <input formControlName="DigitalLibraryAttribute7" name="DigitalLibraryAttribute7" id="DigitalLibraryAttribute7" type="text" /><br />
-    <input formControlName="DigitalLibraryAttribute8" name="DigitalLibraryAttribute8" id="DigitalLibraryAttribute8" type="text" /><br />
-    <input formControlName="DigitalLibraryAttribute9" name="DigitalLibraryAttribute9" id="DigitalLibraryAttribute9" type="text" /><br />
-    <input formControlName="DigitalLibraryAttribute10" name="DigitalLibraryAttribute10" id="DigitalLibraryAttribute10" type="text" /><br />
+<form target="_blank" action="https://cientifica.remotexs.co/alumni/login" method=post [formGroup]="digitalLibraryData"
+    #digitalData id="formulario1">
+    <input formControlName="DigitalLibraryAttribute1" name="DigitalLibraryAttribute1" id="DigitalLibraryAttribute1"
+        type="text" /><br />
+    <input formControlName="DigitalLibraryAttribute2" name="DigitalLibraryAttribute2" id="DigitalLibraryAttribute2"
+        type="text" /><br />
+    <input formControlName="DigitalLibraryAttribute3" name="DigitalLibraryAttribute3" id="DigitalLibraryAttribute3"
+        type="text" /><br />
+    <input formControlName="DigitalLibraryAttribute4" name="DigitalLibraryAttribute4" id="DigitalLibraryAttribute4"
+        type="text" /><br />
+    <input formControlName="DigitalLibraryAttribute5" name="DigitalLibraryAttribute5" id="DigitalLibraryAttribute5"
+        type="text" /><br />
+    <input formControlName="DigitalLibraryAttribute6" name="DigitalLibraryAttribute6" id="DigitalLibraryAttribute6"
+        type="text" /><br />
+    <input formControlName="DigitalLibraryAttribute7" name="DigitalLibraryAttribute7" id="DigitalLibraryAttribute7"
+        type="text" /><br />
+    <input formControlName="DigitalLibraryAttribute8" name="DigitalLibraryAttribute8" id="DigitalLibraryAttribute8"
+        type="text" /><br />
+    <input formControlName="DigitalLibraryAttribute9" name="DigitalLibraryAttribute9" id="DigitalLibraryAttribute9"
+        type="text" /><br />
+    <input formControlName="DigitalLibraryAttribute10" name="DigitalLibraryAttribute10" id="DigitalLibraryAttribute10"
+        type="text" /><br />
 </form>
 
-<ngx-smart-modal #ethnicityModal identifier="ethnicityModal" [closable]="false" [escapable]="false" [dismissable]="false" [customClass]="''">
+<ngx-smart-modal #ethnicityModal identifier="ethnicityModal" [closable]="false" [escapable]="false"
+    [dismissable]="false" [customClass]="''">
     <div class="text-center mb-3">
         <h5>Actualización de Datos</h5>
     </div>
@@ -169,9 +382,9 @@
         <div class="form-group">
             <label class="form-label"> Etnía a la que pertenece </label>
             <select class="form-control" name="etnia" [(ngModel)]="realEthnicity">
-  				<option value=""> SELECCIONE </option>
-  				<option *ngFor="let ethnicity of ethnicities" value="{{ethnicity.value}}"> {{ethnicity.name}} </option>
-  			</select>
+                <option value=""> SELECCIONE </option>
+                <option *ngFor="let ethnicity of ethnicities" value="{{ethnicity.value}}"> {{ethnicity.name}} </option>
+            </select>
         </div>
 
         <div *ngIf="realEthnicity == '08'" class="form-group">
@@ -186,27 +399,33 @@
     </div>
 </ngx-smart-modal>
 
-<ngx-smart-modal #surveyModal identifier="surveyModal" [closable]="false" [escapable]="true" [dismissable]="true" [customClass]="''">
+<ngx-smart-modal #surveyModal identifier="surveyModal" [closable]="false" [escapable]="true" [dismissable]="true"
+    [customClass]="''">
     <div class="mb-3 row justify-content-between pb-2 bd-b-1 bd-{{config_initial.code}}">
         <h5 class=""> <strong> Encuesta 2021 </strong> </h5>
-        <a (click)="surveyModal.close()" class="pointer"><i class="fa fa-times text-{{config_initial.code}} text-l"></i></a>
+        <a (click)="surveyModal.close()" class="pointer"><i
+                class="fa fa-times text-{{config_initial.code}} text-l"></i></a>
     </div>
     <div class="h-fn scroll fullModal px-2">
-        <a target="_blank" href="https://es.surveymonkey.com/r/53NVRQP"><img class="w-100" src="./assets/Encuesta3.png"></a>
-        <p class="mt-2 text-center"><a class="text-{{config_initial.code}}" target="_blank" href="https://es.surveymonkey.com/r/53NVRQP">Ingresar a la encuesta</a></p>
+        <a target="_blank" href="https://es.surveymonkey.com/r/53NVRQP"><img class="w-100"
+                src="./assets/Encuesta3.png"></a>
+        <p class="mt-2 text-center"><a class="text-{{config_initial.code}}" target="_blank"
+                href="https://es.surveymonkey.com/r/53NVRQP">Ingresar a la encuesta</a></p>
     </div>
 </ngx-smart-modal>
 
-<ngx-smart-modal #piezaModal identifier="piezaModal" [closable]="false" [escapable]="true" [dismissable]="true" [customClass]="'smallModal fullModal noBordersModal'">
+<ngx-smart-modal #piezaModal identifier="piezaModal" [closable]="false" [escapable]="true" [dismissable]="true"
+    [customClass]="'smallModal fullModal noBordersModal'">
     <!-- <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDsU0-Jrk6M59I3AhpjCsUG2--CKs6-Zki0RO4um6It0jCXw/viewform" target="_blank"> -->
-        <img class="w-100 rounded-1" src="https://docs.cientifica.edu.pe/miportal_sise/educanet/mba_final.png">
+    <img class="w-100 rounded-1" src="https://docs.cientifica.edu.pe/miportal_sise/educanet/mba_final.png">
     <!-- </a> -->
     <div (click)="piezaModal.close()" class="times-close">
         <img src="./assets/img/times-modal.svg" alt="">
     </div>
 </ngx-smart-modal>
 
-<ngx-smart-modal #piezaModalSise identifier="piezaModalSise" [closable]="false" [escapable]="true" [dismissable]="true" [customClass]="'smallModal fullModal noBordersModal'">
+<ngx-smart-modal #piezaModalSise identifier="piezaModalSise" [closable]="false" [escapable]="true" [dismissable]="true"
+    [customClass]="'smallModal fullModal noBordersModal'">
     <!--<a href="https://aulavirtual.sise.edu.pe" target="_blank"> -->
     <img class="w-100 rounded-1" src="./assets/notice_ucs.png">
     <!--</a>-->
@@ -215,9 +434,11 @@
     </div>
 </ngx-smart-modal>
 
-<ngx-smart-modal #piezaModalCientifica identifier="piezaModalCientifica" [closable]="false" [escapable]="true" [dismissable]="true" [customClass]="'smallModal fullModal noBordersModal'">
+<ngx-smart-modal #piezaModalCientifica identifier="piezaModalCientifica" [closable]="false" [escapable]="true"
+    [dismissable]="true" [customClass]="'smallModal fullModal noBordersModal'">
     <a href="https://forms.gle/MM7YJ2HUnuxMZb2R7" target="_blank">
-        <img class="w-100 rounded-1" src="https://docs.cientifica.edu.pe/miportal_sise/educanet/noticias/encuesta-221121.jpg">
+        <img class="w-100 rounded-1"
+            src="https://docs.cientifica.edu.pe/miportal_sise/educanet/noticias/encuesta-221121.jpg">
     </a>
     <div (click)="piezaModalCientifica.close()" class="times-close">
         <img src="./assets/img/times-modal.svg" alt="">

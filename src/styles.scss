@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -11,23 +11,23 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $my-primary: (
-  50: #040505,
-  contrast: (
-    50: #fff
-  )
+    50: #040505,
+    contrast: (
+        50: #fff,
+    ),
 );
 
 $my-secondary: (
-  50: #0045FF,
-  contrast: (
-    50: #fff
-  )
+    50: #0045ff,
+    contrast: (
+        50: #fff,
+    ),
 );
 $educad-app-primary: mat-palette($my-primary, 50);
-$educad-app-accent:  mat-palette($my-secondary, 50);
+$educad-app-accent: mat-palette($my-secondary, 50);
 
 // The warn palette is optional (defaults to red).
-$educad-app-warn:    mat-palette($mat-red);
+$educad-app-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $educad-app-theme: mat-light-theme($educad-app-primary, $educad-app-accent, $educad-app-warn);
@@ -36,7 +36,7 @@ $educad-app-theme: mat-light-theme($educad-app-primary, $educad-app-accent, $edu
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($educad-app-theme);
-.text-dark{
+.text-dark {
     color: #040505 !important;
 }
 *,
@@ -45,7 +45,8 @@ $educad-app-theme: mat-light-theme($educad-app-primary, $educad-app-accent, $edu
     padding: 0;
 }
 
-html,body {
+html,
+body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     color: #5f5f5f;
@@ -53,7 +54,7 @@ html,body {
     /*line-height: normal;*/
 }
 
-.cursor-pointer{
+.cursor-pointer {
     cursor: pointer;
 }
 
@@ -68,10 +69,10 @@ div.loginModal div.overlay {
     background-color: transparent !important;
 }
 
-div.loginModal .nsm-content{
+div.loginModal .nsm-content {
     padding: 0 !important;
     margin: 0;
-    background: rgba(0,0,0,0)
+    background: rgba(0, 0, 0, 0);
 }
 
 ul,
@@ -106,7 +107,7 @@ li a:not([href]):hover {
 }
 
 .bg-purple {
-    background: #3B0B24;
+    background: #3b0b24;
 }
 
 .bg-gray {
@@ -129,7 +130,6 @@ li a:not([href]):hover {
     background: rgb(52, 188, 88);
 }
 
-
 /* PADDING START */
 
 .pd-2 {
@@ -140,9 +140,7 @@ li a:not([href]):hover {
     padding: 1rem;
 }
 
-
 /* PADDING END */
-
 
 /* BORDER START*/
 
@@ -210,7 +208,7 @@ li a:not([href]):hover {
 }
 
 .rounded-s {
-    border-radius: .5rem;
+    border-radius: 0.5rem;
 }
 
 .rounded-1 {
@@ -255,9 +253,7 @@ li a:not([href]):hover {
     width: calc(100% - 4px) !important;
 }
 
-
 /* BORDER END*/
-
 
 /* FLEX START */
 
@@ -265,9 +261,7 @@ li a:not([href]):hover {
     flex-wrap: nowrap;
 }
 
-
 /* FLEX END */
-
 
 /* SCROLL START */
 
@@ -285,9 +279,7 @@ li a:not([href]):hover {
     max-height: 600px;
 }
 
-
 /* SCROLL END */
-
 
 /* MODAL */
 
@@ -305,7 +297,7 @@ li a:not([href]):hover {
 
 .custom-modal {
     button.nsm-dialog-btn-close {
-        color: #FFF;
+        color: #fff;
     }
     div.nsm-content {
         padding: 0 !important;
@@ -318,7 +310,6 @@ li a:not([href]):hover {
     }
 }
 
-
 /* INPUT StART */
 
 .ipt-small {
@@ -329,7 +320,7 @@ li a:not([href]):hover {
     position: absolute;
     left: 5px;
     top: -7px;
-    content: '\02143';
+    content: "\02143";
     font-weight: 900;
     color: #5cb85c;
     font-size: 20px;
@@ -351,9 +342,7 @@ li a:not([href]):hover {
     background-color: #d1d1d1;
 }
 
-
 /* INPUT END */
-
 
 /* INPUT SWITCH SI NO  START*/
 
@@ -404,14 +393,14 @@ li a:not([href]):hover {
     content: "SI";
     padding-left: 10px;
     background-color: #5cb85c;
-    color: #FFFFFF;
+    color: #ffffff;
     text-align: left;
 }
 
 .onoffswitch-inner:after {
     content: "NO";
     padding-right: 10px;
-    background-color: #EEEEEE;
+    background-color: #eeeeee;
     color: #999999;
     text-align: right;
 }
@@ -420,7 +409,7 @@ li a:not([href]):hover {
     display: block;
     width: 18px;
     margin: 6px;
-    background: #FFFFFF;
+    background: #ffffff;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -430,14 +419,13 @@ li a:not([href]):hover {
     transition: all 0.3s ease-in 0s;
 }
 
-.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
     margin-left: 0;
 }
 
-.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
     right: 0px;
 }
-
 
 /* INPUT SWITCH SI NO  END*/
 
@@ -471,7 +459,6 @@ li a:not([href]):hover {
     color: #e12726;
     border-right: 2px solid #e12726;
 }
-
 
 /*TEXT START*/
 
@@ -513,11 +500,11 @@ li a:not([href]):hover {
 
 .text-wsp,
 a.text-wsp {
-    color: #34BC58;
+    color: #34bc58;
 }
 
 a.text-wsp:hover {
-    color: #44CC68;
+    color: #44cc68;
 }
 
 .text-ucs {
@@ -537,7 +524,6 @@ a.text-wsp:hover {
 .hover-sise:not([href]):hover {
     color: #e12726;
 }
-
 
 /*TEXT END*/
 
@@ -564,22 +550,18 @@ a.text-wsp:hover {
     right: 5px;
 }
 
-
 /* BOX START */
-
 
 /*.box-normal{
 	width: 25px;
 	height: 25px;
 }*/
 
-
 /* BOX END */
 
 .cal-week-view .cal-day-headers span {
     display: none;
 }
-
 
 /* CIRCLE START */
 
@@ -623,9 +605,7 @@ a.text-wsp:hover {
     border-radius: 50%;
 }
 
-
 /* CIRCLE END */
-
 
 /* CLOSE MODAL */
 
@@ -636,7 +616,7 @@ a.text-wsp:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #FFFFFF;
+    color: #ffffff;
     border-radius: 50%;
     position: absolute;
     cursor: pointer;
@@ -665,7 +645,7 @@ a.text-wsp:hover {
     }
 }
 
-@media(max-width: 681px) {
+@media (max-width: 681px) {
     div.loginModal {
         display: none;
     }
@@ -674,5 +654,130 @@ a.text-wsp:hover {
         width: 100%;
     }
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.bg-ucs-mobile {
+    background-color: #204491;
+    color: #fff !important;
+    .content-item, .expand-content-items, .content-sub-item {
+        color: #fff !important;
+    }
+    .btn-icon {
+        svg {
+            path {
+                fill: #fff !important;
+            }
+        }
+    }
+    .active {
+        background-color: rgba(0, 0, 0, 0.2) !important;
+        border-right: solid #f28c35 !important;
+    }
+    .active-sub-item {
+        .btn-icon {
+            svg {
+                circle {
+                    fill: #f28c35 !important;
+                    r: 4;
+                }
+            }
+        }
+    }
+}
+
+.bg-ucs-desktop {
+    .active {
+        color: #0045ff;
+        background-color: #ecf1ff;
+        border-right: solid #22468f;
+        .btn-icon {
+            svg {
+                path {
+                    fill: #0045ff;
+                }
+            }
+        }
+    }
+    .content-item-expand .active-sub-item {
+        .btn-icon {
+            svg {
+                circle {
+                    fill: #0045ff !important;
+                    r: 4;
+                }
+            }
+        }
+    }
+}
+
+.bg-sise-mobile {
+    background-color: #020202;
+    color: #fff !important;
+    .content-item, .expand-content-items, .content-sub-item {
+        color: #9D9D9D !important;
+    }
+    .btn-icon {
+        svg {
+            path {
+                fill: #9D9D9D !important;
+            }
+        }
+    }
+    .active {
+        color: #F2233A !important;
+        .btn-icon {
+                    svg {
+                        path {
+                            fill: #F2233A !important;
+                        }
+                    }
+                }
+    }
+    .active-sub-item {
+        .btn-icon {
+            svg {
+                circle {
+                    fill: #F2233A !important;
+                    r: 4;
+                }
+            }
+        }
+    }
+}
+
+.bg-sise-desktop {
+    .active {
+        color: #f2233a !important;
+        background-color: #F6F7F8 !important;
+        border-right: solid #f2233a;
+        .btn-icon {
+            svg {
+                path {
+                    fill: #f2233a !important;
+                }
+            }
+        }
+    }
+    .content-item-expand .active-sub-item {
+        .btn-icon {
+            svg {
+                circle {
+                    fill: #f2233a !important;
+                    r: 4;
+                }
+            }
+        }
+    }
+}
+
+
+:focus-visible {
+    outline: none !important;
+}
