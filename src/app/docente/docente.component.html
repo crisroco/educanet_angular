@@ -98,7 +98,7 @@
         <div class="col-md-12 col-lg-9 pl-3">
             <div class="panel mb-2">
                 <!-- <a href="https://es.surveymonkey.com/r/53NVRQP" target="_blank"> -->
-                <img *ngIf="cod_company == '002'" class="rounded-1" alt="" src="assets/bck_3.jpg" width="100%">
+                <img *ngIf="cod_company == '002'" class="rounded-1" alt="" src="assets/bck_4.jpg" width="100%">
                 <!-- </a> -->
             </div>
 
@@ -107,17 +107,13 @@
     </div>
 </div>
 
-<div class="position-fixed float-wsp-br row align-items-end flex-column">
+<div *ngIf="cod_company==2" class="position-fixed float-wsp-br row align-items-end flex-column">
     <div class="row flex-column bg-white m-2 p-3 rounded-1 shadow position-relative" *ngIf="showwsp">
         <div class="triangle-b bd-t-white position-absolute float-triangle-br"></div>
         <a href="https://api.whatsapp.com/send?phone=5117071810" target="_blank" class="text-black text-xm p-1"><i class="fa fa-whatsapp text-wsp text-l"></i> Atención Docente ( SAED ) </a>
     </div>
     <div class="text-right">
-        <!-- (click)="showwsp = !showwsp" -->
-        <a *ngIf="cod_company==2" href="https://api.whatsapp.com/send?phone=51988576507" target="_blank" class="row justify-content-center align-items-center pointer">
-            <img style="width: 73px" src="./assets/wsp.svg">
-        </a>
-        <a *ngIf="cod_company!=2" href="https://api.whatsapp.com/send?phone=5117071810" target="_blank" class="row justify-content-center align-items-center pointer">
+        <a href="https://api.whatsapp.com/send?phone=51988576507" target="_blank" class="row justify-content-center align-items-center pointer">
             <img style="width: 73px" src="./assets/wsp.svg">
         </a>
     </div>
