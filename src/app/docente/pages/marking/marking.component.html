@@ -17,7 +17,7 @@
 					<th class="px-3 py-2 align-middle">Fin</th>
 					<th class="px-3 py-2 align-middle">Entrada</th>
 					<th class="px-3 py-2 align-middle">Salida</th>
-					<th class="px-3 py-2 align-middle">Docente</th>
+					<!-- <th class="px-3 py-2 align-middle">Docente</th> -->
 				</tr>
 			</thead>
 			<tbody *ngIf="classrooms && classrooms.length > 0">
@@ -32,9 +32,9 @@
 					<td class="p-1">{{ classroom.MEETING_TIME_END }}</td>
 					<td class="p-1">{{ classroom.MARC_TIME_START || '-' }}</td>
 					<td class="p-1">{{ classroom.MARC_TIME_END || '-' }} </td>
-					<td class="p-1">
+					<<!-- td class="p-1">
 						<button (click)="openRegisterMarking(registerMarkingModal, classroom)" class="btn btn-primary btn-xs"><i class="fa fa-user"></i></button>
-					</td>
+					</td> -->
 				</tr>
 			</tbody>
 			<tbody *ngIf="classrooms && classrooms.length == 0">
