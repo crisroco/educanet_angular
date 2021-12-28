@@ -18,8 +18,8 @@ export class ReunionesDocenteComponent implements OnInit {
 	config_initial: any;
 	user = this.session.getObject('user');
 	emplid = this.user?Decrypt(this.user['emplid']):'';
-	emplid_real = this.user?Decrypt(this.user['emplid_real']):'';
-	oprid = atob(this.user['oprid']);
+	emplid_real = this.user?Decrypt(this.user['emplid_real']):'';  
+	//oprid = atob(this.user['oprid']);
 	codigo_referencia:string='';
 
   public allParametria:Array<any> = [];
@@ -61,6 +61,7 @@ export class ReunionesDocenteComponent implements OnInit {
 	}
 
 	ngOnInit() {
+    console.log(this.user['oprid']);
 		this.loading = true;
     this.docenteS.getSubOrdinadosJefe(this.emplid, this.cod_company)
   	.then(res => {
