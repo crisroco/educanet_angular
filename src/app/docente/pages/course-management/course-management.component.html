@@ -29,7 +29,7 @@
 						<a *ngIf="cod_company != '002'" href="http://aulavirtual.sise.edu.pe/local/wseducad/auth/sso.php?strm={{course.STRM}}&class={{course.CLASS_NBR}}&course={{course.CRES_ID}}&emplid={{emplid_real}}&token=DOCENTE" target="_blank">
 	                      <img src="https://www.smythsys.es/wordpress/wp-content/uploads/2016/09/moodle.jpg" width="25px" />
 	                    </a> -->
-	                    <a class="pointer" (click)="goMoodle(course)">
+	                    <a *ngIf="(cod_company == '002' && (course.INSTITUTION == 'PSTGR' || course.INSTITUTION == 'ESPEC')) || cod_company != '002'" class="pointer" (click)="goMoodle(course)">
 	                    	<img src="https://www.smythsys.es/wordpress/wp-content/uploads/2016/09/moodle.jpg" width="25px" />
 	                    </a>
 					</td>
