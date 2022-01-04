@@ -7,7 +7,7 @@
 		<table class="w-100">
 			<thead class="bg-{{config_initial.code}}">
 				<tr class="text-white text-center text-s">
-					<!-- <th class="px-3 py-2 align-middle">Aula virtual</th> -->
+					<th class="px-3 py-2 align-middle">Aula virtual</th>
 					<th class="px-3 py-2 align-middle">Código - Curso</th>
 					<th class="px-3 py-2 align-middle">Grado - Clase</th>
 					<th class="px-3 py-2 align-middle">Tipo - Sección - Ciclo</th>
@@ -19,20 +19,20 @@
 			</thead>
 			<tbody *ngIf="courses && courses.length > 0">
 				<tr class="text-center text-s {{c < courses.length - 1?'bd-b-1':''}}" *ngFor="let course of courses; let c = 'index'">
-					<!-- <td class="p-1">
-						<a *ngIf="cod_company == '002' && (course.INSTITUTION != 'PSTGR' && course.INSTITUTION != 'ESPEC')" href="http://aulavirtualcpe.cientifica.edu.pe/local/wseducad/auth/sso.php?strm={{course.STRM}}&class={{course.CLASS_NBR2}}&emplid={{emplid}}" target="_blank">
+					<td class="p-1">
+						<!-- <a *ngIf="cod_company == '002' && (course.INSTITUTION != 'PSTGR' && course.INSTITUTION != 'ESPEC')" href="http://aulavirtualcpe.cientifica.edu.pe/local/wseducad/auth/sso.php?strm={{course.STRM}}&class={{course.CLASS_NBR2}}&emplid={{emplid}}" target="_blank">
 							<img src="https://www.smythsys.es/wordpress/wp-content/uploads/2016/09/moodle.jpg" width="25px" />
 						</a>
 						<a *ngIf="cod_company == '002' && (course.INSTITUTION == 'PSTGR' || course.INSTITUTION == 'ESPEC')" href="https://aulavirtualposgrado.cientifica.edu.pe/local/wseducad/auth/sso.php?strm={{course.STRM}}&class={{course.CLASS_NBR2}}&emplid={{emplid}}" target="_blank">
 							<img src="https://www.smythsys.es/wordpress/wp-content/uploads/2016/09/moodle.jpg" width="25px" />
-						</a>
+						</a> -->
 						<a *ngIf="cod_company != '002'" href="http://aulavirtual.sise.edu.pe/local/wseducad/auth/sso.php?strm={{course.STRM}}&class={{course.CLASS_NBR}}&course={{course.CRES_ID}}&emplid={{emplid_real}}&token=DOCENTE" target="_blank">
 	                      <img src="https://www.smythsys.es/wordpress/wp-content/uploads/2016/09/moodle.jpg" width="25px" />
 	                    </a>
-	                    <a *ngIf="(cod_company == '002' && (course.INSTITUTION == 'PSTGR' || course.INSTITUTION == 'ESPEC')) || cod_company != '002'" class="pointer" (click)="goMoodle(course)">
+	                    <!-- <a *ngIf="(cod_company == '002' && (course.INSTITUTION == 'PSTGR' || course.INSTITUTION == 'ESPEC')) || cod_company != '002'" class="pointer" (click)="goMoodle(course)">
 	                    	<img src="https://www.smythsys.es/wordpress/wp-content/uploads/2016/09/moodle.jpg" width="25px" />
-	                    </a>
-					</td> -->
+	                    </a> -->
+					</td>
 					<td class="p-1">{{ (course.CRSE_ID)?course.CRSE_ID:course.CRES_ID }} - {{ course.DESCR }}</td>
 					<td class="p-1">{{ course.ACAD_CAREER }} - {{ course.CLASS_NBR }}</td>
 					<td class="p-1">{{ course.SSR_COMPONENT }} - {{ course.CLASS_SECTION }} - {{ course.STRM }}</td>
