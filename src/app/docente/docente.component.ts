@@ -74,12 +74,12 @@ export class DocenteComponent implements OnInit {
 		if (this.cod_company == '002') {		
 			this.director = this.session.getItem('DI')=='false'?false:true;
 			// this.piezaModalSise.open();
-			this.piezaModal.open();
+			// this.piezaModal.open();
 			// this.surveyModal.open();
 			// this.piezaModalCientifica.open();
 			// this.piezaModalCientifica.open();
 		} else {
-			this.piezaModalSise.open();
+			// this.piezaModalSise.open();
 		}
 		if (!this.user) {
 			this.router.navigate(['/login']);
