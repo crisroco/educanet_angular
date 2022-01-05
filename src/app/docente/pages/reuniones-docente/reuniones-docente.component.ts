@@ -63,6 +63,7 @@ export class ReunionesDocenteComponent implements OnInit {
 	ngOnInit() {
     console.log(this.user['oprid']);
 		this.loading = true;
+    /*
     this.docenteS.getSubOrdinadosJefe(this.emplid, this.cod_company)
   	.then(res => {
   		this.allSubOrdinados = res;
@@ -74,8 +75,10 @@ export class ReunionesDocenteComponent implements OnInit {
                   'compania':this.cod_company, 
                   'subordinados': subordinados 
                  };
-      this.docenteS.getAllColaborators(data)
-      .then((res) => {    
+      */
+      //this.docenteS.getAllColaborators(data)
+      this.docenteS.getAllColaborators(this.cod_company)
+      .then((res) => {  
         this.allColaborators = res['data'];
         this.allColaboratorsOrigen = res['data'];
         this.docenteS.getParametria(this.cod_company)
@@ -88,11 +91,11 @@ export class ReunionesDocenteComponent implements OnInit {
           });
         });      
       });
-
+    /*
   	}, (error)=>{
   		this.toastr.error('Ocurrio un Error, Por favor vuelve a intentarlo');
   	});
-
+    */
 	}
 
   changeArea(input_value){

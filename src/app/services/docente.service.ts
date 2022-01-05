@@ -323,9 +323,15 @@ export class DocenteService {
     } 
 
     public getAllColaborators(data): Promise<any>{
-        return this.http.post(AppSettings.SERVICES_INCORPORACION + '/integradocente/getAllColaboratorsFractalFilter', data).toPromise();
+        return this.http.get(AppSettings.SERVICES_INCORPORACION + '/integradocente/getAllColaboratorsFractal?unidad=' + data).toPromise();
     } 
 
+    /*
+    public getAllColaborators(data): Promise<any>{
+        return this.http.post(AppSettings.SERVICES_INCORPORACION + '/integradocente/getAllColaboratorsFractalFilter', data).toPromise();
+    } 
+    */
+   
     public getDatosOrganizacion(type_search, code?): Promise<any> {
         let extra = code?'&codigo=' + code:'';
         return this.http.get(AppSettings.SERVICES_INCORPORACION + '/integradocente/getDatosOrganizacion?codigo_compania=002&tipo_busqueda=' + type_search + extra).toPromise();
