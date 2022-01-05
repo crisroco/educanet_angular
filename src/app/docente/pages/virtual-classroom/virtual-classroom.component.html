@@ -18,7 +18,7 @@
 			<tbody *ngIf="classrooms && classrooms.length > 0">
 				<tr class="text-center text-s {{c < classrooms.length - 1?'bd-b-1':''}}" *ngFor="let classroom of classrooms; let c = 'index'">
 					<td *ngIf="cod_company !='002'" class="p-1">
-                      	<a class="pointer" (click)="goMoodle(classrooms)">
+                      	<a class="pointer" (click)="goMoodle(classroom)">
 	                    	<img src="https://www.smythsys.es/wordpress/wp-content/uploads/2016/09/moodle.jpg" width="25px" />
 	                    </a>
 					</td>
