@@ -18,7 +18,7 @@ export class ResultadosEvaluacionComponent implements OnInit {
 	user = this.session.getObject('user');
 	emplid = this.user?Decrypt(this.user['emplid']):'';
 	emplid_real = this.user?Decrypt(this.user['emplid_real']):'';
-	oprid = atob(this.user['oprid']);
+	//oprid = atob(this.user['oprid']);
 	codigo:string='';
 	evaluation:Array<any> = [];
 	allSubOrdinados:Array<any> = [];
