@@ -21,6 +21,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 
+import { GtagModule } from 'angular-gtag';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +31,7 @@ import { MatRippleModule } from '@angular/material/core';
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
+    GtagModule.forRoot({ trackingId: 'UA-212281910-1', trackPageviews: false }),
     BrowserAnimationsModule,
     NgxLoadingModule.forRoot({}),
     ToastrModule.forRoot(),
