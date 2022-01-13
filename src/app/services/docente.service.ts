@@ -314,10 +314,6 @@ export class DocenteService {
         return this.http.post(AppSettings.BASE_UCSUR_LARAVEL + '/juanjo/saveCursoDocente', data).toPromise();
     }
 
-    public getSubOrdinadosJefe(emplid, company): Promise<any>{
-        return this.http.get(AppSettings.BASE_FRACTAL + '/ConsultaRecordJefe?cuc='+emplid+'&codigoCompania='+company+'&correoJefe=&indicadorAlcance=T').toPromise();
-    }
-
     public savePostulante(data: any): Promise<any>{
         return this.http.post(AppSettings.SERVICES_INCORPORACION + '/postulante/savePostulante', data).toPromise();
     } 
@@ -343,6 +339,11 @@ export class DocenteService {
         }else{
           return this.http.get(AppSettings.SERVICES_INCORPORACION + '/integradocente/getDatosOrganizacion?codigo_compania=002&tipo_busqueda=' + type_search + '&codigo_registro=' + code_register+ '&codigo_registro_sede=' + code_registro_sede).toPromise();
         }
+    }
+
+    public getSubOrdinadosJefe(emplid, company): Promise<any>{
+        return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/getSubOrdinadosJefe?cuc='+emplid+'&unidad='+company).toPromise();
+        //return this.http.get(AppSettings.BASE_FRACTAL + '/ConsultaRecordJefe?cuc='+emplid+'&codigoCompania='+company+'&correoJefe=&indicadorAlcance=T').toPromise();
     }
 
     public accesoVacaciones(cuc, unidad): Promise<any>{
