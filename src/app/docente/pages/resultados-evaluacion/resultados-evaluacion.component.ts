@@ -144,12 +144,11 @@ export class ResultadosEvaluacionComponent implements OnInit {
 
 	this.docenteS.getSubOrdinadosJefe(this.emplid, this.cod_company)
 	.then(res => {
-		this.allSubOrdinados = res;
+		this.allSubOrdinados = res.data;
 		let subordinados = [];
 		for (let index = 0; index < this.allSubOrdinados.length; index++) {
 			subordinados[index] = {'cuc': this.allSubOrdinados[index]['CUC']} 
 		}
-		
 		let data = { 'compania':this.cod_company, 'codigo': this.codigo, "subordinados": subordinados}
 	
 		this.docenteS.getReporte(data)
