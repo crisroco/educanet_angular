@@ -363,7 +363,7 @@ export class DocenteService {
     }
 
     public getParametria(company): Promise<any>{
-        return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/getParametria?unidad=' + company).toPromise();
+        return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/getParametriaEducanet?unidad=' + company).toPromise();
     }
 
     public getReporte(data): Promise<any>{
