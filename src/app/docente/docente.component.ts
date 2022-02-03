@@ -147,7 +147,7 @@ export class DocenteComponent implements OnInit {
 				if(this.menus[i].below){
 					for (var b = this.menus[i].below.length - 1; b >= 0; b--) {
 						if( this.menus[i].below[b].uri.includes('historial-boletas'))
-							if( dtp == '10' || dtp == '60' || dtp == '50' || dtp == 'B0' || dtp == 'C0' )
+							if( dtp == '10' || dtp == '60' || dtp == '50')
 								this.menus[i].below[b].uri = this.cleanUri(this.menus[i].below[b].uri);
 					}
 				}
