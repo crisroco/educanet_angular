@@ -65,21 +65,16 @@ export class ConstanciaTrabajoComponent implements OnInit {
 		let tipo: number = 0
 		console.log('codigo_tipo_planilla', this.oColaborador.codigo_tipo_planilla)
 		switch (this.oColaborador.codigo_tipo_planilla) {
-			case "50" || "60":
+			case "50":
+			case "60":
 				if (this.oColaborador.codigo_puesto !== 'U_JEPR01'){
 					tipo = 1
 				} else {
 					tipo = 3
 				}
 				break;
+			case "B0":
 			case "C0": 
-				if (this.oColaborador.codigo_puesto !== 'U_JEPR01'){
-					tipo = 0
-				} else {
-					tipo = 2
-				}
-				break;
-			case  "B0":
 				if (this.oColaborador.codigo_puesto !== 'U_JEPR01'){
 					tipo = 0
 				} else {
