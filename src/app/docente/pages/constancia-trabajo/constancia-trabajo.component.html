@@ -8,7 +8,7 @@
 		</div>
 
 		<div class="text-center">
-			<button class="btn btn-primary mb-2" (click)="downloadConstancy()"><i *ngIf="loading" class="fa fa-cog fa-spin 2x hide"></i> Descargar Constancia </button>
+			<button class="btn btn-primary mb-2" [disabled]="loading" (click)="downloadConstancy()"><i *ngIf="loading" class="fa fa-cog fa-spin 2x hide"></i> Descargar Constancia </button>
 			
 			<div class="alert alert-{{typeMessage?'success':'danger'}} text-center" *ngIf="message">
 				<strong>{{typeMessage?'Exito!':'Error!'}}</strong> {{message}}

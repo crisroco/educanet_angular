@@ -41,6 +41,7 @@ export class ConstanciaTrabajoComponent implements OnInit {
     }
 
   ngOnInit() {
+		this.loading = true;
 		let dtFechaRetiro = this.oColaborador.fecha_retiro
 		if (!this.oColaborador.fecha_retiro) {
 			dtFechaRetiro = this.getDateForservice()
@@ -55,6 +56,7 @@ export class ConstanciaTrabajoComponent implements OnInit {
 		.then(  res => {
 			this.items = res.UCS_REST_CLASSMKD_RES.UCS_REST_CLASSMKD_COM || [];
 			console.log('items', this.items)
+			this.loading = false;
 		}, error => { this.loading = false; });
   }
   downloadConstancy(){
