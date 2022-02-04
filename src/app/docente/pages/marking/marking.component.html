@@ -95,7 +95,7 @@
 		<div class="col-8"> {{ realClassroom.MARC_TIME_END }} </div>
 	</div>
   	<div class="row justify-content-between mb-3">
-		<button (click)="registerMarking()" class="btn btn-success mr-2">{{realClassroom.MARC_TIME_START?'Registrar Salida':'Registrar Entrada'}}</button>
+		<button *ngIf="realClassroom.ACAD_CAREER !='VIRT'" (click)="registerMarking()" class="btn btn-success mr-2">{{realClassroom.MARC_TIME_START?'Registrar Salida':'Registrar Entrada'}}</button>
 		<button (click)="registerMarkingModal.close()" class="btn btn-secondary mr-2">Cerrar</button>
   	</div>
   	<div class="alert alert-{{typeMessage == 'Y'?'info':'danger'}}" *ngIf="message"> {{ message + ' ' + ip }}</div>  	
