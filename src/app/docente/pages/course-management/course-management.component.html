@@ -20,9 +20,10 @@
 			<tbody *ngIf="courses && courses.length > 0">
 				<tr class="text-center text-s {{c < courses.length - 1?'bd-b-1':''}}" *ngFor="let course of courses; let c = 'index'">
 					<td *ngIf="cod_company != '002'" class="p-1">
-	                    <a class="pointer" (click)="goMoodle(course)">
+	                    <a *ngIf="course.ACAD_CAREER == 'VIRT'" class="pointer" (click)="goMoodle(course)">
 	                    	<img src="https://www.smythsys.es/wordpress/wp-content/uploads/2016/09/moodle.jpg" width="25px" />
 	                    </a>
+						<span *ngIf="course.ACAD_CAREER != 'VIRT'">-</span>
 					</td>
 					<td class="p-1">{{ (course.CRSE_ID)?course.CRSE_ID:course.CRES_ID }} - {{ course.DESCR }}</td>
 					<td class="p-1">{{ course.ACAD_CAREER }} - {{ course.CLASS_NBR }}</td>

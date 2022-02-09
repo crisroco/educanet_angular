@@ -15,11 +15,7 @@
 			</select>
 			<select name="year" class="form-control mb-2" [(ngModel)]="data.anioPeriodo">
 				<option value="">- Selecciona Año -</option>
-				<option value="2017">2017</option>
-				<option value="2018">2018</option>
-				<option value="2019">2019</option>
-				<option value="2020">2020</option>
-				<option value="2021">2021</option>
+				<option *ngFor="let y of years"[value]="y" >{{y}}</option>
 			</select>
 			<select name="month" class="form-control mb-2" [(ngModel)]="data.mesPeriodo">
 				<option *ngIf="data.codigoReporte == ''" value="">- Seleccionar Periodo -</option>
