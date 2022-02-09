@@ -361,6 +361,10 @@ export class DocenteService {
     public getdetailevaluation(emplid, codigo, fecha_inicio, fecha_fin, tipo): Promise<any>{
         return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/detailevaluation?emplid=' + emplid + '&codigo=' + codigo + '&fecha_inicio=' + fecha_inicio + '&fecha_fin=' + fecha_fin + '&tipo=' + tipo).toPromise();
     }
+    
+    public getParametria_(company): Promise<any>{
+        return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/getParametria?unidad=' + company).toPromise();
+    }
 
     public getParametria(company): Promise<any>{
         return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/getParametriaEducanet?unidad=' + company).toPromise();

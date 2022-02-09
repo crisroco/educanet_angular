@@ -61,7 +61,7 @@
                         <span *ngIf="item.resultado=='No Aplica'">{{ item.resultado }}</span>
                     </td>
                     <td class="p-2">
-                        <span *ngIf="item.nivel_logro=='LOGRO DESTACADO'" class="badge badge-primary">{{ item.nivel_logro }}</span>
+                        <span *ngIf="item.nivel_logro=='LOGRO DESTACADO' || item.nivel_logro=='DESTACADO'" class="badge badge-primary">{{ item.nivel_logro }}</span>
                         <span *ngIf="item.nivel_logro=='LOGRADO'" class="badge badge-success">{{ item.nivel_logro }}</span>
                         <span *ngIf="item.nivel_logro=='EN DESARROLLO'" class="badge badge-warning text-white">{{ item.nivel_logro }}</span>
                         <span *ngIf="item.nivel_logro=='NO LOGRADO'" class="badge badge-danger">{{ item.nivel_logro }}</span>
@@ -98,7 +98,7 @@
                     <th class="px-3 py-2 align-middle">Programa</th>
                     <th class="px-3 py-2 align-middle">Puntaje</th>
                     <th class="px-3 py-2 align-middle">Puntaje Centecimal</th>
-                    <th class="px-3 py-2 align-middle">Peso</th>
+                    <th *ngIf="cod_company != '003'" class="px-3 py-2 align-middle">Peso</th>
                     <th class="px-3 py-2 align-middle">Nivel de Logro</th>
                 </tr>
             </thead>
@@ -108,9 +108,9 @@
                     <td class="p-1">{{ item.unidad }}</td>
                     <td class="p-1">{{ item.puntaje | number:'1.2-2'}}</td>
                     <td class="p-1">{{ item.puntaje_centecimal | number:'1.2-2'}}</td>
-                    <td class="p-1">35%</td>
+                    <td *ngIf="cod_company != '003'" class="p-1">35%</td>
                     <td class="p-1">
-                        <span *ngIf="item.nivel_logro=='LOGRO DESTACADO'" class="badge badge-primary">{{ item.nivel_logro }}</span>
+                        <span *ngIf="item.nivel_logro=='LOGRO DESTACADO' || item.nivel_logro=='DESTACADO'" class="badge badge-primary">{{ item.nivel_logro }}</span>
                         <span *ngIf="item.nivel_logro=='LOGRADO'" class="badge badge-success">{{ item.nivel_logro }}</span>
                         <span *ngIf="item.nivel_logro=='EN DESARROLLO'" class="badge badge-warning text-white">{{ item.nivel_logro }}</span>
                         <span *ngIf="item.nivel_logro=='NO LOGRADO'" class="badge badge-danger">{{ item.nivel_logro }}</span>
@@ -120,9 +120,9 @@
                     <th class="p-1 text-left" colspan="2">Puntataje Final</th>
                     <th class="p-1">{{ this.puntaje_final_2 | number:'1.2-2' }}</th>
                     <th class="p-1">{{ this.puntaje_final | number:'1.2-2' }}</th>
-                    <th class="p-1">35%</th>
+                    <th *ngIf="cod_company != '003'" class="p-1">35%</th>
                     <td class="p-1">
-                        <span *ngIf="this.nivel_final=='LOGRO DESTACADO'" class="badge badge-primary">{{ this.nivel_final }}</span>
+                        <span *ngIf="this.nivel_final=='LOGRO DESTACADO' || this.nivel_final=='DESTACADO'" class="badge badge-primary">{{ this.nivel_final }}</span>
                         <span *ngIf="this.nivel_final=='LOGRADO'" class="badge badge-success">{{ this.nivel_final }}</span>
                         <span *ngIf="this.nivel_final=='EN DESARROLLO'" class="badge badge-warning text-white">{{ this.nivel_final }}</span>
                         <span *ngIf="this.nivel_final=='NO LOGRADO'" class="badge badge-danger">{{ this.nivel_final }}</span>
@@ -147,7 +147,7 @@
                     <th class="px-3 py-2 align-middle">Curso</th>
                     -->
                     <th class="px-3 py-2 align-middle">Puntaje</th>
-                    <th class="px-3 py-2 align-middle">Peso</th>
+                    <th *ngIf="cod_company != '003'" class="px-3 py-2 align-middle">Peso</th>
                     <th class="px-3 py-2 align-middle">Nivel de Logro</th>
                     <th class="px-3 py-2 align-middle">Fortalezas</th>
                     <th class="px-3 py-2 align-middle">Oportunidad Mejora</th>
@@ -162,9 +162,9 @@
                     <td class="p-1" valign="TOP">{{ item.descripcion_curso }}</td>
                     -->
                     <td class="p-1" valign="TOP">{{ item.puntaje_final | number:'1.2-2'}}</td>
-                    <td class="p-1" valign="TOP">35%</td>
+                    <td *ngIf="cod_company != '003'" class="p-1" valign="TOP">35%</td>
                     <td class="p-1" valign="TOP">
-                        <span *ngIf="item.nivel_logro=='LOGRO DESTACADO'" class="badge badge-primary">{{ item.nivel_logro }}</span>
+                        <span *ngIf="item.nivel_logro=='LOGRO DESTACADO' || item.nivel_logro=='DESTACADO'" class="badge badge-primary">{{ item.nivel_logro }}</span>
                         <span *ngIf="item.nivel_logro=='LOGRADO'" class="badge badge-success">{{ item.nivel_logro }}</span>
                         <span *ngIf="item.nivel_logro=='EN DESARROLLO'" class="badge badge-warning text-white">{{ item.nivel_logro }}</span>
                         <span *ngIf="item.nivel_logro=='NO LOGRADO'" class="badge badge-danger">{{ item.nivel_logro }}</span>
@@ -201,7 +201,7 @@
             <thead class="bg-{{config_initial.code}}">
                 <tr class="text-white text-center text-s">
                     <th class="px-3 py-2 align-middle">Capacitación Interna</th>
-                    <th class="px-3 py-2 align-middle">Nombre Capacitación/Logro</th>
+                    <th class="px-3 py-2 align-middle">Nombre Capacitación</th>
                     <th class="px-3 py-2 align-middle">Nro Horas</th>
                     <th class="px-3 py-2 align-middle">Puntaje Hora</th>
                     <th class="px-3 py-2 align-middle">Puntaje</th>
@@ -220,7 +220,7 @@
                     <td class="p-1">{{ item.puntaje_nota_ex | number:'1.2-2' }}</td>
                     <td class="p-1">{{ item.calculo | number:'1.2-2' }}</td>
                     <td class="p-1">
-                        <span *ngIf="item.nivel_logro=='LOGRO DESTACADO' " class="badge badge-primary ">{{ item.nivel_logro }}</span>
+                        <span *ngIf="item.nivel_logro=='LOGRO DESTACADO' || item.nivel_logro=='DESTACADO'" class="badge badge-primary ">{{ item.nivel_logro }}</span>
                         <span *ngIf="item.nivel_logro=='LOGRADO' " class="badge badge-success ">{{ item.nivel_logro }}</span>
                         <span *ngIf="item.nivel_logro=='EN DESARROLLO' " class="badge badge-warning text-white ">{{ item.nivel_logro }}</span>
                         <span *ngIf="item.nivel_logro=='NO LOGRADO' " class="badge badge-danger ">{{ item.nivel_logro }}</span>
@@ -236,8 +236,8 @@
                     <th class="px-3 py-2 align-middle">Nombre Capacitación/Logro</th>
                     <th class="px-3 py-2 align-middle">Nro Horas</th>
                     <th class="px-3 py-2 align-middle">Puntaje Parcial</th>
-                    <th class="px-3 py-2 align-middle">Peso</th>
-                    <th class="px-3 py-2 align-middle">Puntaje Obtenido</th>
+                    <!--<th class="px-3 py-2 align-middle">Peso</th>
+                    <th class="px-3 py-2 align-middle">Puntaje Obtenido</th>-->
                     <th class="px-3 py-2 align-middle">Nivel de Logro</th>
                 </tr>
             </thead>
@@ -247,10 +247,10 @@
                     <td class="p-1">{{ item.nombre?item.nombre:'-' }}</td>
                     <td *ngIf="s == 0" class="p-1 bd-b-1 col-{{config_initial.code}}" [attr.rowspan]="this.ct_final">{{ this.horas_final }}</td>
                     <td *ngIf="s == 0" class="p-1 bd-b-1" [attr.rowspan]="this.ct_final">{{ this.puntaje_final | number:'1.2-2' }}</td>
-                    <td *ngIf="s == 0" class="p-1 bd-b-1" [attr.rowspan]="this.ct_final"> 75% </td>
-                    <td *ngIf="s == 0" class="p-1 bd-b-1" [attr.rowspan]="this.ct_final">{{ this.puntaje_final * 0.75 | number:'1.2-2' }}</td>
+                    <!--<td *ngIf="s == 0" class="p-1 bd-b-1" [attr.rowspan]="this.ct_final"> 75% </td>
+                    <td *ngIf="s == 0" class="p-1 bd-b-1" [attr.rowspan]="this.ct_final">{{ this.puntaje_final * 0.75 | number:'1.2-2' }}</td>-->
                     <td *ngIf="s == 0" class="p-1 bd-b-1" [attr.rowspan]="this.ct_final">
-                        <span *ngIf="this.nivel_final=='LOGRO DESTACADO' " class="badge badge-primary ">{{ this.nivel_final }}</span>
+                        <span *ngIf="this.nivel_final=='LOGRO DESTACADO' || this.nivel_final=='DESTACADO'" class="badge badge-primary ">{{ this.nivel_final }}</span>
                         <span *ngIf="this.nivel_final=='LOGRADO' " class="badge badge-success ">{{ this.nivel_final }}</span>
                         <span *ngIf="this.nivel_final=='EN DESARROLLO' " class="badge badge-warning text-white ">{{ this.nivel_final }}</span>
                         <span *ngIf="this.nivel_final=='NO LOGRADO' " class="badge badge-danger ">{{ this.nivel_final }}</span>
@@ -262,16 +262,16 @@
                     <td class="p-1">{{ item.nombre?item.nombre:'-' }}</td>
                     <td *ngIf="s == 0" class="p-1 col-{{config_initial.code}}" [attr.rowspan]="this.ct_final">{{ this.horas_final_2 }}</td>
                     <td *ngIf="s == 0" class="p-1" [attr.rowspan]="this.ct_final_2">{{ this.puntaje_final_2 | number:'1.2-2' }}</td>
-                    <td *ngIf="s == 0" class="p-1" [attr.rowspan]="this.ct_final_2"> 25% </td>
-                    <td *ngIf="s == 0" class="p-1" [attr.rowspan]="this.ct_final_2">{{ this.puntaje_final_2 * 0.25 | number:'1.2-2' }}</td>
+                    <!--<td *ngIf="s == 0" class="p-1" [attr.rowspan]="this.ct_final_2"> 25% </td>
+                    <td *ngIf="s == 0" class="p-1" [attr.rowspan]="this.ct_final_2">{{ this.puntaje_final_2 * 0.25 | number:'1.2-2' }}</td>-->
                     <td *ngIf="s == 0" class="p-1" [attr.rowspan]="this.ct_final_2">
-                        <span *ngIf="this.nivel_final_2=='LOGRO DESTACADO' " class="badge badge-primary ">{{ this.nivel_final_2 }}</span>
+                        <span *ngIf="this.nivel_final_2=='LOGRO DESTACADO' || this.nivel_final_2=='DESTACADO'" class="badge badge-primary ">{{ this.nivel_final_2 }}</span>
                         <span *ngIf="this.nivel_final_2=='LOGRADO' " class="badge badge-success ">{{ this.nivel_final_2 }}</span>
                         <span *ngIf="this.nivel_final_2=='EN DESARROLLO' " class="badge badge-warning text-white ">{{ this.nivel_final_2 }}</span>
                         <span *ngIf="this.nivel_final_2=='NO LOGRADO' " class="badge badge-danger ">{{ this.nivel_final_2 }}</span>
                     </td>
                 </tr>
-
+                <!--
                 <tr class="bg-{{config_initial.code}} text-white text-center text-s ">
                     <th class="p-1 text-left " colspan="4 ">Puntataje CE</th>
                     <td class="p-1 ">100%</td>
@@ -283,6 +283,7 @@
                         <span *ngIf="this.nivel_foot=='NO LOGRADO' " class="badge badge-danger ">{{ this.nivel_foot }}</span>
                     </td>
                 </tr>
+                -->
             </tbody>
         </table>
     </div>
@@ -301,21 +302,21 @@
                     <th class="px-3 py-2 align-middle ">Carpetas Instruccionales Completas</th>
                     <th class="px-3 py-2 align-middle ">Participación Reuniones Programadas</th>
                     <th class="px-3 py-2 align-middle ">Puntaje Compromiso Docente</th>
-                    <th class="px-3 py-2 align-middle ">Peso</th>
+                    <th *ngIf="cod_company != '003'" class="px-3 py-2 align-middle ">Peso</th>
                     <th class="px-3 py-2 align-middle ">Nivel de Logro</th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="text-center text-s {{s < detail_eva.length - 1? 'bd-b-1': ''}} " *ngFor="let item of detail_eva; let s='index' ">
-                    <td class="p-1 ">{{ item.expediente_personal?(item.expediente_personal | percent:'1.0-0'):'-' }}</td>
-                    <td class="p-1 ">{{ item.puntualidad_asistencia?(item.puntualidad_asistencia | percent:'1.0-0'):'-' }}</td>
-                    <td class="p-1 ">{{ item.registro_notas?(item.registro_notas | percent:'1.0-0'):'-' }}</td>
-                    <td class="p-1 ">{{ item.carpetas_instruccionales?(item.carpetas_instruccionales | percent:'1.0-0'):'-' }}</td>
-                    <td class="p-1 ">{{ item.participacion_reuniones?(item.participacion_reuniones | percent:'1.0-0'):'-' }} </td>
+                    <td class="p-1 ">{{ item.expediente_personal?(this.cod_company == '003')?item.expediente_personal:(item.expediente_personal | percent:'1.0-0'):'-' }}</td>
+                    <td class="p-1 ">{{ item.puntualidad_asistencia?(this.cod_company == '003')?item.puntualidad_asistencia:(item.puntualidad_asistencia | percent:'1.0-0'):'-' }}</td>
+                    <td class="p-1 ">{{ item.registro_notas?(this.cod_company == '003')?item.registro_notas:(item.registro_notas | percent:'1.0-0'):'-' }}</td>
+                    <td class="p-1 ">{{ item.carpetas_instruccionales?(this.cod_company == '003')?item.carpetas_instruccionales:(item.carpetas_instruccionales | percent:'1.0-0'):'-' }}</td>
+                    <td class="p-1 ">{{ item.participacion_reuniones?(this.cod_company == '003')?item.participacion_reuniones:(item.participacion_reuniones | percent:'1.0-0'):'-' }} </td>
                     <td class="p-1 ">{{ item.puntaje?(item.puntaje | number:'1.2-2'):'-' }}</td>
-                    <td class="p-1 " valign="TOP ">10%</td>
+                    <td *ngIf="cod_company != '003'" class="p-1 " valign="TOP ">10%</td>
                     <td class="p-1 ">
-                        <span *ngIf="item.nivel_logro=='LOGRO DESTACADO' " class="badge badge-primary ">{{ item.nivel_logro }}</span>
+                        <span *ngIf="item.nivel_logro=='LOGRO DESTACADO' || item.nivel_logro=='DESTACADO'" class="badge badge-primary ">{{ item.nivel_logro }}</span>
                         <span *ngIf="item.nivel_logro=='LOGRADO' " class="badge badge-success ">{{ item.nivel_logro }}</span>
                         <span *ngIf="item.nivel_logro=='EN DESARROLLO' " class="badge badge-warning text-white ">{{ item.nivel_logro }}</span>
                         <span *ngIf="item.nivel_logro=='NO LOGRADO' " class="badge badge-danger ">{{ item.nivel_logro }}</span>

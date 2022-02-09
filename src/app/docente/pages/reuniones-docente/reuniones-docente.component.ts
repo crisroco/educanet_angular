@@ -19,7 +19,6 @@ export class ReunionesDocenteComponent implements OnInit {
 	user = this.session.getObject('user');
 	emplid = this.user?Decrypt(this.user['emplid']):'';
 	emplid_real = this.user?Decrypt(this.user['emplid_real']):'';  
-	//oprid = atob(this.user['oprid']);
 	codigo_referencia:string='';
 
   public allParametria:Array<any> = [];
@@ -81,7 +80,7 @@ export class ReunionesDocenteComponent implements OnInit {
       .then((res) => {  
         this.allColaborators = res['data'];
         this.allColaboratorsOrigen = res['data'];
-        this.docenteS.getParametria(this.cod_company)
+        this.docenteS.getParametria_(this.cod_company)
         .then(res => {		
           this.allParametria = res.data;
           this.docenteS.getDatosOrganizacion("AR")
