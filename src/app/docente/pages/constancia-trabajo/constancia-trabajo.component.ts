@@ -47,7 +47,7 @@ export class ConstanciaTrabajoComponent implements OnInit {
 			dtFechaRetiro = this.getDateForservice()
 		}
 		// this.oColaborador.fecha_retiro = this.getDateForservice()
-		console.log('this.oColaborador.fecha_retiro', this.oColaborador.fecha_retiro)
+		// console.log('this.oColaborador.fecha_retiro', this.oColaborador.fecha_retiro)
 		this.docenteS.getDataForConstanciaTrabajo({
 			emplid: this.oColaborador.cuc,
 			fecha_inicio_labores: this.oColaborador.fecha_inicio_labores,
