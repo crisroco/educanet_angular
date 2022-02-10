@@ -33,9 +33,10 @@ import { AddCourseComponent } from './pages/director/add-course/add-course.compo
 import { ConsultTeacherComponent } from './pages/director/consult-teacher/consult-teacher.component';
 import { ConsultCourseComponent } from './pages/director/consult-course/consult-course.component';
 import { ReunionesDocenteComponent } from './pages/reuniones-docente/reuniones-docente.component';
+import { ConstanciaTrabajoComponent } from './pages/constancia-trabajo/constancia-trabajo.component';
 registerLocaleData(localePE, 'es-PE');
 @NgModule({
-  declarations: [DocenteComponent, MarkingComponent, CourseManagementComponent, StudentGradesComponent, StudentAssistanceComponent, VirtualClassroomComponent, HistoricalMarkingComponent, PaymentHistoryComponent, WeeklyScheduleComponent, LibraryComponent, DenunciaComponent, VacacionesComponent, ResultadosEvaluacionComponent, VirtualScheduleComponent, CoursesandclassesComponent, AddTeacherComponent, AddCourseComponent, ConsultTeacherComponent, ConsultCourseComponent, ReunionesDocenteComponent],
+  declarations: [DocenteComponent, MarkingComponent, CourseManagementComponent, StudentGradesComponent, StudentAssistanceComponent, VirtualClassroomComponent, HistoricalMarkingComponent, PaymentHistoryComponent, WeeklyScheduleComponent, LibraryComponent, DenunciaComponent, VacacionesComponent, ResultadosEvaluacionComponent, VirtualScheduleComponent, CoursesandclassesComponent, AddTeacherComponent, AddCourseComponent, ConsultTeacherComponent, ConsultCourseComponent, ReunionesDocenteComponent, ConstanciaTrabajoComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,

@@ -386,4 +386,15 @@ export class DocenteService {
         return this.http.post(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/replyParticipacionReuniones', data).toPromise();
     }
     
+    public getAllColaboratorsbyID(unidad: string, emplid: string): Promise<any> {
+        return this.http.get(AppSettings.SERVICES_INCORPORACION + '/integradocente/getAllColaboratorsbyID?unidad=' + unidad + '&emplid=' + emplid).toPromise();
+    }
+
+    public getDataForConstanciaTrabajo(data): Promise<any>{
+        return this.http.post(AppSettings.BASE_CONSTANCIA_TRABAJO + '/data/', data).toPromise();
+    }
+
+    public constanciaTrabajo(data): Promise<any>{
+        return this.http.post(AppSettings.BASE_CONSTANCIA_TRABAJO + '/constanciatrabajo/', data).toPromise();
+    }
 }
