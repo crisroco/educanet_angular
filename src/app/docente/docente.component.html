@@ -227,9 +227,9 @@
 
 </mat-drawer-container>
 
-<!-- <div class="bg-gray container-fluid">
+<div class="bg-gray container-fluid">
     <div class="row py-2"> -->
-<!--<div class="col-md-12 col-lg-3 pr-3">
+        <div class="col-md-12 col-lg-3 pr-3">
             <div class="py-3 bg-white full-content rounded-1 d-none d-lg-block">
                  <div class="col-12 ">
                     <div class="row justify-content-center mt-5 mb-4">
@@ -242,7 +242,7 @@
                         <p *ngIf="user" class="m-0">{{ user.email2 }}</p>
                         <p *ngIf="user">{{ user.emplid_moodle }}</p>
                         <a class="btn bg-gray rounded-2 text-normal" (click)="goIncorporacion();">Datos Personales</a>
-                        <a *ngIf="cod_company=='002'" class="btn bg-gray rounded-2 text-normal mt-2" (click)="goEvaluacion();"><i class="fa fa-line-chart mr-1" aria-hidden="true"></i> Evaluación 360°</a>
+                        <a class="btn bg-gray rounded-2 text-normal mt-2" (click)="goEvaluacion();"><i class="fa fa-line-chart mr-1" aria-hidden="true"></i> Evaluación 360°</a>
                     </div>
                 </div>
                 <ul class="col-12 pr-0 pb-5">
@@ -264,7 +264,7 @@
                     </div>
                     <li *ngIf="director && cod_company == '002'"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link" [routerLink]="['/docente/participacion-reuniones']">+ Participación Reuniones </a> </li>
 
-                    <li *ngIf="cod_company == '002'"> <a class="w-100 hover-{{config_initial.code}} no_pointer">+ Disponibilidad</a> </li>
+                    <!-- <li *ngIf="cod_company == '002'"> <a class="w-100 hover-{{config_initial.code}} no_pointer">+ Disponibilidad</a> </li>
                     <li *ngIf="cod_company == '002'" class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/horario-virtual']">- Disponibilidad Horario</a> </li>
                     <li *ngIf="cod_company == '002'" class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/cursos-clases']">- Disponibilidad Cursos </a> </li>
                     <ng-container *ngIf="director && cod_company == '002'">
@@ -273,7 +273,7 @@
                         <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/director/anadir_curso']">- Añadir Curso</a> </li>
                         <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/director/consulta_docente']">- Consulta Docente</a> </li>
                         <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/director/consulta_cursos']">- Consulta Cursos</a> </li>
-                    </ng-container>
+                    </ng-container> -->
                     <li> <a class="w-100 hover-{{config_initial.code}}" href="http://cultura.educad.pe/" target="_blank">+ Somos Educa_d</a> </li>
 
                     <li> <a class="w-100 hover-{{config_initial.code}} no_pointer">+ Canal de Ética</a> </li>
@@ -319,11 +319,12 @@
                 </div>
             </div>
         </div>
-        -->
-<!-- <div class="col-md-12 col-lg-9 pl-3"> -->
-<!-- <div class="panel mb-2">
-                <img *ngIf="cod_company == '002'" class="rounded-1" alt="" src="assets/bck_3.jpg" width="100%">
-            </div> -->
+        <div class="col-md-12 col-lg-9 pl-3">
+            <div class="panel mb-2">
+                <!-- <a href="https://es.surveymonkey.com/r/53NVRQP" target="_blank"> -->
+                <img *ngIf="cod_company == '002'" class="rounded-1" alt="" src="assets/bck_4.jpg" width="100%">
+                <!-- </a> -->
+            </div>
 
 <!-- <router-outlet></router-outlet> -->
 <!-- </div>
@@ -426,9 +427,10 @@
 
 <ngx-smart-modal #piezaModalSise identifier="piezaModalSise" [closable]="false" [escapable]="true" [dismissable]="true"
     [customClass]="'smallModal fullModal noBordersModal'">
-    <!--<a href="https://aulavirtual.sise.edu.pe" target="_blank"> -->
-    <img class="w-100 rounded-1" src="./assets/notice_ucs.png">
-    <!--</a>-->
+    <a href="https://aulavirtual.sise.edu.pe" target="_blank">
+        <img class="w-100 rounded-1" src="./assets/notice_ucs.png">
+    </a>
+    <iframe allow="autoplay; fullscreen" allowfullscreen src="https://player.vimeo.com/video/659677558?h=3cecc93cb1" frameborder="0" height="580" width="100%"></iframe>
     <div (click)="piezaModalSise.close()" class="times-close">
         <img src="./assets/img/times-modal.svg" alt="">
     </div>
@@ -441,6 +443,13 @@
             src="https://docs.cientifica.edu.pe/miportal_sise/educanet/noticias/encuesta-221121.jpg">
     </a>
     <div (click)="piezaModalCientifica.close()" class="times-close">
+        <img src="./assets/img/times-modal.svg" alt="">
+    </div>
+</ngx-smart-modal>
+
+<ngx-smart-modal #piezaModal identifier="piezaModal" [closable]="false" [escapable]="true" [dismissable]="true" [customClass]="'mediumModal fullModal noBordersModal'">
+    <iframe width="100%" height="580" src="https://www.youtube.com/embed/GAyCVU8NV3g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div (click)="piezaModal.close()" class="times-close">
         <img src="./assets/img/times-modal.svg" alt="">
     </div>
 </ngx-smart-modal>

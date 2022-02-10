@@ -26,6 +26,7 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 	@ViewChild('piezaModal') piezaModal: any;
 	@ViewChild('piezaModalSise') piezaModalSise: any;
 	@ViewChild('piezaModalCientifica') piezaModalCientifica: any;
+	oColaborador: any;
 	config_initial: any = {
 		code: ''
 	};
@@ -143,10 +144,12 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 		this.docenteS.accesoVacaciones((this.cod_company == '002' ? this.emplid : this.emplid_real), this.cod_company)
 			.then(res => {
 				this.flag_vacaciones = res.status;
-				this.getMenu();
+				//this.getMenu();
+				this.getAllColaboratorsbyID();
 			}, (err) => {
 				this.flag_vacaciones = false;
-				this.getMenu();
+				//this.getMenu();
+				this.getAllColaboratorsbyID();
 			});
 		this.getEthnicity();
 		this.showModals();
@@ -155,6 +158,19 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 	showModals() {
 		// this.surveyModal.open();
 		// this.piezaModal.open();
+	}
+
+	getAllColaboratorsbyID(){
+		this.docenteS.getAllColaboratorsbyID(this.cod_company, this.emplid_real)
+		.then(res => {
+			if(res.data.length > 0) {
+				this.oColaborador = res.data[0];
+				this.session.setObject('oColaborador', this.oColaborador);
+			}
+			this.getMenu();
+		},(err)=>{
+			this.getMenu();
+		})
 	}
 
 	getEthnicity() {
@@ -168,6 +184,7 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 	}
 
 	getMenu() {
+		let dtp = this.oColaborador.codigo_tipo_planilla;
 		this.docenteS.getMenu(this.cod_company)
 			.subscribe(res => {
 				this.menus = res;
@@ -175,16 +192,23 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 					this.menus[i].uri = this.cleanUri(this.menus[i].uri);
 					if (this.menus[i].below) {
 						for (var b = this.menus[i].below.length - 1; b >= 0; b--) {
-							this.menus[i].below[b].uri = this.cleanUri(this.menus[i].below[b].uri);
+							if( this.menus[i].below[b].uri.includes('historial-boletas'))
+							if( dtp == '10' || dtp == '60' || dtp == '50') {
+								this.menus[i].below[b].uri = this.cleanUri(this.menus[i].below[b].uri);
+							} else {
+								this.menus[i].below.splice(b, 1);
+							}
 						}
 					}
 				}
 				if (this.cod_company != '004') {
-					this.menus[0].below.push({ new: false, title: 'Vacaciones', description: 'Vacaciones', uri: '/docente/vacaciones' });
-					//this.menus[0].below.push({new: false, title: 'Resultados de Evaluación', description: 'Resultados de Evaluación', uri: '/docente/resultados-evaluacion'});
-					this.menus[0].below.push({ new: true, title: 'Inducciones GDT', description: 'Inducciones', uri: 'https://vimeo.com/555819732' });
+					if( dtp == '10' || dtp == '60')
+					this.menus[0].below.push({new: false, title: 'Vacaciones', description: 'Vacaciones', uri: '/docente/vacaciones'});
+					if( dtp == '10' || dtp == '60' || dtp == '50' || dtp == 'B0' || dtp == 'C0' )
+					this.menus[0].below.push({new: true, title: 'Inducciones GDT', description: 'Inducciones', uri: 'https://vimeo.com/555819732'});
 				}
-				this.menus[0].below.push({ new: true, title: 'Como descargar mi boleta de pago', description: 'Como descargar mi boleta de pago', uri: 'https://vimeo.com/559086745' });
+				if( dtp == '10' || dtp == '60' || dtp == '50' )
+				this.menus[0].below.push({new: true, title: 'Como descargar mi boleta de pago', description: 'Como descargar mi boleta de pago', uri: 'https://vimeo.com/559086745'});
 			}, error => {
 				this.loginS.get_Token_WS_Vacaciones()
 					.then(res => {

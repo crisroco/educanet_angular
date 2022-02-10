@@ -85,4 +85,5 @@ export class AppSettings {
     public static BASE_PAYMENT_HISTORY = 'https://fractal.grupoeducad.edu.pe/ServicioRestWebFRACTAL/api/DescargarBoletaRemuneracion';
     public static BASE_FRACTAL = 'https://fractal.grupoeducad.edu.pe/ServicioRestWebFRACTAL/api';
     public static MOODLE = "https://aulavirtual.educad.pe/local/wseducad/auth/sso.php?";
+    public static BASE_CONSTANCIA_TRABAJO = "http://educanet-pdf.educad.pe";
 }

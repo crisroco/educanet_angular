@@ -14,6 +14,7 @@ import { DocenteService } from '../../../services/docente.service';
 export class PaymentHistoryComponent implements OnInit {
 	cod_company: any;
 	config_initial: any;
+	years:Array<any> = [];
 	user = this.session.getObject('user');
 	emplid = this.user?Decrypt(this.user['emplid']):'';
 	emplid_real = this.user?Decrypt(this.user['emplid_real']):'';
@@ -40,6 +41,13 @@ export class PaymentHistoryComponent implements OnInit {
 	ngOnInit() {
 		this.loading = true;
 		this.loading = false;
+		this.createYears();
+	}
+
+	createYears(){
+		for(let i = 2017; i <= new Date().getFullYear();i++){
+			this.years.push(i);
+		}
 	}
 
 	downloadPayment(){

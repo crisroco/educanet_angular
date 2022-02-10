@@ -21,6 +21,7 @@ import { AddTeacherComponent } from './pages/director/add-teacher/add-teacher.co
 import { ConsultCourseComponent } from './pages/director/consult-course/consult-course.component';
 import { ConsultTeacherComponent } from './pages/director/consult-teacher/consult-teacher.component';
 import { ReunionesDocenteComponent } from './pages/reuniones-docente/reuniones-docente.component';
+import { ConstanciaTrabajoComponent } from './pages/constancia-trabajo/constancia-trabajo.component';
 
 
 const routes: Routes = [
@@ -121,6 +122,10 @@ const routes: Routes = [
 			{
 				path: 'director/consulta_cursos',
 				component: ConsultCourseComponent
+			},
+			{
+				path: 'constancia-trabajo',
+				component: ConstanciaTrabajoComponent
 			},
 			{
 				path: '**',

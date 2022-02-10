@@ -1,0 +1,18 @@
+<div class="bg-white p-3 rounded-1">
+	<div class="mb-3">
+		<h5 class="pb-2 bd-b-1 bd-{{config_initial.code}}">  Constancia de Trabajo </h5>
+	</div>
+
+	<div class="">
+		<div class="form-group">
+		</div>
+
+		<div class="text-center">
+			<button class="btn btn-primary mb-2" [disabled]="loading" (click)="downloadConstancy()"><i *ngIf="loading" class="fa fa-cog fa-spin 2x hide"></i> Descargar Constancia </button>
+			
+			<div class="alert alert-{{typeMessage?'success':'danger'}} text-center" *ngIf="message">
+				<strong>{{typeMessage?'Exito!':'Error!'}}</strong> {{message}}
+			</div>
+		</div>
+	</div>
+</div>

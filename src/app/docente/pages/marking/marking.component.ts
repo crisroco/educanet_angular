@@ -253,18 +253,28 @@ export class MarkingComponent implements OnInit {
 		if (clase.INSTITUTION != 'PSTRG') {
 			this.docenteS.getLinkZoom(clase['STRM'], clase['CLASS_NBR2'], Number(clase['UCS_TIMESTAMP']) + 18000, clase['CLASS_SECTION'], clase['DOCENTE'])
 			.then((res) => {
-				if (JSON.parse(res)[0]['response'].includes('FALSE')) {
-					// code...
-				} else {
-					let links = JSON.parse(res);
-					if (links.length > 1) {
-						this.nextClassesLink = links;
-						this.myClassesModal.open();
-					} else {
-						window.open(links[0]['url'], '_blank');
+				if (this.isJson(res)) {
+					if(JSON.parse(res) && JSON.parse(res)[0]['response'].includes('FALSE')){}
+					else {
+						let links = JSON.parse(res);
+						if (links.length > 1) {
+							this.nextClassesLink = links;
+							this.myClassesModal.open();
+						} else {
+							window.open(links[0]['url'], '_blank');
+						}
 					}
 				}
 			});
 		}
+	}
+
+	isJson(str){
+		try {
+			JSON.parse(str);
+		} catch (e){
+			return false;
+		}
+		return true;
 	}
 }

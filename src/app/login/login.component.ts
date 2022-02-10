@@ -10,6 +10,7 @@ import { AppSettings } from '../app.settings';
 import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import * as CryptoJS from 'crypto-js';
+import { Gtag } from 'angular-gtag';
 
 @Component({
 	selector: 'app-login',
@@ -60,6 +61,7 @@ export class LoginComponent implements OnInit {
 
 	constructor(private formBuilder: FormBuilder,
 		private toastr: ToastrService,
+		private gtag: Gtag,
 		private dispoS: DisponibilityService,
 		private loginS: LoginService,
 		private session: SessionService,
@@ -345,16 +347,10 @@ export class LoginComponent implements OnInit {
 			ucs: "https://cientificavirtual.cientifica.edu.pe/login",
 			pos: "https://aulavirtualposgrado.cientifica.edu.pe/"
 		}
-		
+		this.gtag.event('aulavirtual_' + param + '_educanet', { 
+			method: 'click',
+			event_category: 'link'
+		});
 		window.open(arr[param], '_blank');
 	}
-
-
-
-	// siseModalCheck(evt){
-	// 	if (evt.target.value == '003') {
-	// 		this.siseModalCloseWebsite.open();
-	// 	}
-	// }
-
 }
