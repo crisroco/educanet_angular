@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AppSettings } from '../../../app.settings';
 import { Decrypt } from '../../../helpers/general';
 import { RealDate } from '../../../helpers/dates';
@@ -30,10 +30,13 @@ export class ConstanciaTrabajoComponent implements OnInit {
 	response: any = []
 	
 	
+	heightViewPx: number
+	heightWindowPx: number
 	items: any[] = []
   constructor(private session: SessionService,
 		private generalS: GeneralService,
-		private docenteS: DocenteService) { 
+		private docenteS: DocenteService,
+		private elRef: ElementRef) { 
       this.cod_company = this.session.getItem('cod_company');
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 		this.data[AppSettings.STRINGS_COMPANY[this.cod_company].institution] = this.config_initial.institution;
@@ -41,6 +44,7 @@ export class ConstanciaTrabajoComponent implements OnInit {
     }
 
   ngOnInit() {
+		this.positionFooterInitial();
 		this.loading = true;
 		let dtFechaRetiro = this.oColaborador.fecha_retiro
 		if (!this.oColaborador.fecha_retiro) {
@@ -57,7 +61,11 @@ export class ConstanciaTrabajoComponent implements OnInit {
 			this.items = res.UCS_REST_CLASSMKD_RES.UCS_REST_CLASSMKD_COM || [];
 			console.log('items', this.items)
 			this.loading = false;
-		}, error => { this.loading = false; });
+		setTimeout(() => { this.positionFooter() }, 100);
+		}, error => { 
+			this.loading = false;
+			setTimeout(() => { this.positionFooter() }, 100); 
+		});
   }
   downloadConstancy(){
 		this.loading = true;
@@ -140,5 +148,21 @@ export class ConstanciaTrabajoComponent implements OnInit {
 			day = '0' + day;
 	
 		return [year, month, day].join('-');
+	}
+
+	positionFooter() {
+		const div2 = this.elRef.nativeElement.parentElement;
+		const div = this.elRef.nativeElement;
+		this.heightViewPx = div.clientHeight;
+		this.heightWindowPx = window.innerHeight;
+		if((this.heightViewPx + 254) < this.heightWindowPx) {
+			if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
+		} else {
+			if(div2 != undefined ) div2.style.height = 'unset'
+		}
+	}
+	positionFooterInitial() {
+		const div2 = this.elRef.nativeElement.parentElement;
+		if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
 	}
 }

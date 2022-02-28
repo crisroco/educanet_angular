@@ -13,6 +13,8 @@ import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
+import { debug } from 'console';
+import { CloseScrollStrategy } from '@angular/cdk/overlay';
 
 @Component({
 	selector: 'app-docente',
@@ -63,6 +65,13 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 	DigitalLibraryAttribute10: FormControl;
 	formulario1: FormControl;
 	@ViewChild('hello') hello;
+	@ViewChild('mainScreen') mainScreen: ElementRef;
+	heightViewPx: number
+	heightWindowPx: number
+	
+	opMenuBoletasPago: boolean = false;
+	opMenuVacaciones: boolean = false;
+	opMenuConstanciaTrabajo: boolean = false;
 	constructor(private session: SessionService,
 		private loginS: LoginService,
 		private toastr: ToastrService,
@@ -110,7 +119,11 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 
 	@HostListener('window:resize', ['$event'])
 	onResize(event) {
+		this.positionFooterInitial();
 		this.validsize(event.target.innerWidth);
+		setTimeout(() => {
+			this.positionFooter()
+		}, 500);
 	}
 
 	public opened: boolean = false;
@@ -119,6 +132,7 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 	public stateMenu: boolean = false;
 
 	ngOnInit() {
+		this.positionFooterInitial();
 		if (this.cod_company == '002') {
 			this.director = this.session.getItem('DI') == 'false' ? false : true;
 			// this.piezaModalSise.open();
@@ -153,6 +167,9 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 			});
 		this.getEthnicity();
 		this.showModals();
+
+		// console.log(document.getElementsByClassName('container-child')[0].clientHeight)
+
 	}
 
 	showModals() {
@@ -165,12 +182,45 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 		.then(res => {
 			if(res.data.length > 0) {
 				this.oColaborador = res.data[0];
+				this.validarOpciones(this.oColaborador.codigo_tipo_planilla);
 				this.session.setObject('oColaborador', this.oColaborador);
 			}
 			this.getMenu();
 		},(err)=>{
 			this.getMenu();
 		})
+	}
+
+	validarOpciones(dtp: string) {
+		// opMenuBoletasPago: boolean = true;
+		// opMenuVacaciones: boolean = true;
+		// opMenuConstanciaTrabajo: boolean = true;\
+		if((
+				(this.cod_company == '002' && dtp == '10') || 
+				(this.cod_company == '002' && dtp == '60') || 
+				(this.cod_company == '002' && dtp == '50') 
+				) || (
+				(this.cod_company == '003' && dtp == '50') || 
+				(this.cod_company == '003' && dtp == '30') 
+			)) {
+				this.opMenuBoletasPago = true
+		}
+		if((
+			(this.cod_company == '002' && dtp == '10') || 
+			(this.cod_company == '002' && dtp == '60')  
+		) || (
+			(this.cod_company == '003' && dtp == '50') 
+		)) {
+			this.opMenuVacaciones = true
+		}
+		if(
+			(this.cod_company == '002' && dtp == '60') || 
+			(this.cod_company == '002' && dtp == '50') || 
+			(this.cod_company == '002' && dtp == 'B0') || 
+			(this.cod_company == '002' && dtp == 'C0')
+		) {
+			this.opMenuConstanciaTrabajo = true
+		}
 	}
 
 	getEthnicity() {
@@ -184,7 +234,8 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 	}
 
 	getMenu() {
-		let dtp = this.oColaborador.codigo_tipo_planilla;
+		let dtp = !!this.oColaborador ? this.oColaborador.codigo_tipo_planilla : '';
+		//console.log('this.dtp', dtp)
 		this.docenteS.getMenu(this.cod_company)
 			.subscribe(res => {
 				this.menus = res;
@@ -289,6 +340,7 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 		input2.value = 'true';
 		form.appendChild(input2);
 		form.submit();
+
 	}
 
 	getBenefits() {
@@ -342,7 +394,8 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 				this.session.setObject('hash', this.digital4);
 			});
 		} else {
-			this.router.navigate(['/docente/biblioteca']);
+			//
+			this.openTab('https://www.sise.edu.pe/alumnos/biblioteca')
 		}
 	}
 
@@ -363,8 +416,8 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 	}
 
 	validsize(width) {
-		this.opened = this.isdesktop = width >= 990;
-		this.mode = width >= 990 ? 'side' : 'over';
+		this.opened = this.isdesktop = width >= 1025;
+		this.mode = width >= 1025 ? 'side' : 'over';
 	}
 
 	registreIcons() {
@@ -452,13 +505,193 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 			`ic_close`,
 			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/ic_close.svg")
 		);
+		
+		
+		this.matIconRegistry.addSvgIcon(
+			`ic_home`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_inicio.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_mis_cursos`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_mis_cursos.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_canal_etica`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/canal_etica.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_capacitacion_virtual`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/capacitacion_virtual.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_evaluacion_docente`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/evaluacion_docente.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_historial_marcacion`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_historial.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_manual_procedimientos`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/manual_procedimientos.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_mi_horario`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_horario.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_mis_tramites`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/mis_tramites.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_quienes_somos`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/quienes_somos.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_registra_disponibilidad`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_disponibilidad.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_tutoriales`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_tutoriales.svg")
+		);
+		
+		this.matIconRegistry.addSvgIcon(
+			`ic_asistencia_alumnos`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/asistencia_alumnos.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_marcacion_docente`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/marcacion_docente.svg")
+		);
+		
+		this.matIconRegistry.addSvgIcon(
+			`ic_cerrar_sesion`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/cerrar_sesion.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_curriculum_vitae`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/mi_curriculum_vitae.svg")
+		);
+
+		
+		this.matIconRegistry.addSvgIcon(
+			`ic_subir_notas`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/subir_notas.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_capacitame`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/capacitame.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_descargar`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/descargar.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_historial`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/historial.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_mi_curriculum_vitae`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/m_mi_curriculum_vitae.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_tutoriales_2`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/tutoriales_2.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_tramite`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_tramite.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_capacitacion`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_capacitacion.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_evaluacion`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_evaluacion.svg")
+		);
+		
+		this.matIconRegistry.addSvgIcon(
+			`ic_somos`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_somos.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_manual`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_manual.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_etica`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_etica.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_directivas_academicas`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_directivas_academicas.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_biblioteca`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_biblioteca.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_logout`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_logout.svg")
+		);
 	}
 
-	expandContentSub(contentSub) {
+	focusContentSub(hijo) {
+
+		let box = hijo.parentElement.parentElement.children[0]
+		let list  = this.drawer._elementRef.nativeElement.children[0].children
+		// debugger
+		for (let item of list) {
+
+				if (item.children[0] != box) {
+					if (item.classList.contains('content-item-expand')) {
+						item.children[0].classList.remove('active');
+						if (!item.children[1].classList.contains('d-none')) {
+							item.children[1].classList.add('d-none');
+						}
+					}
+				}
+				
+		}
+
+		if(!box.classList.contains('active')){
+			box.classList.add('active')
+		}
+	}
+
+	cleanContentSub() {
+		
+		let list  = this.drawer._elementRef.nativeElement.children[0].children
+		// debugger
+		for (let item of list) {
+				if (item.classList.contains('content-item-expand')) {
+					item.children[0].classList.remove('active');
+					if (!item.children[1].classList.contains('d-none')) {
+						item.children[1].classList.add('d-none');
+					}
+				}
+		}
+	}
+
+	expandContentSub(contentSub, contentPadre) {
+		
+		let list = contentPadre.parentElement.parentElement.children
+		// debugger
+		for (let item of list) {
+			item.classList.remove('active');
+			if (item.classList.contains('content-item-expand')) {
+				item.children[0].classList.remove('active');
+			}
+		}
+
 		if (contentSub.classList.contains('d-none')) {
+			contentPadre.classList.add('active');
 			contentSub.classList.remove('d-none');
 			contentSub.focus();
 		} else {
+			contentPadre.classList.remove('active');
 			contentSub.classList.add('d-none');
 			contentSub.focus();
 		}
@@ -471,5 +704,43 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 		document.body.appendChild(link);
 		link.click();
 		link.remove();
+	}
+
+	positionFooter() {
+		const div = this.mainScreen.nativeElement;
+
+		const container = document.querySelector('.container-child').parentElement.clientHeight
+		console.log('container', container)
+		if( window.innerWidth < 991 ) {
+			console.log('heightViewPx -> docente -> if ', this.heightViewPx)
+			console.log('heightWindowPx -> docente -> if ', this.heightWindowPx)
+			if(div != undefined ) div.style.height =  'unset'
+		}  else if ( window.innerWidth >= 1664 ) {
+			if( div != undefined ) div.style.height = 'calc(100vh - 144px)'
+		} else {
+			
+			this.heightViewPx = div.clientHeight;
+			this.heightWindowPx = window.innerHeight;
+			console.log('heightViewPx -> docente -> else ', this.heightViewPx)
+			console.log('heightWindowPx -> docente -> else ', this.heightWindowPx)
+			console.log('div', div)
+			if( this.heightViewPx + 255 < this.heightWindowPx ) {
+				if(div != undefined ) div.style.height = 'calc(100vh - 144px)'
+			} else {
+				if(div != undefined ) div.style.height = 'unset'
+			}
+		}
+		
+	}
+	positionFooterInitial() {
+		const div = this.mainScreen.nativeElement;
+		if( window.innerWidth < 991 ) {
+			if(div != undefined ) div.style.height = 'calc(100vh - 144px)'
+		} else {
+			if(div != undefined ) div.style.height = 'calc(100vh - 144px)'
+		}
+	}
+	drawerToggle() {
+		!this.isdesktop && this.drawer.toggle()
 	}
 }

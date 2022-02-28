@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AppSettings } from '../../../app.settings';
 import { Decrypt } from '../../../helpers/general';
 import { ToastrService } from 'ngx-toastr';
@@ -8,13 +8,14 @@ import { DocenteService } from '../../../services/docente.service';
 import { GeneralService } from '../../../services/general.service';
 import { CalendarDateFormatter, CalendarView, CalendarEventAction, CalendarEvent } from 'angular-calendar';
 import * as CryptoJS from 'crypto-js';
+import { containsElement } from '@angular/animations/browser/src/render/shared';
 
 @Component({
   selector: 'app-virtual-schedule',
   templateUrl: './virtual-schedule.component.html',
   styleUrls: ['./virtual-schedule.component.scss']
 })
-export class VirtualScheduleComponent implements OnInit {
+export class VirtualScheduleComponent implements OnInit, AfterViewInit {
 	cod_company: any;
 	config_initial: any;
 	user = this.session.getObject('user');
@@ -76,15 +77,23 @@ export class VirtualScheduleComponent implements OnInit {
 	];
 
     public allClasses:Array<any> = [];
+
+		
+	heightViewPx: number
+	heightWindowPx: number
   constructor(private session: SessionService,
 		private generalS: GeneralService,
 		private toastr: ToastrService,
-		private docenteS: DocenteService) { 
+		private docenteS: DocenteService,
+		private elRef: ElementRef) { 
 		this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 	}
+	ngAfterViewInit(): void {
+	}
 
   ngOnInit() {
+		this.positionFooterInitial()
   	this.getAllVirtualClasses();
   }
 
@@ -101,6 +110,7 @@ export class VirtualScheduleComponent implements OnInit {
   						.then((res) => {
   							this.loading = false;
   							this.allGrados = res['data'];
+								setTimeout(() => { this.positionFooter() }, 100);
   						});
   				});
   		});
@@ -339,5 +349,30 @@ export class VirtualScheduleComponent implements OnInit {
 				this.addModal.close();
 			});
 	}
-
+	positionFooter() {
+		const div2 = this.elRef.nativeElement.parentElement;
+		// if( window.innerWidth < 991 ) {
+		// 	console.log('heightViewPx -> virtual -> if ', this.heightViewPx)
+		// 	console.log('heightWindowPx -> virtual -> if ', this.heightWindowPx)
+		// 	if(div2 != undefined ) div2.style.height =  'unset'
+		// } else {
+			const div = this.elRef.nativeElement;
+			console.log('div', div)
+			this.heightViewPx = div.clientHeight;
+			this.heightWindowPx = window.innerHeight;
+			console.log('heightViewPx -> virtual -> if ', this.heightViewPx)
+			console.log('heightWindowPx -> virtual -> if ', this.heightWindowPx)
+			console.log('this.heightViewPx + 237', this.heightViewPx + 237)
+			if((this.heightViewPx + 237) <= this.heightWindowPx) {
+				if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
+			} else {
+				if(div2 != undefined ) div2.style.height = 'unset'
+			}
+		// }
+		
+	}
+  positionFooterInitial() {
+		const div2 = this.elRef.nativeElement.parentElement;
+		if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
+	}
 }

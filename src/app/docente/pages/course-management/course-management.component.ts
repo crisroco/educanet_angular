@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppSettings } from '../../../app.settings';
 import { Decrypt, Encrypt } from '../../../helpers/general';
@@ -31,10 +31,14 @@ export class CourseManagementComponent implements OnInit {
 	oprid:any = '';
 	loading: boolean = false;
 
+	
+	heightViewPx: number
+	heightWindowPx: number
 	constructor( private session: SessionService,
 		private docenteS: DocenteService,
 		private generalS: GeneralService,
-		private router: Router ) {
+		private router: Router,
+		private elRef: ElementRef ) {
 		this.loading = true;
 		this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
@@ -43,6 +47,7 @@ export class CourseManagementComponent implements OnInit {
 	}
 
 	async ngOnInit() {
+		this.positionFooterInitial();
 		await this.getClassDocentes();
 		if(this.cod_company != '002'){
 			this.oprid = atob(this.user['oprid']);
@@ -82,6 +87,7 @@ export class CourseManagementComponent implements OnInit {
 				this.courses[i].CLASS_NBR2 = class_nbr[1];
 			}
 			this.loading = false;
+			setTimeout(() => { this.positionFooter() }, 100);
 		}, error => { });
 	}
 
@@ -187,6 +193,25 @@ export class CourseManagementComponent implements OnInit {
 			theme: 'striped'
 		});
 		doc.save(courseTitle + " / " + gradeClass + ".pdf");
+	}
+
+	positionFooter() {
+		const div2 = this.elRef.nativeElement.parentElement;
+		const div = this.elRef.nativeElement;
+		this.heightViewPx = div.clientHeight;
+		this.heightWindowPx = window.innerHeight;
+		console.log('heightViewPx', this.heightViewPx)
+		console.log('heightWindowPx', this.heightWindowPx)
+		if((this.heightViewPx + 254) < this.heightWindowPx) {
+			if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
+		} else {
+			if(div2 != undefined ) div2.style.height = 'unset'
+		}
+	}
+
+	positionFooterInitial() {
+		const div2 = this.elRef.nativeElement.parentElement;
+		if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
 	}
 
 }

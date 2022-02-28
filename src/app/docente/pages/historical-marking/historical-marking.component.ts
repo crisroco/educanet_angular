@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppSettings } from '../../../app.settings';
 import { Decrypt } from '../../../helpers/general';
@@ -13,7 +13,7 @@ import * as XLSX from 'xlsx';
   templateUrl: './historical-marking.component.html',
   styleUrls: ['./historical-marking.component.scss']
 })
-export class HistoricalMarkingComponent implements OnInit {
+export class HistoricalMarkingComponent implements OnInit, AfterViewInit {
 	cod_company: any;
 	config_initial: any;
 	user = this.session.getObject('user');
@@ -25,15 +25,21 @@ export class HistoricalMarkingComponent implements OnInit {
 	totalHours: number = 0;
 	loading: boolean = false;
 
+	heightViewPx: number
+	heightWindowPx: number
 	constructor( private session: SessionService,
 		private docenteS: DocenteService,
 		private loginS: LoginService,
-		private router: Router ) { 
+		private router: Router,
+		private elRef: ElementRef  ) { 
 			this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 	}
+	ngAfterViewInit(): void {
+	}
 
 	ngOnInit() {
+		this.positionFooterInitial()
 		this.getPaymentPeriod();
 	}
 
@@ -43,6 +49,7 @@ export class HistoricalMarkingComponent implements OnInit {
 		.then(res => {
 			this.paymentPeriods = res.UCS_REST_PERIODOCAL_RES && res.UCS_REST_PERIODOCAL_RES.UCS_REST_PERIODOCAL_COM?res.UCS_REST_PERIODOCAL_RES.UCS_REST_PERIODOCAL_COM:[];
 			this.loading = false;
+			setTimeout(() => { this.positionFooter() }, 100);
 		}, error => { this.loading = false; });
 	}
 
@@ -69,4 +76,19 @@ export class HistoricalMarkingComponent implements OnInit {
 		XLSX.writeFile(wb, 'asistencia.xlsx');
 	}
 
+	positionFooter() {
+		const div2 = this.elRef.nativeElement.parentElement;
+		const div = this.elRef.nativeElement;
+		this.heightViewPx = div.clientHeight;
+		this.heightWindowPx = window.innerHeight;
+		if((this.heightViewPx + 254) < this.heightWindowPx) {
+			if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
+		} else {
+			if(div2 != undefined ) div2.style.height = 'unset'
+		}
+	}
+  positionFooterInitial() {
+		const div2 = this.elRef.nativeElement.parentElement;
+		if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
+	}
 }

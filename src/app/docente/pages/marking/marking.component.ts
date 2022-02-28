@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AppSettings } from '../../../app.settings';
@@ -7,13 +7,16 @@ import { RealDate } from '../../../helpers/dates';
 import { SessionService } from '../../../services/session.service';
 import { DocenteService } from '../../../services/docente.service';
 import { LoginService } from '../../../services/login.service';
+import { unwatchFile } from 'fs';
+import { ToastrService } from 'ngx-toastr';
+// import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-marking',
   templateUrl: './marking.component.html',
   styleUrls: ['./marking.component.scss']
 })
-export class MarkingComponent implements OnInit {
+export class MarkingComponent implements OnInit, AfterViewInit {
 	cod_company: any;
 	config_initial: any;
 	user = this.session.getObject('user');
@@ -24,6 +27,7 @@ export class MarkingComponent implements OnInit {
 	realClassroom: any = {};
 	message: string = '';
 	typeMessage: string = '';
+	today = new Date()
 	realDate = {
 		year: '',
 		month: '',
@@ -41,17 +45,50 @@ export class MarkingComponent implements OnInit {
 	loading: boolean = false;
 	@ViewChild('myClassesModal') myClassesModal;
 	nextClassesLink:Array<any> = [];
+	heightViewPx: number
+	heightWindowPx: number
+
+	// images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
+	slideIndex = 1;
+
 	constructor( private session: SessionService,
 		private docenteS: DocenteService,
 		private deviceS: DeviceDetectorService,
 		private loginS: LoginService,
-		private router: Router ) {
+		private router: Router,
+		private elRef: ElementRef,
+		private toastr: ToastrService, 
+		// private _config: NgbCarouselConfig
+		) {
+			// _config.interval = 1000
+			// _config.pauseOnHover = true
+			// _config.showNavigationArrows = true
 		this.loading = true;
 		this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 	}
+	ngAfterViewInit(): void {
+		this.showSlides(this.slideIndex);
+		setTimeout(() => {
+			this.showSlides(this.slideIndex);
+		}, 100);
+		
+		setInterval(() => {
+			this.plusSlides(1);
+		}, 5000);
+
+		// setTimeout(() => {
+		// 	this.showSlides(this.slideIndex);
+		// }, 500);
+		// setTimeout(() => {
+		// 	this.showSlides(this.slideIndex);
+		// }, 1000);
+	}
 
 	ngOnInit() {
+
+		this.positionFooterInitial()
+		this.today = new Date()
 		var fecha = new Date();
 		fecha.toLocaleString('es-PE');
 		this.getRealDate();
@@ -79,6 +116,7 @@ export class MarkingComponent implements OnInit {
 					this.realClassroom = tClassroom[0]?tClassroom[0]:this.realClassroom;
 				}
 				this.checkNextClass();
+				setTimeout(() => { this.positionFooter() }, 100);
 			}, error => { });
 		} else {
 			this.docenteS.listClassroom({emplid: this.emplid_real, institucion: this.config_initial.institution})
@@ -89,6 +127,7 @@ export class MarkingComponent implements OnInit {
 					this.realClassroom = tClassroom[0]?tClassroom[0]:this.realClassroom;
 				}
 				this.checkNextClass();
+				setTimeout(() => { this.positionFooter() }, 100);
 			}, error => { });
 		}
 	}
@@ -277,4 +316,242 @@ export class MarkingComponent implements OnInit {
 		}
 		return true;
 	}
+
+	openTab(url) {
+		const link = document.createElement('a');
+		link.href = url;
+		link.target = '_blank';
+		document.body.appendChild(link);
+		link.click();
+		link.remove();
+	}
+
+	positionFooter() {
+
+		const div2 = this.elRef.nativeElement.parentElement;
+		console.log(div2)
+		if( window.innerWidth < 1025 ) {
+			console.log('heightViewPx -> marking -> if ', this.heightViewPx)
+			console.log('heightWindowPx -> marking -> if ', this.heightWindowPx)
+			if(div2 != undefined ) div2.style.height =  'unset'
+		} else if ( window.innerWidth >= 1664 ) {
+			if( div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
+		} else {
+
+			const div = this.elRef.nativeElement;
+			this.heightViewPx = div.clientHeight;
+			this.heightWindowPx = window.innerHeight;
+			console.log('heightViewPx -> marking -> else ', this.heightViewPx)
+			console.log('heightWindowPx -> marking -> else ', this.heightWindowPx)
+			if((this.heightViewPx + 248) <= this.heightWindowPx) {
+				if( div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
+			} else {
+				if( div2 != undefined ) div2.style.height = 'unset'
+			}
+		}
+	}
+  positionFooterInitial() {
+		const div2 = this.elRef.nativeElement.parentElement;
+		if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
+	}
+
+	MODALHEAD = {
+		CRSE_ID: '',
+		CRSE_ID_DESCR: '',
+		CLASS_NBR: '',
+		CLASS_ATTEND_DT: ''
+	}
+	disabledMarking:boolean = false;
+	studentsDetail: any;
+	assistaneDays: any;
+
+	haveChanges: boolean = false;
+	objDataAssistance: any = {};
+
+	data_delegates: any = {
+		"ACAD_CAREER": '',
+		"ASSOCIATED_CLASS": "1",
+		"CLASS_NBR": '',
+		"CRSE_ID": '',
+		"EMPLID1": '',
+		"EMPLID2": '',
+		"INSTITUTION": '',
+		"SESSION_CODE": '',
+		"STRM": '',
+		"emplid": '',
+	}
+
+	goTakeAssistance(modal, model){
+
+		
+		this.studentsDetail = null;
+		if(this.cod_company != '002'){
+			// debugger
+			let startDate = new Date(model.DATE1+' '+model.MEETING_TIME_START);
+			let endDate  = new Date(model.DATE1+' '+model.MEETING_TIME_END);
+			startDate.setMinutes(startDate.getMinutes() - 10);
+			endDate.setMinutes(endDate.getMinutes() + 10);
+			let realDate = (new Date()).getTime();
+			if(startDate.getTime() <= realDate && realDate <= endDate.getTime())this.disabledMarking = false;
+			else this.disabledMarking = true;
+		}
+
+		this.MODALHEAD.CRSE_ID = model.CRSE_ID
+		this.MODALHEAD.CRSE_ID_DESCR = model.CRSE_ID_DESCR
+		this.MODALHEAD.CLASS_NBR = model.CLASS_NBR
+		this.MODALHEAD.CLASS_ATTEND_DT = model.DATE1
+
+		this.data_delegates.INSTITUTION = model.INSTITUTION;
+		this.data_delegates.CLASS_NBR = model.CLASS_NBR;
+		this.data_delegates.STRM = model.STRM;
+		this.data_delegates.CRSE_ID = model.COD_CURSE;
+		this.data_delegates.SESSION_CODE = model.SESSION_CODE; // No se tiene el dato
+		this.data_delegates.emplid = this.emplid;
+
+		this.docenteS.getAssistanceDays({
+			INSTITUTION: model.INSTITUTION,
+			STRM: model.STRM,
+			CLASS_NBR: model.CLASS_NBR,
+			CLASS_MTG_NBR: model.CLASS_MTG_NBR
+		})
+		.then(res => {
+			this.assistaneDays = res.UCS_REST_ASISTALUFEC_RES && res.UCS_REST_ASISTALUFEC_RES.UCS_REST_ASISTALUFEC_COM? res.UCS_REST_ASISTALUFEC_RES.UCS_REST_ASISTALUFEC_COM: [];
+
+			console.log('this.assistaneDays', this.assistaneDays)
+
+			for (let index = 0; index < this.assistaneDays.length; index++) {
+				const element = this.assistaneDays[index];
+				if( element.CLASS_ATTEND_DT == model.DATE1) {
+					
+					this.haveChanges = false;
+					this.docenteS.getDetailClassroomStudent(
+						{
+							INSTITUTION: model.INSTITUTION,
+							STRM: model.STRM,
+							CLASS_NBR: model.CLASS_NBR,
+							CLASS_MTG_NBR: model.CLASS_MTG_NBR,
+							ATTEND_TMPLT_NBR: element.ATTEND_TMPLT_NBR,
+							emplid: this.emplid_real
+						}
+					)
+						.then(res => {
+							this.studentsDetail = res.SISE_ASSISTANCE_CLASS_RES && res.SISE_ASSISTANCE_CLASS_RES.SISE_ASSISTANCE_CLASS_COM? res.SISE_ASSISTANCE_CLASS_RES.SISE_ASSISTANCE_CLASS_COM: [];
+							console.log(this.studentsDetail)
+							for (var i = this.studentsDetail.length - 1; i >= 0; i--) {
+								if(this.studentsDetail[i].DELEGADO == 'S'){
+									this.data_delegates.ACAD_CAREER = this.studentsDetail[i].ACAD_CAREER;
+									this.data_delegates.EMPLID2 = this.studentsDetail[i].EMPLID;
+								}
+								if(this.studentsDetail[i].DELEGADO == 'D'){
+									this.data_delegates.ACAD_CAREER = this.studentsDetail[i].ACAD_CAREER;
+									this.data_delegates.EMPLID1 = this.studentsDetail[i].EMPLID;
+								}
+							}
+						}, error => { });
+				}
+			}
+		}, error => { });
+
+		modal.open();
+	}
+
+	markingStudents(t){
+		this.haveChanges = true;
+		for (var i = this.studentsDetail.length - 1; i >= 0; i--) {
+			if(this.studentsDetail[i].ESTADO != 'D'){
+				this.studentsDetail[i].ATTEND_PRESENT = t?'Y':'N';
+				this.objDataAssistance[this.studentsDetail[i].EMPLID] = JSON.parse(JSON.stringify(this.studentsDetail[i]));
+			}
+		}
+	}
+
+	allMarkedStudents(){
+		var allMarked = true;
+		for (var i = this.studentsDetail.length - 1; i >= 0; i--) {
+			if(this.studentsDetail[i].ESTADO != 'D'){
+				if(this.studentsDetail[i].ATTEND_PRESENT=='N') allMarked = false;
+			}
+		}
+		return allMarked;
+	}
+
+	check_assistance(student){
+		this.haveChanges = true;
+		student.ATTEND_PRESENT = student.ATTEND_PRESENT == 'N'?'Y':'N';
+		this.objDataAssistance[student.EMPLID] = JSON.parse(JSON.stringify(student));
+	}
+
+	saveAssistance(){
+		if(this.cod_company == '002' && this.studentsDetail.length > 1 && ((this.data_delegates['EMPLID1'] && !this.data_delegates['EMPLID2']) || (!this.data_delegates['EMPLID1'] && this.data_delegates['EMPLID2'])) ){
+			this.toastr.error('Atención! Recuerde que debe seleccionar al delegado y subdelegado.');
+			return;
+		}
+		if (this.studentsDetail.length == 1) {
+			this.data_delegates['EMPLID1'] = this.data_delegates['EMPLID2']?this.data_delegates['EMPLID2']:this.data_delegates['EMPLID1'];
+			this.data_delegates['EMPLID2'] = '';
+		}
+		var url = '';
+		if(this.cod_company == '002') url = AppSettings.BASE_UCSUR_LARAVEL + '/guardar_asistencia_alumnos_cientifica';
+		else url = AppSettings.BASE_SISE_LARAVEL + '/guardar_asistencia';
+		var data = [];
+		for(var kobj in this.objDataAssistance){
+			data.push(this.objDataAssistance[kobj]);
+		}
+		console.log('data', data)	
+		this.loading = true;
+		this.docenteS.saveAssistance({data: JSON.stringify(data)})
+		.then(res => {
+			if(this.cod_company == '002'){
+				this.docenteS.updateDelegate(this.data_delegates)
+				.then(res => {
+					this.loading = false;
+					this.toastr.success('Se registró la asistencia correctamente.');
+				}, error => {
+					this.loading = false;
+					this.toastr.error('Atención! Recuerde que debe seleccionar al delegado y subdelegado.');
+				});
+			}
+			else{
+				this.loading = false;
+				this.toastr.success('Se registró la asistencia correctamente.');
+			}
+			this.sendLog(url, data, res);
+		}, error => {
+			this.loading = false;
+			this.toastr.error('Atención! Hubo un problema al registrar la asistencia.');
+			this.sendLog(url, data, error);
+		});
+	}
+
+	showSlides(n: any) {
+		var i;
+		// debugger
+		var slides: any = document.getElementsByClassName("mySlides");
+		var dots: any = document.getElementsByClassName("dot-" + this.config_initial.code);
+		if (n > slides.length) {this.slideIndex = 1}    
+		if (n < 1) {this.slideIndex = slides.length}
+		for (i = 0; i < slides.length; i++) {
+				slides[i].style.display = "none";  
+		}
+		for (i = 0; i < dots.length; i++) {
+				dots[i].className = dots[i].className.replace(" active-" + this.config_initial.code, "");
+		}
+		if(slides.length != 0) {
+			slides[this.slideIndex-1].style.display = "block";  
+		}
+		if(dots.length != 0) {
+			dots[this.slideIndex-1].className += " active-" + this.config_initial.code;
+		}
+	}
+
+	plusSlides(n) {
+		this.showSlides(this.slideIndex += n);
+	}
+
+	currentSlide(n) {
+		this.showSlides(this.slideIndex = n);
+	}
+
+	
+
 }

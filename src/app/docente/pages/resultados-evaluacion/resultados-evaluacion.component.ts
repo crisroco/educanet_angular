@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AppSettings } from '../../../app.settings';
 import { Decrypt } from '../../../helpers/general';
 import { SessionService } from '../../../services/session.service';
@@ -52,16 +52,21 @@ export class ResultadosEvaluacionComponent implements OnInit {
   
 	loading = false;
 
+	
+	heightViewPx: number
+	heightWindowPx: number
 	constructor(
 		private session: SessionService, 
 		private docenteS: DocenteService,
 		public excel: ExcelService,
-    private toastr: ToastrService) { 
+    private toastr: ToastrService,
+		private elRef: ElementRef) { 
 		this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 	}
 
 	ngOnInit() {
+		this.positionFooterInitial()
 		this.loading = true;
 		this.docenteS.getresumenevaluation(this.emplid)
 		.then(res => {
@@ -72,17 +77,18 @@ export class ResultadosEvaluacionComponent implements OnInit {
 			.then(res => {
 			if(res.data)
 				this.rank = res.data.rank;
-				
 				this.docenteS.getParametria(this.cod_company)
 				.then(res => {		
 					this.allParametria = res.data;
 					this.loading = false;
+					setTimeout(() => { this.positionFooter() }, 100);
 				});	
 
 			});			
 		}, (error)=>{
 			this.toastr.error('Ocurrio un Error, Por favor vuelve a intentarlo');
 			this.loading = false;
+			setTimeout(() => { this.positionFooter() }, 100);
 		});
 	}
 
@@ -170,5 +176,21 @@ export class ResultadosEvaluacionComponent implements OnInit {
 	});
 	
   }
+
+	positionFooter() {
+		const div = this.elRef.nativeElement.parentElement;
+		this.heightViewPx = div.clientHeight;
+		this.heightWindowPx = window.innerHeight;
+
+		if((this.heightViewPx + 255) <= this.heightWindowPx) {
+			if(div != undefined ) div.style.height = 'calc(100vh - 144px)'
+		} else {
+			if(div != undefined ) div.style.height = 'unset'
+		}
+	}
+  positionFooterInitial() {
+		const div2 = this.elRef.nativeElement.parentElement;
+		if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
+	}
 
 }

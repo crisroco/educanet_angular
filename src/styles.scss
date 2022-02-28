@@ -631,7 +631,7 @@ a.text-wsp:hover {
     top: -5px;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1025px) {
     li a,
     li a:not([href]) {
         display: block;
@@ -667,7 +667,7 @@ body {
 }
 body {
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: "Public Sans", Roboto, "Helvetica Neue", sans-serif;
 }
 
 .bg-ucs-mobile {
@@ -679,13 +679,40 @@ body {
     .btn-icon {
         svg {
             path {
-                fill: #fff !important;
+                fill: #fff;
+            }
+        }
+    }
+    .btn-icon-2 {
+        svg {
+            path {
+                stroke: #fff;
             }
         }
     }
     .active {
-        background-color: rgba(0, 0, 0, 0.2) !important;
+        // background-color: rgba(0, 0, 0, 0.2) !important;
         border-right: solid #f28c35 !important;
+        color: #f28c35 !important;
+        // svg {
+        //     path {
+        //         fill: #f28c35 !important;
+        //     }
+        // }
+        .btn-icon {
+            svg {
+                path {
+                    fill: #f28c35;
+                }
+            }
+        }
+        .btn-icon-2 {
+            svg {
+                path {
+                    stroke: #f28c35;
+                }
+            }
+        }
     }
     .active-sub-item {
         .btn-icon {
@@ -701,7 +728,7 @@ body {
 
 .bg-ucs-desktop {
     .active {
-        color: #0045ff;
+        color: #0045ff !important;
         background-color: #ecf1ff;
         border-right: solid #22468f;
         .btn-icon {
@@ -711,8 +738,17 @@ body {
                 }
             }
         }
+        .btn-icon-2 {
+            svg {
+                path {
+                    stroke: #0045ff;
+                }
+            }
+        }
     }
     .content-item-expand .active-sub-item {
+        color: #212B36 !important;
+        font-weight: 600 !important;
         .btn-icon {
             svg {
                 circle {
@@ -737,15 +773,29 @@ body {
             }
         }
     }
+    .btn-icon-custom {
+        svg {
+            path {
+                fill: #000 !important;
+            }
+        }
+    }
     .active {
         color: #F2233A !important;
         .btn-icon {
-                    svg {
-                        path {
-                            fill: #F2233A !important;
-                        }
-                    }
+            svg {
+                path {
+                    fill: #F2233A !important;
                 }
+            }
+        }
+        .btn-icon-2 {
+            svg {
+                path {
+                    stroke: #F2233A;
+                }
+            }
+        }
     }
     .active-sub-item {
         .btn-icon {
@@ -762,7 +812,7 @@ body {
 .bg-sise-desktop {
     .active {
         color: #f2233a !important;
-        background-color: #F6F7F8 !important;
+        background-color: #FDE4E2 !important;
         border-right: solid #f2233a;
         .btn-icon {
             svg {
@@ -771,8 +821,16 @@ body {
                 }
             }
         }
+        .btn-icon-2 {
+            svg {
+                path {
+                    stroke: #f2233a;
+                }
+            }
+        }
     }
     .content-item-expand .active-sub-item {
+        color: #212B36 !important;
         .btn-icon {
             svg {
                 circle {
@@ -784,7 +842,159 @@ body {
     }
 }
 
-
 :focus-visible {
     outline: none !important;
+}
+
+// TODO: Mover a Docente scss
+.mat-drawer-inner-container {
+    width: 316px;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.mat-drawer-inner-container::-webkit-scrollbar {
+    display: none;
+}
+
+
+// TODO: Mover a Docente scss
+
+.mat-drawer-container {
+    background-color: #ffffff;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+// TODO: Bootstrap
+
+
+// Bootstrap
+
+
+.btn-icon-grid-ucs  {
+    svg {
+      path {
+          fill: #22468F !important;
+      }
+    }
+}
+
+.btn-icon-grid-ucs:hover  {
+    svg {
+      path {
+          fill: #3B70FF !important;
+      }
+    }
+}
+
+.btn-icon-grid-sise  {
+    svg {
+      path {
+          fill: #FE6E68 !important;
+      }
+    }
+}
+
+.btn-icon-grid-sise:hover  {
+    svg {
+      path {
+          fill: #FF4842 !important;
+      }
+    }
+}
+
+.nsm-dialog-open {
+    margin-top: 8%;
+}
+
+.icon-marcacion-ucs {
+    svg {
+        width: 22px;
+        height: 22px;
+      path {
+          fill: #3B70FF !important;
+      }
+    }
+}
+.icon-descarga-ucs {
+    svg {
+        width: 22px;
+        height: 22px;
+      path {
+          fill: #F28C35 !important;
+      }
+    }
+}
+.icon-capacitarme-ucs {
+    svg {
+        width: 22px;
+        height: 22px;
+      path {
+          fill: #3B70FF !important;
+      }
+    }
+}
+.icon-notas-ucs {
+    svg {
+        width: 22px;
+        height: 22px;
+      path {
+        //   fill: #F28C35 !important;
+      }
+    }
+}
+
+.icon-marcacion-sise {
+    svg {
+        width: 22px;
+        height: 22px;
+      path {
+          fill: #FF4842 !important;
+      }
+    }
+}
+.icon-descarga-sise {
+    svg {
+        width: 22px;
+        height: 22px;
+      path {
+          fill: #000000 !important;
+      }
+    }
+}
+.icon-capacitarme-sise {
+    svg {
+        width: 22px;
+        height: 22px;
+      path {
+          fill: #FF4842 !important;
+      }
+    }
+}
+.icon-notas-sise {
+    svg {
+        width: 22px;
+        height: 22px;
+        path {
+            // fill: #000000 !important;
+        }
+    }
+}
+
+
+// .menu-z-index {
+//     z-index: 0 !important;
+// }
+
+@media (min-width: 1025px) {
+    
+    .menu-z-index {
+        z-index: 0 !important;
+    }
+
+}
+
+.mat-menu-panel {
+    box-shadow: 0px 20px 40px -4px rgba(145, 158, 171, 0.24) !important;
+    border-radius: 8px !important;
 }

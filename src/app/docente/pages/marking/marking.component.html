@@ -1,5 +1,360 @@
-<div class="bg-white p-3 rounded-1">
-	<div class="mb-3">
+<div class="bg-white p-3 rounded-1"
+
+>
+<!-- [ngStyle]="{'height': styleHeight }" -->
+	<div class="row-custom row">
+
+		
+		<!-- <div class="col-sm-12 col-md-6 col-lg-8 px-0 mb-4">
+			<div class="row">
+				<div class="col-12 mb-4">
+					<div class="card-custom p-4 d-flex justify-content-between banner-lv banner-lv-{{config_initial.code}}" style="border: unset;">
+						<div>
+							<h3 class="text-24 banner-titulo">  ¡Bienvenido a Educanet ! 
+							</h3>
+							<p class="text-14">Donde podrás ver tus clases programadas, registrar tu marcación, asistencia de alumnos, notas y más.</p>
+							<button class="btn btn-primary btn-primary-{{config_initial.code}} banner-button text-14">Ver Tutorial</button>
+						</div>
+						<div class="ml-4 ng-star-inserted d-md-none-lv">
+							<img width="250px" src="assets/img/illustrations-{{config_initial.code}}.png">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> -->
+
+		<!-- <div class="col-md-6 col-lg-8 px-0 mb-4">
+			<div class="row">
+				<div class="col-12 mb-4">
+						<img src="./assets/img/{{config_initial.code}}/banner_1.png" alt="" style="width: 100%; height: 100%;">
+				</div>
+			</div>
+		</div> -->
+
+		<div class="col-md-6 col-lg-8 px-0 mb-4">
+			<div class="slideshow-container">
+
+				<div class="mySlides fade">
+					<div class="row">
+						<div class="col-12 mb-4">
+							<div class="card-custom p-4 d-flex justify-content-between banner-lv banner-lv-{{config_initial.code}}" style="border: unset;">
+								<div>
+									<h3 class="text-24 banner-titulo">  ¡Bienvenido a Educanet ! 
+									</h3>
+									<p class="text-14">Donde podrás ver tus clases programadas, registrar tu marcación, asistencia de alumnos, notas y más.</p>
+									<button class="btn btn-primary btn-primary-{{config_initial.code}} banner-button text-14">Ver Tutorial</button>
+								</div>
+								<div class="ml-4 ng-star-inserted d-md-none-lv">
+									<img width="250px" src="assets/img/illustrations-{{config_initial.code}}.png">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="mySlides fade">
+					<div class="row">
+						<div class="col-12 mb-4">
+							<div class="card-custom p-4 d-flex justify-content-between banner-lv banner-lv-{{config_initial.code}}" style="border: unset;">
+								<div>
+									<h3 class="text-24 banner-titulo">  ¡Bienvenido a Educanet ! 
+									</h3>
+									<p class="text-14">Donde podrás ver tus clases programadas, registrar tu marcación, asistencia de alumnos, notas y más.</p>
+									<button class="btn btn-primary btn-primary-{{config_initial.code}} banner-button text-14">Ver Tutorial</button>
+								</div>
+								<div class="ml-4 ng-star-inserted d-md-none-lv">
+									<img width="250px" src="assets/img/illustrations-{{config_initial.code}}.png">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="mySlides fade">
+					<div class="row">
+						<div class="col-12 mb-4">
+							<div class="card-custom p-4 d-flex justify-content-between banner-lv banner-lv-{{config_initial.code}}" style="border: unset;">
+								<div>
+									<h3 class="text-24 banner-titulo">  ¡Bienvenido a Educanet ! 
+									</h3>
+									<p class="text-14">Donde podrás ver tus clases programadas, registrar tu marcación, asistencia de alumnos, notas y más.</p>
+									<button class="btn btn-primary btn-primary-{{config_initial.code}} banner-button text-14">Ver Tutorial</button>
+								</div>
+								<div class="ml-4 ng-star-inserted d-md-none-lv">
+									<img width="250px" src="assets/img/illustrations-{{config_initial.code}}.png">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- <a class="prev"  (click)="plusSlides(-1)">&#10094;</a>
+				<a class="next"  (click)="plusSlides(1)">&#10095;</a> -->
+				
+			</div>
+			<br>
+			
+			<div style="    
+			position: absolute;
+			right: 0;
+			bottom: 60px;
+			left: 0;
+			z-index: 15;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-pack: center;
+			-ms-flex-pack: center;
+			justify-content: center;
+			padding-left: 0;
+			margin-right: 15%;
+			margin-left: 15%;
+			list-style: none;
+			">
+				<span class="dot-{{config_initial.code}}" (click)="currentSlide(1)"></span> 
+				<span class="dot-{{config_initial.code}}" (click)="currentSlide(2)"></span> 
+				<span class="dot-{{config_initial.code}}" (click)="currentSlide(3)"></span> 
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-6 col-lg-4 px-0 mb-4">
+			<div class="row">
+				<div class="col-12 mb-4 mr-0">
+					<div
+						class="card-custom d-flex banner-lv-w d-ff-col-nowrap-jc-center">
+						
+						<div class="d-flex cursor-pointer text-secondary-custom item-card-custom-home-rigth" style="margin-top: 25px;" (click)="openTab('https://cientificavirtual.cientifica.edu.pe/login/canvas')">
+							<div>
+								<img class="pl-md-1 pr-md-3" src="./assets/img/{{config_initial.code}}/seccion_2_1.png">
+							</div>
+							<div class="text-banner-right">
+								{{
+
+									config_initial.code == 'ucs' ? 'Aula Virtual Pregrado-CPE' : 'Aula Virtual'
+
+								}}
+								
+								<p class="m-0">Plataforma Canvas</p>
+							</div>
+						</div>
+
+						<div class="d-flex cursor-pointer text-secondary-custom item-card-custom-home-rigth" (click)="openTab(config_initial.code == 'ucs' ? 'https://aulavirtualposgrado.cientifica.edu.pe/' : 'https://zoom.us/')">
+							<div>
+								<img class="pl-md-1 pr-md-3" src="./assets/img/{{config_initial.code}}/seccion_2_2.png">
+							</div>
+							<div class="text-banner-right">
+								{{
+									config_initial.code == 'ucs' ? 'Aula Virtual Posgrado' : 'Zoom'
+								}}
+								<p class="m-0">
+									{{
+										config_initial.code == 'ucs' ? 'Plataforma Moodle' : 'Reuniones Virtuales'
+									}}
+								</p>
+							</div>
+						</div>
+
+						<div class="d-flex cursor-pointer text-secondary-custom item-card-custom-home-rigth" style="margin-bottom: 25px" (click)="openTab('https://mail.office365.com/')">
+							<div>
+								<img class="pl-md-1 pr-md-3" src="./assets/img/{{config_initial.code}}/seccion_2_3.png">
+							</div>
+							<div class="text-banner-right">
+								Correo Institucional
+								<p class="m-0">
+									{{
+										config_initial.code == 'ucs' ? 'Buzón Cientifica' : 'Buzón SISE'
+									}}
+								</p>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- *ngIf="classrooms && classrooms.length > 0" -->
+	<div class="row-custom row" *ngIf="classrooms && classrooms.length > 0">
+		<div class="col-12 mb-4 d-md-block px-2 d-flex">
+			<div class="card-custom div-table-home mr-2 d-flex justify-content-between banner-lv-f">
+				<div class="justify-content-between d-flex-block">
+					<h3 class="text-18 banner-titulo text-turn"> Mis clases de hoy 
+					</h3>
+					<!-- <h3 class="text-18 banner-titulo">{{ realDate.day + '/' + realDate.month + '/' + realDate.year }}</h3> -->
+					<h3 class="text-18 banner-titulo">{{ today | date: 'EEEE, d \'de\' MMMM y' | titlecase }}</h3>
+					
+				</div>
+
+				<table class="w-100 table-home">
+					<thead class="thead-home-{{config_initial.code}}" >
+						<tr class="text-center text-s">
+							<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Grado - Ciclo-Clase</th>
+							<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Curso - Código</th>
+							<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Tipo - Sección</th>
+							<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Aula - Local</th>
+							<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Horario</th>
+							<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Registro de Marcación</th>
+							<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Marcación Docente</th>
+							<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Asistencia Alumnos</th>
+						</tr>
+					</thead>
+					<!-- <tbody>
+						<tr class="text-center text-s">
+							<td class="td-home-16-16-24">UGRD - 7644D- 2223</td>
+							<td class="td-home-16-16-24">Habilidades Gerenciales en Estomatología (6672202)</td>
+							<td class="td-home-16-16-24">PRA-7C1</td>
+							<td class="td-home-16-16-24">AULA A - 101CO ATE - Campus Ate </td>
+							<td class="td-home-16-16-24">11:00-13:00</td>
+							<td class="td-home-16-16-24">11:00-</td>
+							<td class="td-home-16-16-44">
+								<button (click)="openRegisterMarking(registerMarkingModal, classroom)" class=" table-home-button-icon">
+									<img class="pl-md-1 pr-md-3" src="./assets/img/icon_marcacion.png">
+								</button>
+							</td>
+							<td class="td-home-16-16-44">
+								<button (click)="openRegisterMarking(registerMarkingModal, classroom)" class=" table-home-button-icon">
+									<img class="pl-md-1 pr-md-3" src="./assets/img/icon_asistencia_alumnos.png">
+								</button>
+							</td>
+						</tr>
+						
+						<tr class="text-center text-s">
+							<td class="td-home-16-16-24">UGRD - 7644D- 2223</td>
+							<td class="td-home-16-16-24">Habilidades Gerenciales en Estomatología (6672202)</td>
+							<td class="td-home-16-16-24">PRA-7C1</td>
+							<td class="td-home-16-16-24">AULA A - 101CO ATE - Campus Ate </td>
+							<td class="td-home-16-16-24">11:00-13:00</td>
+							<td class="td-home-16-16-24">11:00-</td>
+							<td class="td-home-16-16-44">
+								<button (click)="openRegisterMarking(registerMarkingModal, classroom)" class=" table-home-button-icon">
+									<img class="pl-md-1 pr-md-3" src="./assets/img/icon_marcacion.png">
+								</button>
+							</td>
+							<td class="td-home-16-16-44">
+								<button (click)="openRegisterMarking(registerMarkingModal, classroom)" class=" table-home-button-icon">
+									<img class="pl-md-1 pr-md-3" src="./assets/img/icon_asistencia_alumnos.png">
+								</button>
+							</td>
+						</tr>
+
+						<tr class="text-center text-s">
+							<td class="td-home-16-16-24">UGRD - 7644D- 2223</td>
+							<td class="td-home-16-16-24">Habilidades Gerenciales en Estomatología (6672202)</td>
+							<td class="td-home-16-16-24">PRA-7C1</td>
+							<td class="td-home-16-16-24">AULA A - 101CO ATE - Campus Ate </td>
+							<td class="td-home-16-16-24">11:00-13:00</td>
+							<td class="td-home-16-16-24">11:00-</td>
+							<td class="td-home-16-16-44">
+								<button (click)="openRegisterMarking(registerMarkingModal, classroom)" class=" table-home-button-icon">
+									<img class="pl-md-1 pr-md-3" src="./assets/img/icon_marcacion.png">
+								</button>
+							</td>
+							<td class="td-home-16-16-44">
+								<button (click)="openRegisterMarking(registerMarkingModal, classroom)" class=" table-home-button-icon">
+									<img class="pl-md-1 pr-md-3" src="./assets/img/icon_asistencia_alumnos.png">
+								</button>
+							</td>
+						</tr>
+						
+					</tbody> -->
+					<tbody *ngIf="classrooms && classrooms.length > 0">
+						<tr class="text-center text-normal" 
+						*ngFor="let classroom of classrooms; let c = 'index'">
+							<td class="td-home-16-16-24">{{ classroom.ACAD_CAREER }} - {{ classroom.STRM }} - {{ classroom.CLASS_NBR }}</td>
+							<td class="td-home-16-16-24">{{ classroom.CRSE_ID_DESCR }} ({{ classroom.CRSE_ID }})</td>
+							<td class="td-home-16-16-24">{{ classroom.SSR_COMPONENT }} - {{ classroom.CLASS_SECTION }}</td>
+							<td class="td-home-16-16-24">{{ classroom.DESC_FACILITY }} - {{ classroom.DESC_LOCAL }}</td>
+							<td class="td-home-16-16-24" style="min-width: 100px;">{{ classroom.MEETING_TIME_START }} - {{ classroom.MEETING_TIME_END }}</td>
+							<td class="td-home-16-16-24">{{ classroom.MARC_TIME_START }} - {{ classroom.MARC_TIME_END }}</td>
+							<td class="td-home-16-16-44">
+								<button (click)="openRegisterMarking(registerMarkingModal, classroom)" class="table-home-button-icon">
+									<!-- <img class="pl-md-1 pr-md-3" src="./assets/img/icon_marcacion.png"> -->
+									<mat-icon class="btn-icon btn-icon-grid-{{config_initial.code}}" svgIcon="ic_marcacion_docente"></mat-icon>
+								</button>
+							</td>
+							<td class="td-home-16-16-44">
+								<button (click)="goTakeAssistance(takeAssistanceModal, classroom)" class="table-home-button-icon">
+									<!-- <img class="pl-md-1 pr-md-3" src="./assets/img/icon_asistencia_alumnos.png"> -->
+									<mat-icon class="btn-icon btn-icon-grid-{{config_initial.code}}" svgIcon="ic_asistencia_alumnos"></mat-icon>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="row-custom row" *ngIf="classrooms && classrooms.length == 0">
+		<div class="col-12 mb-4 d-md-block px-2 d-flex">
+			<div class="card-custom div-table-home-2 mr-2 d-flex justify-content-between banner-lv-f">
+				<div class="justify-content-between d-flex-block ">
+					<h3 class="text-18 banner-titulo text-turn"> 
+						¿Qué deseas hacer hoy?
+					</h3>
+					<h3 class="text-18 banner-titulo">{{ today | date: 'EEEE, d \'de\' MMMM y' | titlecase }}</h3>
+				</div>
+
+				<div class="row my-2 mt-15">
+
+					<div class="col-sm-12 col-md-6 col-lg-3 mb-4 d-md-block px-2 d-flex-block" routerLink="/docente/docentes-historico_marcacion">
+						<div class="card-custom-efect div-table-home-2 mr-2 d-flex justify-content-between banner-lv-f h-130">
+							<div class="justify-content-between d-block">
+
+								<mat-icon class="btn-icon icon-marcacion-{{config_initial.code}}" svgIcon="ic_historial"></mat-icon>
+								<p class="p-10-text-gris"> 
+									Ver historial de marcación
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-12 col-md-6 col-lg-3 mb-4 d-md-block px-2 d-flex-block" (click)="openTab('http://cultura.educad.pe/')">
+						<div class="card-custom-efect div-table-home-2 d-flex mr-2 justify-content-between banner-lv-f h-130">
+							<div class="justify-content-between d-block">
+								<mat-icon class="btn-icon icon-descarga-{{config_initial.code}}" svgIcon="ic_descargar"></mat-icon>
+								<p class="p-10-text-gris"> 
+									Descargar Constancia de trabajo
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-12 col-md-6 col-lg-3 mb-4 d-md-block px-2 d-flex-block" (click)="openTab('https://aulavirtual.educad.pe/')">
+						<div class="card-custom-efect div-table-home-2 d-flex	 mr-2 justify-content-between banner-lv-f h-130">
+							<div class="justify-content-between d-block">
+								<mat-icon class="btn-icon icon-capacitarme-{{config_initial.code}}" svgIcon="ic_capacitame"></mat-icon>
+								<p class="p-10-text-gris"> 
+									Capacitarme virtualmente
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-12 col-md-6 col-lg-3 mb-4 d-md-block px-2 d-flex-block"
+					routerLink="{{ config_initial.code=='ucs' ? '/docente/docentes-cientifica' : '/docente/docentes' }}"
+					>
+						<div class="card-custom-efect div-table-home-2 d-flex	 mr-2 justify-content-between banner-lv-f h-130">
+							<div class="justify-content-between d-block">
+								<mat-icon class="btn-icon icon-notas-{{config_initial.code}}" svgIcon="ic_subir_notas"></mat-icon>
+								<p class="p-10-text-gris"> 
+									Subir notas
+								</p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+	
+
+	<!-- <div class="mb-3">
 		<h5 class="pb-2 bd-b-1 bd-{{config_initial.code}}"> Clases Programadas de Hoy {{ realDate.day + '/' + realDate.month + '/' + realDate.year }}</h5>
 	</div>
 
@@ -50,8 +405,7 @@
 				</tr>
 			</tbody>
 		</table>
-	</div>
-</div>
+	</div> -->
 
 <ngx-smart-modal #registerMarkingModal identifier="registerMarkingModal" [closable]="false" [customClass]="''">
 	<div class="text-center mb-3">
@@ -112,6 +466,76 @@
 			<a class="my-1" *ngFor="let room of nextClassesLink" [href]="room.url" target="_blank">{{room.title}}</a>
 		</div>
 	</div> 	
+</ngx-smart-modal>
+
+
+<ngx-smart-modal #takeAssistanceModal identifier="takeAssistanceModal" [closable]="false" [escapable]="false" [dismissable]="false" [customClass]="'mediumModal'">
+	<div class="text-center mb-3">
+		<h5>Lista de alumnos ({{ MODALHEAD.CRSE_ID + ' - ' + MODALHEAD.CRSE_ID_DESCR + ' - ' + MODALHEAD.CLASS_NBR}}) {{MODALHEAD.CLASS_ATTEND_DT}}</h5>
+	</div>
+
+	<div class="mb-3 rounded-1 scroll bd-1 bd-{{config_initial.code}}">
+		<table id="table-students" class="w-100">
+			<thead class="bg-{{config_initial.code}}">
+				<tr class="text-white text-center text-s">
+					<th class="px-3 py-2 align-middle">Nro</th>
+					<th class="px-3 py-2 align-middle">Emplid</th>
+					<th class="px-3 py-2 align-middle">Apellidos y Nombres</th>
+					<th class="px-3 py-2 align-middle">¿Asistió?</th>
+					<th *ngIf="cod_company == '002'" class="px-3 py-2 align-middle">Delegado</th>
+					<th *ngIf="cod_company == '002'" class="px-3 py-2 align-middle">Sub Delegado</th>
+				</tr>
+			</thead>
+			<tbody *ngIf="studentsDetail && studentsDetail.length > 0">
+				<tr [style.color]="studentD.ESTADO=='D'?'#bababa':''" class="text-center text-s {{s < studentsDetail.length - 1?'bd-b-1':''}}" *ngFor="let studentD of studentsDetail; let s = 'index'">
+					<td class="p-1">{{ s + 1 }}</td>
+					<td class="p-1">{{ studentD.EMPLID }}</td>
+					<td class="p-1">{{ studentD.NAME }}</td>
+					<td class="p-1">
+						<div class="onoffswitch">
+							<input [disabled]="studentD.ESTADO=='D' || disabledMarking" [checked]="studentD.ATTEND_PRESENT=='Y'" type="checkbox" name="student{{studentD.EMPLID}}" class="onoffswitch-checkbox" id="student{{studentD.EMPLID}}" (click)="check_assistance(studentD)"> 
+							<label class="onoffswitch-label" for="student{{studentD.EMPLID}}" style="margin-bottom: 0">
+									<span class="onoffswitch-inner"></span>
+									<span class="onoffswitch-switch"></span>
+							</label>
+						</div>
+					</td>
+					<td *ngIf="cod_company == '002'" class="p-1">
+						<input [checked]="studentD.DELEGADO == 'D'" [disabled]="studentD.DELEGADO == 'S' || studentD.ESTADO=='D' || disabledMarking" (change)="updateDelegate(studentD)" name="delegado" class="form-radio" type="radio" >
+					</td>
+					<td *ngIf="cod_company == '002'" class="p-1" [style.color]="studentD.ATTEND_PRESENT != 'Y'?'red':''">
+						<input [checked]="studentD.DELEGADO == 'S'" [disabled]="studentD.DELEGADO == 'D' || studentD.ESTADO=='D' || disabledMarking" (change)="updateSubdelegate(studentD)" name="subdelegado" class="form-radio" type="radio">
+					</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="studentsDetail && studentsDetail.length == 0">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="6"> 
+						<div class="alert alert-warning m-0"> Atención! No se encontraron alumnos. </div> 
+					</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="!studentsDetail">
+				<tr class="text-center text-s">
+					<td class="p-2" colspan="6"> <div class="alert alert-info m-0"> Cargando alumnos... </div> </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="row justify-content-between">
+		<div *ngIf="!disabledMarking">
+			<button *ngIf="studentsDetail && !allMarkedStudents()" (click)="markingStudents(true)" class="btn btn-warning">Marcar todo<i class="fa fa-times"></i></button>
+			<button *ngIf="studentsDetail && allMarkedStudents()" (click)="markingStudents(false)" class="btn btn-danger">Desmarcar todo<i class="fa fa-times"></i></button>
+		</div>
+		<div *ngIf="disabledMarking">
+			<div class="alert alert-warning m-0"> <b>Atención!</b>  Usted se encuentra en modo consulta. </div>
+		</div>
+		<div>
+			<button *ngIf="haveChanges && !disabledMarking" (click)="saveAssistance()" class="btn btn-primary mr-2">Guardar</button>
+			<button (click)="takeAssistanceModal.close()" class="btn btn-secondary">Cerrar</button>
+		</div>
+	</div>
 </ngx-smart-modal>
 
 <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true }"></ngx-loading>

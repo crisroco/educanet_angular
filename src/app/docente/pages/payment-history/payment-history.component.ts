@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppSettings } from '../../../app.settings';
 import { Decrypt } from '../../../helpers/general';
@@ -28,10 +28,13 @@ export class PaymentHistoryComponent implements OnInit {
 	loading: boolean = false;
 	message: string = '' ;
 	typeMessage: number = 0;
+	heightViewPx: number
+	heightWindowPx: number
 
 	constructor( private session: SessionService,
 		private docenteS: DocenteService,
-		private router: Router ) {
+		private router: Router,
+		private elRef: ElementRef  ) {
 			this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 		this.data.codigoCompania = this.cod_company;
@@ -39,9 +42,11 @@ export class PaymentHistoryComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.positionFooterInitial()
 		this.loading = true;
 		this.loading = false;
 		this.createYears();
+		setTimeout(() => { this.positionFooter() }, 100);
 	}
 
 	createYears(){
@@ -70,6 +75,22 @@ export class PaymentHistoryComponent implements OnInit {
 				DownloadFileLink(res, 'boleta.pdf');
 			}
 		}, error => { this.typeMessage = 0; this.message = 'No se pudo completar la descarga, vuelva a intentarlo.'; });
+	}
+
+	positionFooter() {
+		const div2 = this.elRef.nativeElement.parentElement;
+		const div = this.elRef.nativeElement;
+		this.heightViewPx = div.clientHeight;
+		this.heightWindowPx = window.innerHeight;
+		if((this.heightViewPx + 254) < this.heightWindowPx) {
+			if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
+		} else {
+			if(div2 != undefined ) div2.style.height = 'unset'
+		}
+	}
+  positionFooterInitial() {
+		const div2 = this.elRef.nativeElement.parentElement;
+		if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
 	}
 
 }
