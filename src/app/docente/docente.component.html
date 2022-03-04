@@ -1,5 +1,12 @@
 <div [class.bg-ucs]="config_initial.code=='ucs'" [class.bg-dark-custom]="config_initial.code=='sise'"
-    class="header-cust">
+    class="header-cust" style="position: fixed;
+    z-index: 4;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 85px;
+    display: flex;">
 
     <div *ngIf="!opened" class="p-2" (click)="drawer.toggle()" matRipple
         style="cursor: pointer; margin-right: 40px; border-radius: 50%; margin-left: -40px;">
@@ -10,16 +17,16 @@
         <mat-icon svgIcon="ic_close"></mat-icon>
     </div>
 
-    <img *ngIf="config_initial.code=='ucs'" class="mr-auto ml-auto-mobile mr-lg-0" src="assets/new-login/ucs_logo.svg" alt="">
-    <img *ngIf="config_initial.code!='ucs'" class="mr-auto ml-auto-mobile mr-lg-0" src="assets/new-login/sise_logo.svg" alt="">
-    <div *ngIf="isdesktop" class="text-white d-flex align-items-center">
+    <img *ngIf="config_initial.code=='ucs'" class="mr-auto ml-auto-mobile mr-lg-0 cursor-pointer" src="assets/new-login/ucs_logo.svg" alt="" routerLink="/docente/docentes-marcacion" (click)="menuClose();">
+    <img *ngIf="config_initial.code!='ucs'" class="mr-auto ml-auto-mobile mr-lg-0 cursor-pointer" src="assets/new-login/sise_logo.svg" alt="" routerLink="/docente/docentes-marcacion" (click)="menuClose();">
+    <div *ngIf="isdesktop" class="text-white d-flex align-items-center" (menuOpened)="stateMenu=true" (menuClosed)="stateMenu=false"
+    [matMenuTriggerFor]="appMenu"  style="cursor: pointer;">
         <div class="mr-4">
             {{user.abr}}
             <br>
             ID: {{emplid_real}}
         </div>
-        <div class="name-head" (menuOpened)="stateMenu=true" (menuClosed)="stateMenu=false"
-            [matMenuTriggerFor]="appMenu">
+        <div class="name-head">
             {{user.initial_names}} <img [class.rotate]="!stateMenu" src="assets/new-login/up_chevron.svg" alt="">
         </div>
 
@@ -27,8 +34,6 @@
             <div class="px-5 pt-3 pb-4" style="color: #637381; font-size: 14px;">
                 <strong style="color: #212B36; font-weight: 500; font-size: 16px;">{{user.abr}}</strong>
                 <br>
-                <!-- ID: {{emplid_real}}
-                <br> -->
                 {{(user.email2 || user.email) | lowercase }}
             </div>
             <mat-divider></mat-divider>
@@ -37,17 +42,15 @@
                 <mat-icon class="btn-icon" style="margin: 0px 15px 0px 0px;" svgIcon="ic_curriculum_vitae"></mat-icon>
                 Mi Curriculum Vitae
             </div>
-            
+            <div class="text-center px-5 pt-4 pb-3 div-perfil-item" (click)="openTab(config_initial.code == 'ucs' ? 'https://recuperacontrasena.cientifica.edu.pe/docente' : 'https://recuperacontrasena.sise.edu.pe/docente')">
+                <mat-icon class="btn-icon" style="margin: 0px 15px 0px 0px;" svgIcon="ic_cambiar_contrasena"></mat-icon>
+                Cambiar Contraseña
+            </div>
             <div class="text-center px-5 pt-4 pb-3 div-perfil-item" (click)="logout()">
                 <mat-icon class="btn-icon" style="margin: 0px 15px 0px 0px;" svgIcon="ic_cerrar_sesion"></mat-icon>
                 Cerrar sesión
             </div>
 
-            <!-- <div class="text-center px-5 pt-4 pb-3">
-                <button class="w-100" style="color: #212B36;" (click)="logout()" mat-stroked-button>
-                    Cerrar
-                    sesión</button>
-            </div> -->
         </mat-menu>
     </div>
 </div>
@@ -95,7 +98,7 @@
             Historial de marcación
         </div>
 
-        <div class="content-item-expand">
+        <!-- <div *ngIf="config_initial.code == 'ucs'" class="content-item-expand">
             <div class=" expand-content-items" #contentPadre1 (click)="expandContentSub(contentSub1,contentPadre1)" >
                 <mat-icon class="btn-icon" svgIcon="ic_registra_disponibilidad"></mat-icon>
                 Registrar disponibilidad
@@ -109,6 +112,32 @@
                 <div class="content-sub-item" routerLinkActive="active-sub-item" routerLink="/docente/cursos-clases" #contentHijo12 (click)="focusContentSub(contentHijo12);drawerToggle();">
                     <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
                     Disponibilidad cursos
+                </div>
+            </div>
+        </div> -->
+        
+        <div *ngIf="config_initial.code == 'ucs' && director"  class="content-item-expand">
+            <div class=" expand-content-items" #contentPadre1_1 (click)="expandContentSub(contentSub1_1,contentPadre1_1)" >
+                <mat-icon class="btn-icon" svgIcon="ic_director"></mat-icon>
+                Director
+                <mat-icon class="btn-icon ml-auto" svgIcon="ic_chevron_right"></mat-icon>
+            </div>
+            <div class="d-none" #contentSub1_1>
+                <div class="content-sub-item" routerLinkActive="active-sub-item" routerLink="/docente/director/anadir_docente" #contentHijo111 (click)="focusContentSub(contentHijo111);drawerToggle();">
+                    <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
+                    Añadir docente
+                </div>
+                <div class="content-sub-item" routerLinkActive="active-sub-item" routerLink="/docente/director/anadir_curso" #contentHijo122 (click)="focusContentSub(contentHijo122);drawerToggle();">
+                    <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
+                    Añadir curso
+                </div>
+                <div class="content-sub-item" routerLinkActive="active-sub-item" routerLink="/docente/director/consulta_docente" #contentHijo123 (click)="focusContentSub(contentHijo123);drawerToggle();">
+                    <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
+                    Consultar docente
+                </div>
+                <div class="content-sub-item" routerLinkActive="active-sub-item" routerLink="/docente/director/consulta_cursos" #contentHijo124 (click)="focusContentSub(contentHijo124);drawerToggle();">
+                    <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
+                    Consultar cursos
                 </div>
             </div>
         </div>
@@ -176,10 +205,6 @@
                     <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
                     Sobre boletas de pago
                 </div>
-                <!-- <div class="content-sub-item" (click)="openTab('https://vimeo.com/559086745')">
-                    <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
-                    Aula Virtual Pre-CPE
-                </div> -->
                 <div *ngIf="config_initial.code == 'ucs'"
                     class="content-sub-item" (click)="openTab('https://vimeo.com/user/80828096/folder/7629072');drawerToggle();">
                     <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
@@ -192,35 +217,6 @@
             </div>
         </div>
 
-        <!-- <div class="content-item" (click)="getDataRemotex()">
-            <mat-icon class="btn-icon" svgIcon="ic_bank"></mat-icon>
-            Biblioteca
-        </div>
-
-        <div class="content-item" (click)="openTab('https://mail.office365.com')">
-            <mat-icon class="btn-icon" svgIcon="ic_mail"></mat-icon>
-            Correo Científica
-        </div>
-
-        <div class="content-title">
-            MI PERFIL
-        </div>
-
-        <div class="content-item" (click)="goIncorporacion()">
-            <mat-icon class="btn-icon" svgIcon="ic_person"></mat-icon>
-            Curriculum vitae
-        </div>
-
-        <div class="content-item" routerLinkActive="active" routerLink="/docente/resultados-evaluacion">
-            <mat-icon class="btn-icon" svgIcon="ic_edit"></mat-icon>
-            Evaluación docente
-        </div>
-
-        <div class="content-item" (click)="goTraining()">
-            <mat-icon class="btn-icon" svgIcon="ic_trophy"></mat-icon>
-            Capacitación virtual
-        </div> -->
-
         <div class="content-title" >
             GRUPO EDUCA-D
         </div>
@@ -229,7 +225,10 @@
             <mat-icon class="btn-icon" svgIcon="ic_somos"></mat-icon>
             ¿Quienes somos?
         </div>
-
+        <div *ngIf="config_initial.code == 'ucs'" class="content-item" (click)="openTab('https://docs.cientifica.edu.pe/ux/DESCUENTOS%20ACAD%C3%89MICOS%20DOCENTES.pdf');drawerToggle();">
+            <mat-icon class="btn-icon" svgIcon="ic_beneficios"></mat-icon>
+            Beneficios
+        </div>
         <div *ngIf="config_initial.code == 'sise'"
             class="content-item"
             (click)="openTab('https://docs.cientifica.edu.pe/miportal_sise/educanet/DIRECTIVA_NOVIEMBRE.pdf');drawerToggle();">
@@ -254,30 +253,28 @@
                     <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
                     Código de ética
                 </div>
-                <div class="content-sub-item" routerLinkActive="active-sub-item" routerLink="/docente/denuncia" (click)="drawer.toggle();">
+                <div class="content-sub-item" routerLinkActive="active-sub-item" routerLink="/docente/denuncia" (click)="drawerToggle();">
                     <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
                     Ingresar denuncia
                 </div>
-
-                <!-- <div class="content-sub-item"
-                    (click)="openTab('https://grupoeducad.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=p&chid=bb8aab6b-b381-4a09-b6c2-e185835c743b&vid=b63a720d-4a5f-440e-801a-9eeb15f3d4a9')">
-                    <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
-                    Tutorial denuncia
-                </div> -->
             </div>
         </div>
 
         <hr class="content-hr" />
         
-        <div class="content-item content-mobile" (click)="openTab('https://incorporacion.educad.pe/docente/dashboard');drawerToggle();">
-            <!-- <mat-icon class=" btn-icon mr-3">logout</mat-icon> -->
+        <div class="content-item content-mobile" (click)="goIncorporacion();drawerToggle();">
             <mat-icon class="btn-icon mr-3" style="margin: 0px 15px 0px 0px;" svgIcon="ic_mi_curriculum_vitae"></mat-icon>
             Mi Curriculum Vitae
         </div>
+        
+        <div class="content-item content-mobile" (click)="openTab(config_initial.code == 'ucs' ? 'https://recuperacontrasena.cientifica.edu.pe/docente' : 'https://recuperacontrasena.sise.edu.pe/docente')">
+            <mat-icon class="btn-icon mr-3" style="margin: 0px 15px 0px 0px;" svgIcon="ic_cambiar_contrasena"></mat-icon>
+            Cambiar Contraseña
+        </div>
+
         <div class="content-item content-mobile" style="margin: 0px 15px 0px 0px;"
             (click)="logout()">
             <mat-icon class="btn-icon mr-3" style="margin: 0px 15px 15px 0px;" svgIcon="ic_logout"></mat-icon>
-            <!-- <mat-icon class=" btn-icon mr-3">logout</mat-icon> -->
             Cerrar Sesión
         </div>
 
@@ -285,151 +282,27 @@
            
         </div>
 
-        <!-- <mat-divider *ngIf="!isdesktop" class="my-4" style="background-color: #fff;"></mat-divider> -->
-
-        <!-- <div *ngIf="!isdesktop" class="content-item" (click)="logout()">
-            <mat-icon class=" btn-icon mr-3">logout</mat-icon>
-            Cerrar Sesión
-        </div> -->
-
     </mat-drawer>
 
-    <div>
+    <div style="
+            display: flex!important;
+            overflow-y: auto;
+            position: relative;
+            flex-basis: 0;
+            flex-grow: 1;
+            flex-direction: column!important;
+            height: inherit;
+        ">
         <div class="example-sidenav-content pt-8 px-4 container-child" #mainScreen>
-            <!-- style="height: calc(100vh - 144px);"  -->
-            <!-- [ngStyle]="{ 'height' : (heightViewPx > 600 ) ? (heightViewPx + 60) + 'px' : '600px' }" -->
-            <router-outlet></router-outlet>
-            <div *ngIf="config_initial.code == 'ucs'" class="wsp-link" (click)="openTab('https://api.whatsapp.com/send?phone=+51988576507');">
-                <img src="assets/new-login/wsp-icon.svg" width="70px" height="70px" class="cursor-pointer" alt="">
+                <router-outlet></router-outlet>            
+        </div>
+        <div class="mt-auto">
+            <div class="footer-custom">
+                © 2021 Grupo Educa_d -  Todos los derechos reservados 
             </div>
         </div>
-        <div class="mt-auto footer-custom">
-            © 2021 Grupo Educa_d -  Todos los derechos reservados 
-        </div>
     </div>
-    
-
 </mat-drawer-container>
-
-<!-- <div class="bg-gray container-fluid">
-    <div class="row py-2"> -->
-        <!--<div class="col-md-12 col-lg-3 pr-3">
-            <div class="py-3 bg-white full-content rounded-1 d-none d-lg-block">
-                 <div class="col-12 ">
-                    <div class="row justify-content-center mt-5 mb-4">
-                        <img src="{{config_initial.img}}" width="50%" alt="">
-                    </div>
-                    <div class="text-center mb-4">
-                        <i class="fa fa-user fa-4x mb-4"></i>
-                        <p class="mb-1 text-m">Te damos la bienvenida</p>
-                        <h5 *ngIf="user" class="text-xm"><strong>{{ user.name + ' ' + user.surname }}</strong></h5>
-                        <p *ngIf="user" class="m-0">{{ user.email2 }}</p>
-                        <p *ngIf="user">{{ user.emplid_moodle }}</p>
-                        <a class="btn bg-gray rounded-2 text-normal" (click)="goIncorporacion();">Datos Personales</a>
-                        <a class="btn bg-gray rounded-2 text-normal mt-2" (click)="goEvaluacion();"><i class="fa fa-line-chart mr-1" aria-hidden="true"></i> Evaluación 360°</a>
-                    </div>
-                </div>
-                <ul class="col-12 pr-0 pb-5">
-                    <div *ngFor="let menu of menus">
-                        <li *ngIf="menu.uri=='noticias'">
-                            <a class="w-100 hover-{{config_initial.code}}" (click)="goTraining()">+ Capacítate aquí</a>
-                        </li>
-                        <li *ngIf="menu.uri!='noticias'">
-                            <a *ngIf="menu.title == 'Autoservicio GDT'" [ngClass]="{'no_pointer': menu.below}" class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}">+ {{menu.title}}</a>
-                            <a *ngIf="menu.title != 'Autoservicio GDT'" class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="'/docente/' + (menu.uri?menu.uri:'general')">+ {{menu.title}}</a>
-                        </li>
-                        <div *ngFor="let submenu of menu.below">
-                            <li class="pl-2">
-                                <a *ngIf="submenu.title =='Vacaciones' && flag_vacaciones" class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="submenu.uri">- {{submenu.title}}</a>
-                                <a *ngIf="submenu.title !='Vacaciones' && !submenu.new" class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="submenu.uri">- {{submenu.title}}</a>
-                                <a *ngIf="submenu.title !='Vacaciones' && submenu.new" target="_blank" class="w-100 hover-{{config_initial.code}}" [href]="submenu.uri">- {{submenu.title}}</a>
-                            </li>
-                        </div>
-                    </div>
-                    <li *ngIf="director && cod_company == '002'"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link" [routerLink]="['/docente/participacion-reuniones']">+ Participación Reuniones </a> </li>
-
-                    <li *ngIf="cod_company == '002'"> <a class="w-100 hover-{{config_initial.code}} no_pointer">+ Disponibilidad</a> </li>
-                    <li *ngIf="cod_company == '002'" class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/horario-virtual']">- Disponibilidad Horario</a> </li>
-                    <li *ngIf="cod_company == '002'" class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/cursos-clases']">- Disponibilidad Cursos </a> </li>
-                    <ng-container *ngIf="director && cod_company == '002'">
-                        <li> <a class="w-100 hover-{{config_initial.code}} no_pointer">+ Director</a> </li>
-                        <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/director/anadir_docente']">- Añadir Docente</a> </li>
-                        <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/director/anadir_curso']">- Añadir Curso</a> </li>
-                        <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/director/consulta_docente']">- Consulta Docente</a> </li>
-                        <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/director/consulta_cursos']">- Consulta Cursos</a> </li>
-                    </ng-container>
-                    <li> <a class="w-100 hover-{{config_initial.code}}" href="http://cultura.educad.pe/" target="_blank">+ Somos Educa_d</a> </li>
-
-                    <li> <a class="w-100 hover-{{config_initial.code}} no_pointer">+ Canal de Ética</a> </li>
-                    <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="https://grupoeducad.sharepoint.com/sites/RepositorioProceso/SitePages/doc/DGT-RES-POL-01%20C%C3%B3digo%20de%20%C3%89tica.pdf">- Código de Ética</a></li>
-                    <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="https://grupoeducad.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=p&chid=bb8aab6b-b381-4a09-b6c2-e185835c743b&vid=b63a720d-4a5f-440e-801a-9eeb15f3d4a9">- Procedimiento</a></li>
-                    <li *ngIf="cod_company != '002'" class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="https://docs.cientifica.edu.pe/miportal_sise/educanet/DIRECTIVA_NOVIEMBRE.pdf">- Directivas de inicio Académico</a></li>
-                    <li class="pl-2"> <a class="w-100 hover-{{config_initial.code}}" routerLinkActive="active-link {{config_initial.code}}" [routerLink]="['/docente/denuncia']">- Portal de Denuncia</a></li>
-                    <li> <a class="w-100 hover-{{config_initial.code}}" target="_blank" href="https://grupoeducad.sharepoint.com/sites/RepositorioProceso/SitePages/RepositorioProceso.aspx">+ Procedimientos y Políticas</a></li>
-                    <li> <a class="w-100 hover-{{config_initial.code}}" (click)="getDataRemotex()">+ Biblioteca</a></li>
-                    <li> <a class="w-100 hover-{{config_initial.code}}" (click)="logout()">+ Cerrar Sesión</a></li>
-                </ul> 
-
-            </div>
-            <div class="bg-white rounded-1 d-lg-none mb-2 py-2 px-3">
-                <div class="row align-items-center justify-content-between">
-                    <img src="{{config_initial.img}}" width="100px" alt="">
-
-                    <button class="btn bg-{{config_initial.code}} text-white" (click)="menu_bars = !menu_bars">
-						<i class="fa fa-bars"></i>
-					</button>
-                </div>
-
-                <div *ngIf="menu_bars">
-                    <ul class="mb-2 mt-2">
-                        <div *ngFor="let menu of menus">
-                            <li *ngIf="menu.uri=='noticias'">
-                                <a class="w-100 hover-{{config_initial.code}} px-2" (click)="goTraining()">+ Capacítate aquí</a>
-                            </li>
-                            <li *ngIf="menu.uri!='noticias'">
-                                <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="'/docente/' + (menu.uri?menu.uri:'general')">+ {{menu.title}}</a>
-                            </li>
-                            <div *ngFor="let submenu of menu.below">
-                                <li>
-                                    <a class="w-100 hover-{{config_initial.code}} px-3" routerLinkActive="active-link" [routerLink]="submenu.uri">- {{submenu.title}}</a>
-                                </li>
-                            </div>
-                        </div>
-                        <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/horario-virtual']">+ Disponibilidad Horario</a> </li>
-                        <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/cursos-clases']">+ Disponibilidad Cursos </a> </li>
-                        <li> <a class="w-100 hover-{{config_initial.code}} px-2" routerLinkActive="active-link" [routerLink]="['/docente/biblioteca']">+ Biblioteca</a></li>
-                        <li> <a class="w-100 hover-{{config_initial.code}} px-2" (click)="logout()">+ Cerrar Sesión</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12 col-lg-9 pl-3">
-            <div class="panel mb-2">
-                <a href="https://es.surveymonkey.com/r/53NVRQP" target="_blank">
-                <img *ngIf="cod_company == '002'" class="rounded-1" alt="" src="assets/bck_4.jpg" width="100%">
-                </a> 
-            </div>
-
-<router-outlet></router-outlet> -->
-<!-- </div>
-    </div>
-</div> -->
-
-<!-- <div class="position-fixed float-wsp-br row align-items-end flex-column">
-    <div class="row flex-column bg-white m-2 p-3 rounded-1 shadow position-relative" *ngIf="showwsp">
-        <div class="triangle-b bd-t-white position-absolute float-triangle-br"></div>
-        <a href="https://api.whatsapp.com/send?phone=5117071810" target="_blank" class="text-black text-xm p-1"><i class="fa fa-whatsapp text-wsp text-l"></i> Atención Docente ( SAED ) </a>
-    </div>
-    <div class="text-right">
-       (click)="showwsp = !showwsp" 
-        <a *ngIf="cod_company==2" href="https://api.whatsapp.com/send?phone=51988576507" target="_blank" class="row justify-content-center align-items-center pointer">
-            <img style="width: 73px" src="./assets/wsp.svg">
-        </a>
-        <a *ngIf="cod_company!=2" href="https://api.whatsapp.com/send?phone=5117071810" target="_blank" class="row justify-content-center align-items-center pointer">
-            <img style="width: 73px" src="./assets/wsp.svg">
-        </a>
-    </div>
-</div> -->
 
 <form target="_blank" action="https://cientifica.remotexs.co/alumni/login" method=post [formGroup]="digitalLibraryData"
     #digitalData id="formulario1">

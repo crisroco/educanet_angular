@@ -20,7 +20,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
-// import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { GtagModule } from 'angular-gtag';
 @NgModule({
@@ -46,7 +45,6 @@ import { GtagModule } from 'angular-gtag';
     MatInputModule,
     MatButtonModule,
     MatRippleModule,
-    // NgbModule
   ],
   providers: [
     SessionService,

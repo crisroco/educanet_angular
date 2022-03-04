@@ -66,7 +66,6 @@ export class ResultadosEvaluacionComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.positionFooterInitial()
 		this.loading = true;
 		this.docenteS.getresumenevaluation(this.emplid)
 		.then(res => {
@@ -81,14 +80,12 @@ export class ResultadosEvaluacionComponent implements OnInit {
 				.then(res => {		
 					this.allParametria = res.data;
 					this.loading = false;
-					setTimeout(() => { this.positionFooter() }, 100);
 				});	
 
 			});			
 		}, (error)=>{
 			this.toastr.error('Ocurrio un Error, Por favor vuelve a intentarlo');
 			this.loading = false;
-			setTimeout(() => { this.positionFooter() }, 100);
 		});
 	}
 
@@ -176,21 +173,5 @@ export class ResultadosEvaluacionComponent implements OnInit {
 	});
 	
   }
-
-	positionFooter() {
-		const div = this.elRef.nativeElement.parentElement;
-		this.heightViewPx = div.clientHeight;
-		this.heightWindowPx = window.innerHeight;
-
-		if((this.heightViewPx + 255) <= this.heightWindowPx) {
-			if(div != undefined ) div.style.height = 'calc(100vh - 144px)'
-		} else {
-			if(div != undefined ) div.style.height = 'unset'
-		}
-	}
-  positionFooterInitial() {
-		const div2 = this.elRef.nativeElement.parentElement;
-		if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
-	}
 
 }

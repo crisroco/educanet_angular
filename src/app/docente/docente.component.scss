@@ -5,7 +5,6 @@
     padding: 20px 60px;
     display: flex;
     justify-content: space-between;
-    position: fixed;
     align-items: center;
     left: 0;
     right: 0;
@@ -37,16 +36,13 @@
 
 .example-container {
     width: 100%;
-    // height: 100%;
+    height: 100%;
 }
 
 .example-sidenav-content {
-    height: unset;
-    height: calc(100vh - 144px);
     margin-top: 84px;
     display: flex;
     flex-direction: column;
-    margin-top: 0px;
 }
 
 .w-300 {
@@ -54,9 +50,7 @@
 }
 
 .example-sidenav {
-    padding: 24px 0px 0px 0px;
-    padding-top: 84px;
-    padding-top: 0px;
+    padding: 84px 0px 0px 0px;
     .content-title {
         height: 58px;
         padding: 24px 40px;
@@ -66,7 +60,6 @@
     .content-item {
         cursor: pointer;
         height: 48px;
-        // color: #7d7d7d;
         font-weight: 500;
         display: flex;
         align-items: center;
@@ -124,7 +117,6 @@
 
 .content-item:hover{
     background-color: #F4F6F8;
-    //   transition: all ease 0.4s;
 }
 .content-mobile {
     display: none !important;
@@ -178,13 +170,11 @@
     .content-desktop {
         display: none;
     }
+    
 }
 
 .content-item {
     color: #637381;
-    active {
-        color: #0045ff !important;
-    }
 }
 
 .div-perfil-item  {
@@ -205,9 +195,3 @@
     }
   }
 
-.wsp-link {
-    position: fixed;
-    cursor: pointer;
-    bottom: 80px;
-    right: 40px;
-}

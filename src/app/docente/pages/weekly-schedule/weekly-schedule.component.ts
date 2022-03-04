@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { AppSettings } from '../../../app.settings';
 import { Decrypt } from '../../../helpers/general';
 import { GetFirstDayWeek, GetLastDayWeek, RealDate } from '../../../helpers/dates';
@@ -10,7 +10,7 @@ import { DocenteService } from '../../../services/docente.service';
   templateUrl: './weekly-schedule.component.html',
   styleUrls: ['./weekly-schedule.component.scss']
 })
-export class WeeklyScheduleComponent implements OnInit, AfterViewInit {
+export class WeeklyScheduleComponent implements OnInit {
 	cod_company: any;
 	config_initial: any;
 	user = this.session.getObject('user');
@@ -63,11 +63,7 @@ export class WeeklyScheduleComponent implements OnInit, AfterViewInit {
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 	}
 
-	ngAfterViewInit(): void {
-	}
-
 	ngOnInit() {
-		this.positionFooterInitial()
 		var firstDayWeek = RealDate(GetFirstDayWeek(new Date()));
 		this.firstDayWeek = firstDayWeek.year + '-' + firstDayWeek.month + '-' + firstDayWeek.day;
 		var lastDayWeek = RealDate(new Date());
@@ -97,26 +93,7 @@ export class WeeklyScheduleComponent implements OnInit, AfterViewInit {
 				this.listHours.push(objHours[kHour]);
 			}
 			this.loading = false;
-			setTimeout(() => { this.positionFooter() }, 100);
 		}, error => { });
-	}
-
-	positionFooter() {
-		const div2 = this.elRef.nativeElement.parentElement;
-		const div = this.elRef.nativeElement;
-		this.heightViewPx = div.clientHeight;
-		this.heightWindowPx = window.innerHeight;
-		console.log('heightViewPx', this.heightViewPx)
-		console.log('heightWindowPx', this.heightWindowPx)
-		if((this.heightViewPx + 254) < this.heightWindowPx) {
-			if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
-		} else {
-			if(div2 != undefined ) div2.style.height = 'unset'
-		}
-	}
-  positionFooterInitial() {
-		const div2 = this.elRef.nativeElement.parentElement;
-		if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
 	}
 
 }

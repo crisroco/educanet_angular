@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AppSettings } from '../../../app.settings';
 import { ToastrService } from 'ngx-toastr';
 import { SessionService } from '../../../services/session.service';
@@ -11,7 +11,7 @@ import * as CryptoJS from 'crypto-js';
   templateUrl: './coursesandclasses.component.html',
   styleUrls: ['./coursesandclasses.component.scss']
 })
-export class CoursesandclassesComponent implements OnInit,AfterViewInit {
+export class CoursesandclassesComponent implements OnInit {
 	cod_company: any;
 	config_initial: any;
 	user = this.session.getObject('user');
@@ -29,11 +29,8 @@ export class CoursesandclassesComponent implements OnInit,AfterViewInit {
     this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
 	}
-  ngAfterViewInit(): void {
-  }
 
   ngOnInit() {
-    this.positionFooterInitial()
   	this.loadCarrers();
   }
 
@@ -48,7 +45,6 @@ export class CoursesandclassesComponent implements OnInit,AfterViewInit {
             carrers[i].show = false;
             carrers[i].courses = res['data'].filter(crs => crs.grado == carrers[i].grado && crs.carrera == carrers[i].carrera);
           }
-          setTimeout(() => { this.positionFooter() }, 100);
         });
         this.allCarrers = carrers;
         setTimeout(() => {
@@ -106,19 +102,4 @@ export class CoursesandclassesComponent implements OnInit,AfterViewInit {
     }
   }
 
-  positionFooter() {
-		const div2 = this.elRef.nativeElement.parentElement;
-		const div = this.elRef.nativeElement;
-		this.heightViewPx = div.clientHeight;
-		this.heightWindowPx = window.innerHeight;
-		if((this.heightViewPx + 254) < this.heightWindowPx) {
-			if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
-		} else {
-			if(div2 != undefined ) div2.style.height = 'unset'
-		}
-	}
-  positionFooterInitial() {
-		const div2 = this.elRef.nativeElement.parentElement;
-		if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
-	}
 }

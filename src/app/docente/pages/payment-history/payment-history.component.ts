@@ -42,11 +42,9 @@ export class PaymentHistoryComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.positionFooterInitial()
 		this.loading = true;
 		this.loading = false;
 		this.createYears();
-		setTimeout(() => { this.positionFooter() }, 100);
 	}
 
 	createYears(){
@@ -75,22 +73,6 @@ export class PaymentHistoryComponent implements OnInit {
 				DownloadFileLink(res, 'boleta.pdf');
 			}
 		}, error => { this.typeMessage = 0; this.message = 'No se pudo completar la descarga, vuelva a intentarlo.'; });
-	}
-
-	positionFooter() {
-		const div2 = this.elRef.nativeElement.parentElement;
-		const div = this.elRef.nativeElement;
-		this.heightViewPx = div.clientHeight;
-		this.heightWindowPx = window.innerHeight;
-		if((this.heightViewPx + 254) < this.heightWindowPx) {
-			if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
-		} else {
-			if(div2 != undefined ) div2.style.height = 'unset'
-		}
-	}
-  positionFooterInitial() {
-		const div2 = this.elRef.nativeElement.parentElement;
-		if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
 	}
 
 }

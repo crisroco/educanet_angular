@@ -2,14 +2,12 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AppSettings } from '../../../app.settings';
-import { Decrypt } from '../../../helpers/general';
+import { Decrypt, Encrypt } from '../../../helpers/general';
 import { RealDate } from '../../../helpers/dates';
 import { SessionService } from '../../../services/session.service';
 import { DocenteService } from '../../../services/docente.service';
 import { LoginService } from '../../../services/login.service';
-import { unwatchFile } from 'fs';
 import { ToastrService } from 'ngx-toastr';
-// import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-marking',
@@ -47,8 +45,6 @@ export class MarkingComponent implements OnInit, AfterViewInit {
 	nextClassesLink:Array<any> = [];
 	heightViewPx: number
 	heightWindowPx: number
-
-	// images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 	slideIndex = 1;
 
 	constructor( private session: SessionService,
@@ -57,12 +53,8 @@ export class MarkingComponent implements OnInit, AfterViewInit {
 		private loginS: LoginService,
 		private router: Router,
 		private elRef: ElementRef,
-		private toastr: ToastrService, 
-		// private _config: NgbCarouselConfig
+		private toastr: ToastrService,
 		) {
-			// _config.interval = 1000
-			// _config.pauseOnHover = true
-			// _config.showNavigationArrows = true
 		this.loading = true;
 		this.cod_company = this.session.getItem('cod_company')?this.session.getItem('cod_company'):'002';
 		this.config_initial = AppSettings.CONFIG[this.cod_company];
@@ -75,19 +67,12 @@ export class MarkingComponent implements OnInit, AfterViewInit {
 		
 		setInterval(() => {
 			this.plusSlides(1);
-		}, 5000);
+		}, 30000);
 
-		// setTimeout(() => {
-		// 	this.showSlides(this.slideIndex);
-		// }, 500);
-		// setTimeout(() => {
-		// 	this.showSlides(this.slideIndex);
-		// }, 1000);
 	}
 
 	ngOnInit() {
 
-		this.positionFooterInitial()
 		this.today = new Date()
 		var fecha = new Date();
 		fecha.toLocaleString('es-PE');
@@ -116,7 +101,6 @@ export class MarkingComponent implements OnInit, AfterViewInit {
 					this.realClassroom = tClassroom[0]?tClassroom[0]:this.realClassroom;
 				}
 				this.checkNextClass();
-				setTimeout(() => { this.positionFooter() }, 100);
 			}, error => { });
 		} else {
 			this.docenteS.listClassroom({emplid: this.emplid_real, institucion: this.config_initial.institution})
@@ -127,7 +111,6 @@ export class MarkingComponent implements OnInit, AfterViewInit {
 					this.realClassroom = tClassroom[0]?tClassroom[0]:this.realClassroom;
 				}
 				this.checkNextClass();
-				setTimeout(() => { this.positionFooter() }, 100);
 			}, error => { });
 		}
 	}
@@ -326,35 +309,6 @@ export class MarkingComponent implements OnInit, AfterViewInit {
 		link.remove();
 	}
 
-	positionFooter() {
-
-		const div2 = this.elRef.nativeElement.parentElement;
-		console.log(div2)
-		if( window.innerWidth < 1025 ) {
-			console.log('heightViewPx -> marking -> if ', this.heightViewPx)
-			console.log('heightWindowPx -> marking -> if ', this.heightWindowPx)
-			if(div2 != undefined ) div2.style.height =  'unset'
-		} else if ( window.innerWidth >= 1664 ) {
-			if( div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
-		} else {
-
-			const div = this.elRef.nativeElement;
-			this.heightViewPx = div.clientHeight;
-			this.heightWindowPx = window.innerHeight;
-			console.log('heightViewPx -> marking -> else ', this.heightViewPx)
-			console.log('heightWindowPx -> marking -> else ', this.heightWindowPx)
-			if((this.heightViewPx + 248) <= this.heightWindowPx) {
-				if( div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
-			} else {
-				if( div2 != undefined ) div2.style.height = 'unset'
-			}
-		}
-	}
-  positionFooterInitial() {
-		const div2 = this.elRef.nativeElement.parentElement;
-		if(div2 != undefined ) div2.style.height = 'calc(100vh - 144px)'
-	}
-
 	MODALHEAD = {
 		CRSE_ID: '',
 		CRSE_ID_DESCR: '',
@@ -382,11 +336,8 @@ export class MarkingComponent implements OnInit, AfterViewInit {
 	}
 
 	goTakeAssistance(modal, model){
-
-		
 		this.studentsDetail = null;
 		if(this.cod_company != '002'){
-			// debugger
 			let startDate = new Date(model.DATE1+' '+model.MEETING_TIME_START);
 			let endDate  = new Date(model.DATE1+' '+model.MEETING_TIME_END);
 			startDate.setMinutes(startDate.getMinutes() - 10);
@@ -503,7 +454,7 @@ export class MarkingComponent implements OnInit, AfterViewInit {
 		.then(res => {
 			if(this.cod_company == '002'){
 				this.docenteS.updateDelegate(this.data_delegates)
-				.then(res => {
+				.then(res2 => {
 					this.loading = false;
 					this.toastr.success('Se registró la asistencia correctamente.');
 				}, error => {
@@ -525,7 +476,6 @@ export class MarkingComponent implements OnInit, AfterViewInit {
 
 	showSlides(n: any) {
 		var i;
-		// debugger
 		var slides: any = document.getElementsByClassName("mySlides");
 		var dots: any = document.getElementsByClassName("dot-" + this.config_initial.code);
 		if (n > slides.length) {this.slideIndex = 1}    
@@ -545,13 +495,38 @@ export class MarkingComponent implements OnInit, AfterViewInit {
 	}
 
 	plusSlides(n) {
-		this.showSlides(this.slideIndex += n);
+		this.slideIndex += n;
+		this.showSlides(this.slideIndex);
 	}
 
 	currentSlide(n) {
-		this.showSlides(this.slideIndex = n);
+		this.slideIndex = n;
+		this.showSlides(this.slideIndex);
 	}
 
-	
+	goTraining() {
+		var data = {
+			credencial: Encrypt('QJChPEmBp4d6rZSHf3dA@@' + this.emplid, 'W5Q8f89HmgjhbwGWdy'),
+		}
+		let form = document.createElement('form');
+		document.body.appendChild(form);
+		form.method = 'get';
+		form.target = '_blank';
+		form.action = AppSettings.MOODLE;
+		for (var name in data) {
+			var input = document.createElement('input');
+			input.type = 'hidden';
+			input.name = name;
+			input.value = data[name];
+			form.appendChild(input);
+		}
+		var input2 = document.createElement('input');
+		input2.type = 'hidden';
+		input2.name = 'educanet';
+		input2.value = 'true';
+		form.appendChild(input2);
+		form.submit();
+
+	}
 
 }

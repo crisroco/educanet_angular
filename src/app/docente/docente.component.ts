@@ -8,13 +8,8 @@ import { Decrypt, Encrypt } from '../helpers/general';
 import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as CryptoJS from 'crypto-js';
-import { parse } from 'querystring';
-import { Observable } from 'rxjs';
-import { delay } from 'rxjs/operators';
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
-import { debug } from 'console';
-import { CloseScrollStrategy } from '@angular/cdk/overlay';
 
 @Component({
 	selector: 'app-docente',
@@ -119,11 +114,7 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 
 	@HostListener('window:resize', ['$event'])
 	onResize(event) {
-		this.positionFooterInitial();
 		this.validsize(event.target.innerWidth);
-		setTimeout(() => {
-			this.positionFooter()
-		}, 500);
 	}
 
 	public opened: boolean = false;
@@ -132,7 +123,6 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 	public stateMenu: boolean = false;
 
 	ngOnInit() {
-		this.positionFooterInitial();
 		if (this.cod_company == '002') {
 			this.director = this.session.getItem('DI') == 'false' ? false : true;
 			// this.piezaModalSise.open();
@@ -192,9 +182,6 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 	}
 
 	validarOpciones(dtp: string) {
-		// opMenuBoletasPago: boolean = true;
-		// opMenuVacaciones: boolean = true;
-		// opMenuConstanciaTrabajo: boolean = true;\
 		if((
 				(this.cod_company == '002' && dtp == '10') || 
 				(this.cod_company == '002' && dtp == '60') || 
@@ -209,7 +196,7 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 			(this.cod_company == '002' && dtp == '10') || 
 			(this.cod_company == '002' && dtp == '60')  
 		) || (
-			(this.cod_company == '003' && dtp == '50') 
+			this.cod_company == '003' && dtp == '50'
 		)) {
 			this.opMenuVacaciones = true
 		}
@@ -235,7 +222,6 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 
 	getMenu() {
 		let dtp = !!this.oColaborador ? this.oColaborador.codigo_tipo_planilla : '';
-		//console.log('this.dtp', dtp)
 		this.docenteS.getMenu(this.cod_company)
 			.subscribe(res => {
 				this.menus = res;
@@ -636,6 +622,18 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 			`ic_logout`,
 			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_logout.svg")
 		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_beneficios`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_beneficios.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_cambiar_contrasena`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_cambiar_contrasena.svg")
+		);
+		this.matIconRegistry.addSvgIcon(
+			`ic_director`,
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/new-menu/luis/ic_director.svg")
+		);
 	}
 
 	focusContentSub(hijo) {
@@ -678,7 +676,7 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 	expandContentSub(contentSub, contentPadre) {
 		
 		let list = contentPadre.parentElement.parentElement.children
-		// debugger
+		// 
 		for (let item of list) {
 			item.classList.remove('active');
 			if (item.classList.contains('content-item-expand')) {
@@ -687,11 +685,13 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 		}
 
 		if (contentSub.classList.contains('d-none')) {
+			contentPadre.children[1].style.transform = 'rotate(90deg)'
 			contentPadre.classList.add('active');
 			contentSub.classList.remove('d-none');
 			contentSub.focus();
 		} else {
 			contentPadre.classList.remove('active');
+			contentPadre.children[1].style.transform = 'rotate(0deg)'
 			contentSub.classList.add('d-none');
 			contentSub.focus();
 		}
@@ -706,41 +706,13 @@ export class DocenteComponent implements OnInit, AfterViewInit {
 		link.remove();
 	}
 
-	positionFooter() {
-		const div = this.mainScreen.nativeElement;
-
-		const container = document.querySelector('.container-child').parentElement.clientHeight
-		console.log('container', container)
-		if( window.innerWidth < 991 ) {
-			console.log('heightViewPx -> docente -> if ', this.heightViewPx)
-			console.log('heightWindowPx -> docente -> if ', this.heightWindowPx)
-			if(div != undefined ) div.style.height =  'unset'
-		}  else if ( window.innerWidth >= 1664 ) {
-			if( div != undefined ) div.style.height = 'calc(100vh - 144px)'
-		} else {
-			
-			this.heightViewPx = div.clientHeight;
-			this.heightWindowPx = window.innerHeight;
-			console.log('heightViewPx -> docente -> else ', this.heightViewPx)
-			console.log('heightWindowPx -> docente -> else ', this.heightWindowPx)
-			console.log('div', div)
-			if( this.heightViewPx + 255 < this.heightWindowPx ) {
-				if(div != undefined ) div.style.height = 'calc(100vh - 144px)'
-			} else {
-				if(div != undefined ) div.style.height = 'unset'
-			}
-		}
-		
-	}
-	positionFooterInitial() {
-		const div = this.mainScreen.nativeElement;
-		if( window.innerWidth < 991 ) {
-			if(div != undefined ) div.style.height = 'calc(100vh - 144px)'
-		} else {
-			if(div != undefined ) div.style.height = 'calc(100vh - 144px)'
-		}
-	}
 	drawerToggle() {
 		!this.isdesktop && this.drawer.toggle()
+	}
+
+	menuClose() {
+		if(!this.isdesktop && this.drawer._opened) {
+			this.drawer.toggle()
+		} 
 	}
 }

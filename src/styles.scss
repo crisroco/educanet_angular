@@ -691,14 +691,8 @@ body {
         }
     }
     .active {
-        // background-color: rgba(0, 0, 0, 0.2) !important;
         border-right: solid #f28c35 !important;
         color: #f28c35 !important;
-        // svg {
-        //     path {
-        //         fill: #f28c35 !important;
-        //     }
-        // }
         .btn-icon {
             svg {
                 path {
@@ -846,7 +840,6 @@ body {
     outline: none !important;
 }
 
-// TODO: Mover a Docente scss
 .mat-drawer-inner-container {
     width: 316px;
     height: 100vh;
@@ -857,19 +850,10 @@ body {
     display: none;
 }
 
-
-// TODO: Mover a Docente scss
-
 .mat-drawer-container {
     background-color: #ffffff;
     color: rgba(0, 0, 0, 0.87);
 }
-
-// TODO: Bootstrap
-
-
-// Bootstrap
-
 
 .btn-icon-grid-ucs  {
     svg {
@@ -890,7 +874,7 @@ body {
 .btn-icon-grid-sise  {
     svg {
       path {
-          fill: #FE6E68 !important;
+          fill: #212B36 !important;
       }
     }
 }
@@ -898,7 +882,7 @@ body {
 .btn-icon-grid-sise:hover  {
     svg {
       path {
-          fill: #FF4842 !important;
+          fill: #637381 !important;
       }
     }
 }
@@ -938,9 +922,6 @@ body {
     svg {
         width: 22px;
         height: 22px;
-      path {
-        //   fill: #F28C35 !important;
-      }
     }
 }
 
@@ -976,15 +957,10 @@ body {
         width: 22px;
         height: 22px;
         path {
-            // fill: #000000 !important;
+            stroke: #000000 !important;
         }
     }
 }
-
-
-// .menu-z-index {
-//     z-index: 0 !important;
-// }
 
 @media (min-width: 1025px) {
     
@@ -997,4 +973,48 @@ body {
 .mat-menu-panel {
     box-shadow: 0px 20px 40px -4px rgba(145, 158, 171, 0.24) !important;
     border-radius: 8px !important;
+}
+
+.pr-15{
+    padding-right: 15px;
+}
+
+
+
+.none-maxw-1300 {
+    display: flex;
+  }
+  
+@media (max-width: 1300px) {
+    .none-maxw-1300 {
+        display: none;
+    } 
+}
+
+
+.show-minw-1300 {
+    display: none;
+}
+
+.col-baner-1{
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+}
+.col-baner-2{
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+  
+@media (max-width: 1300px) {
+    .show-minw-1300 {
+        display: flex;
+    } 
+    .col-baner-1 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .col-baner-2 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
 }
