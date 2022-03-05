@@ -167,7 +167,7 @@
                     <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
                     Constancia de trabajo
                 </div>
-                <div class="content-sub-item" (click)="openTab('https://bit.ly/3uVfTxF')" #contentHijo24 (click)="focusContentSub(contentHijo24);drawerToggle();">
+                <div *ngIf="config_initial.code == 'ucs'" class="content-sub-item" (click)="openTab('https://bit.ly/3uVfTxF')" #contentHijo24 (click)="focusContentSub(contentHijo24);drawerToggle();">
                     <mat-icon class="btn-icon" svgIcon="point"></mat-icon>
                     Ver Requisitos
                 </div>

@@ -59,6 +59,7 @@
 					<th class="px-3 py-2 align-middle">Código</th>
 					<th class="px-3 py-2 align-middle">Nombre</th>
 					<th class="px-3 py-2 align-middle">Código - Curso</th>
+					<th *ngIf="config_initial.code == 'ucs'" class="px-3 py-2 align-middle">Cuantil</th>
 					<th class="px-3 py-2 align-middle">Asistencia</th>
 				</tr>
 			</thead>
@@ -66,20 +67,21 @@
 				<tr class="text-center text-s {{s<students.length - 1?'bd-b-1':''}}" *ngFor="let student of students; let s = 'index'">
 					<td class="p-1">{{ student.EMPLID }} </td>
 					<td class="p-1">{{ student.NAME_PSFORMAT }} </td>
-					<td class="p-1">{{ course.COD_CURSE + ' - ' + course.CURSE_DESC }}</td>
+					<td class="p-1">{{ student.NAME_PSFORMAT }} </td>
+					<td *ngIf="config_initial.code == 'ucs'" class="p-1">{{ student.CUANTIL }}</td>
 					<td class="p-1"> <button (click)="goAssistanceHistory(assistanceHistoryModal, student)" class="btn btn-primary btn-xs"><i class="fa fa-user"></i></button> </td>
 				</tr>
 			</tbody>
 			<tbody *ngIf="students && students.length == 0">
 				<tr class="text-center text-s">
-					<td class="p-2" colspan="4"> 
+					<td class="p-2" colspan="5"> 
 						<div class="alert alert-warning m-0"> Atención! No se encontraron alumnos. </div> 
 					</td>
 				</tr>
 			</tbody>
 			<tbody *ngIf="!students">
 				<tr class="text-center text-s">
-					<td class="p-2" colspan="4"> <div class="alert alert-info m-0"> Cargando alumnos... </div> </td>
+					<td class="p-2" colspan="5"> <div class="alert alert-info m-0"> Cargando alumnos... </div> </td>
 				</tr>
 			</tbody>
 		</table>

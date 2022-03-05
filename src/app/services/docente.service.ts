@@ -350,8 +350,8 @@ export class DocenteService {
         return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/accesoVacaciones?cuc=' + cuc + '&unidad=' + unidad).toPromise();
     }  
     
-    public getresumenevaluation(emplid): Promise<any>{
-        return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/resumenevaluation?emplid=' + emplid).toPromise();
+    public getresumenevaluation(emplid, company): Promise<any>{
+        return this.http.get(AppSettings.BASE_DESEMPENO_DOCENTE + '/api/resumenevaluation?emplid=' + emplid + '&compania=' + company).toPromise();
     }
 
     public getrankdocente(emplid): Promise<any>{

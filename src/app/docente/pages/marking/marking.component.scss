@@ -379,12 +379,15 @@ div.scroll::-webkit-scrollbar-track {
   box-shadow: inset 0px -1px 0px rgba(145, 158, 171, 0.24);
 }
 .div-table-home {
-  padding: 30px 38px 54px 38px !important;
+  padding: 30px 0px 54px 38px !important;
   table th:first-child {
-    border-radius: 8px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
   }
+
   table th:last-child {
-    border-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
   }
   table tbody tr {
     background-color: #ffffff !important;
@@ -619,7 +622,7 @@ img {
 }
 
 .text-banner-titulo-1 {
-  font-family: Public Sans;
+  font-family: "Public Sans", Roboto, "Helvetica Neue", sans-serif;;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
@@ -645,3 +648,10 @@ img {
   list-style: none;
 }
 
+.f-w-600 {
+  font-weight: 600;
+}
+
+.vertical-align-baseline{
+  vertical-align: baseline;
+}

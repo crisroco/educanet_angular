@@ -9,7 +9,7 @@
 						<div>
 							<h3 class="banner-titulo text-banner-titulo-1">  gestión docente
 							</h3>
-							<h3 class="text-24 banner-titulo">  ¡Bienvenido a Educanet ! 
+							<h3 class="text-24 banner-titulo f-w-600">  ¡Bienvenido a Educanet ! 
 							</h3>
 							<button class="btn btn-primary btn-primary-{{config_initial.code}} banner-button text-14">Ver Tutorial</button>
 						</div>
@@ -22,12 +22,12 @@
 						<div class="text-center">
 							<h3 class="banner-titulo text-banner-titulo-1">  gestión docente
 							</h3>
-							<h3 class="text-24 banner-titulo">  ¡Bienvenido a Educanet ! 
+							<h3 class="text-24 banner-titulo f-w-600">  ¡Bienvenido a Educanet ! 
 							</h3>
 							<button class="btn btn-primary btn-primary-{{config_initial.code}} banner-button text-14">Ver Tutorial</button>
 						</div>
 						<div class="ng-star-inserted">
-							<img width="400px" src="assets/img/illustrations-{{config_initial.code}}-2.png" alt="educad">
+							<img width="400px" class="img-banner"  src="assets/img/illustrations-{{config_initial.code}}-2.png" alt="educad">
 						</div>
 					</div>
 
@@ -132,7 +132,7 @@
 						<div class="d-flex cursor-pointer text-secondary-custom item-card-custom-home-rigth" style="margin-top: 25px;" 
 						(click)="openTab(config_initial.code == 'ucs' ? 'https://cientificavirtual.cientifica.edu.pe/login/canvas' : 'https://aulavirtual.sise.edu.pe/login/canvas')">
 							<div class="pr-15">
-								<img class="pl-md-1 pr-md-3" src="./assets/img/{{config_initial.code}}/seccion_2_1.png">
+								<img class="pl-md-1 pr-md-3" src="./assets/img/{{config_initial.code}}/seccion_2_1.png" alt="educad">
 							</div>
 							<div class="text-banner-right">
 								{{
@@ -147,7 +147,7 @@
 
 						<div class="d-flex cursor-pointer text-secondary-custom item-card-custom-home-rigth" (click)="openTab(config_initial.code == 'ucs' ? 'https://aulavirtualposgrado.cientifica.edu.pe/' : 'https://zoom.us/')">
 							<div class="pr-15">
-								<img class="pl-md-1 pr-md-3" src="./assets/img/{{config_initial.code}}/seccion_2_2.png">
+								<img class="pl-md-1 pr-md-3" src="./assets/img/{{config_initial.code}}/seccion_2_2.png" alt="educad">
 							</div>
 							<div class="text-banner-right">
 								{{
@@ -163,7 +163,7 @@
 
 						<div class="d-flex cursor-pointer text-secondary-custom item-card-custom-home-rigth" style="margin-bottom: 25px" (click)="openTab('https://mail.office365.com/')">
 							<div class="pr-15">
-								<img class="pl-md-1 pr-md-3" src="./assets/img/{{config_initial.code}}/seccion_2_3.png">
+								<img class="pl-md-1 pr-md-3" src="./assets/img/{{config_initial.code}}/seccion_2_3.png" alt="educad">
 							</div>
 							<div class="text-banner-right">
 								Correo Institucional
@@ -182,49 +182,51 @@
 	</div>
 	
 	<div class="row-custom row" *ngIf="classrooms && classrooms.length > 0">
-		<div class="col-12 mb-4 d-md-block px-2 d-flex">
-			<div class="card-custom div-table-home mr-2 d-flex justify-content-between banner-lv-f" style="overflow-x: auto;">
+		<div class="col-12 mb-4 d-md-block px-2">
+			<div class="card-custom div-table-home mr-2 justify-content-between banner-lv-f" style="overflow-x: auto;">
 				<div class="justify-content-between d-flex-block">
 					<h3 class="text-18 banner-titulo text-turn"> Mis clases de hoy 
 					</h3>
 					<h3 class="text-18 banner-titulo">{{ today | date: 'EEEE, d \'de\' MMMM y' | titlecase }}</h3>
 				</div>
 
-				<table class="w-100 table-home" summary="educad">
-					<thead class="thead-home-{{config_initial.code}}" >
-						<tr class="text-center text-s">
-							<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Grado - Ciclo-Clase</th>
-							<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Curso - Código</th>
-							<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Tipo - Sección</th>
-							<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Aula - Local</th>
-							<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Horario</th>
-							<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Registro de Marcación</th>
-							<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Marcación Docente</th>
-							<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Asistencia Alumnos</th>
-						</tr>
-					</thead>
-					<tbody *ngIf="classrooms && classrooms.length > 0">
-						<tr class="text-center text-normal" 
-						*ngFor="let classroom of classrooms; let c = 'index'">
-							<td class="td-home-16-16-24">{{ classroom.ACAD_CAREER }} - {{ classroom.STRM }} - {{ classroom.CLASS_NBR }}</td>
-							<td class="td-home-16-16-24">{{ classroom.CRSE_ID_DESCR }} ({{ classroom.CRSE_ID }})</td>
-							<td class="td-home-16-16-24">{{ classroom.SSR_COMPONENT }} - {{ classroom.CLASS_SECTION }}</td>
-							<td class="td-home-16-16-24">{{ classroom.DESC_FACILITY }} - {{ classroom.DESC_LOCAL }}</td>
-							<td class="td-home-16-16-24" style="min-width: 100px;">{{ classroom.MEETING_TIME_START }} - {{ classroom.MEETING_TIME_END }}</td>
-							<td class="td-home-16-16-24">{{ classroom.MARC_TIME_START }} - {{ classroom.MARC_TIME_END }}</td>
-							<td class="td-home-16-16-44">
-								<button (click)="openRegisterMarking(registerMarkingModal, classroom)" class="table-home-button-icon">
-									<mat-icon class="btn-icon btn-icon-grid-{{config_initial.code}}" svgIcon="ic_marcacion_docente"></mat-icon>
-								</button>
-							</td>
-							<td class="td-home-16-16-44">
-								<button (click)="goTakeAssistance(takeAssistanceModal, classroom)" class="table-home-button-icon">
-									<mat-icon class="btn-icon btn-icon-grid-{{config_initial.code}}" svgIcon="ic_asistencia_alumnos"></mat-icon>
-								</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="" style="overflow-x: auto;">
+					<table class="w-100 table-home" summary="educad">
+						<thead class="thead-home-{{config_initial.code}}" >
+							<tr class="text-center text-s">
+								<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Grado -Ciclo-Clase</th>
+								<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Curso-Código</th>
+								<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Tipo - Sección</th>
+								<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Aula - Local</th>
+								<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Horario</th>
+								<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Registro de Marcación</th>
+								<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Marcación Docente</th>
+								<th class="px-3 py-2 align-middle" style="font-weight: 500 !important;font-size: 14px!important;">Asistencia Alumnos</th>
+							</tr>
+						</thead>
+						<tbody *ngIf="classrooms && classrooms.length > 0">
+							<tr class="text-center text-normal vertical-align-baseline" 
+							*ngFor="let classroom of classrooms; let c = 'index'">
+								<td class="td-home-16-16-24">{{ classroom.ACAD_CAREER }} - {{ classroom.STRM }} - {{ classroom.CLASS_NBR }}</td>
+								<td class="td-home-16-16-24">{{ classroom.CRSE_ID_DESCR }} ({{ classroom.CRSE_ID }})</td>
+								<td class="td-home-16-16-24">{{ classroom.SSR_COMPONENT }} - {{ classroom.CLASS_SECTION }}</td>
+								<td class="td-home-16-16-24">{{ classroom.DESC_FACILITY }} - {{ classroom.DESC_LOCAL }}</td>
+								<td class="td-home-16-16-24" style="min-width: 100px;">{{ classroom.MEETING_TIME_START }} - {{ classroom.MEETING_TIME_END }}</td>
+								<td class="td-home-16-16-24">{{ classroom.MARC_TIME_START }} - {{ classroom.MARC_TIME_END }}</td>
+								<td class="td-home-16-16-44">
+									<button (click)="openRegisterMarking(registerMarkingModal, classroom)" class="table-home-button-icon">
+										<mat-icon class="btn-icon btn-icon-grid-{{config_initial.code}}" svgIcon="ic_marcacion_docente"></mat-icon>
+									</button>
+								</td>
+								<td class="td-home-16-16-44">
+									<button (click)="goTakeAssistance(takeAssistanceModal, classroom)" class="table-home-button-icon">
+										<mat-icon class="btn-icon btn-icon-grid-{{config_initial.code}}" svgIcon="ic_asistencia_alumnos"></mat-icon>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 
 			</div>
 		</div>

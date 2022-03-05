@@ -67,7 +67,7 @@ export class ResultadosEvaluacionComponent implements OnInit {
 
 	ngOnInit() {
 		this.loading = true;
-		this.docenteS.getresumenevaluation(this.emplid)
+		this.docenteS.getresumenevaluation(this.emplid, this.cod_company)
 		.then(res => {
 			this.evaluation = res.data;
 			this.allSolicitudsClone = this.evaluation;

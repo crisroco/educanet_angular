@@ -1018,3 +1018,9 @@ body {
         max-width: 100%;
     }
 }
+
+@media (max-width: 500px) {
+    .img-banner {
+        width: 260px;
+    }
+}
